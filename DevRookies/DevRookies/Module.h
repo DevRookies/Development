@@ -4,7 +4,7 @@
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 
-class App;
+class DevRookiesApp;
 
 class Module
 {

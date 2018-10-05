@@ -116,7 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
+    <ClInclude Include="DevRookiesApp.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Map.h" />
@@ -135,7 +135,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
+    <ClCompile Include="DevRookiesApp.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />

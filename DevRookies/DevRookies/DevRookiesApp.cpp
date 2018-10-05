@@ -10,10 +10,10 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Map.h"
-#include "App.h"
+#include "DevRookiesApp.h"
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args)
+DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 	want_to_save = want_to_load = false;
@@ -40,7 +40,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 }
 
 // Destructor
-App::~App()
+DevRookiesApp::~DevRookiesApp()
 {
 	// release modules
 	p2List_item<Module*>* item = modules.end;
@@ -54,14 +54,14 @@ App::~App()
 	modules.clear();
 }
 
-void App::AddModule(Module* module)
+void DevRookiesApp::AddModule(Module* module)
 {
 	module->Init();
 	modules.add(module);
 }
 
 // Called before render is available
-bool App::Awake()
+bool DevRookiesApp::Awake()
 {
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
@@ -87,7 +87,7 @@ bool App::Awake()
 
 		while (item != NULL && ret == true)
 		{
-			//ret = item->data->Awake(config.child(item->data->name.GetString()));
+			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
 	}
@@ -96,7 +96,7 @@ bool App::Awake()
 }
 
 // Called before the first frame
-bool App::Start()
+bool DevRookiesApp::Start()
 {
 	bool ret = true;
 	p2List_item<Module*>* item;
@@ -112,7 +112,7 @@ bool App::Start()
 }
 
 // Called each loop iteration
-bool App::Update()
+bool DevRookiesApp::Update()
 {
 	bool ret = true;
 	PrepareUpdate();
@@ -134,7 +134,7 @@ bool App::Update()
 }
 
 // ---------------------------------------------
-pugi::xml_node App::LoadConfig(pugi::xml_document& config_file) const
+pugi::xml_node DevRookiesApp::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
 
@@ -149,12 +149,12 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& config_file) const
 }
 
 // ---------------------------------------------
-void App::PrepareUpdate()
+void DevRookiesApp::PrepareUpdate()
 {
 }
 
 // ---------------------------------------------
-void App::FinishUpdate()
+void DevRookiesApp::FinishUpdate()
 {
 	if (want_to_save == true)
 		SavegameNow();
@@ -164,7 +164,7 @@ void App::FinishUpdate()
 }
 
 // Call modules before each loop iteration
-bool App::PreUpdate()
+bool DevRookiesApp::PreUpdate()
 {
 	bool ret = true;
 	p2List_item<Module*>* item;
@@ -186,7 +186,7 @@ bool App::PreUpdate()
 }
 
 // Call modules on each loop iteration
-bool App::DoUpdate()
+bool DevRookiesApp::DoUpdate()
 {
 	bool ret = true;
 	p2List_item<Module*>* item;
@@ -208,7 +208,7 @@ bool App::DoUpdate()
 }
 
 // Call modules after each loop iteration
-bool App::PostUpdate()
+bool DevRookiesApp::PostUpdate()
 {
 	bool ret = true;
 	p2List_item<Module*>* item;
@@ -229,7 +229,7 @@ bool App::PostUpdate()
 }
 
 // Called before quitting
-bool App::CleanUp()
+bool DevRookiesApp::CleanUp()
 {
 	bool ret = true;
 	p2List_item<Module*>* item;
@@ -245,13 +245,13 @@ bool App::CleanUp()
 }
 
 // ---------------------------------------
-int App::GetArgc() const
+int DevRookiesApp::GetArgc() const
 {
 	return argc;
 }
 
 // ---------------------------------------
-const char* App::GetArgv(int index) const
+const char* DevRookiesApp::GetArgv(int index) const
 {
 	if (index < argc)
 		return args[index];
@@ -260,19 +260,19 @@ const char* App::GetArgv(int index) const
 }
 
 // ---------------------------------------
-const char* App::GetTitle() const
+const char* DevRookiesApp::GetTitle() const
 {
 	return title.GetString();
 }
 
 // ---------------------------------------
-const char* App::GetOrganization() const
+const char* DevRookiesApp::GetOrganization() const
 {
 	return organization.GetString();
 }
 
 // Load / Save
-void App::LoadGame()
+void DevRookiesApp::LoadGame()
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
@@ -280,7 +280,7 @@ void App::LoadGame()
 }
 
 // ---------------------------------------
-void App::SaveGame() const
+void DevRookiesApp::SaveGame() const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
@@ -289,12 +289,12 @@ void App::SaveGame() const
 }
 
 // ---------------------------------------
-void App::GetSaveGames(p2List<p2SString>& list_to_fill) const
+void DevRookiesApp::GetSaveGames(p2List<p2SString>& list_to_fill) const
 {
 	// need to add functionality to file_system module for this to work
 }
 
-bool App::LoadGameNow()
+bool DevRookiesApp::LoadGameNow()
 {
 	bool ret = false;
 
@@ -314,7 +314,7 @@ bool App::LoadGameNow()
 
 		while (item != NULL && ret == true)
 		{
-			//ret = item->data->Load(root.child(item->data->name.GetString()));
+			ret = item->data->Load(root.child(item->data->name.GetString()));
 			item = item->next;
 		}
 
@@ -331,7 +331,7 @@ bool App::LoadGameNow()
 	return ret;
 }
 
-bool App::SavegameNow() const
+bool DevRookiesApp::SavegameNow() const
 {
 	bool ret = true;
 
@@ -347,7 +347,7 @@ bool App::SavegameNow() const
 
 	while (item != NULL && ret == true)
 	{
-		//ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		ret = item->data->Save(root.append_child(item->data->name.GetString()));
 		item = item->next;
 	}
 

@@ -1,5 +1,5 @@
-#ifndef __APP_H__
-#define __APP_H__
+#ifndef __DevRookiesAPP_H__
+#define __DevRookiesAPP_H__
 
 #include "p2List.h"
 #include "Module.h"
@@ -14,15 +14,15 @@ class Audio;
 class Scene;
 class Map;
 
-class App
+class DevRookiesApp
 {
 public:
 
 	// Constructor
-	App(int argc, char* args[]);
+	DevRookiesApp(int argc, char* args[]);
 
 	// Destructor
-	virtual ~App();
+	virtual ~DevRookiesApp();
 
 	// Called before render is available
 	bool Awake();
@@ -101,6 +101,6 @@ private:
 	mutable p2SString	save_game;
 };
 
-extern App* App; //Dont know why do error :-(
+extern DevRookiesApp* App; 
 
-#endif // __APP_H__
+#endif
