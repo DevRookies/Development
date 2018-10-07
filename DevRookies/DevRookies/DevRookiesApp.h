@@ -1,5 +1,5 @@
-#ifndef __DevRookiesAPP_H__
-#define __DevRookiesAPP_H__
+#ifndef __DEV_ROOKIES_APP_H__
+#define __DEV_ROOKIES_APP_H__
 
 #include "p2List.h"
 #include "Module.h"
@@ -76,7 +76,7 @@ private:
 public:
 
 	// Modules
-	Window *			win;
+	Window*				win;
 	Input*				input;
 	Render*				render;
 	Textures*			tex;
@@ -101,6 +101,6 @@ private:
 	mutable p2SString	save_game;
 };
 
-extern DevRookiesApp* App; 
+extern DevRookiesApp* App; // I'm happy :-)
 
 #endif

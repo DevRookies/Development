@@ -6,7 +6,6 @@
 #include "p2Point.h"
 #include "Module.h"
 
-
 struct MapLayer
 {
 	p2SString				name = "";
@@ -26,7 +25,6 @@ struct MapLayer
 
 struct TileSet
 {
-	
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -51,7 +49,7 @@ enum MapTypes
 	MAPTYPE_ISOMETRIC,
 	MAPTYPE_STAGGERED
 };
-// ----------------------------------------------------
+
 struct MapData
 {
 	int					width;
@@ -63,6 +61,7 @@ struct MapData
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	maplayers;
 };
+
 
 class Map : public Module
 {

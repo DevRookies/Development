@@ -1,13 +1,13 @@
 #include "p2Defs.h"
-#include "App.h"
+#include "j1App.h"
 #include "p2Log.h"
-#include "FileSystem.h"
+#include "j1FileSystem.h"
 #include "PhysFS/include/physfs.h"
 #include "SDL/include/SDL.h"
 
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
-FileSystem::j1FileSystem() : Module()
+j1FileSystem::j1FileSystem() : j1Module()
 {
 	name.create("file_system");
 
@@ -22,13 +22,13 @@ FileSystem::j1FileSystem() : Module()
 }
 
 // Destructor
-FileSystem::~FileSystem()
+j1FileSystem::~j1FileSystem()
 {
 	PHYSFS_deinit();
 }
 
 // Called before render is available
-bool FileSystem::Awake(pugi::xml_node& config)
+bool j1FileSystem::Awake(pugi::xml_node& config)
 {
 	LOG("Loading File System");
 	bool ret = true;
@@ -57,14 +57,14 @@ bool FileSystem::Awake(pugi::xml_node& config)
 }
 
 // Called before quitting
-bool FileSystem::CleanUp()
+bool j1FileSystem::CleanUp()
 {
 	//LOG("Freeing File System subsystem");
 	return true;
 }
 
 // Add a new zip file or folder
-bool FileSystem::AddPath(const char* path_or_zip, const char* mount_point)
+bool j1FileSystem::AddPath(const char* path_or_zip, const char* mount_point)
 {
 	bool ret = false;
 
@@ -77,19 +77,19 @@ bool FileSystem::AddPath(const char* path_or_zip, const char* mount_point)
 }
 
 // Check if a file exists
-bool FileSystem::Exists(const char* file) const
+bool j1FileSystem::Exists(const char* file) const
 {
 	return PHYSFS_exists(file) != 0;
 }
 
 // Check if a file is a directory
-bool FileSystem::IsDirectory(const char* file) const
+bool j1FileSystem::IsDirectory(const char* file) const
 {
 	return PHYSFS_isDirectory(file) != 0;
 }
 
 // Read a whole file and put it in a new buffer
-unsigned int FileSystem::Load(const char* file, char** buffer) const
+unsigned int j1FileSystem::Load(const char* file, char** buffer) const
 {
 	unsigned int ret = 0;
 
@@ -122,7 +122,7 @@ unsigned int FileSystem::Load(const char* file, char** buffer) const
 }
 
 // Read a whole file and put it in a new buffer
-SDL_RWops* FileSystem::Load(const char* file) const
+SDL_RWops* j1FileSystem::Load(const char* file) const
 {
 	char* buffer;
 	int size = Load(file, &buffer);
@@ -147,7 +147,7 @@ int close_sdl_rwops(SDL_RWops *rw)
 }
 
 // Save a whole buffer to disk
-unsigned int FileSystem::Save(const char* file, const char* buffer, unsigned int size) const
+unsigned int j1FileSystem::Save(const char* file, const char* buffer, unsigned int size) const
 {
 	unsigned int ret = 0;
 

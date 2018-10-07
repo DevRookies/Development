@@ -1,20 +1,20 @@
-#ifndef __FILESYSTEM_H__
-#define __FILESYSTEM_H__
+#ifndef __j1FILESYSTEM_H__
+#define __j1FILESYSTEM_H__
 
-#include "Module.h"
+#include "j1Module.h"
 
 struct SDL_RWops;
 
 int close_sdl_rwops(SDL_RWops *rw);
 
-class FileSystem : public j1Module
+class j1FileSystem : public j1Module
 {
 public:
 
-	FileSystem();
+	j1FileSystem();
 
 	// Destructor
-	virtual ~FileSystem();
+	virtual ~j1FileSystem();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -41,4 +41,4 @@ private:
 
 };
 
-#endif // __FILESYSTEM_H__
+#endif // __j1FILESYSTEM_H__

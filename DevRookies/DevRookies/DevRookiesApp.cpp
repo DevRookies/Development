@@ -45,7 +45,7 @@ DevRookiesApp::~DevRookiesApp()
 	// release modules
 	p2List_item<Module*>* item = modules.end;
 
-	while (item != NULL)
+	while(item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->prev;
@@ -68,10 +68,10 @@ bool DevRookiesApp::Awake()
 	pugi::xml_node		app_config;
 
 	bool ret = false;
-
+		
 	config = LoadConfig(config_file);
 
-	if (config.empty() == false)
+	if(config.empty() == false)
 	{
 		// self-config
 		ret = true;
@@ -80,12 +80,12 @@ bool DevRookiesApp::Awake()
 		organization.create(app_config.child("organization").child_value());
 	}
 
-	if (ret == true)
+	if(ret == true)
 	{
 		p2List_item<Module*>* item;
 		item = modules.start;
 
-		while (item != NULL && ret == true)
+		while(item != NULL && ret == true)
 		{
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
@@ -102,7 +102,7 @@ bool DevRookiesApp::Start()
 	p2List_item<Module*>* item;
 	item = modules.start;
 
-	while (item != NULL && ret == true)
+	while(item != NULL && ret == true)
 	{
 		ret = item->data->Start();
 		item = item->next;
@@ -117,16 +117,16 @@ bool DevRookiesApp::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	if (input->GetWindowEvent(WE_QUIT) == true)
+	if(input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
-	if (ret == true)
+	if(ret == true)
 		ret = PreUpdate();
 
-	if (ret == true)
+	if(ret == true)
 		ret = DoUpdate();
 
-	if (ret == true)
+	if(ret == true)
 		ret = PostUpdate();
 
 	FinishUpdate();
@@ -140,7 +140,7 @@ pugi::xml_node DevRookiesApp::LoadConfig(pugi::xml_document& config_file) const
 
 	pugi::xml_parse_result result = config_file.load_file("config.xml");
 
-	if (result == NULL)
+	if(result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 	else
 		ret = config_file.child("config");
@@ -156,10 +156,10 @@ void DevRookiesApp::PrepareUpdate()
 // ---------------------------------------------
 void DevRookiesApp::FinishUpdate()
 {
-	if (want_to_save == true)
+	if(want_to_save == true)
 		SavegameNow();
 
-	if (want_to_load == true)
+	if(want_to_load == true)
 		LoadGameNow();
 }
 
@@ -171,11 +171,11 @@ bool DevRookiesApp::PreUpdate()
 	item = modules.start;
 	Module* pModule = NULL;
 
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
+	for(item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if(pModule->active == false) {
 			continue;
 		}
 
@@ -193,11 +193,11 @@ bool DevRookiesApp::DoUpdate()
 	item = modules.start;
 	Module* pModule = NULL;
 
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
+	for(item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if(pModule->active == false) {
 			continue;
 		}
 
@@ -214,11 +214,11 @@ bool DevRookiesApp::PostUpdate()
 	p2List_item<Module*>* item;
 	Module* pModule = NULL;
 
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
+	for(item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		pModule = item->data;
 
-		if (pModule->active == false) {
+		if(pModule->active == false) {
 			continue;
 		}
 
@@ -235,7 +235,7 @@ bool DevRookiesApp::CleanUp()
 	p2List_item<Module*>* item;
 	item = modules.end;
 
-	while (item != NULL && ret == true)
+	while(item != NULL && ret == true)
 	{
 		ret = item->data->CleanUp();
 		item = item->prev;
@@ -253,7 +253,7 @@ int DevRookiesApp::GetArgc() const
 // ---------------------------------------
 const char* DevRookiesApp::GetArgv(int index) const
 {
-	if (index < argc)
+	if(index < argc)
 		return args[index];
 	else
 		return NULL;
@@ -303,7 +303,7 @@ bool DevRookiesApp::LoadGameNow()
 
 	pugi::xml_parse_result result = data.load_file(load_game.GetString());
 
-	if (result != NULL)
+	if(result != NULL)
 	{
 		LOG("Loading new Game State from %s...", load_game.GetString());
 
@@ -312,14 +312,14 @@ bool DevRookiesApp::LoadGameNow()
 		p2List_item<Module*>* item = modules.start;
 		ret = true;
 
-		while (item != NULL && ret == true)
+		while(item != NULL && ret == true)
 		{
 			ret = item->data->Load(root.child(item->data->name.GetString()));
 			item = item->next;
 		}
 
 		data.reset();
-		if (ret == true)
+		if(ret == true)
 			LOG("...finished loading");
 		else
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
@@ -340,18 +340,18 @@ bool DevRookiesApp::SavegameNow() const
 	// xml object were we will store all data
 	pugi::xml_document data;
 	pugi::xml_node root;
-
+	
 	root = data.append_child("game_state");
 
 	p2List_item<Module*>* item = modules.start;
 
-	while (item != NULL && ret == true)
+	while(item != NULL && ret == true)
 	{
 		ret = item->data->Save(root.append_child(item->data->name.GetString()));
 		item = item->next;
 	}
 
-	if (ret == true)
+	if(ret == true)
 	{
 		data.save_file(save_game.GetString());
 		LOG("... finished saving", );
