@@ -69,6 +69,8 @@ public:
 		return true;
 	}
 
+	virtual void OnFade() {}
+
 public:
 
 	p2SString	name;

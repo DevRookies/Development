@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneManager.h"
 
 Scene::Scene() : Module()
 {
@@ -43,10 +44,16 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN){}
+		App->scenemanager->FadeToBlack(App->scene, App->scene);
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->scenemanager->FadeToBlack(App->scene, App->scene);
+
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

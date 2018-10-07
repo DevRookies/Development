@@ -44,6 +44,7 @@ void Map::Draw()
 				iPoint rect = MapToWorld(i, j);
 				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
 				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+				
 			}
 		}
 		item_layer = item_layer->next;

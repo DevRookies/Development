@@ -2,8 +2,8 @@
 
 <config>
   <app>
-    <title>Game Development Testbed</title>
-    <organization>UPC</organization>
+    <title>Hot and Cold Dungeon</title>
+    <organization>UPC - DevRookies</organization>
   </app>
 	
   <renderer>

@@ -19,9 +19,6 @@
     <ClCompile Include="Render.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -36,6 +33,12 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +78,6 @@
     <ClInclude Include="Render.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Modules\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
@@ -96,6 +96,12 @@
     <ClInclude Include="Animation.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -112,6 +118,9 @@
     </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{8edbdc1a-a0fe-40e1-b989-822874b99c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{7676830c-ad0c-4efc-b073-591fdb7550c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

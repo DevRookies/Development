@@ -13,6 +13,8 @@ class Textures;
 class Audio;
 class Scene;
 class Map;
+class SceneManager;
+class Player;
 
 class DevRookiesApp
 {
@@ -83,6 +85,8 @@ public:
 	Audio*				audio;
 	Scene*				scene;
 	Map*				map;
+	SceneManager*		scenemanager;
+	Player*				player;
 
 private:
 

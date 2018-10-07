@@ -10,6 +10,9 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Map.h"
+#include "SceneManager.h"
+#include "Player.h"
+
 #include "DevRookiesApp.h"
 
 // Constructor
@@ -25,6 +28,8 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	scene = new Scene();
 	map = new Map();
+	scenemanager = new SceneManager();
+	player = new Player();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -34,6 +39,8 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(scenemanager);
+	AddModule(player);
 
 	// render last to swap buffer
 	AddModule(render);

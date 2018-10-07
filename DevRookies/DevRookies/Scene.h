@@ -5,6 +5,7 @@
 
 struct SDL_Texture;
 
+
 class Scene : public Module
 {
 public:
