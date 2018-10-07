@@ -39,9 +39,10 @@ bool SceneManager::Update(float dt)
 		if (now >= total_time)
 		{
 			module_disable->active = false;
+			module_disable->CleanUp();
 			App->map->CleanUp();
-			module_enable->active = true;;
-			module_enable->OnFade();
+			module_enable->active = true;
+			module_disable->Start();
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();

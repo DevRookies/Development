@@ -9,6 +9,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
+#include "Scene2.h"
 #include "Map.h"
 #include "SceneManager.h"
 #include "Player.h"
@@ -27,6 +28,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	scene = new Scene();
+	scene2 = new Scene2();
 	map = new Map();
 	scenemanager = new SceneManager();
 	player = new Player();
@@ -39,6 +41,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(scene2, false);
 	AddModule(scenemanager);
 	AddModule(player);
 
@@ -61,9 +64,9 @@ DevRookiesApp::~DevRookiesApp()
 	modules.clear();
 }
 
-void DevRookiesApp::AddModule(Module* module)
+void DevRookiesApp::AddModule(Module* module, bool active)
 {
-	module->Init();
+	module->Init(active);
 	modules.add(module);
 }
 
@@ -108,11 +111,17 @@ bool DevRookiesApp::Start()
 	bool ret = true;
 	p2List_item<Module*>* item;
 	item = modules.start;
+	Module* module = NULL;
 
-	while(item != NULL && ret == true)
+	for (item = modules.start; item != NULL && ret == true; item = item->next)
 	{
+		module = item->data;
+
+		if (module->active == false) {
+			continue;
+		}
+
 		ret = item->data->Start();
-		item = item->next;
 	}
 
 	return ret;

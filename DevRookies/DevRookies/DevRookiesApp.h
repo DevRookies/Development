@@ -12,6 +12,7 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class Scene2;
 class Map;
 class SceneManager;
 class Player;
@@ -39,7 +40,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module);
+	void AddModule(Module* module, bool active = true);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -78,15 +79,16 @@ private:
 public:
 
 	// Modules
-	Window*				win;
-	Input*				input;
-	Render*				render;
-	Textures*			tex;
-	Audio*				audio;
-	Scene*				scene;
-	Map*				map;
-	SceneManager*		scenemanager;
-	Player*				player;
+	Window * win = nullptr;
+	Input*				input = nullptr;
+	Render*				render = nullptr;
+	Textures*			tex = nullptr;
+	Audio*				audio = nullptr;
+	Scene*				scene = nullptr;
+	Scene2*				scene2 = nullptr;
+	Map*				map = nullptr;
+	SceneManager*		scenemanager = nullptr;
+	Player*				player = nullptr;
 
 private:
 

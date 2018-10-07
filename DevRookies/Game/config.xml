@@ -22,6 +22,14 @@
     <path>data.zip</path>
   </file_system>
 
+  <scene>
+    <tile_name>Hello2.tmx</tile_name>
+  </scene>
+
+  <scene2>
+    <tile_name>Hello2.tmx</tile_name>
+  </scene2>
+  
   <map>
     <folder>maps/</folder>
   </map>

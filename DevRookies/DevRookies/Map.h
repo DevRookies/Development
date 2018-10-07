@@ -26,20 +26,24 @@ struct MapLayer
 struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
-
+	bool Contains(int id) const
+	{
+		return (id >= firstgid && id <= firstgid + tilecount - 1);
+	}
 	p2SString			name;
-	int					firstgid;
-	int					margin;
-	int					spacing;
-	int					tile_width;
-	int					tile_height;
+	uint				firstgid;
+	uint				tilecount;
+	uint				margin;
+	uint				spacing;
+	uint				tile_width;
+	uint				tile_height;
 	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
+	uint				tex_width;
+	uint				tex_height;
+	uint				num_tiles_width;
+	uint				num_tiles_height;
+	uint				offset_x;
+	uint				offset_y;
 };
 
 enum MapTypes

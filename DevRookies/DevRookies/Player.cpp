@@ -1,7 +1,5 @@
 #include "Player.h"
 
-
-
 Player::Player() {}
 
 Player::Player(const float &x, const float &y)

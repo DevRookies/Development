@@ -85,6 +85,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Scene2.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="Scene2.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Window.h" />

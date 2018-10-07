@@ -18,9 +18,9 @@ public:
 	Module() : active(false)
 	{}
 
-	void Init()
+	void Init(bool active)
 	{
-		active = true;
+		this->active = active;
 	}
 
 	// Called before render is available
@@ -69,7 +69,6 @@ public:
 		return true;
 	}
 
-	virtual void OnFade() {}
 
 public:
 

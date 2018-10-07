@@ -28,7 +28,8 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw()
 {
-	if(map_loaded == false)
+	// ONE LAYER
+	/*if(map_loaded == false)
 		return;
 
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
@@ -39,8 +40,8 @@ void Map::Draw()
 		for (uint i = 0; i < item_layer->data->width; i++)
 		{
 			for (uint j = 0; j < item_layer->data->height; j++)
-
 			{
+
 				iPoint rect = MapToWorld(i, j);
 				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
 				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
@@ -48,7 +49,39 @@ void Map::Draw()
 			}
 		}
 		item_layer = item_layer->next;
+	}*/
+	// ALL LAYERS
+	if (map_loaded == false)
+		return;
+
+	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
+	p2List_item<TileSet*>* item_tileset = data.tilesets.start;
+
+	while (item_layer != nullptr)
+	{
+
+		for (uint i = 0; i < item_layer->data->width; i++)
+		{
+			for (uint j = 0; j < item_layer->data->height; j++)
+			{
+				iPoint rect = MapToWorld(i, j);
+				if (item_layer->data->tiles[item_layer->data->Get(i, j)] == 0)
+				{
+					continue;
+				}
+				while (item_tileset != nullptr) {
+					if (item_tileset->data->Contains(item_layer->data->tiles[item_layer->data->Get(i, j)])) break;
+					item_tileset = item_tileset->next;
+				}
+
+				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
+				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+				item_tileset = data.tilesets.start;
+			}
+		}
+		item_layer = item_layer->next;
 	}
+	
 }
 
 
@@ -264,6 +297,7 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	set->name.create(tileset_node.attribute("name").as_string());
 	set->firstgid = tileset_node.attribute("firstgid").as_int();
+	set->tilecount = tileset_node.attribute("tilecount").as_uint();
 	set->tile_width = tileset_node.attribute("tilewidth").as_int();
 	set->tile_height = tileset_node.attribute("tileheight").as_int();
 	set->margin = tileset_node.attribute("margin").as_int();

@@ -1,19 +1,19 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __SCENE2_H__
+#define __SCENE2_H__
 
 #include "Module.h"
 
 struct SDL_Texture;
 
 
-class Scene : public Module
+class Scene2 : public Module
 {
 public:
 
-	Scene();
+	Scene2();
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~Scene2();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -38,4 +38,4 @@ private:
 	p2SString tile_name = "";
 };
 
-#endif // __SCENE_H__
+#endif // __SCENE2_H__

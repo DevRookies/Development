@@ -40,6 +40,9 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Scene2.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -100,6 +103,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene2.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
