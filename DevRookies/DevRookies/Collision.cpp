@@ -82,11 +82,11 @@ bool Collision::Update(float dt)
 				case COLLIDER_PLAYER: // green
 					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80, true);
 					break;
-				case COLLIDER_GROUND: // magenta
+				case COLLIDER_GROUND: // blue
 					App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, 80);
 					break;
-				case COLLIDER_LIMIT: // magenta
-					App->render->DrawQuad(colliders[i]->rect, 100, 200, 10, 80);
+				case COLLIDER_LIMIT: // red
+					App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, 80);
 					break;
 				}
 			}
