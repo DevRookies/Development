@@ -23,6 +23,7 @@ private:
 	Animation	idle;
 	Animation	run;
 	Animation	jump;
+	Animation	dead;
 	Collider*	collider = nullptr;
 
 	uint		gravity = 5;

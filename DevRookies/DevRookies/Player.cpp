@@ -20,18 +20,19 @@ bool Player::Awake(pugi::xml_node&)
 	LOG("Loading Character");
 	bool ret = true;
 
-	idle.PushBack({ 19, 31, 46, 44 });
+	idle.PushBack({ 0, 0, 0, 0 });
 
-	run.PushBack({ 97, 30, 50, 45 });
-	run.PushBack({ 176, 30, 50, 45 });
-	run.PushBack({ 256, 31, 50, 45 });
-	run.PushBack({ 336, 29, 50, 45 });
-	run.PushBack({ 415, 29, 50, 45 });
-	run.PushBack({ 495, 30, 50, 45 });
-	run.PushBack({ 576, 31, 50, 45 });
-	run.PushBack({ 653, 31, 50, 45 });
+	run.PushBack({ 0, 0, 0, 0 });
 	run.speed = 0.2F;
 	run.loop = true;
+
+	jump.PushBack({ 0, 0, 0, 0 });
+	jump.speed = 0.2F;
+	jump.loop = false;
+
+	dead.PushBack({ 0, 0, 0, 0 });
+	dead.speed = 0.2F;
+	dead.loop = false;
 
 	collider = App->collision->AddCollider({ 0,0,46,44 }, COLLIDER_PLAYER, this);
 
@@ -44,7 +45,7 @@ bool Player::Awake(pugi::xml_node&)
 bool Player::Start()
 {
 	speed = { 0, 0 };
-	player_texture = App->tex->Load("textures/testcharacter.png");
+	player_texture = App->tex->Load("textures/character.png");
 	current_animation = &idle;
 	return true;
 }
