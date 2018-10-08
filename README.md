@@ -13,8 +13,11 @@ Lluis Moreu https://github.com/youis11
 Francisco Javier Venteo: https://github.com/CereVenteo 
 
 Github repository: https://github.com/DevRookies/Development
+
 Github organization: https://github.com/DevRookies
-Changelist: 
+
+Changelist: https://github.com/DevRookies/Development/blob/master/CHANGELOG.md
+
 Trello: https://trello.com/b/6xGoDgxj/development
 
 ## Controls
