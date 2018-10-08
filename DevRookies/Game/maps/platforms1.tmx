@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="32" tileheight="32" nextobjectid="10">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="32" tileheight="32" nextobjectid="12">
  <tileset firstgid="1" name="platforms(1)" tilewidth="32" tileheight="32" tilecount="30" columns="5">
   <image source="platforms.png" width="160" height="192"/>
   <terraintypes>
@@ -9078,4 +9078,9 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="initialPos">
+  <object id="10" x="4" y="231" width="55" height="57" visible="0">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

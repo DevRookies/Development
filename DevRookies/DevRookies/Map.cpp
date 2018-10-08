@@ -170,7 +170,7 @@ bool Map::Load(const char* file_name)
 		data.maplayers.add(maplayer);
 	}
 
-	// Load collider info -----------------------------------------------
+	// Load collider info ----------------------------------------------
 	pugi::xml_node collider_node;
 	for (collider_node = map_file.child("map").child("objectgroup").child("object"); collider_node && ret; collider_node = collider_node.next_sibling("object")) {
 			
