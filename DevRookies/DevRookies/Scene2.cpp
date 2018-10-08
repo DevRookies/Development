@@ -50,7 +50,7 @@ bool Scene2::Update(float dt)
 		App->scenemanager->FadeToBlack(App->scene2, App->scene);
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->scenemanager->FadeToBlack(App->scene2, App->scene);
+		App->scenemanager->FadeToBlack(App->scene2, App->scene2);
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();

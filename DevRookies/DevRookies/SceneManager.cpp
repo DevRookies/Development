@@ -42,7 +42,7 @@ bool SceneManager::Update(float dt)
 			module_disable->CleanUp();
 			App->map->CleanUp();
 			module_enable->active = true;
-			module_disable->Start();
+			module_enable->Start();
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();

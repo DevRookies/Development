@@ -23,11 +23,11 @@
   </file_system>
 
   <scene>
-    <tile_name>Hello2.tmx</tile_name>
+    <tile_name>platforms1.tmx</tile_name>
   </scene>
 
   <scene2>
-    <tile_name>Hello2.tmx</tile_name>
+    <tile_name>platforms2.tmx</tile_name>
   </scene2>
   
   <map>
