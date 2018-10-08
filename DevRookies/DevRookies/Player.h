@@ -4,8 +4,11 @@
 #include "Module.h"
 #include "p2Point.h"
 #include "Animation.h"
+#include "Textures.h"
+#include "Collision.h"
 
-enum MOVEMENT { IDLE, RIGHT, LEFT, UP, DOWN };
+
+enum MOVEMENT { IDLE, RIGHT, LEFT };
 enum STATE { ONFLOOR, AIR, DEATH };
 enum ELEMENT { FIRE, ICE };
 
@@ -13,34 +16,57 @@ class Player :
 	public Module
 {
 private:
-	fPoint position, lastPosition;
-	fPoint speed;
 
-	MOVEMENT* current_movement = nullptr;
-	STATE* current_state = nullptr;
-	ELEMENT* current_element = nullptr;
+	SDL_Texture * player_texture;
+	
+	Animation*	current_animation = nullptr;
+	Animation	idle;
+	Animation	run;
+	Animation	jump;
+	Collider*	collider = nullptr;
 
-	Animation* current_animation = nullptr;
-	Animation idle;
-	Animation run;
+	uint		gravity = 5;
+	uint		speed_right = 3;
+	int			speed_left = -3;
 
 public:
+
+
 	Player();
 	Player(const float &x, const float &y);
+	
+	//Destructor
 	~Player();
 
-	fPoint GetPosition();
-	void SetPosition(const float &x, const float &y);
+	// Called before render is available
+	bool Awake(pugi::xml_node& config);
 
-	MOVEMENT GetMovement();
-	void SetMovement(MOVEMENT &s);
+	// Called before the first frame
+	bool Start();
 
-	STATE GetState();
-	void SetState(STATE &s);
+	// Called before all Updates
+	bool PreUpdate();
 
-	ELEMENT GetElement();
-	void SetElement(ELEMENT &s);
+	// Called each loop iteration
+	bool Update(float dt);
 
+	// Called before all Updates
+	bool PostUpdate();
+
+	// Called before quitting
+	bool CleanUp();
+
+	fPoint		GetPosition();
+	void		SetPosition(const float &x, const float &y);
+	void OnCollision(Collider* collider1, Collider* collider2);
+
+	MOVEMENT	current_movement = IDLE;
+	STATE		current_state = ONFLOOR;
+	ELEMENT		current_element = FIRE;
+
+	fPoint		position, lastPosition, speed;
+
+	
 };
 
 #endif // __PLAYER_H__

@@ -16,6 +16,7 @@ class Scene2;
 class Map;
 class SceneManager;
 class Player;
+class Collision;
 
 class DevRookiesApp
 {
@@ -89,6 +90,7 @@ public:
 	Map*				map = nullptr;
 	SceneManager*		scenemanager = nullptr;
 	Player*				player = nullptr;
+	Collision*			collision = nullptr;
 
 private:
 

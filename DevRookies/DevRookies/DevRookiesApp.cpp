@@ -13,7 +13,7 @@
 #include "Map.h"
 #include "SceneManager.h"
 #include "Player.h"
-
+#include "Collision.h"
 #include "DevRookiesApp.h"
 
 // Constructor
@@ -32,6 +32,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	scenemanager = new SceneManager();
 	player = new Player();
+	collision = new Collision();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -44,6 +45,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene2, false);
 	AddModule(scenemanager);
 	AddModule(player);
+	AddModule(collision);
 
 	// render last to swap buffer
 	AddModule(render);

@@ -43,6 +43,9 @@
     <ClCompile Include="Scene2.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="Scene2.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Modules\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
