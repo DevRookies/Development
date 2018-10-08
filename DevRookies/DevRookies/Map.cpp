@@ -28,28 +28,6 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw()
 {
-	// ONE LAYER
-	/*if(map_loaded == false)
-		return;
-
-	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
-	p2List_item<TileSet*>* item_tileset = data.tilesets.start;
-	while (item_layer != nullptr)
-	{
-
-		for (uint i = 0; i < item_layer->data->width; i++)
-		{
-			for (uint j = 0; j < item_layer->data->height; j++)
-			{
-
-				iPoint rect = MapToWorld(i, j);
-				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
-				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
-				
-			}
-		}
-		item_layer = item_layer->next;
-	}*/
 	// ALL LAYERS
 	if (map_loaded == false)
 		return;
@@ -190,6 +168,15 @@ bool Map::Load(const char* file_name)
 		}
 
 		data.maplayers.add(maplayer);
+	}
+
+	// Load collider info ----------------------------------------------
+	pugi::xml_node collider_node;
+	for (collider_node = map_file.child("map").child("objectgroup").child("object"); collider_node && ret; collider_node = collider_node.next_sibling("object")) {
+			
+		if (ret == true) {
+			ret = LoadCollider(collider_node);
+		}
 	}
 
 
@@ -375,4 +362,17 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	return true;
 	
+}
+
+bool Map::LoadCollider(pugi::xml_node & node)
+{
+	
+	rect.x = node.attribute("x").as_int();
+	rect.y = node.attribute("y").as_int();
+	rect.w = node.attribute("width").as_int();
+	rect.h = node.attribute("height").as_int();
+
+	App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_GROUND);
+	
+	return true;
 }

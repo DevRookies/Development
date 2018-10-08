@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Module.h"
+#include "Collision.h"
 
 struct MapLayer
 {
@@ -12,6 +13,7 @@ struct MapLayer
 	uint					width = 0u;
 	uint					height = 0u;
 	uint*					tiles = nullptr;
+	bool					parallax = false;
 	~MapLayer() {
 		if (tiles != nullptr)
 		{
@@ -96,10 +98,12 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadCollider(pugi::xml_node& node);
 
 public:
 
-	MapData data;
+	MapData				data;
+	SDL_Rect			rect;
 
 private:
 

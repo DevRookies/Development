@@ -16,17 +16,13 @@ enum COLLIDER_TYPE {
 
 struct Collider
 {
-	SDL_Rect rect;
-	bool to_delete = false;
-	COLLIDER_TYPE type;
-	Module* callback = nullptr;
-	bool enable = true;
+	SDL_Rect		rect;
+	COLLIDER_TYPE	type;
+	Module*			callback = nullptr;
+	bool			to_delete = false;
+	bool			enable = true;
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :
-		rect(rectangle),
-		type(type),
-		callback(callback)
-	{}
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) : rect(rectangle),	type(type),	callback(callback) {}
 
 	void SetPos(int x, int y)
 	{
@@ -48,27 +44,29 @@ struct Collider
 
 };
 
-class Collision :
-	public Module
+class Collision : public Module
+
 {
 public:
+
 	Collision();
+
+	// Destructor
 	~Collision();
 
-	bool PreUpdate();
-	bool Update(float dt);
-	bool CleanUp();
+	bool		PreUpdate();
+	bool		Update(float dt);
+	bool		CleanUp();
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
-	void GodMode();
-	void DebugDraw();
-	bool god = false, god_used = false;
+	Collider*	AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	void		GodMode();
+	bool		god, god_used = false;
 
 private:
 
-	Collider * colliders[MAX_COLLIDERS];
-	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	bool debug = false;
+	Collider*	colliders[MAX_COLLIDERS];
+	bool		matrix[COLLIDER_MAX][COLLIDER_MAX];
+	bool		debug = false;
 };
 
 
