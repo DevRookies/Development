@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="platforms" tilewidth="32" tileheight="32" tilecount="30" columns="5">
-  <image source="platforms(1).png" width="160" height="192"/>
+  <image source="platforms.png" width="160" height="192"/>
   <terraintypes>
-   <terrain name="lava" tile="-1"/>
-   <terrain name="ice" tile="-1"/>
-   <terrain name="waves" tile="-1"/>
-   <terrain name="water" tile="-1"/>
-   <terrain name="background" tile="-1"/>
+   <terrain name="lava" tile="0"/>
+   <terrain name="ice" tile="2"/>
+   <terrain name="waves" tile="5"/>
+   <terrain name="water" tile="10"/>
+   <terrain name="background" tile="15"/>
   </terraintypes>
   <tile id="0" terrain="0,0,0,0">
    <objectgroup draworder="index">
