@@ -10,52 +10,52 @@
    <terrain name="background" tile="15"/>
   </terraintypes>
   <tile id="0" terrain="0,0,0,0">
-   <objectgroup draworder="index">
+   <objectgroup color="#00ff00" draworder="index">
     <object id="1" x="-0.0434783" y="0.0434783" width="32.0435" height="31.8696"/>
    </objectgroup>
   </tile>
   <tile id="1" terrain="0,0,0,0">
-   <objectgroup draworder="index">
+   <objectgroup color="#00ff00" draworder="index">
     <object id="1" x="0.130435" y="0.130435" width="31.8261" height="31.7391"/>
    </objectgroup>
   </tile>
   <tile id="2" terrain="1,1,1,1">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff0000" draworder="index">
     <object id="1" x="0.217391" y="0.130435" width="31.6522" height="31.7826"/>
    </objectgroup>
   </tile>
   <tile id="3" terrain="1,1,1,1">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff0000" draworder="index">
     <object id="1" x="0.217391" y="0.0869565" width="31.5652" height="31.8261"/>
    </objectgroup>
   </tile>
   <tile id="5" terrain="2,2,2,2">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.434783" y="2.30435" width="31.3913" height="29.3913"/>
    </objectgroup>
   </tile>
   <tile id="6" terrain="2,2,2,2">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.130435" y="3.04348" width="31.4783" height="28.7826"/>
    </objectgroup>
   </tile>
   <tile id="7" terrain="2,2,2,2">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.26087" y="2.95652" width="31.3043" height="28.7391"/>
    </objectgroup>
   </tile>
   <tile id="10" terrain="3,3,3,3">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.304348" y="0.130435" width="31.5652" height="31.6522"/>
    </objectgroup>
   </tile>
   <tile id="11" terrain="3,3,3,3">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.347826" y="0.173913" width="31.5217" height="31.5652"/>
    </objectgroup>
   </tile>
   <tile id="12" terrain="3,3,3,3">
-   <objectgroup draworder="index">
+   <objectgroup color="#ff00ff" draworder="index">
     <object id="1" x="0.434783" y="0.304348" width="31.3478" height="31.4783"/>
    </objectgroup>
   </tile>
