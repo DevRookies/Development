@@ -9,11 +9,15 @@ The very first version of the game. You will be able to...
 ## Links
 
 Lluis Moreu https://github.com/youis11 
+
 Francisco Javier Venteo: https://github.com/CereVenteo 
 
 Github repository: https://github.com/DevRookies/Development
+
 Github organization: https://github.com/DevRookies
-Changelist: 
+
+Changelist: https://github.com/DevRookies/Development/blob/master/CHANGELOG.md
+
 Trello: https://trello.com/b/6xGoDgxj/development
 
 ## Controls
@@ -61,15 +65,15 @@ Assignment 1: The player can change between two forms in order to walk on the di
 
 ## Artist references
 
-Characters ripped by Boo. https://www.spriters-resource.com/submitter/Boo/
+Characters ripped by [Boo](https://www.spriters-resource.com/submitter/Boo/) .
 
-Water ripped by Vincent, credit to Capcom. https://www.spriters-resource.com/submitter/Vincent/
+Water ripped by [Vincent](https://www.spriters-resource.com/submitter/Vincent/) , credit to Capcom. 
 
-Level 2 background ripped by JigglypuffGirl, made by Nintendo. https://www.spriters-resource.com/submitter/JigglyPuffGirl/
+Level 2 background ripped by [JigglypuffGirl](https://www.spriters-resource.com/submitter/JigglyPuffGirl/) , made by Nintendo. 
 
-Other textures ripped by Davias. https://www.spriters-resource.com/submitter/Davias/
+Other textures ripped by [Davias](https://www.spriters-resource.com/submitter/Davias/) .
 
-
+~~~
 
 Can you finish the game?
 
