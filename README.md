@@ -39,12 +39,13 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - K (to move down the screen).
 - L (to move forwards the screen).
 
-- F1 (Start from the first level)
-- F2 (Start from the current level)
-- F5 (Save)
-- F6 (Load)
-- F9 (Colliders)
-- F10 (God Mode)
+- F1 (Start from the first level).
+- F2 (Start from the current level).
+- F3 (Start from the second level).
+- F5 (Save).
+- F6 (Load).
+- F9 (Colliders).
+- F10 (God Mode).
 
 ## Instructions to execute
 
