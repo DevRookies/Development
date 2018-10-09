@@ -10,54 +10,54 @@
    <terrain name="background sq" tile="9"/>
   </terraintypes>
   <tile id="0" terrain="2,2,2,2">
-   <objectgroup color="#00ff00" draworder="index">
+   <objectgroup color="#00ff00" draworder="index" name="fire_col">
     <object id="1" x="0.0869565" y="0.173913" width="31.8261" height="31.6087"/>
    </objectgroup>
   </tile>
   <tile id="1" terrain="2,2,2,2">
-   <objectgroup color="#00ff00" draworder="index">
+   <objectgroup color="#00ff00" draworder="index" name="fire_col">
     <object id="1" x="0.173913" y="0.0869565" width="31.8261" height="31.8696"/>
    </objectgroup>
   </tile>
   <tile id="4" terrain="4,4,4,4"/>
   <tile id="5" terrain="1,1,1,1">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="1" x="0.26087" y="3.30435" width="31.6957" height="28.6522"/>
    </objectgroup>
   </tile>
   <tile id="6" terrain="1,1,1,1">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="1" x="0.130435" y="3.08696" width="31.8696" height="28.7826"/>
    </objectgroup>
   </tile>
   <tile id="7" terrain="1,1,1,1">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="2" x="0.304348" y="3.04348" width="31.5652" height="28.913"/>
    </objectgroup>
   </tile>
   <tile id="8" terrain="3,3,3,3">
-   <objectgroup color="#ff0000" draworder="index">
+   <objectgroup color="#ff0000" draworder="index" name="ice_col">
     <object id="1" x="0.26087" y="0.217391" width="31.7391" height="31.6522"/>
    </objectgroup>
   </tile>
   <tile id="9" terrain="4,4,4,4"/>
   <tile id="10" terrain="0,0,0,0">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="1" x="0" y="0.173913" width="32.1304" height="31.5652"/>
    </objectgroup>
   </tile>
   <tile id="11" terrain="0,0,0,0">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="1" x="0.0434783" y="-0.0434783" width="31.913" height="31.8696"/>
    </objectgroup>
   </tile>
   <tile id="12" terrain="0,0,0,0">
-   <objectgroup color="#ff00ff" draworder="index">
+   <objectgroup color="#ff00ff" draworder="index" name="venom_col">
     <object id="1" x="0.0869565" y="0.173913" width="31.8696" height="31.5652"/>
    </objectgroup>
   </tile>
   <tile id="13" terrain="3,3,3,3">
-   <objectgroup color="#ff0000" draworder="index">
+   <objectgroup color="#ff0000" draworder="index" name="ice_col">
     <object id="1" x="0.173913" y="0.130435" width="31.7391" height="31.7826"/>
    </objectgroup>
   </tile>
