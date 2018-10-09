@@ -20,25 +20,54 @@ bool Player::Awake(pugi::xml_node&)
 	LOG("Loading Character");
 	bool ret = true;
 
+	//FIRE
 	idlefire.PushBack({ 2021, 0, 55, 56 });
-	idlefire.speed = 0.2F;
+	idlefire.PushBack({ 2077, 0, 56, 56 });
+	idlefire.PushBack({ 2133, 0, 55, 56 });
+	idlefire.PushBack({ 2189, 0, 55, 56 });
+	idlefire.speed = 0.01f;
 	idlefire.loop = true;
 
-	runfire.PushBack({ 0, 0, 0, 0 });
-	runfire.speed = 0.2F;
+	runfire.PushBack({ 2065, 58, 59, 55 });
+	runfire.PushBack({ 2125, 58, 59, 55 });
+	runfire.PushBack({ 2184, 58, 60, 57 });
+	runfire.PushBack({ 2125, 58, 59, 55 });
+	runfire.speed = 0.02f;
 	runfire.loop = true;
 
-	jumpfire.PushBack({ 0, 0, 0, 0 });
-	jumpfire.speed = 0.2F;
-	jumpfire.loop = false;
+	jumpfire.PushBack({ 2184, 58, 60, 57 });
 
-	deadfire.PushBack({ 0, 0, 0, 0 });
-	deadfire.speed = 0.2F;
+	deadfire.PushBack({ 2191, 384, 53, 63 });
+	deadfire.PushBack({ 2131, 384, 59, 63 });
+	deadfire.PushBack({ 2070, 384, 60, 63 });
+	deadfire.PushBack({ 2009, 384, 60, 63 });
+	deadfire.speed = 0.001f;
 	deadfire.loop = false;
 
-	
+	//ICE
+	idleice.PushBack({ 1797, 0, 55, 56 });
+	idleice.PushBack({ 1853, 0, 56, 56 });
+	idleice.PushBack({ 1909, 0, 55, 56 });
+	idleice.PushBack({ 1965, 0, 55, 56 });
+	idleice.speed = 0.01f;
+	idleice.loop = true;
 
-	AddColliderPlayer();
+	runice.PushBack({ 1885, 58, 59, 56 });
+	runice.PushBack({ 1945, 58, 59, 56 });
+	runice.PushBack({ 2004, 58, 60, 57 });
+	runice.PushBack({ 1945, 58, 59, 56 });
+	runice.speed = 0.02f;
+	runice.loop = true;
+
+	jumpice.PushBack({ 2004, 58, 60, 57 });
+
+	deadice.PushBack({ 1954, 384, 53, 63 });
+	deadice.PushBack({ 1894, 384, 59, 63 });
+	deadice.PushBack({ 1834, 384, 60, 63 });
+	deadice.PushBack({ 1773, 384, 60, 63 });
+	deadice.speed = 0.001f;
+	deadice.loop = false;
+
 
 	return ret;
 
@@ -62,7 +91,7 @@ bool Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->player->current_movement = RIGHT;
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 		App->player->current_movement = JUMP;
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)

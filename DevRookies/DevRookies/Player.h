@@ -30,10 +30,10 @@ private:
 	Animation	deadice;
 	Collider*	collider = nullptr;
 
-	uint		gravity = 1;
-	uint		speed_jump = 5;
-	uint		speed_right = 3;
-	int			speed_left = -3;
+	uint		gravity = 0;
+	uint		speed_jump = 2;
+	uint		speed_right = 1;
+	int			speed_left = -1;
 
 public:
 
