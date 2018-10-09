@@ -10,6 +10,7 @@ Collision::Collision()
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_FIRE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ICE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
 }
 
