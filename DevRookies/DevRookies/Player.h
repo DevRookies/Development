@@ -8,7 +8,7 @@
 #include "Collision.h"
 
 
-enum MOVEMENT { IDLE, RIGHT, LEFT, JUMP, DEAD };
+enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD };
 enum STATE { ONFLOOR, AIR, DEATH };
 enum ELEMENT { FIRE, ICE };
 
@@ -30,7 +30,7 @@ private:
 	Animation	deadice;
 	Collider*	collider = nullptr;
 
-	uint		gravity = 2;
+	uint		gravity = 1;
 	uint		speed_jump = 5;
 	uint		speed_right = 3;
 	int			speed_left = -3;
@@ -64,7 +64,8 @@ public:
 
 	fPoint		GetPosition();
 	void		SetPosition(const float &x, const float &y);
-	void OnCollision(Collider* collider1, Collider* collider2);
+	void		OnCollision(Collider* collider1, Collider* collider2);
+	void		AddColliderPlayer();
 
 	MOVEMENT	current_movement = IDLE;
 	STATE		current_state = ONFLOOR;
