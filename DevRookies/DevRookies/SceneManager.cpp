@@ -41,6 +41,7 @@ bool SceneManager::Update(float dt)
 			module_disable->active = false;
 			module_disable->CleanUp();
 			App->map->CleanUp();
+			App->collision->CleanUp();
 			module_enable->active = true;
 			module_enable->Start();
 

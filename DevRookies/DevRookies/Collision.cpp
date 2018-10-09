@@ -9,7 +9,7 @@ Collision::Collision()
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_FIRE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
 }
 
@@ -82,11 +82,17 @@ bool Collision::Update(float dt)
 				case COLLIDER_PLAYER: // green
 					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80, true);
 					break;
-				case COLLIDER_GROUND: // blue
-					App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, 80);
+				case COLLIDER_ICE: // blue
+					App->render->DrawQuad(colliders[i]->rect, 0, 50, 250, 80);
 					break;
-				case COLLIDER_LIMIT: // red
-					App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, 80);
+				case COLLIDER_FIRE: // red
+					App->render->DrawQuad(colliders[i]->rect, 200, 100, 0, 80);
+					break;
+				case COLLIDER_POISON: // green
+					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80);
+					break;
+				case COLLIDER_LIMIT: // black
+					App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, 80);
 					break;
 				}
 			}

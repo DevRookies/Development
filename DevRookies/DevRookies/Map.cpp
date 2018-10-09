@@ -172,10 +172,25 @@ bool Map::Load(const char* file_name)
 
 	// Load collider info ----------------------------------------------
 	pugi::xml_node collider_node;
-	for (collider_node = map_file.child("map").child("objectgroup").child("object"); collider_node && ret; collider_node = collider_node.next_sibling("object")) {
+	for (collider_node = map_file.child("map").child("tileset").child("tile"); collider_node && ret; collider_node = collider_node.next_sibling("tile")) {
 			
 		if (ret == true) {
-			ret = LoadCollider(collider_node);
+			
+			p2SString type = collider_node.child("objectgroup").attribute("name").as_string();
+			
+			if (type.operator==("ice_col")) {
+				ret = LoadCollider(collider_node, 1);
+			}
+			else if (type.operator==("fire_col")) {
+				ret = LoadCollider(collider_node, 2);
+			}
+			else if (type.operator==("poison_col")) {
+				ret = LoadCollider(collider_node, 2);
+			}
+			else if (type.operator==("limit_col")) {
+				ret = LoadCollider(collider_node, 2);
+			}
+
 		}
 	}
 
@@ -364,15 +379,30 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	
 }
 
-bool Map::LoadCollider(pugi::xml_node & node)
+bool Map::LoadCollider(pugi::xml_node & node, uint type)
 {
-	
-	rect.x = node.attribute("x").as_int();
-	rect.y = node.attribute("y").as_int();
-	rect.w = node.attribute("width").as_int();
-	rect.h = node.attribute("height").as_int();
+	pugi::xml_node object = node.child("objectgroup").child("object");
 
-	App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_GROUND);
+	rect.x = object.attribute("x").as_int();
+	rect.y = object.attribute("y").as_int();
+	rect.w = object.attribute("width").as_int();
+	rect.h = object.attribute("height").as_int();
+
+	switch (type)
+	{
+	case 1: // ice
+		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_ICE);
+		break;
+	case 2: // fire
+		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_FIRE);
+		break;
+	case 3: // poison
+		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_POISON);
+		break;
+	case 4: // limit
+		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_LIMIT);
+		break;
+	}
 	
 	return true;
 }
