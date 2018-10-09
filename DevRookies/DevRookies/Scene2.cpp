@@ -35,6 +35,7 @@ bool Scene2::Awake(pugi::xml_node& conf)
 bool Scene2::Start()
 {
 	App->map->Load(tile_name.GetString());
+	App->player->AddColliderPlayer();
 	App->player->SetPosition(0, 0);
 	App->render->SetCamera(0, 0);
 	return true;

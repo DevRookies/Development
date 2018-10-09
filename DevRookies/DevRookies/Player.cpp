@@ -36,9 +36,9 @@ bool Player::Awake(pugi::xml_node&)
 	deadfire.speed = 0.2F;
 	deadfire.loop = false;
 
-	collider = App->collision->AddCollider({ 0,0,46,44 }, COLLIDER_PLAYER, this);
+	
 
-
+	AddColliderPlayer();
 
 	return ret;
 
@@ -49,7 +49,6 @@ bool Player::Start()
 	speed = { 0, 0 };
 	player_texture = App->tex->Load("textures/character.png");
 	current_animation = &idlefire;
-	current_element = FIRE;
 	return true;
 }
 
@@ -72,42 +71,71 @@ bool Player::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->player->current_element = ICE;
 
-	
-	
-
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-	if (current_element == FIRE) {
-		if (current_movement == IDLE)
+	switch (current_element)
+	{
+	case FIRE:
+		switch (current_movement)
 		{
+		case IDLE:
 			current_animation = &idlefire;
 			speed.x = 0;
-		}
-		else if (current_movement == LEFT)
-		{
+			break;
+		case LEFT:
 			current_animation = &runfire;
 			speed.x = speed_left;
-		}
-		else if (current_movement == RIGHT)
-		{
+			break;
+		case RIGHT:
 			current_animation = &runfire;
 			speed.x = speed_right;
-		}
-		
-		if (current_movement == JUMP)
-		{
+			break;
+		case JUMP:
 			current_animation = &jumpfire;
 			speed.y = speed_jump;
+			break;
+		case DEAD:
+			current_animation = &deadfire;
+			break;
+		default:
+			break;
 		}
-		else {
-			speed.y = gravity;
+		break;
+	case ICE:
+		switch (current_movement)
+		{
+		case IDLE:
+			current_animation = &idleice;
+			speed.x = 0;
+			break;
+		case LEFT:
+			current_animation = &runice;
+			speed.x = speed_left;
+			break;
+		case RIGHT:
+			current_animation = &runice;
+			speed.x = speed_right;
+			break;
+		case JUMP:
+			current_animation = &jumpice;
+			speed.y = speed_jump;
+			break;
+		case DEAD:
+			current_animation = &deadice;
+			break;
+		default:
+			break;
 		}
+		break;
+	default:
+		break;
 	}
 	
-	
+
+	speed.y = gravity;
 	position += speed;
 	collider->SetPos(position.x, position.y);
 	return true;
@@ -172,3 +200,8 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	collider->SetPos(position.x, position.y);
 
 }
+
+void Player::AddColliderPlayer()  {
+	collider = App->collision->AddCollider({ 0,0,55, 56 }, COLLIDER_PLAYER, this);
+}
+
