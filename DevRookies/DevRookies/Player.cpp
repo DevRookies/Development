@@ -20,19 +20,21 @@ bool Player::Awake(pugi::xml_node&)
 	LOG("Loading Character");
 	bool ret = true;
 
-	idle.PushBack({ 0, 0, 0, 0 });
+	idlefire.PushBack({ 2021, 0, 55, 56 });
+	idlefire.speed = 0.2F;
+	idlefire.loop = true;
 
-	run.PushBack({ 0, 0, 0, 0 });
-	run.speed = 0.2F;
-	run.loop = true;
+	runfire.PushBack({ 0, 0, 0, 0 });
+	runfire.speed = 0.2F;
+	runfire.loop = true;
 
-	jump.PushBack({ 0, 0, 0, 0 });
-	jump.speed = 0.2F;
-	jump.loop = false;
+	jumpfire.PushBack({ 0, 0, 0, 0 });
+	jumpfire.speed = 0.2F;
+	jumpfire.loop = false;
 
-	dead.PushBack({ 0, 0, 0, 0 });
-	dead.speed = 0.2F;
-	dead.loop = false;
+	deadfire.PushBack({ 0, 0, 0, 0 });
+	deadfire.speed = 0.2F;
+	deadfire.loop = false;
 
 	collider = App->collision->AddCollider({ 0,0,46,44 }, COLLIDER_PLAYER, this);
 
@@ -46,7 +48,8 @@ bool Player::Start()
 {
 	speed = { 0, 0 };
 	player_texture = App->tex->Load("textures/character.png");
-	current_animation = &idle;
+	current_animation = &idlefire;
+	current_element = FIRE;
 	return true;
 }
 
@@ -54,34 +57,57 @@ bool Player::PreUpdate()
 {
 	current_movement = IDLE;
 
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		App->player->current_movement = LEFT;
+
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->player->current_movement = RIGHT;
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->player->current_movement = LEFT;
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		App->player->current_movement = JUMP;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		App->player->current_element = FIRE;
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		App->player->current_element = ICE;
+
+	
+	
 
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-	if (current_movement == IDLE)
-	{
-		current_animation = &idle;
-		speed.x = 0;
+	if (current_element == FIRE) {
+		if (current_movement == IDLE)
+		{
+			current_animation = &idlefire;
+			speed.x = 0;
+		}
+		else if (current_movement == LEFT)
+		{
+			current_animation = &runfire;
+			speed.x = speed_left;
+		}
+		else if (current_movement == RIGHT)
+		{
+			current_animation = &runfire;
+			speed.x = speed_right;
+		}
+		
+		if (current_movement == JUMP)
+		{
+			current_animation = &jumpfire;
+			speed.y = speed_jump;
+		}
+		else {
+			speed.y = gravity;
+		}
 	}
-	else if (current_movement == RIGHT)
-	{
-		current_animation = &run;
-		speed.x = speed_right;
-	}
-	else if (current_movement == LEFT)
-	{
-		current_animation = &run;
-		speed.x = speed_left;
-	}
-	speed.y = gravity;
-
+	
+	
 	position += speed;
 	collider->SetPos(position.x, position.y);
 	return true;

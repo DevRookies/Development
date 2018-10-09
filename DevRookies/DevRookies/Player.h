@@ -8,7 +8,7 @@
 #include "Collision.h"
 
 
-enum MOVEMENT { IDLE, RIGHT, LEFT };
+enum MOVEMENT { IDLE, RIGHT, LEFT, JUMP, DEAD };
 enum STATE { ONFLOOR, AIR, DEATH };
 enum ELEMENT { FIRE, ICE };
 
@@ -20,13 +20,18 @@ private:
 	SDL_Texture * player_texture;
 	
 	Animation*	current_animation = nullptr;
-	Animation	idle;
-	Animation	run;
-	Animation	jump;
-	Animation	dead;
+	Animation	idlefire;
+	Animation	runfire;
+	Animation	jumpfire;
+	Animation	deadfire;
+	Animation	idleice;
+	Animation	runice;
+	Animation	jumpice;
+	Animation	deadice;
 	Collider*	collider = nullptr;
 
-	uint		gravity = 5;
+	uint		gravity = 2;
+	uint		speed_jump = 5;
 	uint		speed_right = 3;
 	int			speed_left = -3;
 
