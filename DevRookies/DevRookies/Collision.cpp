@@ -11,7 +11,8 @@ Collision::Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_FIRE] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ICE] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_LIMIT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_POISON] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_BORDER] = true;
 }
 
 // Destructor
@@ -20,6 +21,9 @@ Collision::~Collision()
 
 bool Collision::PreUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		debug = !debug;
+
 	// Remove all colliders
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -67,8 +71,7 @@ bool Collision::PreUpdate()
 // Called before render is available
 bool Collision::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		debug = !debug;
+	
 
 	if (debug != false) {
 
@@ -84,15 +87,15 @@ bool Collision::Update(float dt)
 					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80, true);
 					break;
 				case COLLIDER_ICE: // blue
-					App->render->DrawQuad(colliders[i]->rect, 0, 50, 250, 80);
-					break;
-				case COLLIDER_FIRE: // red
-					App->render->DrawQuad(colliders[i]->rect, 200, 100, 0, 80);
-					break;
-				case COLLIDER_POISON: // green
 					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80);
 					break;
-				case COLLIDER_LIMIT: // black
+				case COLLIDER_FIRE: // red
+					App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, 80);
+					break;
+				case COLLIDER_POISON: // green
+					App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, 80);
+					break;
+				case COLLIDER_BORDER: // black
 					App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, 80);
 					break;
 				}
@@ -135,11 +138,6 @@ Collider* Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* call
 	return ret;
 }
 
-void Collision::GodMode()
-{
-	god = !god;
-	god_used = true;
-}
 
 // -----------------------------------------------------
 

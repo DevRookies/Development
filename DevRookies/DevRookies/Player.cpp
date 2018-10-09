@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "p2Log.h"
+#include "SceneManager.h"
 
 Player::Player() {}
 
@@ -41,7 +42,7 @@ bool Player::Awake(pugi::xml_node&)
 	deadfire.PushBack({ 2131, 384, 59, 63 });
 	deadfire.PushBack({ 2070, 384, 60, 63 });
 	deadfire.PushBack({ 2009, 384, 60, 63 });
-	deadfire.speed = 0.001f;
+	deadfire.speed = 0.01f;
 	deadfire.loop = false;
 
 	//ICE
@@ -65,7 +66,7 @@ bool Player::Awake(pugi::xml_node&)
 	deadice.PushBack({ 1894, 384, 59, 63 });
 	deadice.PushBack({ 1834, 384, 60, 63 });
 	deadice.PushBack({ 1773, 384, 60, 63 });
-	deadice.speed = 0.001f;
+	deadice.speed = 0.01f;
 	deadice.loop = false;
 
 
@@ -76,6 +77,13 @@ bool Player::Awake(pugi::xml_node&)
 bool Player::Start()
 {
 	speed = { 0, 0 };
+	speedUp.x = 0.2f;
+	speedUp.y = 0.1f;
+	maxSpeed.x = 1;
+	maxSpeed.y = 1;
+	jumpSpeed = 1;
+	maxJumpSpeed = 12;
+	
 	player_texture = App->tex->Load("textures/character.png");
 	current_animation = &idlefire;
 	return true;
@@ -83,16 +91,23 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+	
 	current_movement = IDLE;
 
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		GodMode = !GodMode;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->player->current_movement = LEFT;
+		if (current_movement != RIGHT)App->player->current_movement = LEFT;
+		else current_movement = IDLE;
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->player->current_movement = RIGHT;
+		if (current_movement != LEFT)App->player->current_movement = RIGHT;
+		else current_movement = IDLE;
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
-		App->player->current_movement = JUMP;
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (current_state != FLOOR)App->player->current_movement = JUMP;
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		App->player->current_element = FIRE;
@@ -105,67 +120,76 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	switch (current_element)
-	{
-	case FIRE:
-		switch (current_movement)
+	if (current_state != DEATH) {
+		current_state = AIR;
+		switch (current_element)
 		{
-		case IDLE:
-			current_animation = &idlefire;
-			speed.x = 0;
+		case FIRE:
+			switch (current_movement)
+			{
+			case IDLE:
+				current_animation = &idlefire;
+				speed.x = 0;
+				break;
+			case LEFT:
+				current_animation = &runfire;
+				speed.x = speedUp.x * -maxSpeed.x + (1 - speedUp.x) * speed.x;
+				break;
+			case RIGHT:
+				current_animation = &runfire;
+				speed.x = speedUp.x * maxSpeed.x + (1 - speedUp.x) * speed.x;
+				break;
+			case JUMP:
+				current_animation = &jumpfire;
+				speed.y = jumpSpeed * -maxJumpSpeed + (1 - jumpSpeed) * speed.y;
+				current_state = AIR;
+				break;
+			case DEAD:
+				current_animation = &deadfire;
+				break;
+			default:
+				break;
+			}
 			break;
-		case LEFT:
-			current_animation = &runfire;
-			speed.x = speed_left;
-			break;
-		case RIGHT:
-			current_animation = &runfire;
-			speed.x = speed_right;
-			break;
-		case JUMP:
-			current_animation = &jumpfire;
-			speed.y = speed_jump;
-			break;
-		case DEAD:
-			current_animation = &deadfire;
+		case ICE:
+			switch (current_movement)
+			{
+			case IDLE:
+				current_animation = &idleice;
+				speed.x = 0;
+				break;
+			case LEFT:
+				current_animation = &runice;
+				speed.x = speedUp.x * -maxSpeed.x + (1 - speedUp.x) * speed.x;
+				break;
+			case RIGHT:
+				current_animation = &runice;
+				speed.x = speedUp.x * maxSpeed.x + (1 - speedUp.x) * speed.x;
+				break;
+			case JUMP:
+				current_animation = &jumpice;
+				speed.y = jumpSpeed * -maxJumpSpeed + (1 - jumpSpeed) * speed.y;
+				current_state = AIR;
+				break;
+			case DEAD:
+				current_animation = &deadice;
+				break;
+			default:
+				break;
+			}
 			break;
 		default:
 			break;
 		}
-		break;
-	case ICE:
-		switch (current_movement)
+
+		if (current_state == AIR)
 		{
-		case IDLE:
-			current_animation = &idleice;
-			speed.x = 0;
-			break;
-		case LEFT:
-			current_animation = &runice;
-			speed.x = speed_left;
-			break;
-		case RIGHT:
-			current_animation = &runice;
-			speed.x = speed_right;
-			break;
-		case JUMP:
-			current_animation = &jumpice;
-			speed.y = speed_jump;
-			break;
-		case DEAD:
-			current_animation = &deadice;
-			break;
-		default:
-			break;
+			speed.y = speedUp.y * maxSpeed.y + (1 - speedUp.y) * speed.y;
 		}
-		break;
-	default:
-		break;
+
+		position += speed;
 	}
 	
-
-	speed.y = gravity;
-	position += speed;
 	collider->SetPos(position.x, position.y);
 	return true;
 }
@@ -200,6 +224,9 @@ void Player::SetPosition(const float & x, const float & y)
 //----------------------------------------------------
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
+	if (collider2->type == COLLIDER_POISON) {
+		Die();
+	}
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
@@ -217,12 +244,14 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
 	{
+		speed.x = 0;
 		return;
 	}
 	position.x += (speed.x * 2);
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
 	{
+		speed.x = 0;
 		return;
 	}
 	position.x -= speed.x;
@@ -232,5 +261,20 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 
 void Player::AddColliderPlayer()  {
 	collider = App->collision->AddCollider({ 0,0,55, 56 }, COLLIDER_PLAYER, this);
+}
+
+void Player::Die() {
+
+	if (!GodMode) {
+		position.x -= 5;
+		position.y -= 10;
+		current_state = DEATH;
+		if (current_element == FIRE) {
+			current_animation = &deadfire;
+		}
+		else {
+			current_animation = &deadice;
+		}
+	}
 }
 

@@ -172,23 +172,29 @@ bool Map::Load(const char* file_name)
 
 	// Load collider info ----------------------------------------------
 	pugi::xml_node collider_node;
-	for (collider_node = map_file.child("map").child("tileset").child("tile"); collider_node && ret; collider_node = collider_node.next_sibling("tile")) {
+	for (collider_node = map_file.child("map").child("objectgroup"); collider_node && ret; collider_node = collider_node.next_sibling("objectgroup")) {
 			
 		if (ret == true) {
 			
-			p2SString type = collider_node.child("objectgroup").attribute("name").as_string();
+			p2SString type = collider_node.attribute("name").as_string();
 			
-			if (type.operator==("ice_col")) {
+			if (type.operator==("ice_col_top")) {
 				ret = LoadCollider(collider_node, 1);
 			}
-			else if (type.operator==("fire_col")) {
+			else if (type.operator==("ice_col_bot")) {
+				ret = LoadCollider(collider_node, 1);
+			}
+			else if (type.operator==("fire_col_top")) {
+				ret = LoadCollider(collider_node, 2);
+			}
+			else if (type.operator==("fire_col_bot")) {
 				ret = LoadCollider(collider_node, 2);
 			}
 			else if (type.operator==("poison_col")) {
-				ret = LoadCollider(collider_node, 2);
+				ret = LoadCollider(collider_node, 3);
 			}
-			else if (type.operator==("limit_col")) {
-				ret = LoadCollider(collider_node, 2);
+			else if (type.operator==("border_col")) {
+				ret = LoadCollider(collider_node, 4);
 			}
 
 		}
@@ -381,28 +387,30 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 bool Map::LoadCollider(pugi::xml_node & node, uint type)
 {
-	pugi::xml_node object = node.child("objectgroup").child("object");
+	pugi::xml_node object;
+	for (object = node.child("object"); object ; object = object.next_sibling("object")) {
 
-	rect.x = object.attribute("x").as_int();
-	rect.y = object.attribute("y").as_int();
-	rect.w = object.attribute("width").as_int();
-	rect.h = object.attribute("height").as_int();
+		rect.x = object.attribute("x").as_int();
+		rect.y = object.attribute("y").as_int();
+		rect.w = object.attribute("width").as_int();
+		rect.h = object.attribute("height").as_int();
 
-	switch (type)
-	{
-	case 1: // ice
-		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_ICE);
-		break;
-	case 2: // fire
-		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_FIRE);
-		break;
-	case 3: // poison
-		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_POISON);
-		break;
-	case 4: // limit
-		App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_LIMIT);
-		break;
+		switch (type)
+		{
+		case 1: // ice
+			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_ICE);
+			break;
+		case 2: // fire
+			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_FIRE);
+			break;
+		case 3: // poison
+			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_POISON);
+			break;
+		case 4: // border
+			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_BORDER);
+			break;
+		}
 	}
-	
+
 	return true;
 }

@@ -12,7 +12,7 @@ enum COLLIDER_TYPE {
 	COLLIDER_ICE,
 	COLLIDER_FIRE,
 	COLLIDER_POISON,
-	COLLIDER_LIMIT,
+	COLLIDER_BORDER,
 	COLLIDER_MAX,
 };
 
@@ -61,8 +61,6 @@ public:
 	bool		CleanUp();
 
 	Collider*	AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
-	void		GodMode();
-	bool		god, god_used = false;
 
 private:
 

@@ -9,7 +9,7 @@
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD };
-enum STATE { ONFLOOR, AIR, DEATH };
+enum STATE { FLOOR, AIR, DEATH };
 enum ELEMENT { FIRE, ICE };
 
 class Player :
@@ -30,10 +30,10 @@ private:
 	Animation	deadice;
 	Collider*	collider = nullptr;
 
-	uint		gravity = 0;
-	uint		speed_jump = 2;
-	uint		speed_right = 1;
-	int			speed_left = -1;
+	int			jumpSpeed, maxJumpSpeed;
+	fPoint		position, lastPosition, speed, speedUp, maxSpeed;
+
+	bool		GodMode = false;
 
 public:
 
@@ -66,12 +66,13 @@ public:
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
+	void		Die();
 
 	MOVEMENT	current_movement = IDLE;
-	STATE		current_state = ONFLOOR;
+	STATE		current_state = FLOOR;
 	ELEMENT		current_element = FIRE;
 
-	fPoint		position, lastPosition, speed;
+	
 
 	
 };
