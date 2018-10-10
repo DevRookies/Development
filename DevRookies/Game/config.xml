@@ -36,6 +36,9 @@
 	<lvl2_music_name>Auto_Pilot.ogg</lvl2_music_name>
 	<jump_fx_name>Jump.wav</jump_fx_name>
 	<dead_fx_name>negative_beeps.wav</dead_fx_name>
+    <volume value="128"/>
+  </audio>
+
   </audio>
   
   <map>
