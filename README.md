@@ -4,7 +4,7 @@ Fire&Ice v.0.0.1
 
 ## Description
 
-The very first version of the game. You will be able to...
+The very first version of the game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom. The camera doesn't follow the player yet. There are also some debug modes, no save and load for the moment.
 
 ## Links
 
@@ -26,12 +26,10 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 ### Player: 
 
-- W (to go up).
+- W (to change to fire form).
 - A (to go backwards).
-- S (to go down).
+- S (to change to ice form).
 - D (to go forwards).
-
-- LEFT SHIFT (to change characters).
 
 - SPACE (to jump).
 
