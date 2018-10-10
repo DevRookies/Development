@@ -5,8 +5,6 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #include "p2List.h"
 
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
-
 struct _Mix_Music;
 struct Mix_Chunk;
 
@@ -14,6 +12,8 @@ class Audio : public Module
 {
 public:
 	int volume;
+	float default_music_fade_time;
+	int volume_change_ratio;
 
 	Audio();
 
@@ -27,7 +27,7 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	bool PlayMusic(const char* path, float fade_time);
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);

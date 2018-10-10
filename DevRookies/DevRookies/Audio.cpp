@@ -22,7 +22,11 @@ bool Audio::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
+
 	volume = config.child("volume").attribute("value").as_int();
+	default_music_fade_time = config.child("default_music_fade_time").attribute("value").as_float();
+	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_int();
+
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -84,6 +88,8 @@ bool Audio::CleanUp()
 bool Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
+
+	fade_time = default_music_fade_time;
 
 	if(!active)
 		return false;
@@ -181,13 +187,13 @@ bool Audio::StopMusic()
 
 void Audio::VolumeUp()
 {
-	volume += 25;
+	volume += volume_change_ratio;
 	Mix_VolumeMusic(volume);
 }
 
 void Audio::VolumeDown()
 {
-	volume -= 25;
+	volume -= volume_change_ratio;
 	Mix_VolumeMusic(volume);
 }
 
@@ -202,7 +208,7 @@ bool Audio::Load(pugi::xml_node& data)
 bool Audio::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node vol = data.append_child("volume");
-	vol.append_attribute("value").set_value(volume);
+	vol.append_attribute("value") = volume;
 
 	return true;
 }

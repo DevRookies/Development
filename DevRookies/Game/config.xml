@@ -37,8 +37,10 @@
 	<jump_fx_name>Jump.wav</jump_fx_name>
 	<dead_fx_name>negative_beeps.wav</dead_fx_name>
     <volume value="128"/>
-  </audio>
-
+	<volume_change_ratio value="25"/>
+	<folder>audio/</folder>
+	<folder>music/</folder>
+	<folder>fx/</folder>
   </audio>
   
   <map>
