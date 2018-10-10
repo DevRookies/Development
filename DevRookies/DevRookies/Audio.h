@@ -13,6 +13,7 @@ struct Mix_Chunk;
 class Audio : public Module
 {
 public:
+	int volume;
 
 	Audio();
 
@@ -34,9 +35,18 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	//Change Volume	
+	bool StopMusic();
+	void VolumeUp();
+	void VolumeDown();
+
+	//Save & Load volume
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 
-	_Mix_Music*			music;
+	_Mix_Music*			music = nullptr;
 	p2List<Mix_Chunk*>	fx;
 };
 

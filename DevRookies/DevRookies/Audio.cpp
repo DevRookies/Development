@@ -22,6 +22,7 @@ bool Audio::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
+	volume = config.child("volume").attribute("value").as_int();
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -170,4 +171,38 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool Audio::StopMusic()
+{
+		Mix_HaltMusic();
+		return true;
+}
+
+void Audio::VolumeUp()
+{
+	volume += 25;
+	Mix_VolumeMusic(volume);
+}
+
+void Audio::VolumeDown()
+{
+	volume -= 25;
+	Mix_VolumeMusic(volume);
+}
+
+
+bool Audio::Load(pugi::xml_node& data)
+{
+	volume = data.child("volume").attribute("value").as_int();
+
+	return true;
+}
+
+bool Audio::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node vol = data.append_child("volume");
+	vol.append_attribute("value").set_value(volume);
+
+	return true;
 }

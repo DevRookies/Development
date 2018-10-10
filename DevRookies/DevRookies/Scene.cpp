@@ -61,6 +61,15 @@ bool Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		App->audio->VolumeUp();
+
+	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
+		App->audio->VolumeDown();
+
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		App->audio->StopMusic();
 	
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 		App->render->camera.y += 1;
