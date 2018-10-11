@@ -45,6 +45,15 @@
       <folder>audio/fx/</folder>
     </sfx>
   </audio>
+
+  <player>
+    <texture>textures/character.png</texture>
+    <speed x="0" y="0"/>
+    <acceleration x="0.2f" y="0.1f"/>
+    <maxSpeed x="1" y="1"/>
+    <jumpSpeed value="1"/>
+    <maxJumpSpeed value="14"/>
+  </player>
   
   <map>
     <folder>maps/</folder>

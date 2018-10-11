@@ -31,7 +31,8 @@ private:
 	Collider*	collider = nullptr;
 
 	int			jumpSpeed, maxJumpSpeed;
-	fPoint		position, lastPosition, speed, speedUp, maxSpeed;
+	fPoint		position, lastPosition, speed, acceleration, maxSpeed;
+	p2SString   texture;
 
 	bool		GodMode = false;
 
