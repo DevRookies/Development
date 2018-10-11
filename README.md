@@ -24,6 +24,11 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 - ESC (to close the window).
 
+- F5 (Save).
+- F6 (Load).
+- F8 (Stop Music).
+- F11 (Volume Down).
+- F12 (Volume Up).
 ### Player: 
 
 - W (to change to fire form).
@@ -44,13 +49,9 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F1 (Start from the first level).
 - F2 (Start from the current level).
 - F3 (Start from the second level).
-- F5 (Save).
-- F6 (Load).
-- F8 (Stop Music).
 - F9 (Colliders).
 - F10 (God Mode).
-- F11 (Volume Down).
-- F12 (Volume Up).
+
 
 ## Instructions to execute
 

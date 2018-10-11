@@ -6,20 +6,31 @@
 #include "p2Log.h"
 #include "SceneManager.h"
 
-Player::Player() {}
+Player::Player() {
+	name.create("player");
+}
 
 Player::Player(const float &x, const float &y)
 {
 	position.x = x;
 	position.y = y;
+	name.create("player");
 }
 
 Player::~Player() {}
 
-bool Player::Awake(pugi::xml_node&)
+bool Player::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Character");
 	bool ret = true;
+
+	texture = config.child("texture").child_value();
+	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
+	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
+	maxSpeed = { config.child("maxSpeed").attribute("x").as_float() , config.child("maxSpeed").attribute("y").as_float() };
+	jumpSpeed = config.child("jumpSpeed").attribute("value").as_int();
+	maxJumpSpeed = config.child("maxJumpSpeed").attribute("value").as_int();
+	
 
 	//FIRE
 	idlefire.PushBack({ 2021, 0, 55, 56 });
@@ -76,15 +87,8 @@ bool Player::Awake(pugi::xml_node&)
 
 bool Player::Start()
 {
-	speed = { 0, 0 };
-	speedUp.x = 0.2f;
-	speedUp.y = 0.1f;
-	maxSpeed.x = 1;
-	maxSpeed.y = 1;
-	jumpSpeed = 1;
-	maxJumpSpeed = 12;
-	
-	player_texture = App->tex->Load("textures/character.png");
+	current_state = AIR;
+	player_texture = App->tex->Load(texture.GetString());
 	current_animation = &idlefire;
 	return true;
 }
@@ -107,7 +111,7 @@ bool Player::PreUpdate()
 		else current_movement = IDLE;
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		if (current_state != FLOOR)App->player->current_movement = JUMP;
+		if (current_state == FLOOR)App->player->current_movement = JUMP;
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		App->player->current_element = FIRE;
@@ -121,7 +125,6 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	if (current_state != DEATH) {
-		current_state = AIR;
 		switch (current_element)
 		{
 		case FIRE:
@@ -133,11 +136,11 @@ bool Player::Update(float dt)
 				break;
 			case LEFT:
 				current_animation = &runfire;
-				speed.x = speedUp.x * -maxSpeed.x + (1 - speedUp.x) * speed.x;
+				speed.x = acceleration.x * -maxSpeed.x + (1 - acceleration.x) * speed.x;
 				break;
 			case RIGHT:
 				current_animation = &runfire;
-				speed.x = speedUp.x * maxSpeed.x + (1 - speedUp.x) * speed.x;
+				speed.x = acceleration.x * maxSpeed.x + (1 - acceleration.x) * speed.x;
 				break;
 			case JUMP:
 				current_animation = &jumpfire;
@@ -160,11 +163,11 @@ bool Player::Update(float dt)
 				break;
 			case LEFT:
 				current_animation = &runice;
-				speed.x = speedUp.x * -maxSpeed.x + (1 - speedUp.x) * speed.x;
+				speed.x = acceleration.x * -maxSpeed.x + (1 - acceleration.x) * speed.x;
 				break;
 			case RIGHT:
 				current_animation = &runice;
-				speed.x = speedUp.x * maxSpeed.x + (1 - speedUp.x) * speed.x;
+				speed.x = acceleration.x * maxSpeed.x + (1 - acceleration.x) * speed.x;
 				break;
 			case JUMP:
 				current_animation = &jumpice;
@@ -184,7 +187,7 @@ bool Player::Update(float dt)
 
 		if (current_state == AIR)
 		{
-			speed.y = speedUp.y * maxSpeed.y + (1 - speedUp.y) * speed.y;
+			speed.y = acceleration.y * maxSpeed.y + (1 - acceleration.y) * speed.y;
 		}
 
 		position += speed;
@@ -224,15 +227,23 @@ void Player::SetPosition(const float & x, const float & y)
 //----------------------------------------------------
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
-	if (collider2->type == COLLIDER_POISON) {
+	if (collider2->type == COLLIDER_POISON)
 		Die();
+
+	if (collider2->type == COLLIDER_ICE){
+		if (current_element == FIRE) 
+			Die();
+		else 
+			current_state = FLOOR;
 	}
-	if (collider2->type == COLLIDER_ICE && current_element == FIRE) {
-		Die();
+
+	if (collider2->type == COLLIDER_FIRE){
+		if (current_element == ICE) 
+			Die();
+		else 
+			current_state = FLOOR;
 	}
-	if (collider2->type == COLLIDER_FIRE && current_element == ICE) {
-		Die();
-	}
+
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
@@ -272,8 +283,7 @@ void Player::AddColliderPlayer()  {
 void Player::Die() {
 
 	if (!GodMode) {
-		//position.x -= 5;
-		position.y -= 7;
+		position.y -= 7; //because the collider is 7 pixels less than dead animation
 		current_state = DEATH;
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
