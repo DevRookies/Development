@@ -32,15 +32,15 @@
   
   <audio>
     <default_music_fade_time value="2.0"/>
-	<lvl1_music_name>military_madness.ogg</lvl1_music_name>
-	<lvl2_music_name>Auto_Pilot.ogg</lvl2_music_name>
-	<jump_fx_name>Jump.wav</jump_fx_name>
-	<dead_fx_name>negative_beeps.wav</dead_fx_name>
+	  <lvl1_music_name>military_madness.ogg</lvl1_music_name>
+	  <lvl2_music_name>Auto_Pilot.ogg</lvl2_music_name>
+	  <jump_fx_name>Jump.wav</jump_fx_name>
+	  <dead_fx_name>negative_beeps.wav</dead_fx_name>
     <volume value="128"/>
-	<volume_change_ratio value="25"/>
-	<folder>audio/</folder>
-	<folder>music/</folder>
-	<folder>fx/</folder>
+	  <volume_change_ratio value="25"/>
+	  <folder>audio/</folder>
+	  <folder>music/</folder>
+	  <folder>fx/</folder>
   </audio>
   
   <map>

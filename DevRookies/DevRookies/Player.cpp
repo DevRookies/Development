@@ -227,6 +227,12 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	if (collider2->type == COLLIDER_POISON) {
 		Die();
 	}
+	if (collider2->type == COLLIDER_ICE && current_element == FIRE) {
+		Die();
+	}
+	if (collider2->type == COLLIDER_FIRE && current_element == ICE) {
+		Die();
+	}
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
@@ -266,8 +272,8 @@ void Player::AddColliderPlayer()  {
 void Player::Die() {
 
 	if (!GodMode) {
-		position.x -= 5;
-		position.y -= 10;
+		//position.x -= 5;
+		position.y -= 7;
 		current_state = DEATH;
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
