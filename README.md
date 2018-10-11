@@ -1,4 +1,4 @@
-# Version of the game
+﻿# Version of the game
 
 Fire&Ice v.0.0.1
 
@@ -46,8 +46,11 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F3 (Start from the second level).
 - F5 (Save).
 - F6 (Load).
+- F8 (Stop Music).
 - F9 (Colliders).
 - F10 (God Mode).
+- F11 (Volume Down).
+- F12 (Volume Up).
 
 ## Instructions to execute
 
@@ -70,6 +73,12 @@ Water ripped by [Vincent](https://www.spriters-resource.com/submitter/Vincent/) 
 Level 2 background ripped by [JigglypuffGirl](https://www.spriters-resource.com/submitter/JigglyPuffGirl/) , made by Nintendo. 
 
 Other textures ripped by [Davias](https://www.spriters-resource.com/submitter/Davias/) .
+
+Music called "Escape" and "Spaguetti_guitar_in_space" found on [freesfx](http://www.freesfx.co.uk) .
+
+Jump fx called "Jump Sound" by snottyboy on [soundbible](http://soundbible.com/1343-Jump.html) .
+
+Dead fx called "Negative beeps" by [themusicalnomad] (https://freesound.org/people/themusicalnomad/) .
 
 ## MIT License
 
