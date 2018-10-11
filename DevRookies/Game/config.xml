@@ -38,9 +38,12 @@
 	  <dead_fx_name>negative_beeps.wav</dead_fx_name>
     <volume value="128"/>
 	  <volume_change_ratio value="25"/>
-	<folder_audio>audio/</folder_audio>
-	<folder_music>music/</folder_music>
-	<folder_fx>fx/</folder_fx>
+	<music> 
+      <folder>audio/music/</folder>
+    </music>
+   	<sfx> 
+      <folder>audio/fx/</folder>
+    </sfx>
   </audio>
   
   <map>
