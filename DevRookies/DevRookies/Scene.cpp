@@ -27,7 +27,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 	tile_name = config.child("tile_name").child_value();
-
+	lvl1_music_name = config.child("lvl1_music_name").child_value();
 	return ret;
 }
 
@@ -35,6 +35,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	App->map->Load(tile_name.GetString());
+	App->audio->PlayMusic(lvl1_music_name.GetString());
 	App->player->AddColliderPlayer();
 	App->player->SetPosition(0, 0);
 	App->render->SetCamera(0, 0);
@@ -62,13 +63,13 @@ bool Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		App->audio->VolumeUp();
 
-	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 		App->audio->VolumeDown();
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->audio->StopMusic();
 	
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)

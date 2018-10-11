@@ -24,12 +24,12 @@
 
   <scene>
     <tile_name>platforms1.tmx</tile_name>
-	<lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
+	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
   </scene>
 
   <scene2>
     <tile_name>platforms2.tmx</tile_name>
-	<lvl2_music_name>Escape.ogg</lvl2_music_name>
+	  <lvl2_music_name>Escape.ogg</lvl2_music_name>
   </scene2>
   
   <audio>
@@ -38,7 +38,7 @@
 	  <dead_fx_name>negative_beeps.wav</dead_fx_name>
     <volume value="128"/>
 	  <volume_change_ratio value="25"/>
-	<music> 
+	  <music> 
       <folder>audio/music/</folder>
     </music>
    	<sfx> 

@@ -36,6 +36,7 @@ public:
 private:
 
 	p2SString tile_name = "";
+	p2SString lvl1_music_name = "";
 };
 
 #endif // __SCENE_H__

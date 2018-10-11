@@ -27,6 +27,9 @@ bool Audio::Awake(pugi::xml_node& config)
 	default_music_fade_time = config.child("default_music_fade_time").attribute("value").as_float();
 	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_int();
 
+	folder_music = config.child("music").child_value("folder");
+	folder_sfx = config.child("sfx").child_value("folder");
+
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -85,20 +88,18 @@ bool Audio::CleanUp()
 }
 
 // Play a music file
-bool Audio::PlayMusic(const char* path, float fade_time)
+bool Audio::PlayMusic(const char* path)
 {
 	bool ret = true;
-
-	fade_time = default_music_fade_time;
 
 	if(!active)
 		return false;
 
 	if(music != NULL)
 	{
-		if(fade_time > 0.0f)
+		if(default_music_fade_time > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			Mix_FadeOutMusic(int(default_music_fade_time * 1000.0f));
 		}
 		else
 		{
@@ -109,7 +110,9 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	p2SString tmp("%s%s", folder_music.GetString(), path);
+
+	music = Mix_LoadMUS(tmp.GetString());
 
 	if(music == NULL)
 	{
@@ -118,9 +121,9 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 	}
 	else
 	{
-		if(fade_time > 0.0f)
+		if(default_music_fade_time > 0.0f)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
+			if(Mix_FadeInMusic(music, -1, (int) (default_music_fade_time * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -148,7 +151,9 @@ unsigned int Audio::LoadFx(const char* path)
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	p2SString tmp("%s%s", folder_sfx.GetString(), path);
+
+	Mix_Chunk* chunk = Mix_LoadWAV(tmp.GetString());
 
 	if(chunk == NULL)
 	{
@@ -201,7 +206,6 @@ void Audio::VolumeDown()
 bool Audio::Load(pugi::xml_node& data)
 {
 	volume = data.child("volume").attribute("value").as_int();
-
 	return true;
 }
 
