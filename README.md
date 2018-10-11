@@ -78,7 +78,7 @@ Music called "Escape" and "Spaguetti_guitar_in_space" found on [freesfx](http://
 
 Jump fx called "Jump Sound" by snottyboy on [soundbible](http://soundbible.com/1343-Jump.html) .
 
-Dead fx called "Negative beeps" by [themusicalnomad] (https://freesound.org/people/themusicalnomad/) .
+Dead fx called "Negative beeps" by [themusicalnomad](https://freesound.org/people/themusicalnomad/) .
 
 ## MIT License
 
