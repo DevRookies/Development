@@ -30,7 +30,8 @@ bool Player::Awake(pugi::xml_node& config)
 	maxSpeed = { config.child("maxSpeed").attribute("x").as_float() , config.child("maxSpeed").attribute("y").as_float() };
 	jumpSpeed = config.child("jumpSpeed").attribute("value").as_int();
 	maxJumpSpeed = config.child("maxJumpSpeed").attribute("value").as_int();
-	
+	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
+	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 
 	//FIRE
 	idlefire.PushBack({ 2021, 0, 55, 56 });
@@ -87,6 +88,8 @@ bool Player::Awake(pugi::xml_node& config)
 
 bool Player::Start()
 {
+	App->audio->LoadFx(jump_fx_name.GetString());
+	App->audio->LoadFx(dead_fx_name.GetString());
 	current_state = AIR;
 	player_texture = App->tex->Load(texture.GetString());
 	current_animation = &idlefire;
@@ -111,7 +114,11 @@ bool Player::PreUpdate()
 		else current_movement = IDLE;
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		if (current_state == FLOOR)App->player->current_movement = JUMP;
+		if (current_state == FLOOR) 
+		{
+			App->player->current_movement = JUMP;
+			AddFX(1, 0);
+		}
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		App->player->current_element = FIRE;
@@ -146,6 +153,7 @@ bool Player::Update(float dt)
 				current_animation = &jumpfire;
 				speed.y = jumpSpeed * -maxJumpSpeed + (1 - jumpSpeed) * speed.y;
 				current_state = AIR;
+				
 				break;
 			case DEAD:
 				current_animation = &deadfire;
@@ -207,7 +215,6 @@ bool Player::CleanUp()
 {
 	App->tex->UnLoad(player_texture);
 	player_texture = nullptr;
-
 	return true;
 }
 
@@ -285,6 +292,7 @@ void Player::Die() {
 	if (!GodMode) {
 		position.y -= 7; //because the collider is 7 pixels less than dead animation
 		current_state = DEATH;
+		AddFX(2, 0);
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
 		}
@@ -292,5 +300,10 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 	}
+}
+
+void Player::AddFX(int channel, int repeat)
+{
+	App->audio->PlayFx(channel, repeat);
 }
 

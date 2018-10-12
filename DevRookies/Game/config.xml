@@ -34,8 +34,6 @@
   
   <audio>
     <default_music_fade_time value="2.0"/>
-	  <jump_fx_name>Jump.wav</jump_fx_name>
-	  <dead_fx_name>negative_beeps.wav</dead_fx_name>
     <volume value="128"/>
 	  <volume_change_ratio value="25"/>
 	  <music> 
@@ -53,6 +51,8 @@
     <maxSpeed x="1" y="1"/>
     <jumpSpeed value="1"/>
     <maxJumpSpeed value="14"/>
+    <jump_fx_name source="Jump.wav"/>
+    <dead_fx_name source="negative_beeps.wav"/>
   </player>
   
   <map>

@@ -33,6 +33,8 @@ private:
 	int			jumpSpeed, maxJumpSpeed;
 	fPoint		position, lastPosition, speed, acceleration, maxSpeed;
 	p2SString   texture;
+	p2SString	jump_fx_name;
+	p2SString	dead_fx_name;
 
 	bool		GodMode = false;
 
@@ -68,6 +70,8 @@ public:
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
 	void		Die();
+
+	void AddFX(int channel, int repeat);
 
 	MOVEMENT	current_movement = IDLE;
 	STATE		current_state = FLOOR;
