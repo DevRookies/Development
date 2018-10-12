@@ -221,7 +221,7 @@ bool Player::Update(float dt)
 		position += speed;
 	}
 	
-	collider->SetPos(position.x, position.y);
+	collider->SetPos(position.x, position.y + 48);
 	return true;
 }
 
@@ -280,7 +280,6 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 		Die();
 	}
 	
-	
 
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
@@ -315,7 +314,7 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 }
 
 void Player::AddColliderPlayer()  {
-	collider = App->collision->AddCollider({ 0,0,55, 56 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,55, 8 }, COLLIDER_PLAYER, this);
 }
 
 void Player::Die() {
@@ -330,8 +329,13 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
+			
+		if (App->scene->active) 
+			App->scenemanager->FadeToBlack(App->scene, App->scene);
+		else
+			App->scenemanager->FadeToBlack(App->scene2, App->scene2);
 
-		App->scenemanager->FadeToBlack(App->scene, App->scene);
+		
 			
 	}
 }

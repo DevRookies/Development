@@ -33,7 +33,7 @@
   <scene2>
     <tile_name>platforms2.tmx</tile_name>
 	  <lvl2_music_name>Escape.ogg</lvl2_music_name>
-    <player x="40" y="100"/>
+    <player x="40" y="320"/>
     <camera x="0" y="0" />
   </scene2>
   

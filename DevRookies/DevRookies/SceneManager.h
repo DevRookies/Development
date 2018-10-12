@@ -14,6 +14,7 @@ public:
 	bool Update(float dt);
 	bool FadeToBlack(Module* module_off, Module* module_on, float time = 2.0f);
 	void StartAgain(Module* module);
+	
 
 	enum fade_step
 	{
@@ -21,6 +22,8 @@ public:
 		fade_to_black,
 		fade_from_black
 	} current_step = fade_step::none;
+
+	
 
 private:
 
