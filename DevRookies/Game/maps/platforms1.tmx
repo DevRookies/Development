@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="139">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="143">
  <tileset firstgid="1" name="platforms" tilewidth="32" tileheight="32" tilecount="30" columns="5">
-  <image source="FIRE&amp;ICE/platforms.png" width="160" height="192"/>
+  <image source="platforms.png" width="160" height="192"/>
   <terraintypes>
    <terrain name="fire" tile="0"/>
    <terrain name="ice" tile="2"/>
@@ -14873,14 +14873,14 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="1"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -15273,14 +15273,14 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="1"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -20677,14 +20677,14 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="4"/>
-   <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="3"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -21071,20 +21071,20 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="2"/>
+   <tile gid="1"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -21271,10 +21271,10 @@
    <tile gid="4"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -24081,13 +24081,13 @@
   <object id="105" x="5538.5" y="705.5" width="28.5" height="5"/>
   <object id="107" x="5730" y="514" width="156" height="4"/>
   <object id="108" x="5826" y="673.5" width="59.5" height="4.5"/>
+  <object id="140" x="1121.33" y="481.333" width="124" height="4.66667"/>
  </objectgroup>
  <objectgroup name="ice_col_top">
   <object id="50" x="322" y="289.333" width="155.333" height="3.33333"/>
   <object id="51" x="258.667" y="482" width="282.667" height="3.33333"/>
   <object id="52" x="898" y="514" width="156" height="3.33333"/>
   <object id="53" x="770" y="226" width="220" height="2.66667"/>
-  <object id="54" x="1314" y="417.333" width="252" height="3.33333"/>
   <object id="55" x="1411.33" y="162" width="220" height="4"/>
   <object id="56" x="1634.67" y="514.667" width="59.3333" height="3.33333"/>
   <object id="57" x="1890.67" y="450.667" width="58.6667" height="4.66667"/>
@@ -24111,12 +24111,12 @@
   <object id="75" x="5443.33" y="738" width="25.3333" height="4.66667"/>
   <object id="76" x="5058.67" y="770" width="26.6667" height="4"/>
   <object id="78" x="4865" y="768.667" width="30" height="3.33333"/>
+  <object id="139" x="1314" y="482" width="251.333" height="3.33333"/>
  </objectgroup>
  <objectgroup name="fire_col_bot">
   <object id="109" x="257.5" y="513" width="285.5" height="4.5"/>
   <object id="110" x="771" y="258" width="218.5" height="4"/>
   <object id="111" x="898.5" y="545.5" width="155.5" height="3.5"/>
-  <object id="112" x="1314" y="449.5" width="252.5" height="4"/>
   <object id="113" x="1409.5" y="193" width="220.5" height="5"/>
   <object id="114" x="1635" y="546.5" width="58.5" height="4"/>
   <object id="115" x="1891.5" y="483" width="57" height="3.5"/>
@@ -24140,6 +24140,7 @@
   <object id="134" x="5473.5" y="481.5" width="189" height="5"/>
   <object id="135" x="5634" y="706.5" width="124" height="4.5"/>
   <object id="136" x="322" y="322" width="156" height="4.66667"/>
+  <object id="141" x="1314.67" y="514.667" width="250.667" height="3.33333"/>
  </objectgroup>
  <objectgroup name="ice_col_bot">
   <object id="14" x="1" y="224.25" width="223" height="2"/>
@@ -24170,6 +24171,7 @@
   <object id="44" x="5537.33" y="738" width="28" height="4"/>
   <object id="45" x="5826" y="706.667" width="60" height="5.33333"/>
   <object id="46" x="5729.33" y="546" width="156" height="4.66667"/>
+  <object id="142" x="1122" y="514" width="123.333" height="2.66667"/>
  </objectgroup>
  <objectgroup name="final_col">
   <object id="49" x="5954" y="642" width="442.667" height="4.66667"/>
