@@ -123,7 +123,7 @@ void Render::ResetViewPort()
 }
 
 // Blit to screen
-bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
+bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, bool flipX, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
@@ -155,7 +155,10 @@ bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, f
 		p = &pivot;
 	}
 
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	if (flipX)flip = SDL_FLIP_HORIZONTAL;
+
+	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
@@ -249,4 +252,9 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 void Render::SetCamera(uint x, uint y) {
 	camera.x = x;
 	camera.y = y;
+}
+
+bool Render::CameraLimits(SDL_Rect r)
+{
+	return ((-camera.x < r.x + r.w) && (r.x < -camera.x + camera.w) && (-camera.y < r.y + r.h) && (r.y < -camera.y + camera.h));
 }

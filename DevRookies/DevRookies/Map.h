@@ -104,12 +104,14 @@ public:
 
 	MapData				data;
 	SDL_Rect			rect;
+	
 
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	float				parallax_speed;
 };
 
 #endif // __MAP_H__

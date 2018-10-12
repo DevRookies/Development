@@ -30,8 +30,9 @@ private:
 	Animation	deadice;
 	Collider*	collider = nullptr;
 
-	int			jumpSpeed, maxJumpSpeed;
-	fPoint		position, lastPosition, speed, acceleration, maxSpeed;
+	bool		flipX = false;
+	int			jump_speed, max_jump_speed;
+	fPoint		position, lastPosition, speed, acceleration, max_speed;
 	p2SString   texture;
 	p2SString	jump_fx_name;
 	p2SString	dead_fx_name;

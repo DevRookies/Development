@@ -27,9 +27,9 @@ bool Player::Awake(pugi::xml_node& config)
 	texture = config.child("texture").child_value();
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
-	maxSpeed = { config.child("maxSpeed").attribute("x").as_float() , config.child("maxSpeed").attribute("y").as_float() };
-	jumpSpeed = config.child("jumpSpeed").attribute("value").as_int();
-	maxJumpSpeed = config.child("maxJumpSpeed").attribute("value").as_int();
+	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
+	jump_speed = config.child("jump_speed").attribute("value").as_int();
+	max_jump_speed = config.child("max_jump_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 
@@ -101,24 +101,33 @@ bool Player::PreUpdate()
 	
 	current_movement = IDLE;
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		GodMode = !GodMode;
-	}
+	
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
+	{
 		if (current_movement != RIGHT)App->player->current_movement = LEFT;
 		else current_movement = IDLE;
+	}
+		
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
+	{
 		if (current_movement != LEFT)App->player->current_movement = RIGHT;
 		else current_movement = IDLE;
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		if (current_state == FLOOR) 
+	}
+		
+		
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	{
+		if (current_state == FLOOR)
 		{
 			App->player->current_movement = JUMP;
 			AddFX(1, 0);
 		}
+	}
+		
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 		App->player->current_element = FIRE;
@@ -143,15 +152,17 @@ bool Player::Update(float dt)
 				break;
 			case LEFT:
 				current_animation = &runfire;
-				speed.x = acceleration.x * -maxSpeed.x + (1 - acceleration.x) * speed.x;
+				speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+				flipX = true;
 				break;
 			case RIGHT:
 				current_animation = &runfire;
-				speed.x = acceleration.x * maxSpeed.x + (1 - acceleration.x) * speed.x;
+				speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+				flipX = false;
 				break;
 			case JUMP:
 				current_animation = &jumpfire;
-				speed.y = jumpSpeed * -maxJumpSpeed + (1 - jumpSpeed) * speed.y;
+				speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
 				current_state = AIR;
 				
 				break;
@@ -171,15 +182,17 @@ bool Player::Update(float dt)
 				break;
 			case LEFT:
 				current_animation = &runice;
-				speed.x = acceleration.x * -maxSpeed.x + (1 - acceleration.x) * speed.x;
+				speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+				flipX = true;
 				break;
 			case RIGHT:
 				current_animation = &runice;
-				speed.x = acceleration.x * maxSpeed.x + (1 - acceleration.x) * speed.x;
+				speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+				flipX = false;
 				break;
 			case JUMP:
 				current_animation = &jumpice;
-				speed.y = jumpSpeed * -maxJumpSpeed + (1 - jumpSpeed) * speed.y;
+				speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
 				current_state = AIR;
 				break;
 			case DEAD:
@@ -195,7 +208,7 @@ bool Player::Update(float dt)
 
 		if (current_state == AIR)
 		{
-			speed.y = acceleration.y * maxSpeed.y + (1 - acceleration.y) * speed.y;
+			speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
 		}
 
 		position += speed;
@@ -207,7 +220,7 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	App->render->Blit(player_texture, position.x, position.y, &current_animation->GetCurrentFrame());
+	App->render->Blit(player_texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	return true;
 }
 
@@ -299,6 +312,7 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
+
 	}
 }
 

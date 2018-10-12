@@ -48,15 +48,16 @@
     <texture>textures/character.png</texture>
     <speed x="0" y="0"/>
     <acceleration x="0.2f" y="0.1f"/>
-    <maxSpeed x="1" y="1"/>
-    <jumpSpeed value="1"/>
-    <maxJumpSpeed value="14"/>
+    <max_speed x="1" y="1"/>
+    <jump_speed value="1"/>
+    <max_jump_speed value="14"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
   </player>
   
   <map>
     <folder>maps/</folder>
+    <parallax_speed value="0.1f"/>
   </map>
 
 </config>

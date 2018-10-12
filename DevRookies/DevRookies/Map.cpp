@@ -22,6 +22,7 @@ bool Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
+	parallax_speed = config.child("parallax_speed").attribute("value").as_float();
 
 	return ret;
 }
@@ -53,7 +54,13 @@ void Map::Draw()
 				}
 
 				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
-				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+				
+				if (item_layer->data->parallax)
+					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, 0.1f);
+				else
+					if (App->render->CameraLimits({ rect.x, rect.y, tile.w, tile.h }))
+						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+
 				item_tileset = data.tilesets.start;
 			}
 		}
@@ -369,6 +376,10 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
 	layer->tiles = new uint[layer->width*layer->height];
+	if (layer->name == "background") {
+		layer->parallax = true;
+	}
+	
 
 	memset(layer->tiles, 0, sizeof(uint)*layer->width*layer->height);
 	
