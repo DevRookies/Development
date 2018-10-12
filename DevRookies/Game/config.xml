@@ -6,9 +6,10 @@
     <organization>UPC - DevRookies</organization>
   </app>
 	
-  <renderer>
+  <render>
     <vsync value="true"/>
-  </renderer>
+    <camera x="0" y="0" speed="2"/>
+  </render>
 
   <window>
     <resolution width="1280" height="960" scale="1"/>
@@ -47,10 +48,10 @@
   <player>
     <texture>textures/character.png</texture>
     <speed x="0" y="0"/>
-    <acceleration x="0.2f" y="0.1f"/>
-    <max_speed x="1" y="1"/>
+    <acceleration x="0.4f" y="0.2f"/>
+    <max_speed x="2" y="2"/>
     <jump_speed value="1"/>
-    <max_jump_speed value="14"/>
+    <max_jump_speed value="28"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
   </player>

@@ -8,7 +8,7 @@
 
 Render::Render() : Module()
 {
-	name.create("renderer");
+	name.create("render");
 	background.r = 0;
 	background.g = 0;
 	background.b = 0;
@@ -44,8 +44,9 @@ bool Render::Awake(pugi::xml_node& config)
 	{
 		camera.w = App->win->screen_surface->w;
 		camera.h = App->win->screen_surface->h;
-		camera.x = 0;
-		camera.y = 0;
+		camera.x = config.child("camera").attribute("x").as_int();
+		camera.y = config.child("camera").attribute("y").as_int();
+		camera_speed = config.child("camera").attribute("speed").as_int();
 	}
 
 	return ret;
@@ -69,6 +70,7 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
+	camera.x = camera.x - camera_speed;
 	return true;
 }
 
@@ -254,7 +256,3 @@ void Render::SetCamera(uint x, uint y) {
 	camera.y = y;
 }
 
-bool Render::CameraLimits(SDL_Rect r)
-{
-	return ((-camera.x < r.x + r.w) && (r.x < -camera.x + camera.w) && (-camera.y < r.y + r.h) && (r.y < -camera.y + camera.h));
-}

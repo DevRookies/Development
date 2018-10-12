@@ -58,8 +58,7 @@ void Map::Draw()
 				if (item_layer->data->parallax)
 					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, 0.1f);
 				else
-					if (App->render->CameraLimits({ rect.x, rect.y, tile.w, tile.h }))
-						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
 
 				item_tileset = data.tilesets.start;
 			}
