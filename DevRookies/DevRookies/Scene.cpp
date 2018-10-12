@@ -28,6 +28,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	bool ret = true;
 	tile_name = config.child("tile_name").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
+	player.x = config.child("player").attribute("x").as_int();
+	player.y = config.child("player").attribute("y").as_int();
+	camera.x = config.child("camera").attribute("x").as_int();
+	camera.y = config.child("camera").attribute("y").as_int();
 	return ret;
 }
 
@@ -38,8 +42,8 @@ bool Scene::Start()
 	App->audio->PlayMusic(lvl1_music_name.GetString());
 	App->player->Start(FIRE);
 	App->player->AddColliderPlayer();
-	App->player->SetPosition(0, 0);
-	App->render->SetCamera(0, 0);
+	App->player->SetPosition(player.x, player.y);
+	App->render->SetCamera(camera.x, camera.y);
 	return true;
 }
 
@@ -76,17 +80,6 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->audio->StopMusic();
 	
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-		App->render->camera.y += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-		App->render->camera.y -= 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-		App->render->camera.x += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
-		App->render->camera.x -= 1;
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
@@ -115,6 +108,34 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+
+// Load Game State
+bool Scene::Load(pugi::xml_node& data)
+{
+	camera.x = data.child("camera").attribute("x").as_int();
+	camera.y = data.child("camera").attribute("y").as_int();
+	player.x = data.child("player").attribute("x").as_int();
+	player.y = data.child("player").attribute("y").as_int();
+
+	return true;
+}
+
+// Save Game State
+bool Scene::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node node = data.append_child("camera");
+
+	node.append_attribute("x") = camera.x;
+	node.append_attribute("y") = camera.y;
+
+	node = data.append_child("player");
+
+	node.append_attribute("x") = player.x;
+	node.append_attribute("y") = player.y;
 
 	return true;
 }

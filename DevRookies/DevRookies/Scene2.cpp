@@ -22,12 +22,16 @@ Scene2::~Scene2()
 {}
 
 // Called before render is available
-bool Scene2::Awake(pugi::xml_node& conf)
+bool Scene2::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	tile_name = conf.child("tile_name").child_value();
-	lvl2_music_name = conf.child("lvl2_music_name").child_value();
+	tile_name = config.child("tile_name").child_value();
+	lvl2_music_name = config.child("lvl2_music_name").child_value();
+	player.x = config.child("player").attribute("x").as_int();
+	player.y = config.child("player").attribute("y").as_int();
+	camera.x = config.child("camera").attribute("x").as_int();
+	camera.y = config.child("camera").attribute("y").as_int();
 	return ret;
 }
 
@@ -38,8 +42,8 @@ bool Scene2::Start()
 	App->audio->PlayMusic(lvl2_music_name.GetString());
 	App->player->Start(ICE);
 	App->player->AddColliderPlayer();
-	App->player->SetPosition(0, 0);
-	App->render->SetCamera(0, 0);
+	App->player->SetPosition(player.x, player.y);
+	App->render->SetCamera(camera.x, camera.y);
 	return true;
 }
 
@@ -73,18 +77,6 @@ bool Scene2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->audio->StopMusic();
 
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-		App->render->camera.y += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-		App->render->camera.y -= 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-		App->render->camera.x += 1;
-
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
-		App->render->camera.x -= 1;
-
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
@@ -112,6 +104,34 @@ bool Scene2::PostUpdate()
 bool Scene2::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+
+// Load Game State
+bool Scene2::Load(pugi::xml_node& data)
+{
+	camera.x = data.child("camera").attribute("x").as_int();
+	camera.y = data.child("camera").attribute("y").as_int();
+	player.x = data.child("player").attribute("x").as_int();
+	player.y = data.child("player").attribute("y").as_int();
+
+	return true;
+}
+
+// Save Game State
+bool Scene2::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node cam = data.append_child("camera");
+
+	cam.append_attribute("x") = camera.x;
+	cam.append_attribute("y") = camera.y;
+
+	cam = data.append_child("player");
+
+	cam.append_attribute("x") = player.x;
+	cam.append_attribute("y") = player.y;
 
 	return true;
 }

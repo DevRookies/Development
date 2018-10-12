@@ -40,14 +40,14 @@ bool Player::Awake(pugi::xml_node& config)
 	idlefire.PushBack({ 2077, 0, 56, 56 });
 	idlefire.PushBack({ 2133, 0, 55, 56 });
 	idlefire.PushBack({ 2189, 0, 55, 56 });
-	idlefire.speed = 0.01f;
+	idlefire.speed = 0.1f;
 	idlefire.loop = true;
 
 	runfire.PushBack({ 2065, 58, 59, 55 });
 	runfire.PushBack({ 2125, 58, 59, 55 });
 	runfire.PushBack({ 2184, 58, 60, 57 });
 	runfire.PushBack({ 2125, 58, 59, 55 });
-	runfire.speed = 0.02f;
+	runfire.speed = 0.2f;
 	runfire.loop = true;
 
 	jumpfire.PushBack({ 2184, 58, 60, 57 });
@@ -56,7 +56,7 @@ bool Player::Awake(pugi::xml_node& config)
 	deadfire.PushBack({ 2131, 384, 59, 63 });
 	deadfire.PushBack({ 2070, 384, 60, 63 });
 	deadfire.PushBack({ 2009, 384, 60, 63 });
-	deadfire.speed = 0.01f;
+	deadfire.speed = 0.2f;
 	deadfire.loop = false;
 
 	//ICE
@@ -64,14 +64,14 @@ bool Player::Awake(pugi::xml_node& config)
 	idleice.PushBack({ 1853, 0, 56, 56 });
 	idleice.PushBack({ 1909, 0, 55, 56 });
 	idleice.PushBack({ 1965, 0, 55, 56 });
-	idleice.speed = 0.01f;
+	idleice.speed = 0.1f;
 	idleice.loop = true;
 
 	runice.PushBack({ 1885, 58, 59, 56 });
 	runice.PushBack({ 1945, 58, 59, 56 });
 	runice.PushBack({ 2004, 58, 60, 57 });
 	runice.PushBack({ 1945, 58, 59, 56 });
-	runice.speed = 0.02f;
+	runice.speed = 0.2f;
 	runice.loop = true;
 
 	jumpice.PushBack({ 2004, 58, 60, 57 });
@@ -80,7 +80,7 @@ bool Player::Awake(pugi::xml_node& config)
 	deadice.PushBack({ 1894, 384, 59, 63 });
 	deadice.PushBack({ 1834, 384, 60, 63 });
 	deadice.PushBack({ 1773, 384, 60, 63 });
-	deadice.speed = 0.01f;
+	deadice.speed = 0.1f;
 	deadice.loop = false;
 
 
@@ -252,7 +252,7 @@ void Player::SetPosition(const float & x, const float & y)
 //----------------------------------------------------
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
-	if (collider2->type == COLLIDER_POISON)
+	if (collider2->type == COLLIDER_POISON )
 		Die();
 
 	if (collider2->type == COLLIDER_ICE){
@@ -268,6 +268,8 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 		else 
 			current_state = FLOOR;
 	}
+	
+	
 
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
@@ -318,7 +320,7 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 
-		App->scenemanager->StartAgain(App->scene);
+		App->scenemanager->FadeToBlack(App->scene, App->scene);
 			
 		
 	}

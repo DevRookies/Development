@@ -33,10 +33,16 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Load / Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 
-	p2SString tile_name = "";
-	p2SString lvl2_music_name = "";
+	p2SString		tile_name = "";
+	p2SString		lvl2_music_name = "";
+	SDL_Rect		player;
+	SDL_Rect		camera;
 };
 
 #endif // __SCENE2_H__

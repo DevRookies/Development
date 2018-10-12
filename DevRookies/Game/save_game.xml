@@ -3,14 +3,22 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<volume value="128" />
+	</audio>
 	<map />
-	<scene />
-	<scene2 />
+	<scene>
+		<camera x="0" y="0" />
+		<player x="138" y="138" />
+	</scene>
+	<scene2>
+		<camera x="0" y="0" />
+		<player x="40" y="100" />
+	</scene2>
 	<:anonymous />
+	<player />
 	<:anonymous />
-	<:anonymous />
-	<renderer>
-		<camera x="-1771" y="164" />
-	</renderer>
+	<render>
+		<camera x="-772" y="0" />
+	</render>
 </game_state>

@@ -26,11 +26,15 @@
   <scene>
     <tile_name>platforms1.tmx</tile_name>
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
+    <player x="40" y="130"/>
+    <camera x="0" y="0" />    
   </scene>
 
   <scene2>
     <tile_name>platforms2.tmx</tile_name>
 	  <lvl2_music_name>Escape.ogg</lvl2_music_name>
+    <player x="40" y="100"/>
+    <camera x="0" y="0" />
   </scene2>
   
   <audio>
@@ -48,17 +52,17 @@
   <player>
     <texture>textures/character.png</texture>
     <speed x="0" y="0"/>
-    <acceleration x="0.4f" y="0.2f"/>
-    <max_speed x="2" y="2"/>
+    <acceleration x="0.8f" y="0.4f"/>
+    <max_speed x="4" y="4"/>
     <jump_speed value="1"/>
-    <max_jump_speed value="28"/>
+    <max_jump_speed value="70"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
   </player>
   
   <map>
     <folder>maps/</folder>
-    <parallax_speed value="0.1f"/>
+    <parallax_speed value="2.0f"/>
   </map>
 
 </config>
