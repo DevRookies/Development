@@ -3,6 +3,8 @@
 #include "DevRookiesApp.h"
 #include "Window.h"
 #include "Render.h"
+#include "Player.h"
+#include "SceneManager.h"
 
 #define VSYNC true
 
@@ -47,6 +49,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.x = config.child("camera").attribute("x").as_int();
 		camera.y = config.child("camera").attribute("y").as_int();
 		camera_speed = config.child("camera").attribute("speed").as_int();
+		camera_max = config.child("camera").attribute("max").as_int();
 	}
 
 	return ret;
@@ -70,7 +73,10 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	camera.x = camera.x - camera_speed;
+	if (-camera_max <= camera.x && App->player->current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
+		camera.x = camera.x - camera_speed;
+	}
+	
 	return true;
 }
 

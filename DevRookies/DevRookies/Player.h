@@ -71,6 +71,7 @@ public:
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
 	void		Die();
+	void		Win();
 
 	void AddFX(int channel, int repeat);
 

@@ -58,6 +58,7 @@ bool SceneManager::Update(float dt)
 		normalized = 1.0F - normalized;
 
 		if (now >= total_time)
+			
 			current_step = fade_step::none;
 	} break;
 	}

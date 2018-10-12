@@ -8,7 +8,7 @@
 	
   <render>
     <vsync value="true"/>
-    <camera x="0" y="0" speed="2"/>
+    <camera x="0" y="0" speed="2" max="5119"/>
   </render>
 
   <window>
