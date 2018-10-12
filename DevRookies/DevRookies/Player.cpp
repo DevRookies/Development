@@ -5,6 +5,8 @@
 #include "Render.h"
 #include "p2Log.h"
 #include "SceneManager.h"
+#include "Scene.h"
+#include "Scene2.h"
 
 Player::Player() {
 	name.create("player");
@@ -86,13 +88,16 @@ bool Player::Awake(pugi::xml_node& config)
 
 }
 
-bool Player::Start()
+bool Player::Start(ELEMENT element)
 {
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	current_state = AIR;
 	player_texture = App->tex->Load(texture.GetString());
-	current_animation = &idlefire;
+	current_element = element;
+	if(element == FIRE)current_animation = &idlefire;
+	else current_animation = &idleice;
+	
 	return true;
 }
 
@@ -313,6 +318,9 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 
+		App->scenemanager->StartAgain(App->scene);
+			
+		
 	}
 }
 

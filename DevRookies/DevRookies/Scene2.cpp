@@ -36,6 +36,7 @@ bool Scene2::Start()
 {
 	App->map->Load(tile_name.GetString());
 	App->audio->PlayMusic(lvl2_music_name.GetString());
+	App->player->Start(ICE);
 	App->player->AddColliderPlayer();
 	App->player->SetPosition(0, 0);
 	App->render->SetCamera(0, 0);
