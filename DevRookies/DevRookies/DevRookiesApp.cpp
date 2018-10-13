@@ -79,8 +79,8 @@ bool DevRookiesApp::Awake()
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
-	save_game.create = "save_game.xml";
-	load_game.create = "save_game.xml";
+	save_game.create("save_game.xml");
+	load_game.create("save_game.xml");
 
 	bool ret = false;
 		
