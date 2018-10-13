@@ -23,9 +23,11 @@ bool Audio::Awake(pugi::xml_node& config)
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 
-	volume = config.child("volume").attribute("value").as_int();
+	volume = config.child("volume").attribute("value").as_uint();
+	volume_fx = config.child("volume_fx").attribute("value").as_uint();
 	default_music_fade_time = config.child("default_music_fade_time").attribute("value").as_float();
-	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_int();
+	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_uint();
+	mute = config.child("mute").attribute("value").as_bool(false);
 
 	folder_music = config.child("music").child_value("folder");
 	folder_sfx = config.child("sfx").child_value("folder");
@@ -169,7 +171,7 @@ unsigned int Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool Audio::PlayFx(unsigned int id, int repeat)
+bool Audio::PlayFx(unsigned int id, int repeat, uint volume)
 {
 	bool ret = false;
 
@@ -178,6 +180,7 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
+		Mix_VolumeChunk(fx[id - 1], volume*volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
@@ -187,6 +190,7 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 bool Audio::StopMusic()
 {
 		Mix_HaltMusic();
+		mute = true;
 		return true;
 }
 
@@ -194,18 +198,23 @@ void Audio::VolumeUp()
 {
 	volume += volume_change_ratio;
 	Mix_VolumeMusic(volume);
+	volume_fx += volume_change_ratio;
 }
 
 void Audio::VolumeDown()
 {
 	volume -= volume_change_ratio;
 	Mix_VolumeMusic(volume);
+	volume_fx -= volume_change_ratio;
 }
 
 
 bool Audio::Load(pugi::xml_node& data)
 {
-	volume = data.child("volume").attribute("value").as_int();
+	volume = data.child("volume").attribute("value").as_uint();
+	mute = data.child("mute").attribute("value").as_bool();
+	volume_fx = data.child("volume_fx").attribute("vale").as_uint();
+
 	return true;
 }
 
@@ -213,6 +222,13 @@ bool Audio::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node vol = data.append_child("volume");
 	vol.append_attribute("value") = volume;
+
+	pugi::xml_node vol_fx = data.append_child("volume_fx");
+	vol_fx.append_attribute("value") = volume_fx;
+
+	pugi::xml_node mute = data.append_child("mute");
+	mute.append_attribute("value") = mute;
+
 
 	return true;
 }

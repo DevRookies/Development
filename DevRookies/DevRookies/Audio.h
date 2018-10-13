@@ -11,9 +11,11 @@ struct Mix_Chunk;
 class Audio : public Module
 {
 public:
-	int volume;
+	uint volume;
+	uint volume_fx;
 	float default_music_fade_time;
-	int volume_change_ratio;
+	uint volume_change_ratio;
+	bool mute;
 
 	Audio();
 
@@ -33,7 +35,7 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int fx, int repeat = 0, uint volume = 128);
 
 	//Change Volume	
 	bool StopMusic();
