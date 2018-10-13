@@ -81,6 +81,8 @@ Jump fx called "Jump Sound" by snottyboy on [soundbible](http://soundbible.com/1
 
 Dead fx called "Negative beeps" by [themusicalnomad](https://freesound.org/people/themusicalnomad/) .
 
+Victory fx called "Ta Da" by Mike Koenig on [soundbible](http://soundbible.com/1003-Ta-Da.html) .
+
 ## MIT License
 
 Copyright (c) [2018] [Lluís Moreu & Cere Venteo]

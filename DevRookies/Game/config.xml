@@ -40,7 +40,9 @@
   <audio>
     <default_music_fade_time value="2.0"/>
     <volume value="128"/>
+    <volume_fx value="128"/>
 	  <volume_change_ratio value="25"/>
+    <mute value="false"/>
 	  <music> 
       <folder>audio/music/</folder>
     </music>
@@ -58,6 +60,7 @@
     <max_jump_speed value="70"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
+    <victory_fx_name source="Ta Da.wav"/>
   </player>
   
   <map>
