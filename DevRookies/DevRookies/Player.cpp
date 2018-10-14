@@ -360,9 +360,9 @@ void Player::Die() {
 			
 		if (App->scene->active) 
 			App->scenemanager->FadeToBlack(App->scene, App->scene);
-		else
+		else if (App->scene2->active) {
 			App->scenemanager->FadeToBlack(App->scene2, App->scene2);
-
+		}
 		
 			
 	}
@@ -377,7 +377,13 @@ void Player::Win() {
 	else {
 		current_animation = &idleice;
 	}
-	App->scenemanager->FadeToBlack(App->scene, App->scene2);
+
+	if (App->scene->active) {
+		App->scenemanager->FadeToBlack(App->scene, App->scene2);
+	}
+	else if (App->scene2->active) {
+		App->scenemanager->FadeToBlack(App->scene2, App->scene);
+	}
 
 }
 
