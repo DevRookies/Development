@@ -39,6 +39,8 @@ private:
 
 	bool		god_mode = false;
 	bool		aux_god_mode = false;
+	uint		heigth_animation = 48;
+	uint		heigth_dead_animation = 7;
 
 public:
 	uint volume_fx;

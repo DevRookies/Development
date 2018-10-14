@@ -76,7 +76,7 @@ bool Render::Update(float dt)
 {
 
 	if (-camera_max <= camera.x && App->player->current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && start_time == 0) {
-		camera.x = camera.x - camera_speed;
+		camera.x -= camera_speed;
 	}
 	if(start_time != 0)
 		start_time--;

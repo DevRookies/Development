@@ -13,7 +13,7 @@
 	<scene2 />
 	<:anonymous />
 	<player>
-		<position x="873" y="172.006485" />
+		<position x="837" y="172.006485" />
 		<speed x="0" y="3.99837685" />
 		<acceleration x="0.800000012" y="0.400000006" />
 		<jump_speed value="1" />
@@ -22,6 +22,6 @@
 	</player>
 	<:anonymous />
 	<render>
-		<camera x="-412" y="0" />
+		<camera x="-404" y="0" />
 	</render>
 </game_state>
