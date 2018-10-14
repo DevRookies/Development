@@ -104,6 +104,7 @@ public:
 
 	MapData				data;
 	SDL_Rect			rect;
+	fPoint				init_player_position;
 	
 
 private:

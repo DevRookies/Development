@@ -28,8 +28,6 @@ bool Scene2::Awake(pugi::xml_node& config)
 	bool ret = true;
 	tile_name = config.child("tile_name").child_value();
 	lvl2_music_name = config.child("lvl2_music_name").child_value();
-	player.x = config.child("player").attribute("x").as_int();
-	player.y = config.child("player").attribute("y").as_int();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
 	return ret;
@@ -41,6 +39,8 @@ bool Scene2::Start()
 	App->map->Load(tile_name.GetString());
 	App->audio->PlayMusic(lvl2_music_name.GetString());
 	App->player->Start(ICE);
+	player.x = App->map->init_player_position.x;
+	player.y = App->map->init_player_position.y;
 	App->player->AddColliderPlayer();
 	App->player->SetPosition(player.x, player.y);
 	App->render->SetCamera(camera.x, camera.y);
