@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "SceneManager.h"
 
-#define VSYNC true
 
 Render::Render() : Module()
 {
