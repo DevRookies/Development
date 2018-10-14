@@ -112,10 +112,10 @@ bool Scene2::CleanUp()
 // Load Game State
 bool Scene2::Load(pugi::xml_node& data)
 {
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
-	player.x = data.child("player").attribute("x").as_int();
-	player.y = data.child("player").attribute("y").as_int();
+	//camera.x = data.child("camera").attribute("x").as_int();
+	//camera.y = data.child("camera").attribute("y").as_int();
+	//player.x = data.child("player").attribute("x").as_int();
+	//player.y = data.child("player").attribute("y").as_int();
 
 	return true;
 }
@@ -123,15 +123,15 @@ bool Scene2::Load(pugi::xml_node& data)
 // Save Game State
 bool Scene2::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node cam = data.append_child("camera");
+	//pugi::xml_node cam = data.append_child("camera");
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	//cam.append_attribute("x") = camera.x;
+	//cam.append_attribute("y") = camera.y;
 
-	cam = data.append_child("player");
+	//cam = data.append_child("player");
 
-	cam.append_attribute("x") = player.x;
-	cam.append_attribute("y") = player.y;
+	//cam.append_attribute("x") = player.x;
+	//cam.append_attribute("y") = player.y;
 
 	return true;
 }

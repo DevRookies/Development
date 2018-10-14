@@ -36,6 +36,7 @@ private:
 	p2SString   texture;
 	p2SString	jump_fx_name;
 	p2SString	dead_fx_name;
+	p2SString	victory_fx_name;
 
 	bool		GodMode = false;
 
@@ -66,12 +67,17 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Save and Load
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	fPoint		GetPosition();
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
 	void		Die();
 	void		Win();
+
 
 	void AddFX(int channel, int repeat);
 

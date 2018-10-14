@@ -34,6 +34,8 @@ bool Player::Awake(pugi::xml_node& config)
 	max_jump_speed = config.child("max_jump_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
+	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
+
 
 	//FIRE
 	idlefire.PushBack({ 2021, 0, 55, 56 });
@@ -92,6 +94,7 @@ bool Player::Start(ELEMENT element)
 {
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
+	App->audio->LoadFx(victory_fx_name.GetString());
 	current_state = AIR;
 	player_texture = App->tex->Load(texture.GetString());
 	current_element = element;
@@ -238,6 +241,46 @@ bool Player::CleanUp()
 	return true;
 }
 
+bool Player::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+	position.x = node.child("position").attribute("x").as_float(0);
+	position.y = node.child("position").attribute("y").as_float(0);
+	speed.x = node.child("speed").attribute("x").as_float(0);
+	speed.y = node.child("speed").attribute("y").as_float(0);
+	acceleration.x = node.child("acceleration").attribute("x").as_float(0);
+	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
+	jump_speed = node.child("jump_speed").attribute("value").as_int(0);
+
+	return ret;
+}
+
+bool Player::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node pos = node.append_child("position");
+
+ 	pos.append_attribute("x") = position.x;
+	pos.append_attribute("y") = position.y;
+
+	pugi::xml_node vel = node.append_child("speed");
+
+	vel.append_attribute("x") = speed.x;
+	vel.append_attribute("y") = speed.y;
+
+	pugi::xml_node accel = node.append_child("acceleration");
+
+	accel.append_attribute("x") = acceleration.x;
+	accel.append_attribute("y") = acceleration.y;
+
+	pugi::xml_node jump_speed = node.append_child("jump_speed");
+
+	jump_speed.append_attribute("value") = jump_speed;
+
+	return ret;
+}
+
 //Getters---------------------------------
 fPoint Player::GetPosition()
 {
@@ -342,7 +385,7 @@ void Player::Die() {
 
 void Player::Win() {
 
-	AddFX(2, 0);
+	AddFX(3, 0);
 	if (current_element == FIRE) {
 		current_animation = &idlefire;
 	}

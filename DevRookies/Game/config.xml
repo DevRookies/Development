@@ -53,6 +53,7 @@
 
   <player>
     <texture>textures/character.png</texture>
+    <position x="0" y="0"/>
     <speed x="0" y="0"/>
     <acceleration x="0.8f" y="0.4f"/>
     <max_speed x="4" y="4"/>
