@@ -43,7 +43,6 @@ private:
 	uint		heigth_dead_animation = 7;
 
 public:
-	uint volume_fx;
 
 	Player();
 	Player(const float &x, const float &y);

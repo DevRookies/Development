@@ -35,7 +35,6 @@ bool Player::Awake(pugi::xml_node& config)
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
-	volume_fx = config.child("volume_fx").attribute("value").as_uint();
 
 	//animations
 	//fire
