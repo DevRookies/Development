@@ -1,10 +1,10 @@
 ﻿# Version of the game
 
-Fire&Ice v.0.0.1
+Fire&Ice v.0.0.2
 
 ## Description
 
-The very first version of the game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom. The camera doesn't follow the player yet. There are also some debug modes, no save and load for the moment.
+The second version of jump 'n run platformer game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom! Make sure to save the game in crucial situations.
 
 ## Links
 
@@ -26,12 +26,14 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 - F5 (Save).
 - F6 (Load).
-- F8 (Stop Music).
-- F11 (Volume Down).
-- F12 (Volume Up).
+- F7 (Volume Down).
+- F8 (Volume Up).
+- F11 (Stop Music).
+
 ### Player: 
 
 - W (to change to fire form).
+
 - A (to go backwards).
 - S (to change to ice form).
 - D (to go forwards).
@@ -59,7 +61,7 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 2.- Unzip the file
 
-3.- Execute Fire&Ice.exe
+3.- Execute DevRookies.exe
 
 ## Innovation system
 
