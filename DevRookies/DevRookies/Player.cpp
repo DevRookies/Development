@@ -285,24 +285,27 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	
 
 	if (collider2->type == COLLIDER_ICE){
+		current_state = FLOOR;
 		if (current_element == FIRE) 
 			Die();
-		else 
-			current_state = FLOOR;
+			
 	}
 
 	if (collider2->type == COLLIDER_FIRE){
+		current_state = FLOOR;
 		if (current_element == ICE) 
 			Die();
-		else 
-			current_state = FLOOR;
+			
 	}
 	
 	if (collider2->type == COLLIDER_FINAL)
 		Win();
 
-	if (collider2->type == COLLIDER_POISON)
+	if (collider2->type == COLLIDER_POISON) {
+		current_state = FLOOR;
 		Die();
+	}
+		
 
 	if (App->render->camera.x <= -position.x) {
 		Die();
