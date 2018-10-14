@@ -5,7 +5,7 @@
 	<textures />
 	<audio>
 		<volume value="128" />
-		<volume_fx value="0" />
+		<volume_fx value="70" />
 		<mute value="true" />
 	</audio>
 	<map />
@@ -13,13 +13,14 @@
 	<scene2 />
 	<:anonymous />
 	<player>
-		<position x="1472" y="110.516937" />
-		<speed x="0" y="3.99837685" />
+		<position x="1688.04016" y="69.0256653" />
+		<speed x="4" y="3.99549103" />
 		<acceleration x="0.800000012" y="0.400000006" />
 		<jump_speed value="true" />
+		<element value="1" />
 	</player>
 	<:anonymous />
 	<render>
-		<camera x="-870" y="0" />
+		<camera x="-1060" y="0" />
 	</render>
 </game_state>
