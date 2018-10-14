@@ -213,7 +213,7 @@ bool Audio::Load(pugi::xml_node& data)
 {
 	volume = data.child("volume").attribute("value").as_uint();
 	mute = data.child("mute").attribute("value").as_bool();
-	volume_fx = data.child("volume_fx").attribute("vale").as_uint();
+	volume_fx = data.child("volume_fx").attribute("value").as_uint();
 
 	return true;
 }
