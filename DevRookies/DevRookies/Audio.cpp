@@ -34,6 +34,16 @@ bool Audio::Awake(pugi::xml_node& config)
 	folder_music = config.child("music").child_value("folder");
 	folder_sfx = config.child("sfx").child_value("folder");
 
+	if (mute)
+	{
+		Mix_VolumeMusic(0);
+	}
+	else
+	{
+		Mix_VolumeMusic(volume);
+
+	}
+
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
@@ -194,6 +204,15 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	if (volume_down == true) {
 		volume_fx = volume;
+		Mix_VolumeChunk(fx[id - 1], volume_fx);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+	}
+
+	if (mute == true) {
+		Mix_VolumeChunk(fx[id - 1], 0);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+	}
+	else {
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
 	}
