@@ -35,56 +35,41 @@ bool Player::Awake(pugi::xml_node& config)
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
+	volume_fx = config.child("volume_fx").attribute("value").as_uint();
+
+	//animations
+	//fire
+	LoadAnimation(config.child("animations").child("idle_fire").child("frame"), idlefire);
+	idlefire.speed = config.child("animations").child("idle_fire").attribute("speed").as_float();
+	idlefire.loop = config.child("animations").child("idle_fire").attribute("loop").as_bool(true);
+
+	LoadAnimation(config.child("animations").child("run_fire").child("frame"), runfire);
+	runfire.speed = config.child("animations").child("run_fire").attribute("speed").as_float();
+	runfire.loop = config.child("animations").child("run_fire").attribute("loop").as_bool(true);
+
+	LoadAnimation(config.child("animations").child("jump_fire").child("frame"), jumpfire);
+
+	LoadAnimation(config.child("animations").child("die_fire").child("frame"), deadfire);
+	deadfire.speed = config.child("animations").child("die_fire").attribute("speed").as_float();
+	deadfire.speed = config.child("animations").child("die_fire").attribute("loop").as_bool(false);
+
+	//ice
+	LoadAnimation(config.child("animations").child("idle_ice").child("frame"), idleice);
+	idleice.speed = config.child("animations").child("idle_ice").attribute("speed").as_float();
+	idleice.loop = config.child("animations").child("idle_ice").attribute("loop").as_bool(true);
+
+	LoadAnimation(config.child("animations").child("run_ice").child("frame"), runice);
+	runice.speed = config.child("animations").child("run_ice").attribute("speed").as_float();
+	runice.loop = config.child("animations").child("run_ice").attribute("loop").as_bool(true);
+
+	LoadAnimation(config.child("animations").child("jump_ice").child("frame"), jumpice);
+
+	LoadAnimation(config.child("animations").child("die_ice").child("frame"), deadice);
+	deadice.speed = config.child("animations").child("die_ice").attribute("speed").as_float();
+	deadice.speed = config.child("animations").child("die_ice").attribute("loop").as_bool(false);
 
 
-	//FIRE
-	idlefire.PushBack({ 2021, 0, 55, 56 });
-	idlefire.PushBack({ 2077, 0, 56, 56 });
-	idlefire.PushBack({ 2133, 0, 55, 56 });
-	idlefire.PushBack({ 2189, 0, 55, 56 });
-	idlefire.speed = 0.1f;
-	idlefire.loop = true;
-
-	runfire.PushBack({ 2065, 58, 59, 55 });
-	runfire.PushBack({ 2125, 58, 59, 55 });
-	runfire.PushBack({ 2184, 58, 60, 57 });
-	runfire.PushBack({ 2125, 58, 59, 55 });
-	runfire.speed = 0.2f;
-	runfire.loop = true;
-
-	jumpfire.PushBack({ 2184, 58, 60, 57 });
-
-	deadfire.PushBack({ 2191, 384, 53, 63 });
-	deadfire.PushBack({ 2131, 384, 59, 63 });
-	deadfire.PushBack({ 2070, 384, 60, 63 });
-	deadfire.PushBack({ 2009, 384, 60, 63 });
-	deadfire.speed = 0.2f;
-	deadfire.loop = false;
-
-	//ICE
-	idleice.PushBack({ 1797, 0, 55, 56 });
-	idleice.PushBack({ 1853, 0, 56, 56 });
-	idleice.PushBack({ 1909, 0, 55, 56 });
-	idleice.PushBack({ 1965, 0, 55, 56 });
-	idleice.speed = 0.1f;
-	idleice.loop = true;
-
-	runice.PushBack({ 1885, 58, 59, 56 });
-	runice.PushBack({ 1945, 58, 59, 56 });
-	runice.PushBack({ 2004, 58, 60, 57 });
-	runice.PushBack({ 1945, 58, 59, 56 });
-	runice.speed = 0.2f;
-	runice.loop = true;
-
-	jumpice.PushBack({ 2004, 58, 60, 57 });
-
-	deadice.PushBack({ 1954, 384, 53, 63 });
-	deadice.PushBack({ 1894, 384, 59, 63 });
-	deadice.PushBack({ 1834, 384, 60, 63 });
-	deadice.PushBack({ 1773, 384, 60, 63 });
-	deadice.speed = 0.1f;
-	deadice.loop = false;
-
+	/*current_animation = &idlefire;*/
 
 	return ret;
 
@@ -132,7 +117,7 @@ bool Player::PreUpdate()
 			if (current_state == FLOOR)
 			{
 				App->player->current_movement = JUMP;
-				AddFX(1, 0);
+				AddFX(1, 0, volume_fx);
 			}
 		}
 
@@ -365,7 +350,7 @@ void Player::Die() {
 	if (!GodMode) {
 		position.y -= 7; //because the collider is 7 pixels less than dead animation
 		current_state = DEATH;
-		AddFX(2, 0);
+		AddFX(2, 0, volume_fx);
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
 		}
@@ -385,7 +370,7 @@ void Player::Die() {
 
 void Player::Win() {
 
-	AddFX(3, 0);
+	AddFX(3, 0, volume_fx);
 	if (current_element == FIRE) {
 		current_animation = &idlefire;
 	}
@@ -396,8 +381,25 @@ void Player::Win() {
 
 }
 
-void Player::AddFX(int channel, int repeat)
+void Player::AddFX(int channel, int repeat, uint volume)
 {
-	App->audio->PlayFx(channel, repeat);
+	App->audio->PlayFx(channel, repeat, volume);
 }
 
+//LoadAnimation with LoadCollider structure
+bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
+	
+	for (; node; node = node.next_sibling("frame")) {
+	//pugi::xml_node frame;
+
+	//for(frame = node.child("frame"); frame; frame = frame.next_sibling("frame"))
+	//{
+		SDL_Rect frame_rect;
+		frame_rect.x = node.attribute("x").as_int();
+		frame_rect.y = node.attribute("y").as_int();
+		frame_rect.w = node.attribute("width").as_int();
+		frame_rect.h = node.attribute("height").as_int();
+		anim.PushBack(frame_rect);
+	}
+	return true;
+}

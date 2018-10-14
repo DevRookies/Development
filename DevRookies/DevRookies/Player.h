@@ -16,7 +16,6 @@ class Player :
 	public Module
 {
 private:
-
 	SDL_Texture * player_texture;
 	
 	Animation*	current_animation = nullptr;
@@ -41,7 +40,7 @@ private:
 	bool		GodMode = false;
 
 public:
-
+	uint volume_fx;
 
 	Player();
 	Player(const float &x, const float &y);
@@ -79,15 +78,13 @@ public:
 	void		Win();
 
 
-	void AddFX(int channel, int repeat);
+	void AddFX(int channel, int repeat, uint volume);
+	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 
 	MOVEMENT	current_movement = IDLE;
 	STATE		current_state = FLOOR;
 	ELEMENT		current_element = FIRE;
 
-	
-
-	
 };
 
 #endif // __PLAYER_H__
