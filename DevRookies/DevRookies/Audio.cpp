@@ -203,18 +203,22 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	if (volume_up == true) {
-		volume_fx = volume;
+		volume_fx += volume_change_ratio;
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
 		volume_up = false;
 	}
 
 	if (volume_down == true) {
-		volume_fx = volume;
+		if (volume > 0) {
+			volume_fx -= volume_change_ratio;
+		}
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
 		volume_down = false;
 	}
+
+	LOG("VOLUME %d", volume_fx);
 	return ret;
 }
 
