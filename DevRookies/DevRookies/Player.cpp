@@ -85,7 +85,8 @@ bool Player::Start(ELEMENT element)
 	current_element = element;
 	if(element == FIRE)current_animation = &idlefire;
 	else current_animation = &idleice;
-	
+	flipX = false;
+
 	return true;
 }
 
@@ -93,6 +94,7 @@ bool Player::PreUpdate()
 {
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
 		current_movement = IDLE;
+		
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 			GodMode = !GodMode;
