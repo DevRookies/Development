@@ -190,34 +190,31 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	if(!active)
 		return false;
 
-	if(id > 0 && id <= fx.count())
+	if (id > 0 && id <= fx.count())
 	{
-		Mix_VolumeChunk(fx[id - 1], volume_fx);
-		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		if (mute == true) {
+			Mix_VolumeChunk(fx[id - 1], 0);
+			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		}
+		else {
+			Mix_VolumeChunk(fx[id - 1], volume_fx);
+			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		}
 	}
 
 	if (volume_up == true) {
 		volume_fx = volume;
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		volume_up = false;
 	}
 
 	if (volume_down == true) {
 		volume_fx = volume;
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+		volume_down = false;
 	}
-
-	if (mute == true) {
-		Mix_VolumeChunk(fx[id - 1], 0);
-		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-	}
-	else {
-		Mix_VolumeChunk(fx[id - 1], volume_fx);
-		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-	}
-	
-
 	return ret;
 }
 
