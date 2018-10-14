@@ -2,6 +2,8 @@
 #include "p2Log.h"
 #include "Audio.h"
 #include "p2List.h"
+#include "Input.h"
+#include "DevRookiesApp.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -171,7 +173,7 @@ unsigned int Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool Audio::PlayFx(unsigned int id, int repeat, uint volume)
+bool Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
 
@@ -181,31 +183,63 @@ bool Audio::PlayFx(unsigned int id, int repeat, uint volume)
 	if(id > 0 && id <= fx.count())
 	{
 		Mix_VolumeChunk(fx[id - 1], volume_fx);
-		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
 	}
+
+	if (volume_up == true) {
+		volume_fx = volume;
+		Mix_VolumeChunk(fx[id - 1], volume_fx);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+	}
+
+	if (volume_down == true) {
+		volume_fx = volume;
+		Mix_VolumeChunk(fx[id - 1], volume_fx);
+		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
+	}
+	
 
 	return ret;
 }
 
 bool Audio::StopMusic()
 {
-		Mix_HaltMusic();
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && mute == false)
+	{
 		mute = true;
-		return true;
+		Mix_VolumeMusic(0);
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && mute == true)
+	{
+		mute = false;
+		Mix_VolumeMusic(volume);
+	}
+
+	return mute;
 }
 
-void Audio::VolumeUp()
+bool Audio::VolumeUp()
 {
-	volume += volume_change_ratio;
-	Mix_VolumeMusic(volume);
-	volume_fx += volume_change_ratio;
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		volume += volume_change_ratio;
+		Mix_VolumeMusic(volume);
+		volume_up = true;
+	}
+	return volume_up;
 }
 
-void Audio::VolumeDown()
+bool Audio::VolumeDown()
 {
-	volume -= volume_change_ratio;
-	Mix_VolumeMusic(volume);
-	volume_fx -= volume_change_ratio;
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		if (volume > 0) {
+			volume -= volume_change_ratio;
+		}
+		Mix_VolumeMusic(volume);	
+		volume_down = true;
+	}
+	return volume_down;
 }
 
 
@@ -213,7 +247,7 @@ bool Audio::Load(pugi::xml_node& data)
 {
 	volume = data.child("volume").attribute("value").as_uint();
 	mute = data.child("mute").attribute("value").as_bool();
-	volume_fx = data.child("volume_fx").attribute("vale").as_uint();
+	volume_fx = data.child("volume_fx").attribute("value").as_uint();
 
 	return true;
 }

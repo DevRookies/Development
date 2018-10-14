@@ -79,7 +79,7 @@ public:
 	void		Win();
 
 
-	void AddFX(int channel, int repeat, uint volume);
+	void AddFX(int channel, int repeat);
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 
 	MOVEMENT	current_movement = IDLE;

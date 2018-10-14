@@ -119,7 +119,7 @@ bool Player::PreUpdate()
 			if (current_state == FLOOR)
 			{
 				App->player->current_movement = JUMP;
-				AddFX(1, 0, volume_fx);
+				AddFX(1, 0);
 			}
 		}
 
@@ -366,7 +366,7 @@ void Player::Die() {
 	if (!god_mode) {
 		position.y -= 7; //because the collider is 7 pixels less than dead animation
 		current_state = DEATH;
-		AddFX(2, 0, volume_fx);
+		AddFX(2, 0);
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
 		}
@@ -390,7 +390,7 @@ void Player::Die() {
 
 void Player::Win() {
 
-	AddFX(3, 0, volume_fx);
+	AddFX(3, 0);
 	if (current_element == FIRE) {
 		current_animation = &idlefire;
 	}
@@ -407,9 +407,9 @@ void Player::Win() {
 
 }
 
-void Player::AddFX(int channel, int repeat, uint volume)
+void Player::AddFX(int channel, int repeat)
 {
-	App->audio->PlayFx(channel, repeat, volume);
+	App->audio->PlayFx(channel, repeat);
 }
 
 //LoadAnimation with LoadCollider structure

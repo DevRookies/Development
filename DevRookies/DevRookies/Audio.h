@@ -16,6 +16,8 @@ public:
 	float default_music_fade_time;
 	uint volume_change_ratio;
 	bool mute;
+	bool volume_down;
+	bool volume_up;
 
 	Audio();
 
@@ -35,12 +37,12 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0, uint volume = 128);
+	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	//Change Volume	
 	bool StopMusic();
-	void VolumeUp();
-	void VolumeDown();
+	bool VolumeUp();
+	bool VolumeDown();
 
 	//Save & Load volume
 	bool Load(pugi::xml_node&);
