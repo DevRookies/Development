@@ -280,8 +280,8 @@ bool Audio::Save(pugi::xml_node& data) const
 	pugi::xml_node vol_fx = data.append_child("volume_fx");
 	vol_fx.append_attribute("value") = volume_fx;
 
-	pugi::xml_node mute = data.append_child("mute");
-	mute.append_attribute("value") = mute;
+	pugi::xml_node mut = data.append_child("mute");
+	mut.append_attribute("value") = mute;
 
 
 	return true;
