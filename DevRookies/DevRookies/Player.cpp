@@ -211,7 +211,7 @@ bool Player::Update(float dt)
 		position += speed;
 	}
 	
-	collider->SetPos(position.x, position.y + 48);
+	collider->SetPos(position.x, position.y + heigth_animation);
 	return true;
 }
 
@@ -364,7 +364,7 @@ void Player::AddColliderPlayer()  {
 void Player::Die() {
 
 	if (!god_mode) {
-		position.y -= 7; //because the collider is 7 pixels less than dead animation
+		position.y -= heigth_dead_animation; //because the animations are 7 pixels less than dead animation
 		current_state = DEATH;
 		AddFX(2, 0, volume_fx);
 		if (current_element == FIRE) {
