@@ -180,7 +180,7 @@ bool Audio::PlayFx(unsigned int id, int repeat, uint volume)
 
 	if(id > 0 && id <= fx.count())
 	{
-		Mix_VolumeChunk(fx[id - 1], volume*volume_fx);
+		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
