@@ -237,6 +237,7 @@ bool Player::Load(pugi::xml_node& node)
 	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
 	jump_speed = node.child("jump_speed").attribute("value").as_int(0);
 	current_element = (ELEMENT)node.child("element").attribute("value").as_int();
+	flipX = node.child("flipX").attribute("value").as_bool();
 
 	return ret;
 }
@@ -265,6 +266,7 @@ bool Player::Save(pugi::xml_node& node) const
 	jump_speed.append_attribute("value") = jump_speed;
 
 	node.append_child("element").append_attribute("value") = (int)current_element;
+	node.append_child("flipX").append_attribute("value") = flipX;
 
 	return ret;
 }
