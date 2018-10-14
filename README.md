@@ -43,11 +43,6 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 ### Developer
 
-- I (to move up the screen).
-- J (to move backwards the screen).
-- K (to move down the screen).
-- L (to move forwards the screen).
-
 - F1 (Start from the first level).
 - F2 (Start from the current level).
 - F3 (Start from the second level).
