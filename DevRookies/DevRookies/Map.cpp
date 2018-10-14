@@ -181,33 +181,38 @@ bool Map::Load(const char* file_name)
 	}
 
 	// Load collider info ----------------------------------------------
-	pugi::xml_node collider_node;
-	for (collider_node = map_file.child("map").child("objectgroup"); collider_node && ret; collider_node = collider_node.next_sibling("objectgroup")) {
+	pugi::xml_node objects_node;
+	for (objects_node = map_file.child("map").child("objectgroup"); objects_node && ret; objects_node = objects_node.next_sibling("objectgroup")) {
 			
 		if (ret == true) {
 			
-			p2SString type = collider_node.attribute("name").as_string();
+			p2SString type = objects_node.attribute("name").as_string();
 			
 			if (type.operator==("ice_col_top")) {
-				ret = LoadCollider(collider_node, 1);
+				ret = LoadCollider(objects_node, 1);
 			}
 			else if (type.operator==("ice_col_bot")) {
-				//ret = LoadCollider(collider_node, 1);
+				//ret = LoadCollider(objects_node, 1);
 			}
 			else if (type.operator==("fire_col_top")) {
-				ret = LoadCollider(collider_node, 2);
+				ret = LoadCollider(objects_node, 2);
 			}
 			else if (type.operator==("fire_col_bot")) {
-				//ret = LoadCollider(collider_node, 2);
+				//ret = LoadCollider(objects_node, 2);
 			}
 			else if (type.operator==("poison_col")) {
-				ret = LoadCollider(collider_node, 3);
+				ret = LoadCollider(objects_node, 3);
 			}
 			else if (type.operator==("border_col")) {
-				ret = LoadCollider(collider_node, 4);
+				ret = LoadCollider(objects_node, 4);
 			}
 			else if (type.operator==("final_col")) {
-				ret = LoadCollider(collider_node, 5);
+				ret = LoadCollider(objects_node, 5);
+			}
+			else if (type.operator==("initialPos")) {
+				init_player_position.x = objects_node.child("object").attribute("x").as_float();
+				init_player_position.y = objects_node.child("object").attribute("y").as_float();
+				ret = true;
 			}
 
 		}

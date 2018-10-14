@@ -345,7 +345,7 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 }
 
 void Player::AddColliderPlayer()  {
-	collider = App->collision->AddCollider({ 0,0,55, 8 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,50, 10 }, COLLIDER_PLAYER, this);
 }
 
 void Player::Die() {

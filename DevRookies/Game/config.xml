@@ -27,14 +27,12 @@
   <scene>
     <tile_name>platforms1.tmx</tile_name>
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
-    <player x="40" y="135"/>
     <camera x="0" y="0" />    
   </scene>
 
   <scene2>
     <tile_name>platforms2.tmx</tile_name>
 	  <lvl2_music_name>Escape.ogg</lvl2_music_name>
-    <player x="40" y="320"/>
     <camera x="0" y="0" />
   </scene2>
   
