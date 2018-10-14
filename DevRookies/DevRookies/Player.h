@@ -41,6 +41,7 @@ private:
 	bool		aux_god_mode = false;
 	uint		heigth_animation = 48;
 	uint		heigth_dead_animation = 7;
+	uint		scene = 1;
 
 public:
 

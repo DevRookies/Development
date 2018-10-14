@@ -30,6 +30,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
+	active = true;
 	return ret;
 }
 
