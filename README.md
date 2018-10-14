@@ -1,10 +1,11 @@
 ﻿# Version of the game
 
-Fire&Ice v.0.0.2
+Fire&Ice v.0.0.3
 
 ## Description
 
-The second version of jump 'n run platformer game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom! Make sure to save the game in crucial situations.
+The third version of jump 'n run platformer game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom! Make sure to save the game in crucial situations.
+Fire goes with fire and ice goes with ice. Don't forget that!
 
 ## Links
 
@@ -61,6 +62,7 @@ Trello: https://trello.com/b/6xGoDgxj/development
 ## Innovation system
 
 Assignment 1: The player can change between two forms in order to walk on the different types of platforms.
+	      Volume setUp with F7,F8,F11.
 
 ## Artist references
 

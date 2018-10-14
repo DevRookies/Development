@@ -6,6 +6,39 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.0.3] - 2018-10-14
+
+
+### Summarized
+
+- Lots of bug fixes and save&load cross scenes.
+
+### Extended
+
+
+#### Added
+
+- Start Time
+
+- Save&Load cross scenes.
+
+#### Fixed
+
+- Player animations in xml.
+
+- Win/die respawns.
+
+- GodMode jump.
+
+- Save&Load death bug.
+
+- Save element, flipx
+
+- Used start position in Tiled.
+
+- Eliminated magic numbers (now in xml).
+
+- Mute volume.
 
 ## [0.0.2] - 2018-10-13
 
