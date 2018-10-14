@@ -113,29 +113,3 @@ bool Scene::CleanUp()
 }
 
 
-// Load Game State
-bool Scene::Load(pugi::xml_node& data)
-{
-	/*camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
-	player.x = data.child("player").attribute("x").as_int();
-	player.y = data.child("player").attribute("y").as_int();*/
-
-	return true;
-}
-
-// Save Game State
-bool Scene::Save(pugi::xml_node& data) const
-{
-	/*pugi::xml_node node = data.append_child("camera");
-
-	node.append_attribute("x") = camera.x;
-	node.append_attribute("y") = camera.y;
-
-	pugi::xml_node pos = data.append_child("player");
-
-	pos.append_attribute("x") = player.x;
-	pos.append_attribute("y") = player.y;*/
-
-	return true;
-}

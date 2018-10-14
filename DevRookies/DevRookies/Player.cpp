@@ -91,7 +91,7 @@ bool Player::Start(ELEMENT element)
 
 bool Player::PreUpdate()
 {
-	if (current_state != DEATH) {
+	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
 		current_movement = IDLE;
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -135,7 +135,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	if (current_state != DEATH) {
+	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
 		switch (current_element)
 		{
 		case FIRE:

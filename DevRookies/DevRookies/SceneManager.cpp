@@ -87,8 +87,3 @@ bool SceneManager::FadeToBlack(Module* module_off, Module* module_on, float time
 
 	return ret;
 }
-
-void SceneManager::StartAgain(Module* module)
-{
-	FadeToBlack(module, module);
-}

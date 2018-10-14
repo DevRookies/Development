@@ -50,6 +50,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.y = config.child("camera").attribute("y").as_int();
 		camera_speed = config.child("camera").attribute("speed").as_int();
 		camera_max = config.child("camera").attribute("max").as_int();
+		start_time = config.child("start_time").attribute("value").as_int();
 	}
 
 	return ret;
@@ -73,10 +74,13 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	if (-camera_max <= camera.x && App->player->current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
+
+	if (-camera_max <= camera.x && App->player->current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && start_time == 0) {
 		camera.x = camera.x - camera_speed;
 	}
-	
+	if(start_time != 0)
+		start_time--;
+
 	return true;
 }
 

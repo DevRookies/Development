@@ -13,7 +13,6 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool FadeToBlack(Module* module_off, Module* module_on, float time = 2.0f);
-	void StartAgain(Module* module);
 	
 
 	enum fade_step
