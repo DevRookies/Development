@@ -37,7 +37,8 @@ private:
 	p2SString	dead_fx_name;
 	p2SString	victory_fx_name;
 
-	bool		GodMode = false;
+	bool		god_mode = false;
+	bool		aux_god_mode = false;
 
 public:
 	uint volume_fx;

@@ -97,7 +97,7 @@ bool Player::PreUpdate()
 		
 
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-			GodMode = !GodMode;
+			god_mode = !god_mode;
 
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -231,6 +231,11 @@ bool Player::CleanUp()
 bool Player::Load(pugi::xml_node& node)
 {
 	bool ret = true;
+	if (!god_mode) {
+		god_mode = !god_mode;
+		aux_god_mode = true;
+	}
+		
 	position.x = node.child("position").attribute("x").as_float(0);
 	position.y = node.child("position").attribute("y").as_float(0);
 	speed.x = node.child("speed").attribute("x").as_float(0);
@@ -239,8 +244,8 @@ bool Player::Load(pugi::xml_node& node)
 	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
 	jump_speed = node.child("jump_speed").attribute("value").as_int(0);
 	current_element = (ELEMENT)node.child("element").attribute("value").as_int();
-	current_state = (STATE)node.child("state").attribute("value").as_int();
 	flipX = node.child("flipX").attribute("value").as_bool();
+	
 
 	return ret;
 }
@@ -269,7 +274,6 @@ bool Player::Save(pugi::xml_node& node) const
 	jump.append_attribute("value") = jump_speed;
 
 	node.append_child("element").append_attribute("value") = (int)current_element;
-	node.append_child("state").append_attribute("value") = (int)current_state;
 	node.append_child("flipX").append_attribute("value") = flipX;
 
 	return ret;
@@ -359,7 +363,7 @@ void Player::AddColliderPlayer()  {
 
 void Player::Die() {
 
-	if (!GodMode) {
+	if (!god_mode) {
 		position.y -= 7; //because the collider is 7 pixels less than dead animation
 		current_state = DEATH;
 		AddFX(2, 0, volume_fx);
@@ -369,15 +373,19 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
-			
-		if (App->scene->active) 
+
+		if (App->scene->active)
 			App->scenemanager->FadeToBlack(App->scene, App->scene);
 		else if (App->scene2->active) {
 			App->scenemanager->FadeToBlack(App->scene2, App->scene2);
 		}
-		
-			
+
 	}
+	if (aux_god_mode) {
+		aux_god_mode = false;
+		god_mode = false;
+	}
+		
 }
 
 void Player::Win() {
