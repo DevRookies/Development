@@ -46,6 +46,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -112,6 +115,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>Modules\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
   </ItemGroup>

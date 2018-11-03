@@ -14,6 +14,7 @@
 #include "SceneManager.h"
 #include "Player.h"
 #include "Collision.h"
+#include "Pathfinding.h"
 #include "DevRookiesApp.h"
 
 // Constructor
@@ -33,6 +34,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	scenemanager = new SceneManager();
 	player = new Player();
 	collision = new Collision();
+	pathfinding = new PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -46,6 +48,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scenemanager);
 	AddModule(player);
 	AddModule(collision);
+	AddModule(pathfinding);
 
 	// render last to swap buffer
 	AddModule(render);
