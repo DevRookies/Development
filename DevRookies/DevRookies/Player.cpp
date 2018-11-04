@@ -115,20 +115,17 @@ bool Player::PreUpdate()
 
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
 			if (current_state == FLOOR)
 			{
 				App->player->current_movement = JUMP;
 				AddFX(1, 0);
 			}
-		}
-
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-			App->player->current_element = FIRE;
+			
 
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			App->player->current_element = ICE;
+			if (current_element == FIRE) {
+				App->player->current_element = ICE;
+			}else App->player->current_element = FIRE;
 	}
 	
 
