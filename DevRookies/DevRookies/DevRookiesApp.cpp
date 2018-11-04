@@ -26,7 +26,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	input = new Input();
 	win = new Window();
 	render = new Render();
-	tex = new Textures();
+	textures = new Textures();
 	audio = new Audio();
 	scene = new Scene();
 	scene2 = new Scene2();
@@ -40,7 +40,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
-	AddModule(tex);
+	AddModule(textures);
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);

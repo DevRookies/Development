@@ -53,6 +53,10 @@ bool Player::Awake(pugi::xml_node& config)
 	deadfire.speed = config.child("animations").child("die_fire").attribute("speed").as_float();
 	deadfire.speed = config.child("animations").child("die_fire").attribute("loop").as_bool(false);
 
+	LoadAnimation(config.child("animations").child("hit_fire").child("frame"), deadfire);
+	hitfire.speed = config.child("animations").child("hit_fire").attribute("speed").as_float();
+	hitfire.speed = config.child("animations").child("hit_fire").attribute("loop").as_bool(false);
+
 	//ice
 	LoadAnimation(config.child("animations").child("idle_ice").child("frame"), idleice);
 	idleice.speed = config.child("animations").child("idle_ice").attribute("speed").as_float();
@@ -68,8 +72,10 @@ bool Player::Awake(pugi::xml_node& config)
 	deadice.speed = config.child("animations").child("die_ice").attribute("speed").as_float();
 	deadice.speed = config.child("animations").child("die_ice").attribute("loop").as_bool(false);
 
+	LoadAnimation(config.child("animations").child("die_ice").child("frame"), deadice);
+	hitice.speed = config.child("animations").child("hit_ice").attribute("speed").as_float();
+	hitice.speed = config.child("animations").child("hit_ice").attribute("loop").as_bool(false);
 
-	/*current_animation = &idlefire;*/
 
 	return ret;
 
@@ -81,7 +87,7 @@ bool Player::Start(ELEMENT element)
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());
 	current_state = AIR;
-	player_texture = App->tex->Load(texture.GetString());
+	player_texture = App->textures->Load(texture.GetString());
 	current_element = element;
 	if(element == FIRE)current_animation = &idlefire;
 	else current_animation = &idleice;
@@ -134,6 +140,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
 		switch (current_element)
 		{
@@ -158,7 +165,6 @@ bool Player::Update(float dt)
 				current_animation = &jumpfire;
 				speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
 				current_state = AIR;
-				
 				break;
 			case DEAD:
 				current_animation = &deadfire;
@@ -200,10 +206,7 @@ bool Player::Update(float dt)
 			break;
 		}
 
-		if (current_state == AIR)
-		{
-			speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
-		}
+		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
 
 		position += speed;
 	}
@@ -220,7 +223,7 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp()
 {
-	App->tex->UnLoad(player_texture);
+	App->textures->UnLoad(player_texture);
 	player_texture = nullptr;
 	return true;
 }
@@ -331,69 +334,40 @@ void Player::SetPosition(const float & x, const float & y)
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
 	
-
-	if (collider2->type == COLLIDER_ICE){
+	if (collider2->type == COLLIDER_ICE) {
 		current_state = FLOOR;
-		if (current_element == FIRE) 
+		if (current_element == FIRE)
 			Die();
-			
 	}
-
-	if (collider2->type == COLLIDER_FIRE){
+	else if (collider2->type == COLLIDER_FIRE) {
 		current_state = FLOOR;
-		if (current_element == ICE) 
+		if (current_element == ICE)
 			Die();
-			
 	}
-	
-	if (collider2->type == COLLIDER_FINAL)
-		Win();
-
-	if (collider2->type == COLLIDER_POISON) {
+	else if (collider2->type == COLLIDER_POISON) {
 		current_state = FLOOR;
 		Die();
 	}
+	else if (collider2->type == COLLIDER_FINAL)
+		Win();
 		
 
 	if (App->render->camera.x <= -position.x) {
 		Die();
 	}
 	
-
 	position.y -= speed.y;
 	collider->SetPos(position.x, position.y);
 	if (!collider1->CheckCollision(collider2->rect))
 	{
 		return;
 	}
-	position.y += (speed.y * 2);
-	collider->SetPos(position.x, position.y);
-	if (!collider1->CheckCollision(collider2->rect))
-	{
-		return;
-	}
-	position.y -= speed.y;
-	position.x -= speed.x;
-	collider->SetPos(position.x, position.y);
-	if (!collider1->CheckCollision(collider2->rect))
-	{
-		speed.x = 0;
-		return;
-	}
-	position.x += (speed.x * 2);
-	collider->SetPos(position.x, position.y);
-	if (!collider1->CheckCollision(collider2->rect))
-	{
-		speed.x = 0;
-		return;
-	}
-	position.x -= speed.x;
-	collider->SetPos(position.x, position.y);
-
+	
+	
 }
 
 void Player::AddColliderPlayer()  {
-	collider = App->collision->AddCollider({ 0,0,50, 10 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,40, 10 }, COLLIDER_PLAYER, this);
 }
 
 void Player::Die() {

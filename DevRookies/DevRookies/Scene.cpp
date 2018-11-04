@@ -109,6 +109,9 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	App->map->CleanUp();
+	App->collision->CleanUp();
+	App->player->CleanUp();
 
 	return true;
 }

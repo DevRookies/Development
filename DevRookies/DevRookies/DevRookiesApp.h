@@ -84,7 +84,7 @@ public:
 	Window * win = nullptr;
 	Input*				input = nullptr;
 	Render*				render = nullptr;
-	Textures*			tex = nullptr;
+	Textures*			textures = nullptr;
 	Audio*				audio = nullptr;
 	Scene*				scene = nullptr;
 	Scene2*				scene2 = nullptr;

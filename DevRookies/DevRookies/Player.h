@@ -23,10 +23,12 @@ private:
 	Animation	runfire;
 	Animation	jumpfire;
 	Animation	deadfire;
+	Animation	hitfire;
 	Animation	idleice;
 	Animation	runice;
 	Animation	jumpice;
 	Animation	deadice;
+	Animation	hitice;
 	Collider*	collider = nullptr;
 
 	bool		flipX = false;
