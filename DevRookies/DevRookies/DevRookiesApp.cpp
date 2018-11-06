@@ -1,17 +1,13 @@
 #include <iostream> 
-
 #include "p2Defs.h"
 #include "p2Log.h"
-
 #include "Window.h"
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
-#include "Scene2.h"
 #include "Map.h"
-#include "SceneManager.h"
 #include "Player.h"
 #include "Collision.h"
 #include "Pathfinding.h"
@@ -29,9 +25,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	textures = new Textures();
 	audio = new Audio();
 	scene = new Scene();
-	scene2 = new Scene2();
 	map = new Map();
-	scenemanager = new SceneManager();
 	player = new Player();
 	collision = new Collision();
 	pathfinding = new PathFinding();
@@ -44,8 +38,6 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(scene2, false);
-	AddModule(scenemanager);
 	AddModule(player);
 	AddModule(collision);
 	AddModule(pathfinding);

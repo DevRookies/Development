@@ -8,8 +8,6 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
-#include "Scene2.h"
-#include "SceneManager.h"
 #include "Player.h"
 
 Scene::Scene() : Module()
@@ -26,8 +24,10 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	tile_name = config.child("tile_name").child_value();
+	tile_name_scene1 = config.child("tile_name_scene1").child_value();
+	tile_name_scene2 = config.child("tile_name_scene2").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
+	lvl2_music_name = config.child("lvl2_music_name").child_value();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
 	active = true;
@@ -37,9 +37,21 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	App->map->Load(tile_name.GetString());
-	App->audio->PlayMusic(lvl1_music_name.GetString());
-	App->player->Start(FIRE);
+	switch (scene_actual)
+	{
+	case 1:
+		App->player->Start(FIRE);
+		App->map->Load(tile_name_scene1.GetString());
+		App->audio->PlayMusic(lvl1_music_name.GetString());
+		break;
+	case 2:
+		App->player->Start(ICE);
+		App->map->Load(tile_name_scene2.GetString());
+		App->audio->PlayMusic(lvl2_music_name.GetString());
+		break;
+	default:
+		break;
+	}
 	player.x = App->map->init_player_position.x;
 	player.y = App->map->init_player_position.y;
 	App->player->AddColliderPlayer();
@@ -60,11 +72,23 @@ bool Scene::Update(float dt)
 	
 	
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->scenemanager->FadeToBlack(App->scene, App->scene);
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
+		CleanUp();
+		scene_actual = 1;
+		Start();
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		CleanUp();
+		Start();
+	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		App->scenemanager->FadeToBlack(App->scene, App->scene2);
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		CleanUp();
+		scene_actual = 2;
+		Start();
+	}
+		
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
@@ -72,25 +96,18 @@ bool Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		App->audio->VolumeUp();
-
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 		App->audio->VolumeDown();
+
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		App->audio->VolumeUp();
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->audio->StopMusic();
 	
 
-	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count());
-
-	App->win->SetTitle(title.GetString());
 	return true;
 }
 
@@ -114,6 +131,28 @@ bool Scene::CleanUp()
 	App->player->CleanUp();
 
 	return true;
+}
+
+
+bool Scene::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+	
+	scene_actual = node.child("scene_actual").attribute("value").as_int();
+
+	CleanUp();
+	Start();
+
+	return ret;
+}
+
+bool Scene::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	node.append_child("scene_actual").append_attribute("value") = scene_actual;
+
+	return ret;
 }
 
 

@@ -6,7 +6,6 @@
 #include "p2Log.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "Scene2.h"
 #include "Map.h"
 
 Player::Player() {
@@ -98,7 +97,7 @@ bool Player::Start(ELEMENT element)
 
 bool Player::PreUpdate()
 {
-	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
+	if (current_state != DEATH ) {
 		current_movement = IDLE;
 		
 
@@ -141,7 +140,7 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	
-	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none) {
+	if (current_state != DEATH) {
 		switch (current_element)
 		{
 		case FIRE:
@@ -236,38 +235,6 @@ bool Player::Load(pugi::xml_node& node)
 		aux_god_mode = true;
 	}
 		
-	scene = node.child("scene").attribute("value").as_int();
-
-	switch (scene)
-	{
-	case 1:
-		if (!App->scene->active) {
-			App->scene2->active = false;
-			App->scene2->CleanUp();
-
-			App->map->CleanUp();
-			App->collision->CleanUp();
-
-			App->scene->active = true;
-			App->scene->Start();
-		}
-		break;
-	case 2:
-		if (!App->scene2->active){
-			App->scene->active = false;
-			App->scene->CleanUp();
-
-			App->map->CleanUp();
-			App->collision->CleanUp();
-
-			App->scene2->active = true;
-			App->scene2->Start();
-		}
-		break;
-	default:
-		break;
-	}
-
 	position.x = node.child("position").attribute("x").as_float(0);
 	position.y = node.child("position").attribute("y").as_float(0);
 	speed.x = node.child("speed").attribute("x").as_float(0);
@@ -275,8 +242,8 @@ bool Player::Load(pugi::xml_node& node)
 	acceleration.x = node.child("acceleration").attribute("x").as_float(0);
 	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
 	jump_speed = node.child("jump_speed").attribute("value").as_int(0);
-	current_element = (ELEMENT)node.child("element").attribute("value").as_int();
-	flipX = node.child("flipX").attribute("value").as_bool();
+	current_element = (ELEMENT)node.child("element").attribute("value").as_int(0);
+	flipX = node.child("flipX").attribute("value").as_bool(false);
 	
 	
 
@@ -302,17 +269,11 @@ bool Player::Save(pugi::xml_node& node) const
 	accel.append_attribute("x") = acceleration.x;
 	accel.append_attribute("y") = acceleration.y;
 
-	pugi::xml_node jump = node.append_child("jump_speed");
 
-	jump.append_attribute("value") = jump_speed;
+	node.append_child("jump_speed").append_attribute("value") = jump_speed;
 
 	node.append_child("element").append_attribute("value") = (int)current_element;
 	node.append_child("flipX").append_attribute("value") = flipX;
-
-	if(App->scene->active)
-		node.append_child("scene").append_attribute("value") = 1;
-	else
-		node.append_child("scene").append_attribute("value") = 2;
 
 	return ret;
 }
@@ -383,12 +344,9 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 
-		if (App->scene->active)
-			App->scenemanager->FadeToBlack(App->scene, App->scene);
-		else if (App->scene2->active) {
-			App->scenemanager->FadeToBlack(App->scene2, App->scene2);
-		}
-
+		App->scene->CleanUp();
+		App->scene->Start();		
+		
 	}
 	if (aux_god_mode) {
 		aux_god_mode = false;
@@ -407,11 +365,15 @@ void Player::Win() {
 		current_animation = &idleice;
 	}
 
-	if (App->scene->active) {
-		App->scenemanager->FadeToBlack(App->scene, App->scene2);
+	if (App->scene->scene_actual == 1) {
+		App->scene->CleanUp();
+		App->scene->scene_actual = 2;
+		App->scene->Start();
 	}
-	else if (App->scene2->active) {
-		App->scenemanager->FadeToBlack(App->scene2, App->scene);
+	else {
+		App->scene->CleanUp();
+		App->scene->scene_actual = 1;
+		App->scene->Start();
 	}
 
 }

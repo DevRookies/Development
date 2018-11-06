@@ -25,17 +25,13 @@
   </file_system>
 
   <scene>
-    <tile_name>platforms1.tmx</tile_name>
+    <tile_name_scene1>platforms1.tmx</tile_name_scene1>
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
+    <tile_name_scene2>platforms2.tmx</tile_name_scene2>
+    <lvl2_music_name>Escape.ogg</lvl2_music_name>
     <camera x="0" y="0" />    
   </scene>
 
-  <scene2>
-    <tile_name>platforms2.tmx</tile_name>
-	  <lvl2_music_name>Escape.ogg</lvl2_music_name>
-    <camera x="0" y="0" />
-  </scene2>
-  
   <audio>
     <default_music_fade_time value="2.0"/>
     <volume value="128"/>
@@ -83,6 +79,12 @@
         <frame x="2070" y="384" width="60" height="63"/>
         <frame x="2009" y="384" width="60" height="63"/>
       </die_fire>
+      <hit_fire speed="0.2F" loop ="false">
+        <frame x="2191" y="384" width="53" height="63"/>
+        <frame x="2131" y="384" width="59" height="63"/>
+        <frame x="2070" y="384" width="60" height="63"/>
+        <frame x="2009" y="384" width="60" height="63"/>
+      </hit_fire>
       <idle_ice speed="0.1F" loop="true">
         <frame x="1797" y="0" width="55" height="56"/>
         <frame x="1853" y="0" width="56" height="56"/>
@@ -104,6 +106,12 @@
         <frame x="1834" y="384" width="60" height="63"/>
         <frame x="1773" y="384" width="60" height="63"/>
       </die_ice>
+      <hit_ice speed="0.2F" loop ="false">
+        <frame x="1954" y="384" width="53" height="63"/>
+        <frame x="1894" y="384" width="59" height="63"/>
+        <frame x="1834" y="384" width="60" height="63"/>
+        <frame x="1773" y="384" width="60" height="63"/>
+      </hit_ice>
     </animations>
   </player>
   

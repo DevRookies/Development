@@ -209,12 +209,15 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 					child_node->data.CalculateF(destination);
 					if (open.Find(child_node->data.pos) && open.Find(child_node->data.pos)->data.g > child_node->data.g)
 					{
-						//open.list.At(open.Find(child_node->data.pos)->data)->data.parent = child_node->data.parent;
+						if (open.Find(child_node->data.pos)->data.g > child_node->data.g)
+						{
+							PathNode old_node = open.Find(child_node->data.pos)->data;
+							old_node.parent = child_node->data.parent;
+						}
 					}
 					else
-					{
 						open.list.add(child_node->data);
-					}
+					
 				}
 				child_node = child_node->next;
 			}
