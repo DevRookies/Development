@@ -40,7 +40,7 @@ public:
 	//Restart scene
 	void Restart() const;
 
-	int				scene_actual = 1;
+	uint			scene_actual = 1;
 
 
 private:
@@ -51,6 +51,7 @@ private:
 	p2SString		lvl2_music_name = "";
 	SDL_Rect		player;
 	SDL_Rect		camera;
+	
 	
 };
 

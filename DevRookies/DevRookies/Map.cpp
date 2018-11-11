@@ -27,7 +27,7 @@ bool Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-void Map::Draw()
+void Map::Draw(float dt)
 {
 	// ALL LAYERS
 	if (map_loaded == false)
@@ -191,14 +191,8 @@ bool Map::Load(const char* file_name)
 			if (type.operator==("ice_col_top")) {
 				ret = LoadCollider(objects_node, 1);
 			}
-			else if (type.operator==("ice_col_bot")) {
-				//ret = LoadCollider(objects_node, 1);
-			}
 			else if (type.operator==("fire_col_top")) {
 				ret = LoadCollider(objects_node, 2);
-			}
-			else if (type.operator==("fire_col_bot")) {
-				//ret = LoadCollider(objects_node, 2);
 			}
 			else if (type.operator==("poison_col")) {
 				ret = LoadCollider(objects_node, 3);
@@ -431,7 +425,7 @@ bool Map::LoadCollider(pugi::xml_node & node, uint type)
 		case 4: // border
 			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_BORDER);
 			break;
-		case 5: // border
+		case 5: // final
 			App->collision->AddCollider(rect, COLLIDER_TYPE::COLLIDER_FINAL);
 			break;
 		}

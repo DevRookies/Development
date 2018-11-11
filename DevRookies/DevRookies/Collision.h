@@ -44,6 +44,7 @@ struct Collider
 		this->type = type;
 	}
 	bool CheckCollision(const SDL_Rect& r) const;
+	
 
 };
 
@@ -62,6 +63,8 @@ public:
 	bool		CleanUp();
 
 	Collider*	AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	bool		CheckCollision() const;
+	Collider*	player_collider = nullptr;
 
 private:
 

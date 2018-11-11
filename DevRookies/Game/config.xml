@@ -8,7 +8,7 @@
 	
   <render>
     <vsync value="false"/>
-    <camera x="0" y="0" speed="1" max="5119"/>
+    <camera x="0" y="0" speed="100" max="5119"/>
     <start_time value ="120"/>
   </render>
 
@@ -48,11 +48,11 @@
 
   <player>
     <texture>textures/character.png</texture>
-    <position x="0" y="0"/>
-    <speed x="0" y="0"/>
+    <position x="0.0f" y="0.0f"/>
+    <speed x="0.0f" y="0.0f"/>
     <acceleration x="0.8f" y="0.4f"/>
-    <max_speed x="4" y="4"/>
-    <jump_speed value="1"/>
+    <max_speed x="4.0f" y="4.0f"/>
+    <jump_speed value="1.0f"/>
     <max_jump_speed value="70"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
@@ -117,7 +117,7 @@
   
   <map>
     <folder>maps/</folder>
-    <parallax_speed value="2.0f"/>
+    <parallax_speed value="1"/>
   </map>
 
 </config>

@@ -74,7 +74,8 @@ bool Scene::Update(float dt)
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
-		App->scenemanager->FadeToBlack(1);
+		scene_actual = 1;
+		App->scenemanager->FadeToBlack();
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -82,7 +83,8 @@ bool Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		App->scenemanager->FadeToBlack(2);
+		scene_actual = 2;
+		App->scenemanager->FadeToBlack();
 	}
 		
 
@@ -102,7 +104,7 @@ bool Scene::Update(float dt)
 		App->audio->StopMusic();
 	
 
-	App->map->Draw();
+	App->map->Draw(dt);
 
 	return true;
 }

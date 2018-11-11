@@ -117,21 +117,19 @@ bool Player::PreUpdate()
 			else current_movement = IDLE;
 		}
 
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-			if (current_state == FLOOR)
-			{
-				App->player->current_movement = JUMP;
-				AddFX(1, 0);
-			}
-			
-
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			if (current_element == FIRE) {
 				App->player->current_element = ICE;
-			}else App->player->current_element = FIRE;
+			}
+			else App->player->current_element = FIRE;
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
+		{
+			App->player->current_movement = JUMP;
+			AddFX(1, 0);	
+		}
+		
 	}
-	
 
 	return true;
 }
@@ -204,7 +202,16 @@ bool Player::Update(float dt)
 			break;
 		}
 
-		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+		if (current_state == AIR) {
+			if (current_element == FIRE)
+				current_animation = &jumpfire;
+			else
+				current_animation = &jumpice;
+		}
+
+		speed.y = (acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y); // *dt;
+
+		//speed.x = speed.x * dt;
 
 		position += speed;
 	}
@@ -255,23 +262,18 @@ bool Player::Save(pugi::xml_node& node) const
 	bool ret = true;
 
 	pugi::xml_node pos = node.append_child("position");
-
  	pos.append_attribute("x") = position.x;
 	pos.append_attribute("y") = position.y;
 
 	pugi::xml_node vel = node.append_child("speed");
-
 	vel.append_attribute("x") = speed.x;
 	vel.append_attribute("y") = speed.y;
 
 	pugi::xml_node accel = node.append_child("acceleration");
-
 	accel.append_attribute("x") = acceleration.x;
 	accel.append_attribute("y") = acceleration.y;
 
-
 	node.append_child("jump_speed").append_attribute("value") = jump_speed;
-
 	node.append_child("element").append_attribute("value") = (int)current_element;
 	node.append_child("flipX").append_attribute("value") = flipX;
 

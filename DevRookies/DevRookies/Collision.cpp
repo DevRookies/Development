@@ -135,6 +135,7 @@ Collider* Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* call
 		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, callback);
+			if (type == COLLIDER_PLAYER) player_collider = colliders[i];
 			break;
 		}
 	}
@@ -153,6 +154,24 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 		if ((r.x < rect.x + rect.w) && (rect.x < r.x + r.w)
 			&& (r.y < rect.y + rect.h) && (rect.y < r.y + r.h)) {
 			ret = true;
+		}
+	}
+
+	return ret;
+}
+
+bool Collision::CheckCollision() const
+{
+	bool ret = false;
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] != nullptr && colliders[i]->type != COLLIDER_PLAYER)
+		{
+			if (player_collider->CheckCollision(colliders[i]->rect))
+			{
+				ret = true;
+			}
 		}
 	}
 

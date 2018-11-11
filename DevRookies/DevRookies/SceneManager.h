@@ -12,7 +12,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool FadeToBlack(uint scene_on, float time = 2.0f);
+	bool FadeToBlack(float time = 2.0f);
 	
 
 	enum fade_step
