@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "Module.h"
+#include "PerfTimer.h"
+#include "Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -12,7 +14,6 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
-class Scene2;
 class Map;
 class SceneManager;
 class Player;
@@ -81,13 +82,12 @@ private:
 public:
 
 	// Modules
-	Window * win = nullptr;
+	Window *			win = nullptr;
 	Input*				input = nullptr;
 	Render*				render = nullptr;
 	Textures*			textures = nullptr;
 	Audio*				audio = nullptr;
 	Scene*				scene = nullptr;
-	Scene2*				scene2 = nullptr;
 	Map*				map = nullptr;
 	SceneManager*		scenemanager = nullptr;
 	Player*				player = nullptr;
@@ -98,19 +98,28 @@ private:
 
 	p2List<Module*>		modules;
 	uint				frames;
-	float				dt;
+	float				dt = 0.0f;
 	int					argc;
 	char**				args;
 
 	p2SString			title;
 	p2SString			organization;
+	uint32				frame_rate;
 
 	mutable bool		want_to_save;
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	PerfTimer			ptimer;
+	uint64				frame_count = 0;
+	Timer				startup_time;
+	Timer				frame_time;
+	Timer				last_sec_frame_time;
+	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
 };
 
-extern DevRookiesApp* App; // I'm happy :-)
+extern DevRookiesApp* App; 
 
 #endif

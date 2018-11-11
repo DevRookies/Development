@@ -12,7 +12,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool FadeToBlack(Module* module_off, Module* module_on, float time = 2.0f);
+	bool FadeToBlack(uint scene_on, float time = 2.0f);
 	
 
 	enum fade_step
@@ -31,8 +31,7 @@ private:
 	Uint32			start_time = 0;
 	Uint32			total_time = 0;
 	SDL_Rect		screen;
-	Module*			module_enable = nullptr;
-	Module*			module_disable = nullptr;
+	uint			scene_on = 0;
 };
 
 #endif //__SCENEMANAGER_H__

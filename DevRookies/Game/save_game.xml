@@ -12,17 +12,18 @@
 	<scene>
 		<scene_actual value="1" />
 	</scene>
+	<:anonymous />
 	<player>
-		<position x="598" y="203.004044" />
+		<position x="858" y="168.010803" />
 		<speed x="0" y="4" />
 		<acceleration x="0.800000012" y="0.400000006" />
 		<jump_speed value="1" />
-		<element value="0" />
+		<element value="1" />
 		<flipX value="false" />
 	</player>
 	<:anonymous />
 	<pathfinding />
 	<render>
-		<camera x="-288" y="0" />
+		<camera x="-416" y="0" />
 	</render>
 </game_state>

@@ -37,6 +37,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	//Restart scene
+	void Restart() const;
+
 	int				scene_actual = 1;
 
 

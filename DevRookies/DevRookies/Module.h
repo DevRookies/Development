@@ -1,5 +1,5 @@
 // ----------------------------------------------------
-// j1Module.h
+// Module.h
 // Interface for all engine modules
 // ----------------------------------------------------
 
@@ -18,6 +18,9 @@ class Module
 public:
 
 	Module() : active(false)
+	{}
+
+	virtual ~Module()
 	{}
 
 	void Init(bool active)
@@ -71,7 +74,8 @@ public:
 		return true;
 	}
 
-	virtual void OnCollision(Collider*, Collider*) {}
+	virtual void OnCollision(Collider*, Collider*) 
+	{}
 
 public:
 

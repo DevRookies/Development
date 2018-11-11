@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Player.h"
+#include "Scene.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -39,11 +40,9 @@ bool SceneManager::Update(float dt)
 	{
 		if (now >= total_time)
 		{
-			module_disable->active = false;
-			module_disable->CleanUp();
-
-			module_enable->active = true;
-			module_enable->Start();
+			App->scene->CleanUp();
+			App->scene->scene_actual = scene_on;
+			App->scene->Start();
 
 			total_time += total_time;
 			start_time = SDL_GetTicks();
@@ -69,7 +68,7 @@ bool SceneManager::Update(float dt)
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool SceneManager::FadeToBlack(Module* module_off, Module* module_on, float time)
+bool SceneManager::FadeToBlack(uint scene_on_, float time)
 {
 	bool ret = false;
 
@@ -78,8 +77,7 @@ bool SceneManager::FadeToBlack(Module* module_off, Module* module_on, float time
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
-		module_disable = module_off;
-		module_enable = module_on;
+		scene_on = scene_on_;
 		ret = true;
 	}
 

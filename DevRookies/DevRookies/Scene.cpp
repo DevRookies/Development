@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Scene.h"
 #include "Player.h"
+#include "SceneManager.h"
 
 Scene::Scene() : Module()
 {
@@ -73,20 +74,15 @@ bool Scene::Update(float dt)
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
-		CleanUp();
-		scene_actual = 1;
-		Start();
+		App->scenemanager->FadeToBlack(1);
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		CleanUp();
-		Start();
+		Restart(); 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		CleanUp();
-		scene_actual = 2;
-		Start();
+		App->scenemanager->FadeToBlack(2);
 	}
 		
 
@@ -155,4 +151,8 @@ bool Scene::Save(pugi::xml_node& node) const
 	return ret;
 }
 
+void Scene::Restart() const
+{
+	App->scenemanager->FadeToBlack(scene_actual);
+}
 

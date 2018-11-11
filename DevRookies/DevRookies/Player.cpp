@@ -4,7 +4,6 @@
 #include "Audio.h"
 #include "Render.h"
 #include "p2Log.h"
-#include "SceneManager.h"
 #include "Scene.h"
 #include "Map.h"
 
@@ -224,6 +223,7 @@ bool Player::CleanUp()
 {
 	App->textures->UnLoad(player_texture);
 	player_texture = nullptr;
+
 	return true;
 }
 
@@ -344,8 +344,7 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 
-		App->scene->CleanUp();
-		App->scene->Start();		
+		App->scene->Restart();
 		
 	}
 	if (aux_god_mode) {
@@ -366,14 +365,12 @@ void Player::Win() {
 	}
 
 	if (App->scene->scene_actual == 1) {
-		App->scene->CleanUp();
 		App->scene->scene_actual = 2;
-		App->scene->Start();
+		App->scene->Restart();
 	}
 	else {
-		App->scene->CleanUp();
 		App->scene->scene_actual = 1;
-		App->scene->Start();
+		App->scene->Restart();
 	}
 
 }
@@ -387,10 +384,6 @@ void Player::AddFX(int channel, int repeat)
 bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 	
 	for (; node; node = node.next_sibling("frame")) {
-	//pugi::xml_node frame;
-
-	//for(frame = node.child("frame"); frame; frame = frame.next_sibling("frame"))
-	//{
 		SDL_Rect frame_rect;
 		frame_rect.x = node.attribute("x").as_int();
 		frame_rect.y = node.attribute("y").as_int();

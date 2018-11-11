@@ -7,6 +7,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "Map.h"
 #include "Player.h"
 #include "Collision.h"
@@ -16,6 +17,7 @@
 // Constructor
 DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 {
+	PERF_START(ptimer);
 	frames = 0;
 	want_to_save = want_to_load = false;
 
@@ -25,6 +27,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	textures = new Textures();
 	audio = new Audio();
 	scene = new Scene();
+	scenemanager = new SceneManager();
 	map = new Map();
 	player = new Player();
 	collision = new Collision();
@@ -38,12 +41,15 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(scenemanager);
 	AddModule(player);
 	AddModule(collision);
 	AddModule(pathfinding);
 
 	// render last to swap buffer
 	AddModule(render);
+
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -70,6 +76,8 @@ void DevRookiesApp::AddModule(Module* module, bool active)
 // Called before render is available
 bool DevRookiesApp::Awake()
 {
+	PERF_START(ptimer);
+
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
@@ -88,6 +96,7 @@ bool DevRookiesApp::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		frame_rate = app_config.attribute("framerate_cap").as_uint();
 	}
 
 	if(ret == true)
@@ -102,12 +111,16 @@ bool DevRookiesApp::Awake()
 		}
 	}
 
+	PERF_PEEK(ptimer);
+
 	return ret;
 }
 
 // Called before the first frame
 bool DevRookiesApp::Start()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 	p2List_item<Module*>* item;
 	item = modules.start;
@@ -123,6 +136,8 @@ bool DevRookiesApp::Start()
 
 		ret = item->data->Start();
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -167,6 +182,11 @@ pugi::xml_node DevRookiesApp::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void DevRookiesApp::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -177,6 +197,32 @@ void DevRookiesApp::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	// Framerate calculations --
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+
+	if (last_frame_ms < frame_rate)
+	{
+		PerfTimer delay_timer;
+		SDL_Delay(frame_rate - last_frame_ms);
+		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+	}
+
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
@@ -247,6 +293,8 @@ bool DevRookiesApp::PostUpdate()
 // Called before quitting
 bool DevRookiesApp::CleanUp()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 	p2List_item<Module*>* item;
 	item = modules.end;
@@ -256,6 +304,8 @@ bool DevRookiesApp::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
