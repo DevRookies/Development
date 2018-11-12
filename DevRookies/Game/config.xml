@@ -114,6 +114,57 @@
       </hit_ice>
     </animations>
   </player>
+
+  <JrGargoyle>
+    <texture>textures/JrGargoyle.png</texture>
+    <animations>
+      <idle speed="0.1F" loop="true">
+        <frame x="0" y="0" width="77" height="110"/>
+        <frame x="99" y="34" width="76" height="76"/>
+        <frame x="199" y="33" width="88" height="77"/>
+        <frame x="307" y="18" width="97" height="92"/>
+      </idle>
+      <fly speed="0.2F" loop="true">
+        <frame x="0" y="110" width="77" height="104"/>
+        <frame x="96" y="144" width="76" height="70"/>
+        <frame x="192" y="143" width="87" height="71"/>
+        <frame x="297" y="129" width="97" height="85"/>
+      </fly>;
+      <die speed="0.2F" loop ="false">
+        <frame x="1" y="282" width="86" height="81"/>
+        <frame x="109" y="230" width="97" height="132"/>
+        <frame x="236" y="221" width="77" height="141"/>
+        <frame x="343" y="215" width="77" height="146"/>
+        <frame x="446" y="249" width="77" height="111"/>
+      </die>
+    </animations>
+  </JrGargoyle>
+
+  <OfficerSkeleton>
+    <texture>textures/OfficerSkeleton.png</texture>
+    <animations>
+      <idle speed="0.1F" loop="true">
+        <frame x="0" y="0" width="82" height="93"/>
+        <frame x="103" y="1" width="82" height="92"/>
+        <frame x="208" y="2" width="83" height="91"/>
+        <frame x="317" y="1" width="82" height="92"/>
+      </idle>
+      <walk speed="0.2F" loop="true">
+        <frame x="0" y="96" width="82" height="93"/>
+        <frame x="108" y="94" width="84" height="95"/>
+        <frame x="218" y="96" width="82" height="93"/>
+        <frame x="327" y="94" width="84" height="95"/>
+      </walk>;
+      <die speed="0.2F" loop ="false">
+        <frame x="0" y="189" width="82" height="93"/>
+        <frame x="102" y="207" width="89" height="75"/>
+        <frame x="216" y="218" width="89" height="64"/>
+        <frame x="329" y="203" width="89" height="79"/>
+        <frame x="442" y="223" width="68" height="59"/>
+        <frame x="544" y="223" width="49" height="59"/>
+      </die>
+    </animations>
+  </OfficerSkeleton>
   
   <map>
     <folder>maps/</folder>
