@@ -17,10 +17,10 @@ public:
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
-	void CleanUp();
+	bool CleanUp();
 
 private:
-	SDL_Texture * gargoyle_texture;
+	SDL_Texture* gargoyle_texture;
 	p2SString   texture;
 
 	Animation*	current_animation = nullptr;

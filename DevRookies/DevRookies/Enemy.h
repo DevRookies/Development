@@ -4,36 +4,33 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "Module.h"
-#include "Pathfinding.h"
-#include "Map.h"
+#include "Textures.h"
 
-struct SDL_Texture;
-struct Collider;
 enum TYPE { FLYING_ENEMY, LAND_ENEMY };
 
-class Enemy
+class Enemy: public Module
 {
 protected:
-	Animation * animation;
-	Collider* collider;
+	Animation * animation = nullptr;
+	Collider* collider = nullptr;
 
 public:
 	iPoint position;
 	TYPE type;
 
 public:
-	Enemy(TYPE type);
+	Enemy();
 	Enemy(TYPE type, iPoint position);
 	virtual ~Enemy();
 
 	const Collider* GetCollider() const;
 
 	virtual void Move() {};
-	virtual void Draw(SDL_Texture* sprites);
+	//virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider);
 
-	void Save(pugi::xml_node&) const;
-	void Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
 };
 
 #endif // __ENEMY_H__

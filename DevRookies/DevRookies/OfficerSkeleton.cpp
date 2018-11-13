@@ -4,12 +4,13 @@
 //#include "DevRookiesApp.h"
 
 
-OfficerSkeleton::OfficerSkeleton() : Enemy(LAND_ENEMY)
+OfficerSkeleton::OfficerSkeleton() : Enemy()
 {
 
 }
 
 bool OfficerSkeleton::Awake(pugi::xml_node& config) {
+	bool ret = true;
 	texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
@@ -23,6 +24,7 @@ bool OfficerSkeleton::Awake(pugi::xml_node& config) {
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
 	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);
+	return ret;
 }
 
 OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
@@ -51,8 +53,9 @@ bool OfficerSkeleton::Walk()
 	return true;
 }
 
-void OfficerSkeleton::CleanUp()
+bool OfficerSkeleton::CleanUp()
 {
+	return true;
 }
 
 //This should go in Enemy.h and .cpp

@@ -3,7 +3,7 @@
 #include "Collision.h"
 #include "Render.h"
 
-Enemy::Enemy(TYPE type)
+Enemy::Enemy()
 {
 }
 
@@ -25,21 +25,22 @@ const Collider* Enemy::GetCollider() const
 	return collider;
 }
 
-void Enemy::Draw(SDL_Texture* sprites)
+/*void Enemy::Draw(SDL_Texture* sprites)
 {
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
 
 	App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
-}
+}*/
 
 void Enemy::OnCollision(Collider* collider)
 {
 }
 
-void Enemy::Save(pugi::xml_node &data) const
+bool Enemy::Save(pugi::xml_node &data) const
 {
+	bool ret = true;
 	if (type == LAND_ENEMY)
 	{
 		pugi::xml_node OfficerSkeleton = data.append_child("OfficerSkeleton");;
@@ -52,11 +53,14 @@ void Enemy::Save(pugi::xml_node &data) const
 		JrGargoyle.append_child("position").append_attribute("x") = position.x;
 		JrGargoyle.child("position").append_attribute("y") = position.y;
 	}
-
+	return ret;
 }
 
-void Enemy::Load(pugi::xml_node &data)
+bool Enemy::Load(pugi::xml_node &data)
 {
+	bool ret = true;
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();
+
+	return ret;
 }

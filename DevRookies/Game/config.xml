@@ -25,6 +25,11 @@
     <path>data.zip</path>
   </file_system>
 
+  <map>
+    <folder>maps/</folder>
+    <parallax_speed value="100"/>
+  </map>
+  
   <scene>
     <tile_name_scene1>platforms1.tmx</tile_name_scene1>
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
@@ -52,9 +57,9 @@
     <position x="0.0f" y="0.0f"/>
     <speed x="0.0f" y="0.0f"/>
     <acceleration x="0.8f" y="0.4f"/>
-    <max_speed x="4.0f" y="4.0f"/>
-    <jump_speed value="1.0f"/>
-    <max_jump_speed value="70"/>
+    <max_speed x="200.0f" y="200.0f"/>
+    <jump_speed value="10.0f"/>
+    <max_jump_speed value="400"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
     <victory_fx_name source="Ta Da.wav"/>
@@ -166,10 +171,5 @@
       </die>
     </animations>
   </OfficerSkeleton>
-  
-  <map>
-    <folder>maps/</folder>
-    <parallax_speed value="50"/>
-  </map>
 
 </config>

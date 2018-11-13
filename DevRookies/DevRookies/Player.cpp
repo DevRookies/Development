@@ -209,9 +209,9 @@ bool Player::Update(float dt)
 				current_animation = &jumpice;
 		}
 
-		speed.y = (acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y); // *dt;
+		speed.y = (acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y) * dt;
 
-		//speed.x = speed.x * dt;
+		speed.x = speed.x * dt;
 
 		position += speed;
 	}
