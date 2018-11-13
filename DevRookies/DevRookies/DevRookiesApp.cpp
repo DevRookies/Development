@@ -82,8 +82,7 @@ bool DevRookiesApp::Awake()
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
-	save_game.create("save_game.xml");
-	load_game.create("save_game.xml");
+	
 
 	bool ret = false;
 		
@@ -96,6 +95,8 @@ bool DevRookiesApp::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		save_game.create(app_config.child("save").child_value());
+		load_game = save_game;
 		frame_rate = app_config.attribute("framerate_cap").as_uint();
 	}
 

@@ -56,8 +56,8 @@ void Map::Draw(float dt)
 				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
 				
 				if (item_layer->data->parallax) {
-					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed);
-					App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed);
+					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed * dt);
+					App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed * dt);
 				}
 				else
 					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
