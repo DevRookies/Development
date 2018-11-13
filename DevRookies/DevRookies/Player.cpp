@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "p2Log.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "Map.h"
 
 Player::Player() {
@@ -136,8 +137,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	
-	if (current_state != DEATH) {
+	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
 		switch (current_element)
 		{
 		case FIRE:
@@ -209,9 +209,9 @@ bool Player::Update(float dt)
 				current_animation = &jumpice;
 		}
 
-		speed.y = (acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y) * dt;
-
-		speed.x = speed.x * dt;
+		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+		speed.y = floor(speed.y * dt);
+		speed.x = floor(speed.x * dt);
 
 		position += speed;
 	}

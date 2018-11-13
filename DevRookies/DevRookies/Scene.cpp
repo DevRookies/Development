@@ -39,6 +39,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	App->player->active = true;
 	switch (scene_actual)
 	{
 	case 1:

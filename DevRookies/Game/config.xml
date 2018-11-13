@@ -27,7 +27,7 @@
 
   <map>
     <folder>maps/</folder>
-    <parallax_speed value="100"/>
+    <parallax_speed value="2"/>
   </map>
   
   <scene>
@@ -56,9 +56,9 @@
     <texture>textures/character.png</texture>
     <position x="0.0f" y="0.0f"/>
     <speed x="0.0f" y="0.0f"/>
-    <acceleration x="0.8f" y="0.4f"/>
-    <max_speed x="200.0f" y="200.0f"/>
-    <jump_speed value="10.0f"/>
+    <acceleration x="0.8f" y="0.6f"/>
+    <max_speed x="200.0f" y="300.0f"/>
+    <jump_speed value="20.0f"/>
     <max_jump_speed value="400"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
