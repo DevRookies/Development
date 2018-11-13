@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Collision.h"
 #include "Pathfinding.h"
+#include "Enemy.h"
 #include "DevRookiesApp.h"
 
 // Constructor
@@ -32,6 +33,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	player = new Player();
 	collision = new Collision();
 	pathfinding = new PathFinding();
+	enemy = new Enemy();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +47,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collision);
 	AddModule(pathfinding);
+	AddModule(enemy);
 
 	// render last to swap buffer
 	AddModule(render);

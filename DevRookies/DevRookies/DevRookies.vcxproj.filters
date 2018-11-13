@@ -52,6 +52,15 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Tools\FPS Control</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Modules\App</Filter>
+    </ClCompile>
+    <ClCompile Include="OfficerSkeleton.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="JrGargoyle.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -126,6 +135,15 @@
     <ClInclude Include="Pathfinding.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Modules\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OfficerSkeleton.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="JrGargoyle.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -151,6 +169,9 @@
     </Filter>
     <Filter Include="Tools\FPS Control">
       <UniqueIdentifier>{7719be26-4112-4c17-9f65-a5b4dc991bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{50895f79-5364-4090-adc6-3b9f5a872464}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
