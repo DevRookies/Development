@@ -50,11 +50,11 @@ bool Player::Awake(pugi::xml_node& config)
 
 	LoadAnimation(config.child("animations").child("die_fire").child("frame"), deadfire);
 	deadfire.speed = config.child("animations").child("die_fire").attribute("speed").as_float();
-	deadfire.speed = config.child("animations").child("die_fire").attribute("loop").as_bool(false);
+	deadfire.loop = config.child("animations").child("die_fire").attribute("loop").as_bool(false);
 
-	LoadAnimation(config.child("animations").child("hit_fire").child("frame"), deadfire);
+	LoadAnimation(config.child("animations").child("hit_fire").child("frame"), hitfire);
 	hitfire.speed = config.child("animations").child("hit_fire").attribute("speed").as_float();
-	hitfire.speed = config.child("animations").child("hit_fire").attribute("loop").as_bool(false);
+	hitfire.loop = config.child("animations").child("hit_fire").attribute("loop").as_bool(false);
 
 	//ice
 	LoadAnimation(config.child("animations").child("idle_ice").child("frame"), idleice);
@@ -69,11 +69,11 @@ bool Player::Awake(pugi::xml_node& config)
 
 	LoadAnimation(config.child("animations").child("die_ice").child("frame"), deadice);
 	deadice.speed = config.child("animations").child("die_ice").attribute("speed").as_float();
-	deadice.speed = config.child("animations").child("die_ice").attribute("loop").as_bool(false);
+	deadice.loop = config.child("animations").child("die_ice").attribute("loop").as_bool(false);
 
-	LoadAnimation(config.child("animations").child("die_ice").child("frame"), deadice);
+	LoadAnimation(config.child("animations").child("hit_ice").child("frame"), hitice);
 	hitice.speed = config.child("animations").child("hit_ice").attribute("speed").as_float();
-	hitice.speed = config.child("animations").child("hit_ice").attribute("loop").as_bool(false);
+	hitice.loop = config.child("animations").child("hit_ice").attribute("loop").as_bool(false);
 
 
 	return ret;
@@ -97,40 +97,9 @@ bool Player::Start(ELEMENT element)
 
 bool Player::PreUpdate()
 {
-	if (current_state != DEATH ) {
-		current_movement = IDLE;
-		
-
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-			god_mode = !god_mode;
-
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			if (current_movement != RIGHT)App->player->current_movement = LEFT;
-			else current_movement = IDLE;
-		}
-
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			if (current_movement != LEFT)App->player->current_movement = RIGHT;
-			else current_movement = IDLE;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			if (current_element == FIRE) {
-				App->player->current_element = ICE;
-			}
-			else App->player->current_element = FIRE;
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
-		{
-			App->player->current_movement = JUMP;
-			AddFX(1, 0);	
-		}
-		
-	}
+	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0)
+		PreMove();
+	
 
 	return true;
 }
@@ -138,78 +107,7 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
-		switch (current_element)
-		{
-		case FIRE:
-			switch (current_movement)
-			{
-			case IDLE:
-				current_animation = &idlefire;
-				speed.x = 0;
-				break;
-			case LEFT:
-				current_animation = &runfire;
-				speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-				flipX = true;
-				break;
-			case RIGHT:
-				current_animation = &runfire;
-				speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-				flipX = false;
-				break;
-			case JUMP:
-				current_animation = &jumpfire;
-				speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
-				current_state = AIR;
-				break;
-			case DEAD:
-				current_animation = &deadfire;
-				break;
-			default:
-				break;
-			}
-			break;
-		case ICE:
-			switch (current_movement)
-			{
-			case IDLE:
-				current_animation = &idleice;
-				speed.x = 0;
-				break;
-			case LEFT:
-				current_animation = &runice;
-				speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-				flipX = true;
-				break;
-			case RIGHT:
-				current_animation = &runice;
-				speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-				flipX = false;
-				break;
-			case JUMP:
-				current_animation = &jumpice;
-				speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
-				current_state = AIR;
-				break;
-			case DEAD:
-				current_animation = &deadice;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break;
-		}
-
-		if (current_state == AIR) {
-			if (current_element == FIRE)
-				current_animation = &jumpfire;
-			else
-				current_animation = &jumpice;
-		}
-
-		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+		Move();
 		speed.y = floor(speed.y * dt);
 		speed.x = floor(speed.x * dt);
 
@@ -394,4 +292,157 @@ bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 		anim.PushBack(frame_rect);
 	}
 	return true;
+}
+
+void Player::PreMove() {
+
+	
+	current_movement = IDLE;
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		god_mode = !god_mode;
+
+
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		if (current_movement != RIGHT) current_movement = LEFT;
+		else current_movement = IDLE;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		if (current_movement != LEFT) current_movement = RIGHT;
+		else current_movement = IDLE;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		current_movement = LEFT_HIT;
+		AddFX(1, 0);
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		current_movement = RIGHT_HIT;
+		AddFX(1, 0);
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		if (current_element == FIRE) current_element = ICE;
+		else current_element = FIRE;
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
+		{
+			current_movement = JUMP;
+			AddFX(1, 0);
+		}
+	
+	
+	
+	
+
+}
+
+void Player::Move() {
+
+	switch (current_element)
+	{
+	case FIRE:
+		switch (current_movement)
+		{
+		case IDLE:
+			current_animation = &idlefire;
+			speed.x = 0;
+			break;
+		case LEFT:
+			current_animation = &runfire;
+			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = true;
+			break;
+		case RIGHT:
+			current_animation = &runfire;
+			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = false;
+			break;
+		case LEFT_HIT:
+			current_animation = &hitfire;
+			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = true;
+			current_state = HIT;
+			break;
+		case RIGHT_HIT:
+			current_animation = &hitfire;
+			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = false;
+			current_state = HIT;
+			break;
+		case JUMP:
+			current_animation = &jumpfire;
+			speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
+			current_state = AIR;
+			break;
+		case DEAD:
+			current_animation = &deadfire;
+			break;
+		default:
+			break;
+		}
+		break;
+	case ICE:
+		switch (current_movement)
+		{
+		case IDLE:
+			current_animation = &idleice;
+			speed.x = 0;
+			break;
+		case LEFT:
+			current_animation = &runice;
+			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = true;
+			break;
+		case RIGHT:
+			current_animation = &runice;
+			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = false;
+			break;
+		case LEFT_HIT:
+			current_animation = &hitice;
+			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = true;
+			current_state = HIT;
+			break;
+		case RIGHT_HIT:
+			current_animation = &hitice;
+			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+			flipX = false;
+			current_state = HIT;
+			break;
+		case JUMP:
+			current_animation = &jumpice;
+			speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
+			current_state = AIR;
+			break;
+		case DEAD:
+			current_animation = &deadice;
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+
+	if (current_state == AIR) {
+		if (current_element == FIRE)
+			current_animation = &jumpfire;
+		else
+			current_animation = &jumpice;
+	}
+
+	speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
 }

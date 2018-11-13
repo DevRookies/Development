@@ -44,7 +44,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(scenemanager);
-	AddModule(player, false);
+	AddModule(player);
 	AddModule(collision);
 	AddModule(pathfinding);
 	//AddModule(enemy);

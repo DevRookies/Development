@@ -43,7 +43,7 @@ bool SceneManager::Update(float dt)
 			App->scene->CleanUp();
 			App->scene->Start();
 
-			total_time += total_time;
+			total_time += total_time * dt;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
 		}

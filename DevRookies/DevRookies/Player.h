@@ -8,8 +8,8 @@
 #include "Collision.h"
 
 
-enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD };
-enum STATE { FLOOR, AIR, DEATH };
+enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
+enum STATE { FLOOR, AIR, DEATH, HIT};
 enum ELEMENT { FIRE, ICE };
 
 class Player :
@@ -45,6 +45,11 @@ private:
 	uint		heigth_dead_animation = 7;
 	uint		scene = 1;
 
+	void		PreMove();
+	void		Move();
+	void		Die();
+	void		Win();
+
 public:
 
 	Player();
@@ -79,8 +84,7 @@ public:
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
-	void		Die();
-	void		Win();
+	
 
 
 	void AddFX(int channel, int repeat);

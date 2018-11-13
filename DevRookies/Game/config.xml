@@ -27,7 +27,7 @@
 
   <map>
     <folder>maps/</folder>
-    <parallax_speed value="2"/>
+    <parallax_speed value="1"/>
   </map>
   
   <scene>
@@ -79,17 +79,26 @@
       <jump_fire>
         <frame x="2184" y="58" width="60" height="57"/>
       </jump_fire>
-      <die_fire speed="0.2F" loop ="false">
+      <die_fire speed="0.15F" loop ="false">
+        <frame x="2191" y="384" width="53" height="63"/>
         <frame x="2191" y="384" width="53" height="63"/>
         <frame x="2131" y="384" width="59" height="63"/>
         <frame x="2070" y="384" width="60" height="63"/>
         <frame x="2009" y="384" width="60" height="63"/>
       </die_fire>
       <hit_fire speed="0.2F" loop ="false">
-        <frame x="2191" y="384" width="53" height="63"/>
-        <frame x="2131" y="384" width="59" height="63"/>
-        <frame x="2070" y="384" width="60" height="63"/>
-        <frame x="2009" y="384" width="60" height="63"/>
+        <frame x="1134" y="246" width="68" height="51"/>
+        <frame x="1205" y="237" width="73" height="62"/>
+        <frame x="1284" y="233" width="81" height="71"/>
+        <frame x="1369" y="233" width="96" height="71"/>
+        <frame x="1469" y="233" width="105" height="71"/>
+        <frame x="1578" y="228" width="91" height="74"/>
+        <frame x="1672" y="231" width="83" height="72"/>
+        <frame x="1760" y="238" width="84" height="67"/>
+        <frame x="1848" y="235" width="105" height="70"/>
+        <frame x="1961" y="233" width="108" height="70"/>
+        <frame x="2078" y="239" width="83" height="70"/>
+        <frame x="1134" y="246" width="68" height="51"/>
       </hit_fire>
       <idle_ice speed="0.1F" loop="true">
         <frame x="1797" y="0" width="55" height="56"/>
@@ -106,17 +115,25 @@
       <jump_ice>
         <frame x="2004" y="58" width="60" height="57"/>
       </jump_ice>
-      <die_ice speed="0.2F" loop ="false">
+      <die_ice speed="0.1F" loop ="false">
         <frame x="1954" y="384" width="53" height="63"/>
         <frame x="1894" y="384" width="59" height="63"/>
         <frame x="1834" y="384" width="60" height="63"/>
         <frame x="1773" y="384" width="60" height="63"/>
       </die_ice>
       <hit_ice speed="0.2F" loop ="false">
-        <frame x="1954" y="384" width="53" height="63"/>
-        <frame x="1894" y="384" width="59" height="63"/>
-        <frame x="1834" y="384" width="60" height="63"/>
-        <frame x="1773" y="384" width="60" height="63"/>
+        <frame x="1134" y="246" width="68" height="51"/>
+        <frame x="1205" y="237" width="73" height="62"/>
+        <frame x="1284" y="233" width="81" height="71"/>
+        <frame x="1369" y="233" width="96" height="71"/>
+        <frame x="1469" y="233" width="105" height="71"/>
+        <frame x="1578" y="228" width="91" height="74"/>
+        <frame x="1672" y="231" width="83" height="72"/>
+        <frame x="1760" y="238" width="84" height="67"/>
+        <frame x="1848" y="235" width="105" height="70"/>
+        <frame x="1961" y="233" width="108" height="70"/>
+        <frame x="2078" y="239" width="83" height="70"/>
+        <frame x="1134" y="246" width="68" height="51"/>
       </hit_ice>
     </animations>
   </player>
