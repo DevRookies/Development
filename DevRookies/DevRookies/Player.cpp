@@ -113,6 +113,11 @@ bool Player::Update(float dt)
 
 		position += speed;
 	}
+	if (current_animation == &deadfire || current_animation == &deadice)
+		if (current_animation->Finished()) {
+			App->scene->Restart();
+		}
+	
 	
 	collider->SetPos(position.x, position.y + heigth_animation);
 	return true;
@@ -243,8 +248,7 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
-
-		App->scene->Restart();
+		
 		
 	}
 	if (aux_god_mode) {
@@ -296,8 +300,8 @@ bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 void Player::PreMove() {
 
-	
-	current_movement = IDLE;
+	if(current_animation->Finished())
+		current_movement = IDLE;
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -436,6 +440,8 @@ void Player::Move() {
 	default:
 		break;
 	}
+	
+	
 
 	if (current_state == AIR) {
 		if (current_element == FIRE)
