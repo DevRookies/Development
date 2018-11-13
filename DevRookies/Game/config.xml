@@ -1,15 +1,16 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="16">
+  <app framerate_cap="33">
     <title>Fire and Ice</title>
     <organization>UPC - DevRookies</organization>
+    <save>save_game.xml</save>
   </app>
 	
   <render>
     <vsync value="false"/>
     <camera x="0" y="0" speed="100" max="5119"/>
-    <start_time value ="120"/>
+    <start_time value ="90"/>
   </render>
 
   <window>
@@ -168,7 +169,7 @@
   
   <map>
     <folder>maps/</folder>
-    <parallax_speed value="1"/>
+    <parallax_speed value="50"/>
   </map>
 
 </config>
