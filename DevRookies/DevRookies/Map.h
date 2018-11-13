@@ -7,11 +7,40 @@
 #include "Module.h"
 #include "Collision.h"
 
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
 struct MapLayer
 {
 	p2SString				name = "";
 	uint					width = 0u;
 	uint					height = 0u;
+	uint*					data = 0u;
+	Properties				properties;
 	uint*					tiles = nullptr;
 	bool					parallax = false;
 	~MapLayer() {
@@ -91,6 +120,8 @@ public:
 	bool Load(const char* path);
 
 	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 
@@ -98,7 +129,11 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollider(pugi::xml_node& node, uint type);
+
+	TileSet* GetTilesetFromTileId(int id) const;
+
 
 public:
 

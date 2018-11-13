@@ -52,7 +52,7 @@ private:
 	SDL_Rect		player;
 	SDL_Rect		camera;
 	
-	
+	SDL_Texture* debug_tex;
 };
 
 #endif // __SCENE_H__
