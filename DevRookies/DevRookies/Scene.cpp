@@ -39,26 +39,24 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	App->player->active = true;
 	switch (scene_actual)
 	{
 	case 1:
-		App->player->Start(FIRE);
+		App->player->current_element = FIRE;
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
 		break;
 	case 2:
-		App->player->Start(ICE);
+		App->player->current_element = ICE;
 		App->map->Load(tile_name_scene2.GetString());
 		App->audio->PlayMusic(lvl2_music_name.GetString());
 		break;
 	default:
 		break;
 	}
-	player.x = App->map->init_player_position.x;
-	player.y = App->map->init_player_position.y;
+
 	App->player->AddColliderPlayer();
-	App->player->SetPosition(player.x, player.y);
+	App->player->SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
 	App->render->SetCamera(camera.x, camera.y);
 
 	int w, h;
@@ -185,7 +183,9 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	App->map->CleanUp();
 	App->collision->CleanUp();
-	App->player->CleanUp();
+
+	App->textures->UnLoad(debug_tex);
+	debug_tex = nullptr;
 
 	return true;
 }

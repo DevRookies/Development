@@ -49,7 +49,6 @@ private:
 	p2SString		tile_name_scene2 = "";
 	p2SString		lvl1_music_name = "";
 	p2SString		lvl2_music_name = "";
-	SDL_Rect		player;
 	SDL_Rect		camera;
 	
 	SDL_Texture* debug_tex;

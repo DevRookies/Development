@@ -9,7 +9,7 @@
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
-enum STATE { FLOOR, AIR, DEATH, HIT};
+enum STATE { FLOOR, AIR, DEATH};
 enum ELEMENT { FIRE, ICE };
 
 class Player :
@@ -32,7 +32,7 @@ private:
 	Collider*	collider = nullptr;
 
 	bool		flipX = false;
-	int			jump_speed, max_jump_speed;
+	int			jump_speed, hit_speed;
 	fPoint		position, lastPosition, speed, acceleration, max_speed;
 	p2SString   texture;
 	p2SString	jump_fx_name;
@@ -47,6 +47,9 @@ private:
 
 	void		PreMove();
 	void		Move();
+	void		Jump();
+	void		Walk();
+	void		Hit();
 	void		Die();
 	void		Win();
 
@@ -62,7 +65,7 @@ public:
 	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
-	bool Start(ELEMENT element);
+	bool Start();
 
 	// Called before all Updates
 	bool PreUpdate();
@@ -85,10 +88,8 @@ public:
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
 	
-
-
-	void AddFX(int channel, int repeat);
-	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
+	void		AddFX(const int channel, const int repeat) const;
+	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);
 
 	MOVEMENT	current_movement = IDLE;
 	STATE		current_state = FLOOR;

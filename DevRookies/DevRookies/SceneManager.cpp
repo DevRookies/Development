@@ -3,8 +3,6 @@
 #include "SceneManager.h"
 #include "Render.h"
 #include "Window.h"
-#include "Map.h"
-#include "Player.h"
 #include "Scene.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
@@ -42,7 +40,7 @@ bool SceneManager::Update(float dt)
 		{
 			App->scene->CleanUp();
 			App->scene->Start();
-
+			
 			total_time += total_time * dt;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;

@@ -31,7 +31,7 @@ bool Player::Awake(pugi::xml_node& config)
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
 	jump_speed = config.child("jump_speed").attribute("value").as_int();
-	max_jump_speed = config.child("max_jump_speed").attribute("value").as_int();
+	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
@@ -40,58 +40,60 @@ bool Player::Awake(pugi::xml_node& config)
 	//fire
 	LoadAnimation(config.child("animations").child("idle_fire").child("frame"), idlefire);
 	idlefire.speed = config.child("animations").child("idle_fire").attribute("speed").as_float();
-	idlefire.loop = config.child("animations").child("idle_fire").attribute("loop").as_bool(true);
+	idlefire.loop = config.child("animations").child("idle_fire").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("run_fire").child("frame"), runfire);
 	runfire.speed = config.child("animations").child("run_fire").attribute("speed").as_float();
-	runfire.loop = config.child("animations").child("run_fire").attribute("loop").as_bool(true);
+	runfire.loop = config.child("animations").child("run_fire").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("jump_fire").child("frame"), jumpfire);
 
 	LoadAnimation(config.child("animations").child("die_fire").child("frame"), deadfire);
 	deadfire.speed = config.child("animations").child("die_fire").attribute("speed").as_float();
-	deadfire.loop = config.child("animations").child("die_fire").attribute("loop").as_bool(false);
+	deadfire.loop = config.child("animations").child("die_fire").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("hit_fire").child("frame"), hitfire);
 	hitfire.speed = config.child("animations").child("hit_fire").attribute("speed").as_float();
-	hitfire.loop = config.child("animations").child("hit_fire").attribute("loop").as_bool(false);
+	hitfire.loop = config.child("animations").child("hit_fire").attribute("loop").as_bool();
 
 	//ice
 	LoadAnimation(config.child("animations").child("idle_ice").child("frame"), idleice);
 	idleice.speed = config.child("animations").child("idle_ice").attribute("speed").as_float();
-	idleice.loop = config.child("animations").child("idle_ice").attribute("loop").as_bool(true);
+	idleice.loop = config.child("animations").child("idle_ice").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("run_ice").child("frame"), runice);
 	runice.speed = config.child("animations").child("run_ice").attribute("speed").as_float();
-	runice.loop = config.child("animations").child("run_ice").attribute("loop").as_bool(true);
+	runice.loop = config.child("animations").child("run_ice").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("jump_ice").child("frame"), jumpice);
 
 	LoadAnimation(config.child("animations").child("die_ice").child("frame"), deadice);
 	deadice.speed = config.child("animations").child("die_ice").attribute("speed").as_float();
-	deadice.loop = config.child("animations").child("die_ice").attribute("loop").as_bool(false);
+	deadice.loop = config.child("animations").child("die_ice").attribute("loop").as_bool();
 
 	LoadAnimation(config.child("animations").child("hit_ice").child("frame"), hitice);
 	hitice.speed = config.child("animations").child("hit_ice").attribute("speed").as_float();
-	hitice.loop = config.child("animations").child("hit_ice").attribute("loop").as_bool(false);
-
+	hitice.loop = config.child("animations").child("hit_ice").attribute("loop").as_bool();
 
 	return ret;
 
 }
 
-bool Player::Start(ELEMENT element)
+bool Player::Start()
 {
+	
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());
-	current_state = AIR;
+	
 	player_texture = App->textures->Load(texture.GetString());
-	current_element = element;
-	if(element == FIRE)current_animation = &idlefire;
-	else current_animation = &idleice;
-	flipX = false;
+	current_state = AIR;
+	current_element = FIRE;
+	current_movement = IDLE;
+	current_animation = &idlefire;
 
+	flipX = false;
+	
 	return true;
 }
 
@@ -100,7 +102,6 @@ bool Player::PreUpdate()
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0)
 		PreMove();
 	
-
 	return true;
 }
 
@@ -113,19 +114,19 @@ bool Player::Update(float dt)
 
 		position += speed;
 	}
-	if (current_animation == &deadfire || current_animation == &deadice)
-		if (current_animation->Finished()) {
-			App->scene->Restart();
-		}
-	
-	
+
+	if (current_animation->GetCurrentFrameIndex() == 3 && (current_animation == &deadfire || current_animation == &deadice))
+		App->scene->Restart();
+		
 	collider->SetPos(position.x, position.y + heigth_animation);
+
 	return true;
 }
 
 bool Player::PostUpdate()
 {
 	App->render->Blit(player_texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+
 	return true;
 }
 
@@ -155,8 +156,6 @@ bool Player::Load(pugi::xml_node& node)
 	current_element = (ELEMENT)node.child("element").attribute("value").as_int(0);
 	flipX = node.child("flipX").attribute("value").as_bool(false);
 	
-	
-
 	return ret;
 }
 
@@ -196,6 +195,11 @@ void Player::SetPosition(const float & x, const float & y)
 	position.y = y;
 }
 
+//Collider-----------------
+void Player::AddColliderPlayer() {
+	collider = App->collision->AddCollider({ 0,0,40, 10 }, COLLIDER_PLAYER, this);
+}
+
 //----------------------------------------------------
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
@@ -229,12 +233,8 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 		return;
 	}
 	
-	
 }
 
-void Player::AddColliderPlayer()  {
-	collider = App->collision->AddCollider({ 0,0,40, 10 }, COLLIDER_PLAYER, this);
-}
 
 void Player::Die() {
 
@@ -248,14 +248,13 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
-		
-		
 	}
+
 	if (aux_god_mode) {
 		aux_god_mode = false;
 		god_mode = false;
 	}
-		
+
 }
 
 void Player::Win() {
@@ -279,7 +278,7 @@ void Player::Win() {
 
 }
 
-void Player::AddFX(int channel, int repeat)
+void Player::AddFX(const int channel , const int repeat) const
 {
 	App->audio->PlayFx(channel, repeat);
 }
@@ -300,55 +299,42 @@ bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 void Player::PreMove() {
 
-	if(current_animation->Finished())
+	if (current_animation->GetCurrentFrameIndex() == 11 || (current_animation != &hitfire && current_animation != &hitice)) {
 		current_movement = IDLE;
 
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			if (current_movement != RIGHT) current_movement = LEFT;
+			else current_movement = IDLE;
+		
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			if (current_movement != LEFT) current_movement = RIGHT;
+			else current_movement = IDLE;
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			if (current_element == FIRE) current_element = ICE;
+			else current_element = FIRE;
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			current_movement = LEFT_HIT;
+			AddFX(1, 0);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			current_movement = RIGHT_HIT;
+			AddFX(1, 0);
+		}
+			
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
+			current_movement = JUMP;
+		
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		god_mode = !god_mode;
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		if (current_movement != RIGHT) current_movement = LEFT;
-		else current_movement = IDLE;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		if (current_movement != LEFT) current_movement = RIGHT;
-		else current_movement = IDLE;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		current_movement = LEFT_HIT;
-		AddFX(1, 0);
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		current_movement = RIGHT_HIT;
-		AddFX(1, 0);
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		if (current_element == FIRE) current_element = ICE;
-		else current_element = FIRE;
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
-		{
-			current_movement = JUMP;
-			AddFX(1, 0);
-		}
+		
 	
-	
-	
-	
-
+		
 }
 
 void Player::Move() {
@@ -363,31 +349,18 @@ void Player::Move() {
 			speed.x = 0;
 			break;
 		case LEFT:
-			current_animation = &runfire;
-			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = true;
-			break;
 		case RIGHT:
 			current_animation = &runfire;
-			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = false;
+			Walk();
 			break;
 		case LEFT_HIT:
-			current_animation = &hitfire;
-			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = true;
-			current_state = HIT;
-			break;
 		case RIGHT_HIT:
 			current_animation = &hitfire;
-			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = false;
-			current_state = HIT;
+			Hit();
 			break;
 		case JUMP:
 			current_animation = &jumpfire;
-			speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
-			current_state = AIR;
+			Jump();
 			break;
 		case DEAD:
 			current_animation = &deadfire;
@@ -404,31 +377,18 @@ void Player::Move() {
 			speed.x = 0;
 			break;
 		case LEFT:
-			current_animation = &runice;
-			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = true;
-			break;
 		case RIGHT:
 			current_animation = &runice;
-			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = false;
+			Walk();
 			break;
 		case LEFT_HIT:
-			current_animation = &hitice;
-			speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = true;
-			current_state = HIT;
-			break;
 		case RIGHT_HIT:
 			current_animation = &hitice;
-			speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
-			flipX = false;
-			current_state = HIT;
+			Hit();
 			break;
 		case JUMP:
 			current_animation = &jumpice;
-			speed.y = jump_speed * -max_jump_speed + (1 - jump_speed) * speed.y;
-			current_state = AIR;
+			Jump();
 			break;
 		case DEAD:
 			current_animation = &deadice;
@@ -441,14 +401,43 @@ void Player::Move() {
 		break;
 	}
 	
+	if (current_state == AIR) 
+		if (current_element == FIRE) current_animation = &jumpfire;
+		else current_animation = &jumpice;
 	
-
-	if (current_state == AIR) {
-		if (current_element == FIRE)
-			current_animation = &jumpfire;
-		else
-			current_animation = &jumpice;
-	}
-
+	
 	speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+}
+
+void Player::Walk()
+{
+	if (current_movement == LEFT)
+	{
+		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+		flipX = true;
+	}
+	else
+	{
+		speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+		flipX = false;
+	}
+}
+
+void Player::Hit()
+{
+	if (current_movement == LEFT_HIT) {
+		speed.x = acceleration.x * -hit_speed + (1 - acceleration.x) * speed.x;
+		flipX = true;
+	}
+	else{
+		speed.x = acceleration.x * hit_speed + (1 - acceleration.x) * speed.x;
+		flipX = false;
+	}
+}
+
+void Player::Jump() 
+{
+	speed.y = jump_speed * -max_speed.y + (1 - jump_speed) * speed.y;
+	current_state = AIR;
+	AddFX(1, 0);
 }

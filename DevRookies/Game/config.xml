@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="33">
+  <app framerate_cap="30">
     <title>Fire and Ice</title>
     <organization>UPC - DevRookies</organization>
     <save>save_game.xml</save>
@@ -58,8 +58,8 @@
     <speed x="0.0f" y="0.0f"/>
     <acceleration x="0.8f" y="0.6f"/>
     <max_speed x="200.0f" y="300.0f"/>
-    <jump_speed value="20.0f"/>
-    <max_jump_speed value="400"/>
+    <hit_speed value="300.0f"/>
+    <jump_speed value="30.0f"/>
     <jump_fx_name source="Jump.wav"/>
     <dead_fx_name source="negative_beeps.wav"/>
     <victory_fx_name source="Ta Da.wav"/>
@@ -79,14 +79,13 @@
       <jump_fire>
         <frame x="2184" y="58" width="60" height="57"/>
       </jump_fire>
-      <die_fire speed="0.15F" loop ="false">
-        <frame x="2191" y="384" width="53" height="63"/>
+      <die_fire speed="0.15F" loop ="true">
         <frame x="2191" y="384" width="53" height="63"/>
         <frame x="2131" y="384" width="59" height="63"/>
         <frame x="2070" y="384" width="60" height="63"/>
         <frame x="2009" y="384" width="60" height="63"/>
       </die_fire>
-      <hit_fire speed="0.2F" loop ="false">
+      <hit_fire speed="0.8F" loop ="true">
         <frame x="1134" y="246" width="68" height="51"/>
         <frame x="1205" y="237" width="73" height="62"/>
         <frame x="1284" y="233" width="81" height="71"/>
@@ -115,13 +114,13 @@
       <jump_ice>
         <frame x="2004" y="58" width="60" height="57"/>
       </jump_ice>
-      <die_ice speed="0.1F" loop ="false">
+      <die_ice speed="0.1F" loop ="true">
         <frame x="1954" y="384" width="53" height="63"/>
         <frame x="1894" y="384" width="59" height="63"/>
         <frame x="1834" y="384" width="60" height="63"/>
         <frame x="1773" y="384" width="60" height="63"/>
       </die_ice>
-      <hit_ice speed="0.2F" loop ="false">
+      <hit_ice speed="0.8F" loop ="true">
         <frame x="1134" y="246" width="68" height="51"/>
         <frame x="1205" y="237" width="73" height="62"/>
         <frame x="1284" y="233" width="81" height="71"/>
