@@ -42,20 +42,19 @@ bool Scene::Start()
 	switch (scene_actual)
 	{
 	case 1:
-		App->player->Restart(FIRE);
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
+		App->player->Restart(FIRE);
 		break;
 	case 2:
-		App->player->Restart(ICE);
 		App->map->Load(tile_name_scene2.GetString());
 		App->audio->PlayMusic(lvl2_music_name.GetString());
+		App->player->Restart(ICE);
 		break;
 	default:
 		break;
 	}
 	
-	App->player->AddColliderPlayer();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 

@@ -26,6 +26,9 @@ bool Player::Awake(pugi::xml_node& config)
 	LOG("Loading Character");
 	bool ret = true;
 
+	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
+	collider_box_width = config.child("collider").attribute("width").as_int();
+	collider_box_height = config.child("collider").attribute("height").as_int();
 	texture = config.child("texture").child_value();
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
@@ -81,16 +84,11 @@ bool Player::Awake(pugi::xml_node& config)
 
 bool Player::Start()
 {
-	
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
-	App->audio->LoadFx(victory_fx_name.GetString());
-	
+	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_texture = App->textures->Load(texture.GetString());
-
-	Restart(FIRE);
-	
-	
+		
 	return true;
 }
 
@@ -196,7 +194,7 @@ void Player::SetPosition(const float & x, const float & y)
 
 //Collider-----------------
 void Player::AddColliderPlayer() {
-	collider = App->collision->AddCollider({ 0,0,40, 10 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, this);
 }
 
 //----------------------------------------------------
@@ -238,7 +236,7 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 void Player::Die() {
 
 	if (!god_mode) {
-		position.y -= heigth_dead_animation; //because the animations are 7 pixels less than dead animation
+		
 		current_state = DEATH;
 		AddFX(2, 0);
 		if (current_element == FIRE) {
@@ -443,13 +441,16 @@ void Player::Jump()
 
 void Player::Restart(ELEMENT element)
 {
-	current_state = AIR;
+	current_state = FLOOR;
 	current_movement = IDLE;
 	current_element = element;
+
 	if (element == FIRE)
 		current_animation = &idlefire;
 	else
 		current_animation = &idleice;
+
+	AddColliderPlayer();
 	SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
 	flipX = false;
 	deadfire.Reset();
