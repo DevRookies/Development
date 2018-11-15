@@ -56,6 +56,7 @@ public:
 	uint			camera_speed;
 	int				camera_max;
 	uint			start_time;
+	uint			restart_start_time;
 };
 
 #endif // __RENDER_H__

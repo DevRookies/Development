@@ -9,7 +9,7 @@
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
-enum STATE { FLOOR, AIR, DEATH};
+enum STATE { FLOOR, AIR, DEATH, WIN};
 enum ELEMENT { FIRE, ICE };
 
 class Player :
@@ -83,10 +83,11 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	fPoint		GetPosition();
+	fPoint		GetPosition() const;
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
+	void		Restart(ELEMENT element);
 	
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);

@@ -87,12 +87,9 @@ bool Player::Start()
 	App->audio->LoadFx(victory_fx_name.GetString());
 	
 	player_texture = App->textures->Load(texture.GetString());
-	current_state = AIR;
-	current_element = FIRE;
-	current_movement = IDLE;
-	current_animation = &idlefire;
 
-	flipX = false;
+	Restart(FIRE);
+	
 	
 	return true;
 }
@@ -115,8 +112,10 @@ bool Player::Update(float dt)
 		position += speed;
 	}
 
-	if (current_animation->GetCurrentFrameIndex() == 3 && (current_animation == &deadfire || current_animation == &deadice))
+	if (current_state == WIN || (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH))) 
 		App->scene->Restart();
+	
+		
 		
 	collider->SetPos(position.x, position.y + heigth_animation);
 
@@ -183,7 +182,7 @@ bool Player::Save(pugi::xml_node& node) const
 }
 
 //Getters---------------------------------
-fPoint Player::GetPosition()
+fPoint Player::GetPosition() const
 {
 	return fPoint();
 }
@@ -235,7 +234,7 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	
 }
 
-
+//When player dies--------
 void Player::Die() {
 
 	if (!god_mode) {
@@ -257,9 +256,11 @@ void Player::Die() {
 
 }
 
+//When player wins--------
 void Player::Win() {
 
 	AddFX(3, 0);
+	current_state = WIN;
 	if (current_element == FIRE) {
 		current_animation = &idlefire;
 	}
@@ -269,11 +270,9 @@ void Player::Win() {
 
 	if (App->scene->scene_actual == 1) {
 		App->scene->scene_actual = 2;
-		App->scene->Restart();
 	}
 	else {
 		App->scene->scene_actual = 1;
-		App->scene->Restart();
 	}
 
 }
@@ -440,4 +439,19 @@ void Player::Jump()
 	speed.y = jump_speed * -max_speed.y + (1 - jump_speed) * speed.y;
 	current_state = AIR;
 	AddFX(1, 0);
+}
+
+void Player::Restart(ELEMENT element)
+{
+	current_state = AIR;
+	current_movement = IDLE;
+	current_element = element;
+	if (element == FIRE)
+		current_animation = &idlefire;
+	else
+		current_animation = &idleice;
+	SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
+	flipX = false;
+	deadfire.Reset();
+	deadice.Reset();
 }

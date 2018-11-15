@@ -50,6 +50,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera_speed = config.child("camera").attribute("speed").as_int();
 		camera_max = config.child("camera").attribute("max").as_int();
 		start_time = config.child("start_time").attribute("value").as_int();
+		restart_start_time = start_time;
 	}
 
 	return ret;
