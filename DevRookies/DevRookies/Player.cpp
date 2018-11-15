@@ -110,7 +110,7 @@ bool Player::Update(float dt)
 		position += speed;
 	}
 
-	if (current_state == WIN || (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH))) 
+	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) 
 		App->scene->Restart();
 	
 		
@@ -266,12 +266,14 @@ void Player::Win() {
 		current_animation = &idleice;
 	}
 
-	if (App->scene->scene_actual == 1) {
+	if (App->scene->scene_actual == 1) 
 		App->scene->scene_actual = 2;
-	}
-	else {
+	
+	else 
 		App->scene->scene_actual = 1;
-	}
+	
+	
+	App->scene->Restart();
 
 }
 
