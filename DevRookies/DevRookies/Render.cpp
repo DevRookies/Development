@@ -282,3 +282,5 @@ void Render::SetCamera(uint x, uint y) {
 	camera.y = y;
 }
 
+
+

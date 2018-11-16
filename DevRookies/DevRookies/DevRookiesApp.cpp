@@ -96,7 +96,8 @@ bool DevRookiesApp::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		frame_rate = app_config.attribute("framerate_cap").as_uint();
+		frame_rate = app_config.child("framerate_cap").attribute("rate").as_uint();
+		framerate_cap_enabled = app_config.child("framerate_cap").attribute("enabled").as_bool();
 		save_game.create(app_config.child("save").child_value());
 		load_game = save_game;
 		
@@ -220,7 +221,7 @@ void DevRookiesApp::FinishUpdate()
 
 	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
-	if (last_frame_ms < frame_rate)
+	if (last_frame_ms < frame_rate && framerate_cap_enabled)
 	{
 		PerfTimer delay_timer;
 		SDL_Delay(frame_rate - last_frame_ms);
@@ -263,6 +264,9 @@ bool DevRookiesApp::DoUpdate()
 	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
 
 	bool ret = true;
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		framerate_cap_enabled = !framerate_cap_enabled;
+
 	p2List_item<Module*>* item;
 	item = modules.start;
 	Module* pModule = NULL;
