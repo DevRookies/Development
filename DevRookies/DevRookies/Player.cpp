@@ -8,7 +8,7 @@
 #include "SceneManager.h"
 #include "Map.h"
 
-Player::Player(entityType type)
+Player::Player(entityType type):Entity(type)
 {
 	//name.create("player");
 }

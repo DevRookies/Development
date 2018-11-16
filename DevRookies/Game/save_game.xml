@@ -12,17 +12,14 @@
 	<scene>
 		<scene_actual value="1" />
 	</scene>
-	<:anonymous />
-	<player>
-		<position x="1272.66699" y="590.333008" />
-		<godmode value="true" />
-		<element value="1" />
-		<flipX value="false" />
-	</player>
-	<:anonymous />
 	<pathfinding />
-	<entitymanager />
+	<entitymanager>
+		<position x="162.667007" y="137.332993" />
+		<godmode value="false" />
+		<element value="0" />
+		<flipX value="false" />
+	</entitymanager>
 	<render>
-		<camera x="-1020" y="0" />
+		<camera x="0" y="0" />
 	</render>
 </game_state>

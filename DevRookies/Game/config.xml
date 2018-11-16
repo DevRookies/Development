@@ -52,97 +52,100 @@
     </sfx>
   </audio>
 
-  <player>
-    <godmode_tex>textures/godmode.png</godmode_tex>
-    <godmode_pos x="0.0f" y="0.0f"/>
-    <texture>textures/character.png</texture>
-    <position x="0.0f" y="0.0f"/>
-    <collider width="40.0f" height="5.0f"/>
-    <speed x="0.0f" y="0.0f"/>
-    <acceleration x="0.8f" y="0.6f"/>
-    <max_speed x="200.0f" y="300.0f"/>
-    <hit_speed value="300.0f"/>
-    <jump_speed value="30.0f"/>
-    <jump_fx_name source="Jump.wav"/>
-    <dead_fx_name source="negative_beeps.wav"/>
-    <victory_fx_name source="Ta Da.wav"/>
-    <animations>
-      <idle_fire speed="0.1F" loop="true">
-        <frame x="2021" y="0" width="55" height="56"/>
-        <frame x="2077" y="0" width="56" height="56"/>
-        <frame x="2133" y="0" width="55" height="56"/>
-        <frame x="2189" y="0" width="55" height="56"/>
-      </idle_fire>
-      <run_fire speed="0.2F" loop="true">
-        <frame x="2065" y="58" width="59" height="55"/>
-        <frame x="2125" y="58" width="59" height="55"/>
-        <frame x="2184" y="58" width="60" height="57"/>
-        <frame x="2125" y="58" width="59" height="55"/>
-      </run_fire>;
-      <jump_fire>
-        <frame x="2184" y="58" width="60" height="57"/>
-      </jump_fire>
-      <die_fire speed="0.15F" loop ="false">
-        <frame x="2191" y="384" width="53" height="63"/>
-        <frame x="2131" y="384" width="59" height="63"/>
-        <frame x="2070" y="384" width="60" height="63"/>
-        <frame x="2009" y="384" width="60" height="63"/>
-      </die_fire>
-      <hit_fire speed="0.8F" loop ="true">
-        <frame x="1134" y="246" width="68" height="51"/>
-        <frame x="1205" y="237" width="73" height="62"/>
-        <frame x="1284" y="233" width="81" height="71"/>
-        <frame x="1369" y="233" width="96" height="71"/>
-        <frame x="1469" y="233" width="105" height="71"/>
-        <frame x="1578" y="228" width="91" height="74"/>
-        <frame x="1672" y="231" width="83" height="72"/>
-        <frame x="1760" y="238" width="84" height="67"/>
-        <frame x="1848" y="235" width="105" height="70"/>
-        <frame x="1961" y="233" width="108" height="70"/>
-        <frame x="2078" y="239" width="83" height="70"/>
-        <frame x="1134" y="246" width="68" height="51"/>
-      </hit_fire>
-      <godmode speed="0.1F" loop ="true">
-        <frame x="1205" y="237" width="73" height="62"/>
-        <frame x="2078" y="239" width="83" height="70"/>
-      </godmode>
-      <idle_ice speed="0.1F" loop="true">
-        <frame x="1797" y="0" width="55" height="56"/>
-        <frame x="1853" y="0" width="56" height="56"/>
-        <frame x="1909" y="0" width="55" height="56"/>
-        <frame x="1965" y="0" width="55" height="56"/>
-      </idle_ice>
-      <run_ice speed="0.2F" loop="true">
-        <frame x="1885" y="58" width="59" height="56"/>
-        <frame x="1945" y="58" width="59" height="56"/>
-        <frame x="2004" y="58" width="60" height="57"/>
-        <frame x="1945" y="58" width="59" height="56"/>
-      </run_ice>;
-      <jump_ice>
-        <frame x="2004" y="58" width="60" height="57"/>
-      </jump_ice>
-      <die_ice speed="0.1F" loop ="false">
-        <frame x="1954" y="384" width="53" height="63"/>
-        <frame x="1894" y="384" width="59" height="63"/>
-        <frame x="1834" y="384" width="60" height="63"/>
-        <frame x="1773" y="384" width="60" height="63"/>
-      </die_ice>
-      <hit_ice speed="0.8F" loop ="true">
-        <frame x="1134" y="246" width="68" height="51"/>
-        <frame x="1205" y="237" width="73" height="62"/>
-        <frame x="1284" y="233" width="81" height="71"/>
-        <frame x="1369" y="233" width="96" height="71"/>
-        <frame x="1469" y="233" width="105" height="71"/>
-        <frame x="1578" y="228" width="91" height="74"/>
-        <frame x="1672" y="231" width="83" height="72"/>
-        <frame x="1760" y="238" width="84" height="67"/>
-        <frame x="1848" y="235" width="105" height="70"/>
-        <frame x="1961" y="233" width="108" height="70"/>
-        <frame x="2078" y="239" width="83" height="70"/>
-        <frame x="1134" y="246" width="68" height="51"/>
-      </hit_ice>
-    </animations>
-  </player>
+  <entitymanager>
+    <player>
+      <godmode_tex>textures/godmode.png</godmode_tex>
+      <godmode_pos x="0.0f" y="0.0f"/>
+      <texture>textures/character.png</texture>
+      <position x="0.0f" y="0.0f"/>
+      <collider width="40.0f" height="5.0f"/>
+      <speed x="0.0f" y="0.0f"/>
+      <acceleration x="0.8f" y="0.6f"/>
+      <max_speed x="200.0f" y="300.0f"/>
+      <hit_speed value="300.0f"/>
+      <jump_speed value="30.0f"/>
+      <jump_fx_name source="Jump.wav"/>
+      <dead_fx_name source="negative_beeps.wav"/>
+      <victory_fx_name source="Ta Da.wav"/>
+      <animations>
+        <idle_fire speed="0.1F" loop="true">
+          <frame x="2021" y="0" width="55" height="56"/>
+          <frame x="2077" y="0" width="56" height="56"/>
+          <frame x="2133" y="0" width="55" height="56"/>
+          <frame x="2189" y="0" width="55" height="56"/>
+        </idle_fire>
+        <run_fire speed="0.2F" loop="true">
+          <frame x="2065" y="58" width="59" height="55"/>
+          <frame x="2125" y="58" width="59" height="55"/>
+          <frame x="2184" y="58" width="60" height="57"/>
+          <frame x="2125" y="58" width="59" height="55"/>
+        </run_fire>;
+        <jump_fire>
+          <frame x="2184" y="58" width="60" height="57"/>
+        </jump_fire>
+        <die_fire speed="0.15F" loop ="false">
+          <frame x="2191" y="384" width="53" height="63"/>
+          <frame x="2131" y="384" width="59" height="63"/>
+          <frame x="2070" y="384" width="60" height="63"/>
+          <frame x="2009" y="384" width="60" height="63"/>
+        </die_fire>
+        <hit_fire speed="0.8F" loop ="true">
+          <frame x="1134" y="246" width="68" height="51"/>
+          <frame x="1205" y="237" width="73" height="62"/>
+          <frame x="1284" y="233" width="81" height="71"/>
+          <frame x="1369" y="233" width="96" height="71"/>
+          <frame x="1469" y="233" width="105" height="71"/>
+          <frame x="1578" y="228" width="91" height="74"/>
+          <frame x="1672" y="231" width="83" height="72"/>
+          <frame x="1760" y="238" width="84" height="67"/>
+          <frame x="1848" y="235" width="105" height="70"/>
+          <frame x="1961" y="233" width="108" height="70"/>
+          <frame x="2078" y="239" width="83" height="70"/>
+          <frame x="1134" y="246" width="68" height="51"/>
+        </hit_fire>
+        <godmode speed="0.1F" loop ="true">
+          <frame x="1205" y="237" width="73" height="62"/>
+          <frame x="2078" y="239" width="83" height="70"/>
+        </godmode>
+        <idle_ice speed="0.1F" loop="true">
+          <frame x="1797" y="0" width="55" height="56"/>
+          <frame x="1853" y="0" width="56" height="56"/>
+          <frame x="1909" y="0" width="55" height="56"/>
+          <frame x="1965" y="0" width="55" height="56"/>
+        </idle_ice>
+        <run_ice speed="0.2F" loop="true">
+          <frame x="1885" y="58" width="59" height="56"/>
+          <frame x="1945" y="58" width="59" height="56"/>
+          <frame x="2004" y="58" width="60" height="57"/>
+          <frame x="1945" y="58" width="59" height="56"/>
+        </run_ice>;
+        <jump_ice>
+          <frame x="2004" y="58" width="60" height="57"/>
+        </jump_ice>
+        <die_ice speed="0.1F" loop ="false">
+          <frame x="1954" y="384" width="53" height="63"/>
+          <frame x="1894" y="384" width="59" height="63"/>
+          <frame x="1834" y="384" width="60" height="63"/>
+          <frame x="1773" y="384" width="60" height="63"/>
+        </die_ice>
+        <hit_ice speed="0.8F" loop ="true">
+          <frame x="1134" y="246" width="68" height="51"/>
+          <frame x="1205" y="237" width="73" height="62"/>
+          <frame x="1284" y="233" width="81" height="71"/>
+          <frame x="1369" y="233" width="96" height="71"/>
+          <frame x="1469" y="233" width="105" height="71"/>
+          <frame x="1578" y="228" width="91" height="74"/>
+          <frame x="1672" y="231" width="83" height="72"/>
+          <frame x="1760" y="238" width="84" height="67"/>
+          <frame x="1848" y="235" width="105" height="70"/>
+          <frame x="1961" y="233" width="108" height="70"/>
+          <frame x="2078" y="239" width="83" height="70"/>
+          <frame x="1134" y="246" width="68" height="51"/>
+        </hit_ice>
+      </animations>
+    </player>
+  </entitymanager>
+  
 
   <JrGargoyle>
     <texture>textures/JrGargoyle.png</texture>

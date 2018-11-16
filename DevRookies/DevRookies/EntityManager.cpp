@@ -3,10 +3,6 @@
 #include "Render.h"
 #include "Entity.h"
 #include "Player.h"
-//check if needed
-#include "Scene.h"
-#include "SceneManager.h"
-//----------------
 #include "OfficerSkeleton.h"
 #include "JrGargoyle.h"
 #include "PugiXml/src/pugixml.hpp"
@@ -26,6 +22,7 @@ EntityManager::~EntityManager()
 bool EntityManager::Awake(pugi::xml_node &config)
 {
 	bool ret = true;
+	player->Awake(config.child("player"));
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
@@ -35,7 +32,18 @@ bool EntityManager::Awake(pugi::xml_node &config)
 bool EntityManager::Start()
 {
 	bool ret = true;
+	p2List_item<Entity*>* tmp = entities.start;
+	while (tmp != nullptr)
+	{
+		if (tmp->data->type == Entity::entityType::PLAYER)
+			ret = tmp->data->Start();
+		tmp = tmp->next;
+	}
+
+
 	texture = App->textures->Load(PATH(folder.GetString(), texture_path.GetString()));
+
+
 
 	return ret;
 }
@@ -77,6 +85,7 @@ bool EntityManager::CleanUp()
 		tmp->data->CleanUp();
 		tmp = tmp->next;
 	}
+	player->CleanUp();
 	return ret;
 }
 
@@ -96,6 +105,7 @@ bool EntityManager::Load(pugi::xml_node& file)
 {
 	bool ret = true;
 	p2List_item<Entity*>* tmp = entities.start;
+	pugi::xml_node player = file.child("player");
 	pugi::xml_node JrGargoyle = file.child("JrGargoyle");
 	pugi::xml_node OfficerSkeleton = file.child("OfficerSkeleton");
 	while (tmp != nullptr)
