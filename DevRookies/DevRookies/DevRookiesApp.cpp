@@ -14,6 +14,7 @@
 #include "Pathfinding.h"
 #include "EntityManager.h"
 #include "DevRookiesApp.h"
+#include"Brofiler/Brofiler.h"
 
 // Constructor
 DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
@@ -150,6 +151,7 @@ bool DevRookiesApp::Start()
 // Called each loop iteration
 bool DevRookiesApp::Update()
 {
+	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
 	bool ret = true;
 	PrepareUpdate();
 
@@ -187,6 +189,7 @@ pugi::xml_node DevRookiesApp::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void DevRookiesApp::PrepareUpdate()
 {
+	BROFILER_CATEGORY("PrepareUpdate", Profiler::Color::Blue);
 	frame_count++;
 	last_sec_frame_count++;
 
@@ -197,6 +200,8 @@ void DevRookiesApp::PrepareUpdate()
 // ---------------------------------------------
 void DevRookiesApp::FinishUpdate()
 {
+	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Lime);
+
 	if(want_to_save == true)
 		SavegameNow();
 
@@ -216,6 +221,7 @@ void DevRookiesApp::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
+	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
 
 	if (last_frame_ms < frame_rate)
 	{
@@ -233,6 +239,8 @@ void DevRookiesApp::FinishUpdate()
 // Call modules before each loop iteration
 bool DevRookiesApp::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate", Profiler::Color::Orange);
+
 	bool ret = true;
 	p2List_item<Module*>* item;
 	item = modules.start;
@@ -255,6 +263,8 @@ bool DevRookiesApp::PreUpdate()
 // Call modules on each loop iteration
 bool DevRookiesApp::DoUpdate()
 {
+	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
+
 	bool ret = true;
 	p2List_item<Module*>* item;
 	item = modules.start;
@@ -277,6 +287,8 @@ bool DevRookiesApp::DoUpdate()
 // Call modules after each loop iteration
 bool DevRookiesApp::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Purple);
+
 	bool ret = true;
 	p2List_item<Module*>* item;
 	Module* pModule = NULL;
@@ -298,6 +310,8 @@ bool DevRookiesApp::PostUpdate()
 // Called before quitting
 bool DevRookiesApp::CleanUp()
 {
+	BROFILER_CATEGORY("CleanUp", Profiler::Color::Salmon);
+
 	PERF_START(ptimer);
 
 	bool ret = true;

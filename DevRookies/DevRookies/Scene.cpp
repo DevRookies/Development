@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "SceneManager.h"
 #include "Pathfinding.h"
+#include "Brofiler/Brofiler.h"
 
 Scene::Scene() : Module()
 {
@@ -70,6 +71,8 @@ bool Scene::Start()
 // Called each loop iteration
 bool Scene::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Orange);
+
 	static iPoint origin;
 	static bool origin_selected = false;
 
@@ -98,8 +101,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	
-	
+	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
 		scene_actual = 1;
@@ -168,6 +170,7 @@ bool Scene::Update(float dt)
 // Called each loop iteration
 bool Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateScene", Profiler::Color::Purple);
 	bool ret = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

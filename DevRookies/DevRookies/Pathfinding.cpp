@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "DevRookiesApp.h"
 #include "PathFinding.h"
-
+#include "Brofiler/Brofiler.h"
 PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
 	name.create("pathfinding");
@@ -167,7 +167,8 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	
+	BROFILER_CATEGORY("PathFinding", Profiler::Color::Brown);
+
 	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
 	
 	PathList open;

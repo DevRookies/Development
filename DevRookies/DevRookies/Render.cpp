@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Player.h"
 #include "SceneManager.h"
-
+#include "Brofiler/Brofiler.h"
 
 Render::Render() : Module()
 {
@@ -68,12 +68,15 @@ bool Render::Start()
 // Called each loop iteration
 bool Render::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
+
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool Render::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateRender", Profiler::Color::Aqua);
 
 	if (-camera_max <= camera.x && App->player->current_state != DEATH  && App->scenemanager->current_step == App->scenemanager->none && start_time == 0) {
 		camera.x -= floor(camera_speed * dt);
@@ -86,6 +89,8 @@ bool Render::Update(float dt)
 
 bool Render::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Purple);
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

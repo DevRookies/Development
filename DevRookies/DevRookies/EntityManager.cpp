@@ -11,6 +11,7 @@
 #include "JrGargoyle.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "Textures.h"
+#include "Brofiler/Brofiler.h"
 
 EntityManager::EntityManager()
 {
@@ -40,6 +41,7 @@ bool EntityManager::Start()
 
 bool EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEntityManager", Profiler::Color::Aqua);
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
@@ -54,6 +56,7 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateEntityManager", Profiler::Color::Purple);
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)

@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include <math.h>
+#include "Brofiler/Brofiler.h"
 
 Map::Map() : Module(), map_loaded(false)
 {
@@ -29,6 +30,8 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw(float dt)
 {
+	BROFILER_CATEGORY("DrawMap", Profiler::Color::Pink);
+
 	// ALL LAYERS
 	if (map_loaded == false)
 		return;

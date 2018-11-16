@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Collision.h"
+#include "Brofiler/Brofiler.h"
 
 Collision::Collision()
 {
@@ -22,6 +23,8 @@ Collision::~Collision()
 
 bool Collision::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateCollision", Profiler::Color::Orange);
+
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
@@ -72,7 +75,8 @@ bool Collision::PreUpdate()
 // Called before render is available
 bool Collision::Update(float dt)
 {
-	
+	BROFILER_CATEGORY("UpdateCollision", Profiler::Color::Aqua);
+
 
 	if (debug != false) {
 

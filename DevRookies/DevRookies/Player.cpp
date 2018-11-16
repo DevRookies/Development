@@ -94,6 +94,7 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0)
 		PreMove();
 	
