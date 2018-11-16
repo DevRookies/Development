@@ -1,5 +1,5 @@
-#ifndef __j1ENTITY_H__
-#define __j1ENTITY_H__
+#ifndef __ENTITY_H__
+#define __ENTITY_H__
 
 #include "p2Point.h"
 #include "Animation.h"
@@ -13,7 +13,7 @@ public:
 	enum entityType
 	{
 		NO_TYPE,
-		PLAYER,
+		/*PLAYER,*/
 		FLYING_ENEMY,
 		LAND_ENEMY
 	};

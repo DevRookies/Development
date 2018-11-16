@@ -44,8 +44,8 @@ bool EntityManager::Update(float dt)
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type == Entity::entityType::PLAYER)
-			ret = tmp->data->Update(dt);
+		/*if (tmp->data->type == Entity::entityType::PLAYER)
+			ret = tmp->data->Update(dt);*/
 		tmp = tmp->next;
 	}
 
@@ -96,11 +96,11 @@ bool EntityManager::Load(pugi::xml_node& file)
 	pugi::xml_node OfficerSkeleton = file.child("OfficerSkeleton");
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type == Entity::entityType::PLAYER)
+		/*if (tmp->data->type == Entity::entityType::PLAYER)
 		{
 			tmp->data->Load(file.child("player"));
-		}
-		else if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
+		}*/
+		if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
 		{
 			tmp->data->Load(JrGargoyle);
 			JrGargoyle = JrGargoyle.next_sibling("JrGargoyle");
@@ -135,9 +135,9 @@ Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 
 	switch (type)
 	{
-	case Entity::entityType::PLAYER:
+	/*case Entity::entityType::PLAYER:
 		tmp = new Player();
-		break;
+		break;*/
 	case Entity::entityType::FLYING_ENEMY:
 		tmp = new JrGargoyle(position);
 		break;

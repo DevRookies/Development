@@ -21,7 +21,7 @@ private:
 	void CleanUp();
 
 private:
-	SDL_Texture * skeleton_texture;
+	//SDL_Texture * skeleton_texture;
 	p2SString   texture;
 
 	Animation*	current_animation = nullptr;

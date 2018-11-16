@@ -20,7 +20,7 @@ private:
 	void CleanUp();
 
 private:
-	SDL_Texture* gargoyle_texture;
+	/*SDL_Texture* gargoyle_texture;*/
 	p2SString   texture;
 
 	Animation*	current_animation = nullptr;

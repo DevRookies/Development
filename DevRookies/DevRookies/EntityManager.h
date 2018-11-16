@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Player.h"
+#include "Entity.h"
 
 class Entity;
 
@@ -33,5 +34,5 @@ public:
 	p2List<Entity*> Entities;
 
 };
-#endif // !
+#endif // !__ENTITYMANAGER_H__
 
