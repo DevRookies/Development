@@ -48,8 +48,9 @@ bool OfficerSkeleton::Walk()
 	return true;
 }
 
-void OfficerSkeleton::CleanUp()
+bool OfficerSkeleton::CleanUp()
 {
+	return true;
 }
 
 //This should go in Enemy.h and .cpp

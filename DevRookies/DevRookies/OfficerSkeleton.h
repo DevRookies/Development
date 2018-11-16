@@ -18,7 +18,7 @@ public:
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
-	void CleanUp();
+	bool CleanUp();
 
 private:
 	//SDL_Texture * skeleton_texture;

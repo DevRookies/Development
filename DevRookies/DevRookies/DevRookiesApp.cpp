@@ -9,7 +9,6 @@
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Map.h"
-#include "Player.h"
 #include "Collision.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
@@ -31,8 +30,6 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map();
 	scene = new Scene();
 	scenemanager = new SceneManager();
-	
-	player = new Player();
 	collision = new Collision();
 	pathfinding = new PathFinding();
 	entitymanager = new EntityManager();
@@ -46,7 +43,6 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(scenemanager);
-	AddModule(player);
 	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(entitymanager);

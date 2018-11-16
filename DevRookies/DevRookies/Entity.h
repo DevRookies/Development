@@ -7,13 +7,15 @@
 #include "DevRookiesApp.h"
 #include "Collision.h"
 
+class Player;
+
 class Entity
 {
 public:
 	enum entityType
 	{
 		NO_TYPE,
-		/*PLAYER,*/
+		PLAYER,
 		FLYING_ENEMY,
 		LAND_ENEMY
 	};
@@ -27,11 +29,11 @@ public:
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
-	virtual bool Move() { return true; };
+	//virtual void Move();
 
-	virtual void CleanUp() {};
-	virtual void Save(pugi::xml_node& file) const {};
-	virtual void Load(pugi::xml_node& file) {};
+	virtual bool CleanUp() { return true; };
+	virtual bool Save(pugi::xml_node& file) const { return true; };
+	virtual bool Load(pugi::xml_node& file) { return true; };
 
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);

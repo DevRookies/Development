@@ -16,7 +16,6 @@ class Audio;
 class Scene;
 class Map;
 class SceneManager;
-class Player;
 class Collision;
 class PathFinding;
 class EntityManager;
@@ -91,7 +90,6 @@ public:
 	Scene*				scene = nullptr;
 	Map*				map = nullptr;
 	SceneManager*		scenemanager = nullptr;
-	Player*				player = nullptr;
 	Collision*			collision = nullptr;
 	PathFinding*		pathfinding = nullptr;
 	EntityManager*		entitymanager = nullptr;

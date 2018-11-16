@@ -47,8 +47,9 @@ bool JrGargoyle::Fly()
 	return true;
 }
 
-void JrGargoyle::CleanUp()
+bool JrGargoyle::CleanUp()
 {
+	return true;
 }
 
 //This should go in Enemy.h and .cpp

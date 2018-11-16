@@ -6,6 +6,8 @@
 #include "Animation.h"
 #include "Textures.h"
 #include "Collision.h"
+#include "Entity.h"
+#include "EntityManager.h"
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
@@ -13,8 +15,7 @@ enum GODMOVE {IDLEGOD, DOWN, UP};
 enum STATE { FLOOR, AIR, DEATH, WIN};
 enum ELEMENT { FIRE, ICE };
 
-class Player :
-	public Module
+class Player : public Entity
 {
 private:
 	SDL_Texture * player_tex = nullptr;
@@ -46,8 +47,8 @@ private:
 
 public:
 
-	Player();
-	Player(const float &x, const float &y);
+	Player(entityType type);
+	Player(entityType type, const float &x, const float &y);
 	
 	//Destructor
 	~Player();

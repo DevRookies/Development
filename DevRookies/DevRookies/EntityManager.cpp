@@ -16,6 +16,7 @@
 EntityManager::EntityManager()
 {
 	name.create("entitymanager");
+	CreateEntity(Entity::entityType::PLAYER, {0,0});
 }
 
 EntityManager::~EntityManager()
@@ -43,11 +44,11 @@ bool EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateEntityManager", Profiler::Color::Aqua);
 	bool ret = true;
-	p2List_item<Entity*>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
-		/*if (tmp->data->type == Entity::entityType::PLAYER)
-			ret = tmp->data->Update(dt);*/
+		if (tmp->data->type == Entity::entityType::PLAYER)
+			ret = tmp->data->Update(dt);
 		tmp = tmp->next;
 	}
 
@@ -58,7 +59,7 @@ bool EntityManager::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateEntityManager", Profiler::Color::Purple);
 	bool ret = true;
-	p2List_item<Entity*>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
 		tmp->data->PostUpdate();
@@ -70,7 +71,7 @@ bool EntityManager::PostUpdate()
 bool EntityManager::CleanUp()
 {
 	bool ret = true;
-	p2List_item<Entity*>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
 		tmp->data->CleanUp();
@@ -82,7 +83,7 @@ bool EntityManager::CleanUp()
 bool EntityManager::Save(pugi::xml_node& file) const
 {
 	bool ret = true;
-	p2List_item<Entity*>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
 		tmp->data->Save(file);
@@ -94,15 +95,15 @@ bool EntityManager::Save(pugi::xml_node& file) const
 bool EntityManager::Load(pugi::xml_node& file)
 {
 	bool ret = true;
-	p2List_item<Entity*>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = entities.start;
 	pugi::xml_node JrGargoyle = file.child("JrGargoyle");
 	pugi::xml_node OfficerSkeleton = file.child("OfficerSkeleton");
 	while (tmp != nullptr)
 	{
-		/*if (tmp->data->type == Entity::entityType::PLAYER)
+		if (tmp->data->type == Entity::entityType::PLAYER)
 		{
 			tmp->data->Load(file.child("player"));
-		}*/
+		}
 		if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
 		{
 			tmp->data->Load(JrGargoyle);
@@ -121,12 +122,12 @@ bool EntityManager::Load(pugi::xml_node& file)
 
 void EntityManager::DestroyEntities()
 {
-	p2List_item<Entity*>* tmp = Entities.end;
+	p2List_item<Entity*>* tmp = entities.end;
 	while (tmp != nullptr)
 	{
 		p2List_item<Entity*>* tmp2 = tmp;
 		RELEASE(tmp->data);
-		Entities.del(tmp2);
+		entities.del(tmp2);
 		tmp = tmp->prev;
 	}
 
@@ -138,9 +139,10 @@ Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 
 	switch (type)
 	{
-	/*case Entity::entityType::PLAYER:
-		tmp = new Player();
-		break;*/
+	case Entity::entityType::PLAYER:
+		player = new Player(type);
+		entities.add(player);
+		break;
 	case Entity::entityType::FLYING_ENEMY:
 		tmp = new JrGargoyle(position);
 		break;
@@ -150,7 +152,7 @@ Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 	}
 
 	if (tmp)
-		Entities.add(tmp);
+		entities.add(tmp);
 
 	return tmp;
 }
@@ -158,6 +160,6 @@ Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 bool EntityManager::DestroyEntity(Entity * entity)
 {
 	entity->CleanUp();
-	Entities.del(Entities.At(Entities.find(entity)));
+	entities.del(entities.At(entities.find(entity)));
 	return true;
 }

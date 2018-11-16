@@ -4,8 +4,9 @@
 #include "Module.h"
 #include "p2List.h"
 #include "p2Point.h"
-#include "Player.h"
 #include "Entity.h"
+#include "Player.h"
+
 
 class Entity;
 
@@ -31,7 +32,8 @@ public:
 	p2SString		folder;
 	p2SString		texture_path;
 	SDL_Texture*	texture;
-	p2List<Entity*> Entities;
+	p2List<Entity*> entities;
+	Player*			player = nullptr;
 
 };
 #endif // !__ENTITYMANAGER_H__

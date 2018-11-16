@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="30">
+  <app framerate_cap="33">
     <title>Fire and Ice</title>
     <organization>UPC - DevRookies</organization>
     <save>save_game.xml</save>

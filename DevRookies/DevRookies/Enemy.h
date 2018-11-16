@@ -26,8 +26,8 @@ public:
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider);
 
-	void Save(pugi::xml_node&) const;
-	void Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
 };
 
 #endif // __ENEMY_H__

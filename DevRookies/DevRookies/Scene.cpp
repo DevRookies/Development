@@ -45,12 +45,12 @@ bool Scene::Start()
 	case 1:
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
-		App->player->Restart(FIRE);
+		App->entitymanager->player->Restart(FIRE);
 		break;
 	case 2:
 		App->map->Load(tile_name_scene2.GetString());
 		App->audio->PlayMusic(lvl2_music_name.GetString());
-		App->player->Restart(ICE);
+		App->entitymanager->player->Restart(ICE);
 		break;
 	default:
 		break;
@@ -217,6 +217,6 @@ bool Scene::Save(pugi::xml_node& node) const
 void Scene::Restart() const
 {
 	App->scenemanager->FadeToBlack(scene_actual);
-	App->player->visibility = false;
+	App->entitymanager->player->visibility = false;
 }
 

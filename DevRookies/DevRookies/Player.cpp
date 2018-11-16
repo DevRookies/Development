@@ -8,15 +8,16 @@
 #include "SceneManager.h"
 #include "Map.h"
 
-Player::Player() {
-	name.create("player");
+Player::Player(entityType type)
+{
+	//name.create("player");
 }
 
-Player::Player(const float &x, const float &y)
+Player::Player(entityType type, const float &x, const float &y)
 {
 	position.x = x;
 	position.y = y;
-	name.create("player");
+	//name.create("player");
 }
 
 Player::~Player() {}
@@ -95,7 +96,6 @@ bool Player::Start()
 	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_tex = App->textures->Load(player_texture.GetString());
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
-	
 		
 	return true;
 }
@@ -196,7 +196,7 @@ void Player::SetPosition(const float & x, const float & y)
 
 //Collider-----------------
 void Player::AddColliderPlayer() {
-	collider = App->collision->AddCollider({ 0,0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, App->entitymanager);
 }
 
 //----------------------------------------------------
@@ -226,12 +226,12 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 			Die();
 		}
 
-		position.y -= speed.y;
-		collider->SetPos(position.x, position.y);
-		if (!collider1->CheckCollision(collider2->rect))
-		{
-			return;
-		}
+		//position.y -= speed.y;
+		//collider->SetPos(position.x, position.y);
+		//if (!collider1->CheckCollision(collider2->rect))
+		//{
+			//current_state = FLOOR;
+		//}
 	}
 	
 	
@@ -294,7 +294,12 @@ void Player::PreMove() {
 				else
 					current_element = FIRE;
 
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
+			if (App->collision->CheckCollision())
+				current_state == FLOOR;
+			else
+				current_state == AIR;
+
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR)
 				current_movement = JUMP;
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -384,13 +389,13 @@ void Player::Move() {
 	
 	
 	if (!godmode) {
-		if (current_state == AIR)
+		if (current_state == AIR) {
 			if (current_element == FIRE)
 				current_animation = &jumpfire;
 			else
 				current_animation = &jumpice;
-
-		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+			speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+		}
 	}
 	else {
 		current_animation = &godmode_anim;

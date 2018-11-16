@@ -49,9 +49,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Tools\FPS Control</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Modules\App</Filter>
-    </ClCompile>
     <ClCompile Include="OfficerSkeleton.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Modules\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +138,6 @@
     <ClInclude Include="Pathfinding.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Modules\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="OfficerSkeleton.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
@@ -155,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Modules\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
