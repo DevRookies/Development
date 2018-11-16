@@ -217,5 +217,6 @@ bool Scene::Save(pugi::xml_node& node) const
 void Scene::Restart() const
 {
 	App->scenemanager->FadeToBlack(scene_actual);
+	App->player->visibility = false;
 }
 

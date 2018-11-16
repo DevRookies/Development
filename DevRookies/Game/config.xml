@@ -53,6 +53,8 @@
   </audio>
 
   <player>
+    <godmode_tex>textures/godmode.png</godmode_tex>
+    <godmode_pos x="0.0f" y="0.0f"/>
     <texture>textures/character.png</texture>
     <position x="0.0f" y="0.0f"/>
     <collider width="40.0f" height="5.0f"/>
@@ -100,6 +102,10 @@
         <frame x="2078" y="239" width="83" height="70"/>
         <frame x="1134" y="246" width="68" height="51"/>
       </hit_fire>
+      <godmode speed="0.1F" loop ="true">
+        <frame x="1205" y="237" width="73" height="62"/>
+        <frame x="2078" y="239" width="83" height="70"/>
+      </godmode>
       <idle_ice speed="0.1F" loop="true">
         <frame x="1797" y="0" width="55" height="56"/>
         <frame x="1853" y="0" width="56" height="56"/>

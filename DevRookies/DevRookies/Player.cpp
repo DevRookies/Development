@@ -26,10 +26,12 @@ bool Player::Awake(pugi::xml_node& config)
 	LOG("Loading Character");
 	bool ret = true;
 
+	godmode_texture = config.child("godmode_tex").child_value();
+	godmode_pos = { config.child("godmode_pos").attribute("x").as_float(),  config.child("godmode_pos").attribute("y").as_float() };
 	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
 	collider_box_width = config.child("collider").attribute("width").as_int();
 	collider_box_height = config.child("collider").attribute("height").as_int();
-	texture = config.child("texture").child_value();
+	player_texture = config.child("texture").child_value();
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
@@ -59,6 +61,10 @@ bool Player::Awake(pugi::xml_node& config)
 	hitfire.speed = config.child("animations").child("hit_fire").attribute("speed").as_float();
 	hitfire.loop = config.child("animations").child("hit_fire").attribute("loop").as_bool();
 
+	LoadAnimation(config.child("animations").child("godmode").child("frame"), godmode_anim);
+	godmode_anim.speed = config.child("animations").child("godmode").attribute("speed").as_float();
+	godmode_anim.loop = config.child("animations").child("godmode").attribute("loop").as_bool();
+
 	//ice
 	LoadAnimation(config.child("animations").child("idle_ice").child("frame"), idleice);
 	idleice.speed = config.child("animations").child("idle_ice").attribute("speed").as_float();
@@ -87,7 +93,9 @@ bool Player::Start()
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
-	player_texture = App->textures->Load(texture.GetString());
+	player_tex = App->textures->Load(player_texture.GetString());
+	godmode_tex = App->textures->Load(godmode_texture.GetString());
+	
 		
 	return true;
 }
@@ -123,15 +131,25 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	App->render->Blit(player_texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+	if (visibility) {
+		App->render->Blit(player_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+	}
+	
+	if (godmode) {
+		godmode_pos.x = App->render->camera.x;
+		godmode_pos.y = App->render->camera.y;
+		App->render->Blit(godmode_tex, godmode_pos.x, godmode_pos.y, NULL, -1.0f);
+	}
 
 	return true;
 }
 
 bool Player::CleanUp()
 {
-	App->textures->UnLoad(player_texture);
-	player_texture = nullptr;
+	App->textures->UnLoad(player_tex);
+	player_tex = nullptr;
+	App->textures->UnLoad(godmode_tex);
+	godmode_tex = nullptr;
 
 	return true;
 }
@@ -139,18 +157,10 @@ bool Player::CleanUp()
 bool Player::Load(pugi::xml_node& node)
 {
 	bool ret = true;
-	if (!god_mode) {
-		god_mode = !god_mode;
-		aux_god_mode = true;
-	}
-		
+
 	position.x = node.child("position").attribute("x").as_float(0);
 	position.y = node.child("position").attribute("y").as_float(0);
-	speed.x = node.child("speed").attribute("x").as_float(0);
-	speed.y = node.child("speed").attribute("y").as_float(0);
-	acceleration.x = node.child("acceleration").attribute("x").as_float(0);
-	acceleration.y = node.child("acceleration").attribute("y").as_float(0);
-	jump_speed = node.child("jump_speed").attribute("value").as_int(0);
+	godmode = node.child("godmode").attribute("value").as_bool(false);
 	current_element = (ELEMENT)node.child("element").attribute("value").as_int(0);
 	flipX = node.child("flipX").attribute("value").as_bool(false);
 	
@@ -164,16 +174,7 @@ bool Player::Save(pugi::xml_node& node) const
 	pugi::xml_node pos = node.append_child("position");
  	pos.append_attribute("x") = position.x;
 	pos.append_attribute("y") = position.y;
-
-	pugi::xml_node vel = node.append_child("speed");
-	vel.append_attribute("x") = speed.x;
-	vel.append_attribute("y") = speed.y;
-
-	pugi::xml_node accel = node.append_child("acceleration");
-	accel.append_attribute("x") = acceleration.x;
-	accel.append_attribute("y") = acceleration.y;
-
-	node.append_child("jump_speed").append_attribute("value") = jump_speed;
+	node.append_child("godmode").append_attribute("value") = godmode;
 	node.append_child("element").append_attribute("value") = (int)current_element;
 	node.append_child("flipX").append_attribute("value") = flipX;
 
@@ -202,80 +203,38 @@ void Player::AddColliderPlayer() {
 void Player::OnCollision(Collider * collider1, Collider * collider2)
 {
 	
-	if (collider2->type == COLLIDER_ICE) {
-		current_state = FLOOR;
-		if (current_element == FIRE)
-			Die();
-	}
-	else if (collider2->type == COLLIDER_FIRE) {
-		current_state = FLOOR;
-		if (current_element == ICE)
-			Die();
-	}
-	else if (collider2->type == COLLIDER_POISON) {
-		current_state = FLOOR;
-		Die();
-	}
-	else if (collider2->type == COLLIDER_FINAL)
+	if (collider2->type == COLLIDER_FINAL)
 		Win();
-		
-
-	if (App->render->camera.x <= -position.x) {
-		Die();
-	}
 	
-	position.y -= speed.y;
-	collider->SetPos(position.x, position.y);
-	if (!collider1->CheckCollision(collider2->rect))
-	{
-		return;
-	}
-	
-}
-
-//When player dies--------
-void Player::Die() {
-
-	if (!god_mode) {
-		
-		current_state = DEATH;
-		AddFX(2, 0);
-		if (current_element == FIRE) {
-			current_animation = &deadfire;
+	if (!godmode) {
+		if (collider2->type == COLLIDER_ICE) {
+			current_state = FLOOR;
+			if (current_element == FIRE)
+				Die();
 		}
-		else {
-			current_animation = &deadice;
+		else if (collider2->type == COLLIDER_FIRE) {
+			current_state = FLOOR;
+			if (current_element == ICE)
+				Die();
+		}
+		else if (collider2->type == COLLIDER_POISON) {
+			current_state = FLOOR;
+			Die();
+		}
+		
+		if (App->render->camera.x <= -position.x) {
+			Die();
+		}
+
+		position.y -= speed.y;
+		collider->SetPos(position.x, position.y);
+		if (!collider1->CheckCollision(collider2->rect))
+		{
+			return;
 		}
 	}
-
-	if (aux_god_mode) {
-		aux_god_mode = false;
-		god_mode = false;
-	}
-
-}
-
-//When player wins--------
-void Player::Win() {
-
-	AddFX(3, 0);
-	current_state = WIN;
-	if (current_element == FIRE) {
-		current_animation = &idlefire;
-	}
-	else {
-		current_animation = &idleice;
-	}
-
-	if (App->scene->scene_actual == 1) 
-		App->scene->scene_actual = 2;
-	
-	else 
-		App->scene->scene_actual = 1;
 	
 	
-	App->scene->Restart();
-
 }
 
 void Player::AddFX(const int channel , const int repeat) const
@@ -301,37 +260,58 @@ void Player::PreMove() {
 
 	if (current_animation->GetCurrentFrameIndex() == 11 || (current_animation != &hitfire && current_animation != &hitice)) {
 		current_movement = IDLE;
+		current_godmove = IDLEGOD;
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			if (current_movement != RIGHT) current_movement = LEFT;
-			else current_movement = IDLE;
+			if (current_movement != RIGHT) 
+				current_movement = LEFT;
+			else 
+				current_movement = IDLE;
 		
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			if (current_movement != LEFT) current_movement = RIGHT;
-			else current_movement = IDLE;
+			if (current_movement != LEFT) 
+				current_movement = RIGHT;
+			else 
+				current_movement = IDLE;
 
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			if (current_element == FIRE) current_element = ICE;
-			else current_element = FIRE;
+		if (godmode) {
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				if (current_godmove != UP)
+					current_godmove = DOWN;
+				else
+					current_godmove = IDLEGOD;
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			current_movement = LEFT_HIT;
-			AddFX(1, 0);
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+				if (current_godmove != DOWN)
+					current_godmove = UP;
+				else
+					current_godmove = IDLEGOD;
 		}
+		else {
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				if (current_element == FIRE)
+					current_element = ICE;
+				else
+					current_element = FIRE;
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			current_movement = RIGHT_HIT;
-			AddFX(1, 0);
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
+				current_movement = JUMP;
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				current_movement = LEFT_HIT;
+				AddFX(1, 0);
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				current_movement = RIGHT_HIT;
+				AddFX(1, 0);
+			}
 		}
-			
-
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR && App->collision->CheckCollision())
-			current_movement = JUMP;
-		
+	
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		god_mode = !god_mode;
+		godmode = !godmode;
 		
 	
 		
@@ -369,6 +349,7 @@ void Player::Move() {
 			break;
 		}
 		break;
+
 	case ICE:
 		switch (current_movement)
 		{
@@ -401,12 +382,20 @@ void Player::Move() {
 		break;
 	}
 	
-	if (current_state == AIR) 
-		if (current_element == FIRE) current_animation = &jumpfire;
-		else current_animation = &jumpice;
 	
-	
-	speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+	if (!godmode) {
+		if (current_state == AIR)
+			if (current_element == FIRE)
+				current_animation = &jumpfire;
+			else
+				current_animation = &jumpice;
+
+		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+	}
+	else {
+		current_animation = &godmode_anim;
+		GodMove();
+	}
 }
 
 void Player::Walk()
@@ -442,6 +431,52 @@ void Player::Jump()
 	AddFX(1, 0);
 }
 
+void Player::GodMove()
+{
+	if (current_godmove == DOWN)
+		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+	else if (current_godmove == UP)
+		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+	else
+		speed.y = 0;
+}
+
+//When player dies--------
+void Player::Die() {
+
+	if (!godmode) {
+
+		current_state = DEATH;
+		AddFX(2, 0);
+		if (current_element == FIRE) {
+			current_animation = &deadfire;
+		}
+		else {
+			current_animation = &deadice;
+		}
+	}
+
+}
+
+//When player wins--------
+void Player::Win() {
+
+	AddFX(3, 0);
+	current_state = WIN;
+	if (current_element == FIRE)
+		current_animation = &idlefire;
+	else
+		current_animation = &idleice;
+
+	if (App->scene->scene_actual == 1)
+		App->scene->scene_actual = 2;
+	else
+		App->scene->scene_actual = 1;
+
+	App->scene->Restart();
+
+}
+
 void Player::Restart(ELEMENT element)
 {
 	current_state = FLOOR;
@@ -456,6 +491,7 @@ void Player::Restart(ELEMENT element)
 	AddColliderPlayer();
 	SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
 	flipX = false;
+	visibility = true;
 	deadfire.Reset();
 	deadice.Reset();
 }

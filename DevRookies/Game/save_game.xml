@@ -14,16 +14,15 @@
 	</scene>
 	<:anonymous />
 	<player>
-		<position x="858" y="168.010803" />
-		<speed x="0" y="4" />
-		<acceleration x="0.800000012" y="0.400000006" />
-		<jump_speed value="1" />
+		<position x="1272.66699" y="590.333008" />
+		<godmode value="true" />
 		<element value="1" />
 		<flipX value="false" />
 	</player>
 	<:anonymous />
 	<pathfinding />
+	<entitymanager />
 	<render>
-		<camera x="-416" y="0" />
+		<camera x="-1020" y="0" />
 	</render>
 </game_state>

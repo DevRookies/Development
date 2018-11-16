@@ -9,6 +9,7 @@
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
+enum GODMOVE {IDLEGOD, DOWN, UP};
 enum STATE { FLOOR, AIR, DEATH, WIN};
 enum ELEMENT { FIRE, ICE };
 
@@ -16,39 +17,30 @@ class Player :
 	public Module
 {
 private:
-	SDL_Texture * player_texture;
+	SDL_Texture * player_tex = nullptr;
+	SDL_Texture*  godmode_tex = nullptr;
 	Animation*	current_animation = nullptr;
-	Animation	idlefire;
-	Animation	runfire;
-	Animation	jumpfire;
-	Animation	deadfire;
-	Animation	hitfire;
-	Animation	idleice;
-	Animation	runice;
-	Animation	jumpice;
-	Animation	deadice;
-	Animation	hitice;
+	Animation	idlefire, runfire, jumpfire, deadfire, hitfire;
+	Animation	idleice, runice, jumpice, deadice, hitice;
+	Animation	godmode_anim;
 	Collider*	collider = nullptr;
 
 	bool		flipX = false;
 	int			jump_speed, hit_speed;
 	int			collider_box_width, collider_box_height;
-	fPoint		position, lastPosition, speed, acceleration, max_speed;
-	p2SString   texture;
-	p2SString	jump_fx_name;
-	p2SString	dead_fx_name;
-	p2SString	victory_fx_name;
+	fPoint		position, lastPosition, speed, acceleration, max_speed, godmode_pos;
+	p2SString   player_texture, godmode_texture, jump_fx_name, dead_fx_name, victory_fx_name;
 
-	bool		god_mode = false;
-	bool		aux_god_mode = false;
+	bool		godmode = false;
 	uint		heigth_animation = 53;
 	uint		scene = 1;
 
 	void		PreMove();
 	void		Move();
-	void		Jump();
 	void		Walk();
 	void		Hit();
+	void		Jump();
+	void		GodMove();
 	void		Die();
 	void		Win();
 
@@ -92,8 +84,11 @@ public:
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);
 
 	MOVEMENT	current_movement = IDLE;
+	GODMOVE		current_godmove = IDLEGOD;
 	STATE		current_state = FLOOR;
 	ELEMENT		current_element = FIRE;
+
+	bool		visibility = true;
 
 };
 
