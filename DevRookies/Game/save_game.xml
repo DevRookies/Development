@@ -15,8 +15,16 @@
 	<scenemanager />
 	<collision />
 	<pathfinding />
-	<entitymanager />
+	<entitymanager>
+		<player>
+			<position x="199.667007" />
+			<position y="137.332993" />
+			<godmode value="false" />
+			<element value="0" />
+			<flipX value="false" />
+		</player>
+	</entitymanager>
 	<render>
-		<camera x="-444" y="0" />
+		<camera x="-104" y="0" />
 	</render>
 </game_state>

@@ -110,7 +110,7 @@ bool EntityManager::Save(pugi::xml_node& file) const
 	{
 		if (tmp->data->type == Entity::entityType::PLAYER)
 		{
-			tmp->data->Save(file.child("player"));
+			tmp->data->Save(file.append_child("player"));
 		}
 		tmp = tmp->next;
 	}
