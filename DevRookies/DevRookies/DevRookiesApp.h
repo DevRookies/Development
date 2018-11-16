@@ -19,7 +19,7 @@ class SceneManager;
 class Player;
 class Collision;
 class PathFinding;
-class Enemy;
+class EntityManager;
 
 class DevRookiesApp
 {
@@ -94,7 +94,7 @@ public:
 	Player*				player = nullptr;
 	Collision*			collision = nullptr;
 	PathFinding*		pathfinding = nullptr;
-	Enemy*				enemy = nullptr;
+	EntityManager*		entitymanager = nullptr;
 
 private:
 

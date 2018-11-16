@@ -8,9 +8,7 @@
 #include "SDL/include/SDL_timer.h"
 
 SceneManager::SceneManager()
-{
-
-}
+{}
 
 SceneManager::~SceneManager()
 {}

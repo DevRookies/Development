@@ -34,9 +34,6 @@
     <ClCompile Include="Pathfinding.cpp">
       <Filter>Modules\App</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Modules\App</Filter>
-    </ClCompile>
     <ClCompile Include="Render.cpp">
       <Filter>Modules\App</Filter>
     </ClCompile>
@@ -56,10 +53,19 @@
       <Filter>Modules\App</Filter>
     </ClCompile>
     <ClCompile Include="OfficerSkeleton.cpp">
-      <Filter>Enemies</Filter>
+      <Filter>Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="JrGargoyle.cpp">
-      <Filter>Enemies</Filter>
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Modules\App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +117,6 @@
     <ClInclude Include="DevRookiesApp.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Modules\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Modules\Headers</Filter>
     </ClInclude>
@@ -139,10 +142,19 @@
       <Filter>Modules\Headers</Filter>
     </ClInclude>
     <ClInclude Include="OfficerSkeleton.h">
-      <Filter>Enemies</Filter>
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="JrGargoyle.h">
-      <Filter>Enemies</Filter>
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Modules\Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +182,10 @@
     <Filter Include="Tools\FPS Control">
       <UniqueIdentifier>{7719be26-4112-4c17-9f65-a5b4dc991bc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Enemies">
+    <Filter Include="Entities">
+      <UniqueIdentifier>{f5686552-392d-4578-8c56-4e09da79563a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{50895f79-5364-4090-adc6-3b9f5a872464}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
