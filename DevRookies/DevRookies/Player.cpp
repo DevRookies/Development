@@ -26,6 +26,9 @@ bool Player::Awake(pugi::xml_node& config)
 	LOG("Loading Character");
 	bool ret = true;
 
+	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
+	collider_box_width = config.child("collider").attribute("width").as_int();
+	collider_box_height = config.child("collider").attribute("height").as_int();
 	texture = config.child("texture").child_value();
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
@@ -81,19 +84,11 @@ bool Player::Awake(pugi::xml_node& config)
 
 bool Player::Start()
 {
-	
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
-	App->audio->LoadFx(victory_fx_name.GetString());
-	
+	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_texture = App->textures->Load(texture.GetString());
-	current_state = AIR;
-	current_element = FIRE;
-	current_movement = IDLE;
-	current_animation = &idlefire;
-
-	flipX = false;
-	
+		
 	return true;
 }
 
@@ -115,8 +110,10 @@ bool Player::Update(float dt)
 		position += speed;
 	}
 
-	if (current_animation->GetCurrentFrameIndex() == 3 && (current_animation == &deadfire || current_animation == &deadice))
+	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) 
 		App->scene->Restart();
+	
+		
 		
 	collider->SetPos(position.x, position.y + heigth_animation);
 
@@ -183,7 +180,7 @@ bool Player::Save(pugi::xml_node& node) const
 }
 
 //Getters---------------------------------
-fPoint Player::GetPosition()
+fPoint Player::GetPosition() const
 {
 	return fPoint();
 }
@@ -197,7 +194,7 @@ void Player::SetPosition(const float & x, const float & y)
 
 //Collider-----------------
 void Player::AddColliderPlayer() {
-	collider = App->collision->AddCollider({ 0,0,40, 10 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider({ 0,0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, this);
 }
 
 //----------------------------------------------------
@@ -235,11 +232,11 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 	
 }
 
-
+//When player dies--------
 void Player::Die() {
 
 	if (!god_mode) {
-		position.y -= heigth_dead_animation; //because the animations are 7 pixels less than dead animation
+		
 		current_state = DEATH;
 		AddFX(2, 0);
 		if (current_element == FIRE) {
@@ -257,9 +254,11 @@ void Player::Die() {
 
 }
 
+//When player wins--------
 void Player::Win() {
 
 	AddFX(3, 0);
+	current_state = WIN;
 	if (current_element == FIRE) {
 		current_animation = &idlefire;
 	}
@@ -267,14 +266,14 @@ void Player::Win() {
 		current_animation = &idleice;
 	}
 
-	if (App->scene->scene_actual == 1) {
+	if (App->scene->scene_actual == 1) 
 		App->scene->scene_actual = 2;
-		App->scene->Restart();
-	}
-	else {
+	
+	else 
 		App->scene->scene_actual = 1;
-		App->scene->Restart();
-	}
+	
+	
+	App->scene->Restart();
 
 }
 
@@ -440,4 +439,22 @@ void Player::Jump()
 	speed.y = jump_speed * -max_speed.y + (1 - jump_speed) * speed.y;
 	current_state = AIR;
 	AddFX(1, 0);
+}
+
+void Player::Restart(ELEMENT element)
+{
+	current_state = FLOOR;
+	current_movement = IDLE;
+	current_element = element;
+
+	if (element == FIRE)
+		current_animation = &idlefire;
+	else
+		current_animation = &idleice;
+
+	AddColliderPlayer();
+	SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
+	flipX = false;
+	deadfire.Reset();
+	deadice.Reset();
 }

@@ -42,22 +42,21 @@ bool Scene::Start()
 	switch (scene_actual)
 	{
 	case 1:
-		App->player->current_element = FIRE;
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
+		App->player->Restart(FIRE);
 		break;
 	case 2:
-		App->player->current_element = ICE;
 		App->map->Load(tile_name_scene2.GetString());
 		App->audio->PlayMusic(lvl2_music_name.GetString());
+		App->player->Restart(ICE);
 		break;
 	default:
 		break;
 	}
-
-	App->player->AddColliderPlayer();
-	App->player->SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
+	
 	App->render->SetCamera(camera.x, camera.y);
+	App->render->start_time = App->render->restart_start_time;
 
 	int w, h;
 	uchar* data = NULL;

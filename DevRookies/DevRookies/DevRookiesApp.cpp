@@ -27,9 +27,10 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	textures = new Textures();
 	audio = new Audio();
+	map = new Map();
 	scene = new Scene();
 	scenemanager = new SceneManager();
-	map = new Map();
+	
 	player = new Player();
 	collision = new Collision();
 	pathfinding = new PathFinding();

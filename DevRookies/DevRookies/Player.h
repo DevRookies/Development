@@ -9,7 +9,7 @@
 
 
 enum MOVEMENT { IDLE, LEFT, RIGHT, JUMP, DEAD, LEFT_HIT, RIGHT_HIT };
-enum STATE { FLOOR, AIR, DEATH};
+enum STATE { FLOOR, AIR, DEATH, WIN};
 enum ELEMENT { FIRE, ICE };
 
 class Player :
@@ -17,7 +17,6 @@ class Player :
 {
 private:
 	SDL_Texture * player_texture;
-	
 	Animation*	current_animation = nullptr;
 	Animation	idlefire;
 	Animation	runfire;
@@ -33,6 +32,7 @@ private:
 
 	bool		flipX = false;
 	int			jump_speed, hit_speed;
+	int			collider_box_width, collider_box_height;
 	fPoint		position, lastPosition, speed, acceleration, max_speed;
 	p2SString   texture;
 	p2SString	jump_fx_name;
@@ -41,8 +41,7 @@ private:
 
 	bool		god_mode = false;
 	bool		aux_god_mode = false;
-	uint		heigth_animation = 48;
-	uint		heigth_dead_animation = 7;
+	uint		heigth_animation = 53;
 	uint		scene = 1;
 
 	void		PreMove();
@@ -83,10 +82,11 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	fPoint		GetPosition();
+	fPoint		GetPosition() const;
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
+	void		Restart(ELEMENT element);
 	
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);

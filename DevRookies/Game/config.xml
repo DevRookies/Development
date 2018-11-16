@@ -9,7 +9,7 @@
 	
   <render>
     <vsync value="false"/>
-    <camera x="0" y="0" speed="100" max="5119"/>
+    <camera x="0" y="0" speed="80" max="5119"/>
     <start_time value ="90"/>
   </render>
 
@@ -55,6 +55,7 @@
   <player>
     <texture>textures/character.png</texture>
     <position x="0.0f" y="0.0f"/>
+    <collider width="40.0f" height="5.0f"/>
     <speed x="0.0f" y="0.0f"/>
     <acceleration x="0.8f" y="0.6f"/>
     <max_speed x="200.0f" y="300.0f"/>
@@ -79,7 +80,7 @@
       <jump_fire>
         <frame x="2184" y="58" width="60" height="57"/>
       </jump_fire>
-      <die_fire speed="0.15F" loop ="true">
+      <die_fire speed="0.15F" loop ="false">
         <frame x="2191" y="384" width="53" height="63"/>
         <frame x="2131" y="384" width="59" height="63"/>
         <frame x="2070" y="384" width="60" height="63"/>
@@ -114,7 +115,7 @@
       <jump_ice>
         <frame x="2004" y="58" width="60" height="57"/>
       </jump_ice>
-      <die_ice speed="0.1F" loop ="true">
+      <die_ice speed="0.1F" loop ="false">
         <frame x="1954" y="384" width="53" height="63"/>
         <frame x="1894" y="384" width="59" height="63"/>
         <frame x="1834" y="384" width="60" height="63"/>

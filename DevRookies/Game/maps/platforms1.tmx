@@ -18035,7 +18035,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="initialPos">
-  <object id="13" x="162.667" y="139.333" width="52" height="50.6667">
+  <object id="13" x="162.667" y="137.333" width="52" height="50.6667">
    <ellipse/>
   </object>
  </objectgroup>
