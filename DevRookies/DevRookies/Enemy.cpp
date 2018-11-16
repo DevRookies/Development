@@ -3,11 +3,11 @@
 #include "Collision.h"
 #include "Render.h"
 
-Enemy::Enemy()
+Enemy::Enemy(Entity::entityType type) : Entity(type)
 {
 }
 
-Enemy::Enemy(TYPE type, iPoint pos)
+Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 {
 	position.x = pos.x;
 	position.y = pos.y;
@@ -38,7 +38,7 @@ void Enemy::OnCollision(Collider* collider)
 {
 }
 
-bool Enemy::Save(pugi::xml_node &data) const
+void Enemy::Save(pugi::xml_node &data) const
 {
 	bool ret = true;
 	if (type == LAND_ENEMY)
@@ -53,14 +53,11 @@ bool Enemy::Save(pugi::xml_node &data) const
 		JrGargoyle.append_child("position").append_attribute("x") = position.x;
 		JrGargoyle.child("position").append_attribute("y") = position.y;
 	}
-	return ret;
 }
 
-bool Enemy::Load(pugi::xml_node &data)
+
+void Enemy::Load(pugi::xml_node &data)
 {
-	bool ret = true;
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();
-
-	return ret;
 }

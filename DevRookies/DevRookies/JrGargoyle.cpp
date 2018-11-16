@@ -1,17 +1,18 @@
 #include "JrGargoyle.h"
 #include "Scene.h"
 #include "Render.h"
+#include "EntityManager.h"
 //#include "DevRookiesApp.h"
 
 
-JrGargoyle::JrGargoyle() : Enemy()
+JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
 {
 
 }
 
-bool JrGargoyle::Awake(pugi::xml_node& config) {
-	bool ret = true;
-	texture = config.child("texture").child_value();
+JrGargoyle::JrGargoyle(iPoint pos) : Enemy(entityType::FLYING_ENEMY)
+{
+	/*texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
@@ -23,15 +24,8 @@ bool JrGargoyle::Awake(pugi::xml_node& config) {
 
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);
-	return ret;
+	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
 }
-
-JrGargoyle::JrGargoyle(iPoint pos) : Enemy(FLYING_ENEMY, pos)
-{
-	
-}
-
 
 JrGargoyle::~JrGargoyle()
 {
@@ -53,9 +47,8 @@ bool JrGargoyle::Fly()
 	return true;
 }
 
-bool JrGargoyle::CleanUp()
+void JrGargoyle::CleanUp()
 {
-	return true;
 }
 
 //This should go in Enemy.h and .cpp

@@ -1,5 +1,6 @@
 #ifndef _JRGARGOYLE_H__
 #define _JRGARGOYLE_H__
+
 #include "Enemy.h"
 
 class JrGargoyle : public Enemy
@@ -9,7 +10,6 @@ public:
 	JrGargoyle(iPoint position);
 	~JrGargoyle();
 
-	bool Awake(pugi::xml_node& config);
 	bool Update(float dt);
 	bool Start();
 	bool Fly();
@@ -17,7 +17,7 @@ public:
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
-	bool CleanUp();
+	void CleanUp();
 
 private:
 	SDL_Texture* gargoyle_texture;

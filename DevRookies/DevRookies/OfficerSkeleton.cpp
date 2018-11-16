@@ -1,17 +1,18 @@
 #include "OfficerSkeleton.h"
 #include "Scene.h"
 #include "Render.h"
+#include "EntityManager.h"
 //#include "DevRookiesApp.h"
 
 
-OfficerSkeleton::OfficerSkeleton() : Enemy()
+OfficerSkeleton::OfficerSkeleton() : Enemy(entityType::LAND_ENEMY)
 {
 
 }
 
-bool OfficerSkeleton::Awake(pugi::xml_node& config) {
-	bool ret = true;
-	texture = config.child("texture").child_value();
+OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
+{
+	/*texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
@@ -23,13 +24,7 @@ bool OfficerSkeleton::Awake(pugi::xml_node& config) {
 
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);
-	return ret;
-}
-
-OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
-{
-
+	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
 }
 
 
@@ -53,9 +48,8 @@ bool OfficerSkeleton::Walk()
 	return true;
 }
 
-bool OfficerSkeleton::CleanUp()
+void OfficerSkeleton::CleanUp()
 {
-	return true;
 }
 
 //This should go in Enemy.h and .cpp

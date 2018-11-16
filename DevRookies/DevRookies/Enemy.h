@@ -4,11 +4,10 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "Module.h"
-#include "Textures.h"
+//#include "Textures.h"
+#include "Entity.h"
 
-enum TYPE { FLYING_ENEMY, LAND_ENEMY };
-
-class Enemy: public Module
+class Enemy: public Entity
 {
 protected:
 	Animation * animation = nullptr;
@@ -16,21 +15,19 @@ protected:
 
 public:
 	iPoint position;
-	TYPE type;
 
 public:
-	Enemy();
-	Enemy(TYPE type, iPoint position);
+	Enemy(Entity::entityType type);
+	Enemy(Entity::entityType type, iPoint position);
 	virtual ~Enemy();
 
 	const Collider* GetCollider() const;
 
-	virtual void Move() {};
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider* collider);
 
-	bool Save(pugi::xml_node&) const;
-	bool Load(pugi::xml_node&);
+	void Save(pugi::xml_node&) const;
+	void Load(pugi::xml_node&);
 };
 
 #endif // __ENEMY_H__

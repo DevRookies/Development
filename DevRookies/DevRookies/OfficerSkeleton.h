@@ -11,7 +11,6 @@ public:
 	OfficerSkeleton(iPoint position);
 	~OfficerSkeleton();
 
-	bool Awake(pugi::xml_node& config);
 	bool Update(float dt);
 	bool Start();
 	bool Walk();
@@ -19,7 +18,7 @@ public:
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
-	bool CleanUp();
+	void CleanUp();
 
 private:
 	SDL_Texture * skeleton_texture;
