@@ -48,15 +48,28 @@ bool EntityManager::Start()
 	return ret;
 }
 
-bool EntityManager::Update(float dt)
+bool EntityManager::PreUpdate()
 {
-	BROFILER_CATEGORY("UpdateEntityManager", Profiler::Color::Aqua);
+	BROFILER_CATEGORY("PreUpdateEntityManager", Profiler::Color::Aqua);
 	bool ret = true;
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type == Entity::entityType::PLAYER)
-			ret = tmp->data->Update(dt);
+		tmp->data->PreUpdate();
+		tmp = tmp->next;
+	}
+
+	return ret;
+}
+
+bool EntityManager::Update(float dt)
+{
+	BROFILER_CATEGORY("UpdateEntityManager", Profiler::Color::LemonChiffon);
+	bool ret = true;
+	p2List_item<Entity*>* tmp = entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->Update(dt);
 		tmp = tmp->next;
 	}
 
