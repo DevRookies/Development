@@ -108,7 +108,10 @@ bool EntityManager::Save(pugi::xml_node& file) const
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data->Save(file);
+		if (tmp->data->type == Entity::entityType::PLAYER)
+		{
+			tmp->data->Save(file.child("player"));
+		}
 		tmp = tmp->next;
 	}
 	return ret;

@@ -171,9 +171,8 @@ bool Player::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
-	pugi::xml_node pos = node.append_child("position");
- 	pos.append_attribute("x") = position.x;
-	pos.append_attribute("y") = position.y;
+ 	node.append_child("position").append_attribute("x") = position.x;
+	node.append_child("position").append_attribute("y") = position.y;
 	node.append_child("godmode").append_attribute("value") = godmode;
 	node.append_child("element").append_attribute("value") = (int)current_element;
 	node.append_child("flipX").append_attribute("value") = flipX;
