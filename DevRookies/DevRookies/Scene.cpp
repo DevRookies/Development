@@ -12,6 +12,8 @@
 #include "SceneManager.h"
 #include "Pathfinding.h"
 #include "Brofiler/Brofiler.h"
+#include "EntityManager.h"
+#include "Entity.h"
 
 Scene::Scene() : Module()
 {
@@ -59,7 +61,10 @@ bool Scene::Start()
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 
-
+	int w, h;
+	uchar* data = nullptr;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
 	debug_tex = App->textures->Load("maps/navigation.png");
 
 	return true;
@@ -71,29 +76,30 @@ bool Scene::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Orange);
 
 	static iPoint origin;
-	static bool origin_selected = false;
+	static bool origin_selected = true;
 
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	//iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
+	p = App->map->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		int x, y;
-		App->input->GetMousePosition(x, y);
-		iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
-		p = App->map->WorldToMap(p.x, p.y);
-
-		if (origin_selected == true && App->pathfinding->IsWalkable(p))
+		if (origin_selected == true)//App->pathfinding->IsWalkable(p)
 		{
-			App->pathfinding->CreatePath(origin, p,p2SString("MetaAir"));
+			App->pathfinding->CreatePath(origin, p);
 			origin_selected = false;
 		}
-		else if (origin_selected == false && App->pathfinding->IsWalkable(p))
+		else//App->pathfinding->IsWalkable(p)
 		{
 			origin = p;
 			origin_selected = true;
 		}
-		else
-			origin_selected = false;
+		//else origin origin_selected = false;
 	}
+
 	return true;
 }
 // Called each loop iteration
@@ -137,13 +143,13 @@ bool Scene::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count(),
 		map_coordinates.x, map_coordinates.y);
 
-	App->win->SetTitle(title.GetString());*/
+	//App->win->SetTitle(title.GetString());
 
 	// Debug pathfinding ------------------------------
 	App->input->GetMousePosition(x, y);
@@ -160,7 +166,6 @@ bool Scene::Update(float dt)
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
-
 
 	return true;
 }

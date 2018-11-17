@@ -62,20 +62,20 @@ struct TileSet
 	{
 		return (id >= firstgid && id <= firstgid + tilecount - 1);
 	}
-	p2SString			name;
-	uint				firstgid;
-	uint				tilecount;
-	uint				margin;
-	uint				spacing;
-	uint				tile_width;
-	uint				tile_height;
-	SDL_Texture*		texture;
-	uint				tex_width;
-	uint				tex_height;
-	uint				num_tiles_width;
-	uint				num_tiles_height;
-	uint				offset_x;
-	uint				offset_y;
+	p2SString		name;
+	uint			firstgid = 0u;
+	uint			tilecount = 0u;
+	uint			margin = 0u;
+	uint			spacing = 0u;
+	uint			tile_width = 0u;
+	uint			tile_height = 0u;
+	SDL_Texture*	texture = nullptr;
+	uint			tex_width = 0u;
+	uint			tex_height = 0u;
+	uint			num_tiles_width = 0u;
+	uint			num_tiles_height = 0u;
+	uint			offset_x = 0u;
+	uint			offset_y = 0u;
 };
 
 struct ObjectsData
@@ -144,6 +144,7 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 

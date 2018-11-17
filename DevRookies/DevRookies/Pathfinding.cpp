@@ -2,8 +2,8 @@
 #include "p2Log.h"
 #include "DevRookiesApp.h"
 #include "PathFinding.h"
-#include "Render.h"
-#include "Input.h"
+//#include "Render.h"
+//#include "Input.h"
 #include "Brofiler/Brofiler.h"
 PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -26,19 +26,6 @@ bool PathFinding::CleanUp()
 	return true;
 }
 
-bool PathFinding::SetWalkableMap(p2SString name) {
-
-	for (p2List_item<WalkableMap>*item = walkable_maps.start; item; item->next) {
-		if (item->data.name == name) {
-			map = item->data.map;
-			return true;
-		}
-	}
-
-	return false;
-}
-
-// Sets up the walkability map
 void PathFinding::SetMap(uint width, uint height, uchar* data)
 {
 	this->width = width;
@@ -76,11 +63,6 @@ uchar PathFinding::GetTileAt(const iPoint& pos) const
 const p2DynArray<iPoint>* PathFinding::GetLastPath() const
 {
 	return &last_path;
-}
-
-void PathFinding::DeleteLastPath()
-{
-	last_path.Clear();
 }
 
 // PathList ------------------------------------------------------------------------
@@ -184,11 +166,9 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, p2SString name)
+int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	BROFILER_CATEGORY("PathFinding", Profiler::Color::Brown);
-
-	SetWalkableMap(name);
 
 	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
 	
@@ -250,32 +230,4 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, p2S
 	}
 
 	return -1;
-}
-
-
-bool PathFinding::CreateWalkabilityMap(MapLayer* layer)
-{
-	bool ret = false;
-
-	WalkableMap walkable_map;
-
-	walkable_map.name = layer->name;
-	
-	uchar* map = new uchar[layer->width*layer->height];
-	memset(map, 0, layer->width*layer->height);
-
-	for (uint j = 0; j < layer->height; ++j)
-	{
-		for (uint i = 0; i < layer->width; ++i)
-		{
-			if (layer->tiles[i] == 0)
-				map[i] = 1;
-			map[layer->Get(i, j)] = layer->tiles[layer->Get(i, j)];
-		}
-
-	}
-
-	walkable_maps.add(walkable_map);
-
-	return ret;
 }

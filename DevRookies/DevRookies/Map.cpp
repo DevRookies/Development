@@ -1,11 +1,9 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "p2List.h"
 #include "DevRookiesApp.h"
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-#include "Pathfinding.h"
 #include <math.h>
 #include "Brofiler/Brofiler.h"
 
@@ -120,6 +118,7 @@ iPoint Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
+
 iPoint Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0, 0);
@@ -146,6 +145,53 @@ iPoint Map::WorldToMap(int x, int y) const
 	return ret;
 }
 
+bool Map::CreateWalkabilityMap(int & width, int & height, uchar ** buffer) const
+{
+	bool ret = false;
+	p2List_item<MapLayer*>* item;
+	item = data.maplayers.start;
+
+	for (item = data.maplayers.start; item != NULL; item = item->next)
+	{
+		MapLayer* layer = item->data;
+
+		if (layer->name != "Navigation")
+			continue;
+
+		uchar* map = new uchar[layer->width*layer->height];
+		memset(map, 1, layer->width*layer->height);
+
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int i = (y*layer->width) + x;
+
+				int tile_id = layer->Get(x, y);
+				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+
+				if (tileset != NULL)
+				{
+					map[i] = 0;
+					/*TileType* ts = tileset->GetTileType(tile_id);
+					if(ts != NULL)
+					{
+					map[i] = ts->properties.Get("walkable", 1);
+					}*/
+				}
+			}
+		}
+
+		*buffer = map;
+		width = data.width;
+		height = data.height;
+		ret = true;
+
+		break;
+	}
+
+	return ret;
+}
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -474,7 +520,8 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
-	
+	bool ret = true;
+
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
@@ -495,11 +542,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		i++;
 	}
 
-	if (layer->name == "MetaAir" || layer->name == "MetaLand") {
-		App->pathfinding->CreateWalkabilityMap(layer);
-	}
-
-	return true;
+	return ret;
 	
 }
 

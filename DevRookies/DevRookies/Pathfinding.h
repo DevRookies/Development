@@ -15,12 +15,6 @@
 // Details: http://theory.stanford.edu/~amitp/GameProgramming/
 // --------------------------------------------------
 
-struct WalkableMap
-{
-	p2SString		name;
-	uchar*			map;
-};
-
 class PathFinding : public Module
 {
 public:
@@ -37,12 +31,10 @@ public:
 	void SetMap(uint width, uint height, uchar* data);
 
 	// Main function to request a path from A to B
-	int CreatePath(const iPoint& origin, const iPoint& destination,p2SString name);
+	int CreatePath(const iPoint& origin, const iPoint& destination);
 
 	// To request all tiles involved in the last generated path
 	const p2DynArray<iPoint>* GetLastPath() const;
-
-	void DeleteLastPath();
 
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;
@@ -53,12 +45,8 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
-	bool SetWalkableMap(p2SString name);
-	bool CreateWalkabilityMap(MapLayer* layer);
-
 private:
 
-	p2List<WalkableMap> walkable_maps;
 	// size of the map
 	uint width;
 	uint height;
