@@ -150,7 +150,7 @@ bool DevRookiesApp::Start()
 // Called each loop iteration
 bool DevRookiesApp::Update()
 {
-	BROFILER_CATEGORY("Update", Profiler::Color::Aqua);
+	BROFILER_CATEGORY("Update", Profiler::Color::LimeGreen);
 	bool ret = true;
 	PrepareUpdate();
 
@@ -199,7 +199,7 @@ void DevRookiesApp::PrepareUpdate()
 // ---------------------------------------------
 void DevRookiesApp::FinishUpdate()
 {
-	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::Lime);
+	BROFILER_CATEGORY("FinishUpdate", Profiler::Color::PaleVioletRed);
 
 	if(want_to_save == true)
 		SavegameNow();
@@ -220,7 +220,7 @@ void DevRookiesApp::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	BROFILER_CATEGORY("Waiting", Profiler::Color::Red);
+	BROFILER_CATEGORY("Waiting", Profiler::Color::SeaGreen);
 
 	if (last_frame_ms < frame_rate && framerate_cap_enabled)
 	{
@@ -262,7 +262,7 @@ bool DevRookiesApp::PreUpdate()
 // Call modules on each loop iteration
 bool DevRookiesApp::DoUpdate()
 {
-	BROFILER_CATEGORY("DoUpdate", Profiler::Color::Yellow);
+	BROFILER_CATEGORY("DoUpdate", Profiler::Color::GoldenRod);
 
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)

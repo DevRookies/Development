@@ -50,7 +50,7 @@ bool EntityManager::Start()
 
 bool EntityManager::PreUpdate()
 {
-	BROFILER_CATEGORY("PreUpdateEntityManager", Profiler::Color::Aqua);
+	BROFILER_CATEGORY("PreUpdateEntityManager", Profiler::Color::Orange);
 	bool ret = true;
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)

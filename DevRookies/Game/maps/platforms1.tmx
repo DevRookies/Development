@@ -18045,8 +18045,8 @@
   <object id="7" x="6399" y="0" width="1" height="960"/>
   <object id="10" x="0" y="959" width="6400" height="1"/>
  </objectgroup>
- <objectgroup id="7" name="poison_col" locked="1">
-  <object id="12" x="4" y="835" width="6400" height="1"/>
+ <objectgroup id="7" name="poison_col">
+  <object id="12" x="5" y="836" width="6400" height="4"/>
  </objectgroup>
  <objectgroup id="8" name="fire_col_top" locked="1">
   <object id="79" x="2.5" y="193.5" width="250" height="3"/>

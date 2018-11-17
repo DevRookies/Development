@@ -211,24 +211,24 @@ void Player::AddColliderPlayer() {
 }
 
 //----------------------------------------------------
-void Player::OnCollision(Collider * collider1, Collider * collider2)
+void Player::OnCollision(Collider * collider1)
 {
 	
-	if (collider2->type == COLLIDER_FINAL)
+	if (collider1->type == COLLIDER_FINAL)
 		Win();
 	
 	if (!godmode) {
-		if (collider2->type == COLLIDER_ICE) {
+		if (collider1->type == COLLIDER_ICE){
 			current_state = FLOOR;
 			if (current_element == FIRE)
 				Die();
-		}
-		else if (collider2->type == COLLIDER_FIRE) {
+		}		
+		else if (collider1->type == COLLIDER_FIRE) {
 			current_state = FLOOR;
 			if (current_element == ICE)
 				Die();
 		}
-		else if (collider2->type == COLLIDER_POISON) {
+		else if (collider1->type == COLLIDER_POISON) {
 			current_state = FLOOR;
 			Die();
 		}
@@ -236,16 +236,7 @@ void Player::OnCollision(Collider * collider1, Collider * collider2)
 		if (App->render->camera.x <= -position.x) {
 			Die();
 		}
-
-		//position.y -= speed.y;
-		//collider->SetPos(position.x, position.y);
-		//if (!collider1->CheckCollision(collider2->rect))
-		//{
-			//current_state = FLOOR;
-		//}
 	}
-	
-	
 }
 
 void Player::AddFX(const int channel , const int repeat) const
@@ -298,7 +289,7 @@ void Player::PreMove() {
 				else
 					current_godmove = IDLEGOD;
 		}
-		else {
+		else{
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 				if (current_element == FIRE)
 					current_element = ICE;
@@ -306,11 +297,12 @@ void Player::PreMove() {
 					current_element = FIRE;
 
 			if (App->collision->CheckCollision()) {
-				current_state == FLOOR;
+				if (current_state != DEATH)
+					current_state = FLOOR;
 			}
-			else {
-				current_state == AIR;
-			}
+			else 
+				current_state = AIR;
+			
 				
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR)
