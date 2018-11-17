@@ -42,6 +42,7 @@ bool Player::Awake(pugi::xml_node& config)
 	jump_speed = config.child("jump_speed").attribute("value").as_int();
 	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
+	dash_fx_name = config.child("dash_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
 
@@ -95,6 +96,7 @@ bool Player::Awake(pugi::xml_node& config)
 bool Player::Start()
 {
 	App->audio->LoadFx(jump_fx_name.GetString());
+	App->audio->LoadFx(dash_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_tex = App->textures->Load(player_texture.GetString());
