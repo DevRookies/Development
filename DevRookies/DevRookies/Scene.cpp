@@ -61,10 +61,11 @@ bool Scene::Start()
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 
-	int w, h;
+	int width, height;
 	uchar* data = nullptr;
-	if (App->map->CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
+	if (App->map->CreateWalkabilityMap(width, height, &data))
+		App->pathfinding->SetMap(width, height, data);
+
 	debug_tex = App->textures->Load("maps/navigation.png");
 
 	return true;
@@ -76,13 +77,13 @@ bool Scene::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateScene", Profiler::Color::Orange);
 
 	static iPoint origin;
-	static bool origin_selected = true;
+	static bool origin_selected = false;
 
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	//iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
+	//iPoint p = App->render->ScreenToWorld(x, y);
+	iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
 	p = App->map->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)

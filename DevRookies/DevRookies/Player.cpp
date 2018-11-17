@@ -232,6 +232,9 @@ void Player::OnCollision(Collider * collider1)
 			current_state = FLOOR;
 			Die();
 		}
+		else if (collider1->type == COLLIDER_ENEMY) 
+			if(current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
+				Die();
 		
 		if (App->render->camera.x <= -position.x) {
 			Die();
