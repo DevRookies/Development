@@ -262,12 +262,14 @@ bool PathFinding::CreateWalkabilityMap(MapLayer* layer)
 	walkable_map.name = layer->name;
 	
 	uchar* map = new uchar[layer->width*layer->height];
-	memset(map, 1, layer->width*layer->height);
+	memset(map, 0, layer->width*layer->height);
 
 	for (uint j = 0; j < layer->height; ++j)
 	{
 		for (uint i = 0; i < layer->width; ++i)
 		{
+			if (layer->tiles[i] == 0)
+				map[i] = 1;
 			map[layer->Get(i, j)] = layer->tiles[layer->Get(i, j)];
 		}
 

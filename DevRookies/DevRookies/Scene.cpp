@@ -59,6 +59,7 @@ bool Scene::Start()
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 
+
 	debug_tex = App->textures->Load("maps/navigation.png");
 
 	return true;
@@ -72,17 +73,17 @@ bool Scene::PreUpdate()
 	static iPoint origin;
 	static bool origin_selected = false;
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
-	p = App->map->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
+		int x, y;
+		App->input->GetMousePosition(x, y);
+		iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
+		p = App->map->WorldToMap(p.x, p.y);
+
 		if (origin_selected == true && App->pathfinding->IsWalkable(p))
 		{
-			App->pathfinding->DeleteLastPath();
-			App->pathfinding->CreatePath(origin, p,"MetaAir");
+			App->pathfinding->CreatePath(origin, p,p2SString("MetaAir"));
 			origin_selected = false;
 		}
 		else if (origin_selected == false && App->pathfinding->IsWalkable(p))

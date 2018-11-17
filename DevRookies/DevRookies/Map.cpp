@@ -495,7 +495,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		i++;
 	}
 
-	if (layer->name == "MetaAir" || "MetaLand") {
+	if (layer->name == "MetaAir" || layer->name == "MetaLand") {
 		App->pathfinding->CreateWalkabilityMap(layer);
 	}
 
