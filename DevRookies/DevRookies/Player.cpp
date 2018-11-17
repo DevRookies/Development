@@ -312,12 +312,12 @@ void Player::PreMove() {
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				current_movement = LEFT_HIT;
-				AddFX(1, 0);
+				AddFX(2, 0);
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				current_movement = RIGHT_HIT;
-				AddFX(1, 0);
+				AddFX(2, 0);
 			}
 		}
 	
@@ -458,9 +458,8 @@ void Player::GodMove()
 void Player::Die() {
 
 	if (!godmode) {
-
+		AddFX(3, 0);
 		current_state = DEATH;
-		AddFX(2, 0);
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
 		}
@@ -468,13 +467,12 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 	}
-
 }
 
 //When player wins--------
 void Player::Win() {
 
-	AddFX(3, 0);
+	AddFX(4, 0);
 	current_state = WIN;
 	if (current_element == FIRE)
 		current_animation = &idlefire;
@@ -487,7 +485,6 @@ void Player::Win() {
 		App->scene->scene_actual = 1;
 
 	App->scene->Restart();
-
 }
 
 void Player::Restart(ELEMENT element)
