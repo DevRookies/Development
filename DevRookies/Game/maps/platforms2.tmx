@@ -18049,7 +18049,7 @@
   <object id="10" x="0" y="959" width="6400" height="1"/>
  </objectgroup>
  <objectgroup id="7" name="poison_col">
-  <object id="12" x="0" y="846" width="6400" height="1"/>
+  <object id="12" x="2" y="837" width="6400" height="4"/>
  </objectgroup>
  <objectgroup id="8" name="fire_col_top">
   <object id="144" x="257.333" y="353.333" width="28.6667" height="4.66667"/>

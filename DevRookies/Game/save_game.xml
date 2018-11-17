@@ -17,14 +17,14 @@
 	<pathfinding />
 	<entitymanager>
 		<player>
-			<position x="199.667007" />
-			<position y="137.332993" />
-			<godmode value="false" />
+			<position x="1462.66699" />
+			<position y="-27.6670074" />
+			<godmode value="true" />
 			<element value="0" />
 			<flipX value="false" />
 		</player>
 	</entitymanager>
 	<render>
-		<camera x="-104" y="0" />
+		<camera x="-1966" y="0" />
 	</render>
 </game_state>

@@ -20,6 +20,7 @@ class Player : public Entity
 private:
 	SDL_Texture * player_tex = nullptr;
 	SDL_Texture*  godmode_tex = nullptr;
+	SDL_Texture*  pause_tex = nullptr;
 	Animation*	current_animation = nullptr;
 	Animation	idlefire, runfire, jumpfire, deadfire, hitfire;
 	Animation	idleice, runice, jumpice, deadice, hitice;
@@ -29,13 +30,13 @@ private:
 	bool		flipX = false;
 	int			jump_speed, hit_speed;
 	int			collider_box_width, collider_box_height;
-	fPoint		position, lastPosition, speed, acceleration, max_speed, godmode_pos;
-	p2SString   player_texture, godmode_texture, jump_fx_name, dead_fx_name, victory_fx_name;
+	fPoint		position, lastPosition, speed, acceleration, max_speed, godmode_pos, pause_pos;
+	p2SString   player_texture, godmode_texture, pause_texture, jump_fx_name, dead_fx_name, victory_fx_name;
 
 	bool		godmode = false;
 	uint		heigth_animation = 53;
 	uint		scene = 1;
-
+	
 	void		PreMove();
 	void		Move();
 	void		Walk();
@@ -77,7 +78,7 @@ public:
 
 	fPoint		GetPosition() const;
 	void		SetPosition(const float &x, const float &y);
-	void		OnCollision(Collider* collider1, Collider* collider2);
+	void		OnCollision(Collider* collider1);
 	void		AddColliderPlayer();
 	void		Restart(ELEMENT element);
 	

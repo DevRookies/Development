@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Collision.h"
+#include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 Collision::Collision()
@@ -176,6 +177,8 @@ bool Collision::CheckCollision() const
 		{
 			if (player_collider->CheckCollision(colliders[i]->rect))
 			{
+				App->entitymanager->player->OnCollision(colliders[i]);
+
 				ret = true;
 			}
 		}

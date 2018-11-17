@@ -98,7 +98,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Aqua);
+	BROFILER_CATEGORY("UpdateScene", Profiler::Color::GoldenRod);
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
 		scene_actual = 1;
