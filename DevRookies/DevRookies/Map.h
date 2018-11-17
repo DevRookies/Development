@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "Module.h"
 #include "Collision.h"
+#include "Textures.h"
 
 struct Properties
 {
@@ -77,6 +78,23 @@ struct TileSet
 	uint				offset_y;
 };
 
+struct ObjectsData
+{
+	uint16_t	name;
+	int			x;
+	int			y;
+	uint		width;
+	uint		height;
+
+};
+
+struct ObjectsGroups
+{
+	p2SString				name;
+	p2List<ObjectsData*>	objects;
+	~ObjectsGroups();
+};
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -99,22 +117,9 @@ struct MapData
 
 };
 
-struct ObjectsData
-{
-	uint16_t	name;
-	int			x;
-	int			y;
-	uint		width;
-	uint		height;
 
-};
 
-struct ObjectsGroups
-{
-	p2SString				name;
-	p2List<ObjectsData*>	objects;
-	~ObjectsGroups();
-};
+
 
 class Map : public Module
 {

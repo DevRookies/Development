@@ -2,6 +2,7 @@
 #define _JRGARGOYLE_H__
 
 #include "Enemy.h"
+#include "Textures.h"
 
 class JrGargoyle : public Enemy
 {

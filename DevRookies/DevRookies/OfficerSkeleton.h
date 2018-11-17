@@ -2,6 +2,7 @@
 #define _OFFICERSKELETON_H__
 
 #include "Enemy.h"
+#include "Textures.h"
 
 class OfficerSkeleton : public Enemy
 {
