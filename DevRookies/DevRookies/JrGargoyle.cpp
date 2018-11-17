@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "EntityManager.h"
 #include "Pathfinding.h"
+#include "Textures.h"
 //#include "DevRookiesApp.h"
 
 

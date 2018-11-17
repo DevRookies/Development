@@ -2,6 +2,8 @@
 #define _OFFICERSKELETON_H__
 
 #include "Enemy.h"
+#include "Entity.h"
+#include "EntityManager.h"
 #include "Textures.h"
 
 class OfficerSkeleton : public Enemy
@@ -15,8 +17,11 @@ public:
 	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
 	bool Start();
-	bool Walk();
-
+	bool Restart();
+	bool Walk(const p2DynArray<iPoint> *path);
+	bool PreUpdate();
+	bool PostUpdate();
+	void OnCollision(Collider* collider1, Collider*collider2);
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 

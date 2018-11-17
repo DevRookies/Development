@@ -20,22 +20,39 @@ Enemy::~Enemy()
 		collider->to_delete = true;
 }
 
+bool Enemy::Start()
+{
+	return false;
+}
+
+bool Enemy::PreUpdate()
+{
+	return false;
+}
+
+bool Enemy::Update(float dt)
+{
+	return false;
+}
+
+bool Enemy::PostUpdate()
+{
+	return false;
+}
+
+bool Enemy::CleanUp()
+{
+	return false;
+}
+
+void Enemy::Die()
+{
+
+}
+
 const Collider* Enemy::GetCollider() const
 {
 	return collider;
-}
-
-/*void Enemy::Draw(SDL_Texture* sprites)
-{
-	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
-
-
-	App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
-}*/
-
-void Enemy::OnCollision(Collider* collider)
-{
 }
 
 bool Enemy::Save(pugi::xml_node &data) const

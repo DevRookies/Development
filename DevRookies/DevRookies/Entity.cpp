@@ -41,14 +41,23 @@ void Entity::AddCollider()
 {
 }
 
-//----------------------------------------------------
-void Entity::OnCollision(Collider * collider1, Collider * collider2)
-{
+//void Entity::OnCollision(Collider * collider1, Collider * collider2)
+//{
+//
+//	collider->SetPos(position.x, position.y);
+//	if (!collider1->CheckCollision(collider2->rect))
+//	{
+//		return;
+//	}
+//
+//}
 
-	collider->SetPos(position.x, position.y);
-	if (!collider1->CheckCollision(collider2->rect))
-	{
-		return;
-	}
+fPoint Entity::GetPosition()
+{
+	return fPoint();
+}
+
+void Entity::SetPosition(const float &x, const float &y)
+{
 
 }

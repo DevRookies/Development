@@ -26,6 +26,7 @@ bool EntityManager::Awake(pugi::xml_node &config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
+	LoadEntityInfo(Entity::entityType::LAND_ENEMY, config.child("enemy"));
 	return ret;
 }
 
@@ -35,15 +36,29 @@ bool EntityManager::Start()
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
+		//tmp->data->Start();
 		if (tmp->data->type == Entity::entityType::PLAYER)
 			ret = tmp->data->Start();
 		tmp = tmp->next;
+		/*else if (tmp->data->type == Entity::entityType::LAND_ENEMY)
+			ret = tmp->data->Start();
+		tmp = tmp->next;*/
 	}
-
 
 	texture = App->textures->Load(PATH(folder.GetString(), texture_path.GetString()));
 
+	return ret;
+}
 
+bool EntityManager::Restart()
+{
+	bool ret = true;
+	p2List_item<Entity*>* tmp = entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->Restart();
+		tmp = tmp->next;
+	}
 
 	return ret;
 }
@@ -98,6 +113,7 @@ bool EntityManager::CleanUp()
 		tmp->data->CleanUp();
 		tmp = tmp->next;
 	}
+	entities.clear();
 	player->CleanUp();
 	return ret;
 }
@@ -146,19 +162,6 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return ret;
 }
 
-void EntityManager::DestroyEntities()
-{
-	p2List_item<Entity*>* tmp = entities.end;
-	while (tmp != nullptr)
-	{
-		p2List_item<Entity*>* tmp2 = tmp;
-		RELEASE(tmp->data);
-		entities.del(tmp2);
-		tmp = tmp->prev;
-	}
-
-}
-
 Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 {
 	Entity* tmp = nullptr;
@@ -185,7 +188,42 @@ Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
 
 bool EntityManager::DestroyEntity(Entity * entity)
 {
-	entity->CleanUp();
-	entities.del(entities.At(entities.find(entity)));
+	for (int i = 0; i < entities.count(); i++)
+	{
+		if (entities[i] == entity) {
+			entities[i]->CleanUp();
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+	}
 	return true;
+}
+
+void EntityManager::OnCollision(Collider* collider1, Collider* collider2)
+{
+	for (int i = 0; i < entities.count(); i++)
+	{
+
+	}
+}
+
+void EntityManager::LoadEntityInfo(Entity::entityType type, pugi::xml_node & node)
+{
+	switch (type)
+	{
+	
+	case Entity::entityType::LAND_ENEMY: {
+		pugi::xml_node officer_skeleton = node.child("OfficerSkeleton");
+		skeleton_info.speed.x = officer_skeleton.child("speed").attribute("x").as_float();
+		skeleton_info.speed.y = officer_skeleton.child("speed").attribute("y").as_float();
+		skeleton_info.acceleration.x = officer_skeleton.child("acceleration").attribute("x").as_float();
+		skeleton_info.acceleration.y = officer_skeleton.child("acceleration").attribute("y").as_float();
+		skeleton_info.range_of_trigger = officer_skeleton.child("range_of_trigger").attribute("value").as_float();
+
+	}break;
+	case  Entity::entityType::NO_TYPE:
+		break;
+	default:
+		break;
+	}
 }
