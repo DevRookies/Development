@@ -31,7 +31,7 @@ private:
 	int			jump_speed, hit_speed;
 	int			collider_box_width, collider_box_height;
 	fPoint		position, lastPosition, speed, acceleration, max_speed, godmode_pos, pause_pos;
-	p2SString   player_texture, godmode_texture, pause_texture, jump_fx_name, dead_fx_name, victory_fx_name;
+	p2SString   player_texture, godmode_texture, pause_texture, jump_fx_name, dash_fx_name, dead_fx_name, victory_fx_name;
 
 	bool		godmode = false;
 	uint		heigth_animation = 53;

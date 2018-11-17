@@ -42,6 +42,7 @@ bool Player::Awake(pugi::xml_node& config)
 	jump_speed = config.child("jump_speed").attribute("value").as_int();
 	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
+	dash_fx_name = config.child("dash_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
 
@@ -95,6 +96,7 @@ bool Player::Awake(pugi::xml_node& config)
 bool Player::Start()
 {
 	App->audio->LoadFx(jump_fx_name.GetString());
+	App->audio->LoadFx(dash_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_tex = App->textures->Load(player_texture.GetString());
@@ -310,12 +312,12 @@ void Player::PreMove() {
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				current_movement = LEFT_HIT;
-				AddFX(1, 0);
+				AddFX(2, 0);
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				current_movement = RIGHT_HIT;
-				AddFX(1, 0);
+				AddFX(2, 0);
 			}
 		}
 	
@@ -456,9 +458,8 @@ void Player::GodMove()
 void Player::Die() {
 
 	if (!godmode) {
-
+		AddFX(3, 0);
 		current_state = DEATH;
-		AddFX(2, 0);
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
 		}
@@ -466,13 +467,12 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 	}
-
 }
 
 //When player wins--------
 void Player::Win() {
 
-	AddFX(3, 0);
+	AddFX(4, 0);
 	current_state = WIN;
 	if (current_element == FIRE)
 		current_animation = &idlefire;
@@ -485,7 +485,6 @@ void Player::Win() {
 		App->scene->scene_actual = 1;
 
 	App->scene->Restart();
-
 }
 
 void Player::Restart(ELEMENT element)
