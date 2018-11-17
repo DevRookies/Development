@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Map.h"
+#include "Window.h"
 
 Player::Player(entityType type):Entity(type)
 {
@@ -28,11 +29,13 @@ bool Player::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	godmode_texture = config.child("godmode_tex").child_value();
-	godmode_pos = { config.child("godmode_pos").attribute("x").as_float(),  config.child("godmode_pos").attribute("y").as_float() };
+	godmode_pos = { config.child("godmode_tex").attribute("x").as_float(),  config.child("godmode_tex").attribute("y").as_float() };
+	pause_texture = config.child("pause_tex").child_value();
+	pause_pos = { config.child("pause_tex").attribute("x").as_float(),  config.child("pause_tex").attribute("y").as_float() };
+	player_texture = config.child("texture").child_value();
 	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
 	collider_box_width = config.child("collider").attribute("width").as_int();
 	collider_box_height = config.child("collider").attribute("height").as_int();
-	player_texture = config.child("texture").child_value();
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
@@ -96,6 +99,7 @@ bool Player::Start()
 	App->audio->LoadFx(victory_fx_name.GetString());	
 	player_tex = App->textures->Load(player_texture.GetString());
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
+	pause_tex = App->textures->Load(pause_texture.GetString());
 		
 	return true;
 }
@@ -141,6 +145,12 @@ bool Player::PostUpdate()
 		App->render->Blit(godmode_tex, godmode_pos.x, godmode_pos.y, NULL, -1.0f);
 	}
 
+	if (App->pause) {
+		pause_pos.x = App->render->camera.x + App->win->GetScreenWidth() / 6;
+		pause_pos.y = App->render->camera.y + App->win->GetScreenHeight() / 3;
+		App->render->Blit(pause_tex, pause_pos.x, pause_pos.y, NULL, -1.0f);
+	}
+
 	return true;
 }
 
@@ -150,6 +160,8 @@ bool Player::CleanUp()
 	player_tex = nullptr;
 	App->textures->UnLoad(godmode_tex);
 	godmode_tex = nullptr;
+	App->textures->UnLoad(pause_tex);
+	pause_tex = nullptr;
 
 	return true;
 }
@@ -293,10 +305,13 @@ void Player::PreMove() {
 				else
 					current_element = FIRE;
 
-			if (App->collision->CheckCollision())
+			if (App->collision->CheckCollision()) {
 				current_state == FLOOR;
-			else
+			}
+			else {
 				current_state == AIR;
+			}
+				
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR)
 				current_movement = JUMP;

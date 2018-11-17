@@ -55,6 +55,8 @@ public:
 	void SaveGame() const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
+	bool pause = false;
+
 private:
 
 	// Load config file
@@ -121,6 +123,7 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	bool				framerate_cap_enabled = true;
+	
 
 };
 

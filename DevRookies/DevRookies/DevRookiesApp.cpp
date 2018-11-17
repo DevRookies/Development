@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Map.h"
+#include "Player.h"
 #include "Collision.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
@@ -266,6 +267,12 @@ bool DevRookiesApp::DoUpdate()
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		framerate_cap_enabled = !framerate_cap_enabled;
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		pause = !pause;
+
+	if (pause)
+		dt = 0;
 
 	p2List_item<Module*>* item;
 	item = modules.start;

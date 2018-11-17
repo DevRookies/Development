@@ -55,8 +55,8 @@
 
   <entitymanager>
     <player>
-      <godmode_tex>textures/godmode.png</godmode_tex>
-      <godmode_pos x="0.0f" y="0.0f"/>
+      <godmode_tex x="0" y="0">textures/godmode.png</godmode_tex>
+      <pause_tex x="0" y="0">textures/pause.png</pause_tex>
       <texture>textures/character.png</texture>
       <position x="0.0f" y="0.0f"/>
       <collider width="40.0f" height="5.0f"/>
