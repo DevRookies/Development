@@ -40,8 +40,9 @@ public:
 	//Restart scene
 	void Restart() const;
 
-	uint			scene_actual = 1;
+	void SpawnEnemies();
 
+	uint			scene_actual = 1;
 
 private:
 

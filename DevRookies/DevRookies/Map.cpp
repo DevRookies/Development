@@ -1,9 +1,11 @@
 #include "p2Defs.h"
 #include "p2Log.h"
+#include "p2List.h"
 #include "DevRookiesApp.h"
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
+#include "Pathfinding.h"
 #include <math.h>
 #include "Brofiler/Brofiler.h"
 
@@ -183,6 +185,17 @@ bool Map::CleanUp()
 	}
 	data.maplayers.clear();
 
+	//Remove all ObjectGroups
+	p2List_item<ObjectsGroups*>* obj;
+	obj = data.objLayers.start;
+
+	while (obj != NULL)
+	{
+		RELEASE(obj->data);
+		obj = obj->next;
+	}
+	data.objLayers.clear();
+
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -240,6 +253,19 @@ bool Map::Load(const char* file_name)
 		}
 
 		data.maplayers.add(maplayer);
+	}
+
+	//Load obj info --------------------------------------------------
+	pugi::xml_node group;
+	for (group = map_file.child("map").child("objectgroup"); group && ret; group = group.next_sibling("objectgroup"))
+	{
+		ObjectsGroups* set = new ObjectsGroups();
+
+		if (ret == true)
+		{
+			ret = LoadObjectLayers(group, set);
+		}
+		data.objLayers.add(set);
 	}
 
 	// Load collider info ----------------------------------------------
@@ -300,6 +326,16 @@ bool Map::Load(const char* file_name)
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
+		}
+
+		p2List_item<ObjectsGroups*>* obj_layer = data.objLayers.start;
+		while (obj_layer != NULL)
+		{
+			ObjectsGroups* o = obj_layer->data;
+			LOG("Group ----");
+			LOG("Gname: %s", o->name.GetString());
+
+			obj_layer = obj_layer->next;
 		}
 	}
 
@@ -459,6 +495,10 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		i++;
 	}
 
+	if (layer->name == "MetaAir" || "MetaLand") {
+		App->pathfinding->CreateWalkabilityMap(layer);
+	}
+
 	return true;
 	
 }
@@ -520,50 +560,29 @@ bool Map::LoadCollider(pugi::xml_node & node, uint type)
 	return true;
 }
 
-bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroups * group)
 {
-	bool ret = false;
-	p2List_item<MapLayer*>* item;
-	item = data.maplayers.start;
+	bool ret = true;
 
-	for (item = data.maplayers.start; item != NULL; item = item->next)
+	group->name = node.attribute("name").as_string();
+
+	for (pugi::xml_node& obj = node.child("object"); obj && ret; obj = obj.next_sibling("object"))
 	{
-		MapLayer* layer = item->data;
+		ObjectsData* data = new ObjectsData;
 
-		if (layer->properties.Get("Navigation", 0) == 0)
-			continue;
+		data->height = obj.attribute("height").as_uint();
+		data->width = obj.attribute("width").as_uint();
+		data->x = obj.attribute("x").as_uint();
+		data->y = obj.attribute("y").as_uint();
+		data->name = obj.attribute("name").as_uint();
 
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-
-		for (int y = 0; y < data.height; ++y)
-		{
-			for (int x = 0; x < data.width; ++x)
-			{
-				int i = (y*layer->width) + x;
-
-				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
-
-				if (tileset != NULL)
-				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
-					{
-					map[i] = ts->properties.Get("walkable", 1);
-					}*/
-				}
-			}
-		}
-
-		*buffer = map;
-		width = data.width;
-		height = data.height;
-		ret = true;
-
-		break;
+		group->objects.add(data);
 	}
 
 	return ret;
+}
+
+ObjectsGroups::~ObjectsGroups()
+{
+	objects.clear();
 }

@@ -12,7 +12,12 @@ OfficerSkeleton::OfficerSkeleton() : Enemy(entityType::LAND_ENEMY)
 
 OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
 {
-	/*texture = config.child("texture").child_value();
+
+}
+
+bool OfficerSkeleton::Awake(pugi::xml_node & config) 
+{
+	skeleton_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
@@ -24,7 +29,8 @@ OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
 
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
+	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);
+	return true;
 }
 
 
@@ -39,7 +45,7 @@ bool OfficerSkeleton::Update(float dt)
 
 bool OfficerSkeleton::Start()
 {
-	/*skeleton_texture = App->textures->Load(texture.GetString());*/
+	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
 	return true;
 }
 
@@ -50,10 +56,11 @@ bool OfficerSkeleton::Walk()
 
 bool OfficerSkeleton::CleanUp()
 {
+	App->textures->UnLoad(skeleton_tex);
+	skeleton_tex = nullptr;
 	return true;
 }
 
-//This should go in Enemy.h and .cpp
 bool OfficerSkeleton::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 	for (; node; node = node.next_sibling("frame")) {

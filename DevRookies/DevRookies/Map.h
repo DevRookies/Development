@@ -87,16 +87,34 @@ enum MapTypes
 
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*>	maplayers;
+	int						width;
+	int						height;
+	int						tile_width;
+	int						tile_height;
+	SDL_Color				background_color;
+	MapTypes				type;
+	p2List<TileSet*>		tilesets;
+	p2List<MapLayer*>		maplayers;
+	p2List<ObjectsGroups*>	objLayers;
+
 };
 
+struct ObjectsData
+{
+	uint16_t	name;
+	int			x;
+	int			y;
+	uint		width;
+	uint		height;
+
+};
+
+struct ObjectsGroups
+{
+	p2SString				name;
+	p2List<ObjectsData*>	objects;
+	~ObjectsGroups();
+};
 
 class Map : public Module
 {
@@ -121,7 +139,6 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 
@@ -131,6 +148,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollider(pugi::xml_node& node, uint type);
+	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroups* group);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 

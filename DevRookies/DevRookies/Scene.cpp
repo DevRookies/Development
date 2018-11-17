@@ -59,11 +59,7 @@ bool Scene::Start()
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 
-	int w, h;
-	uchar* data = NULL;
-	if (App->map->CreateWalkabilityMap(w, h, &data))
-		App->pathfinding->SetMap(w, h, data);
-	debug_tex = App->textures->Load("maps/path.png");
+	debug_tex = App->textures->Load("maps/navigation.png");
 
 	return true;
 }
@@ -78,26 +74,27 @@ bool Scene::PreUpdate()
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
+	iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
 	p = App->map->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		if (origin_selected == true)
+		if (origin_selected == true && App->pathfinding->IsWalkable(p))
 		{
-			App->pathfinding->CreatePath(origin, p);
+			App->pathfinding->DeleteLastPath();
+			App->pathfinding->CreatePath(origin, p,"MetaAir");
 			origin_selected = false;
 		}
-		else
+		else if (origin_selected == false && App->pathfinding->IsWalkable(p))
 		{
 			origin = p;
 			origin_selected = true;
 		}
+		else
+			origin_selected = false;
 	}
-
 	return true;
 }
-
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
@@ -220,3 +217,24 @@ void Scene::Restart() const
 	App->entitymanager->player->visibility = false;
 }
 
+void Scene::SpawnEnemies()
+{
+	for (p2List_item<ObjectsGroups*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
+		if (obj->data->name == ("Enemies"))
+		{
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+			{
+				if (objdata->data->name == 1)
+				{
+					App->entitymanager->CreateEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
+				}
+
+				else if (objdata->data->name == 2)
+				{
+					App->entitymanager->CreateEntity(Entity::entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
+				}
+			}
+		}
+	}
+}

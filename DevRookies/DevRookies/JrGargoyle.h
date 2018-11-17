@@ -10,6 +10,7 @@ public:
 	JrGargoyle(iPoint position);
 	~JrGargoyle();
 
+	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
 	bool Start();
 	bool Fly();
@@ -20,8 +21,8 @@ private:
 	bool CleanUp();
 
 private:
-	/*SDL_Texture* gargoyle_texture;*/
-	p2SString   texture;
+	SDL_Texture* gargoyle_tex = nullptr;
+	p2SString   gargoyle_texture;
 
 	Animation*	current_animation = nullptr;
 	Animation idle;

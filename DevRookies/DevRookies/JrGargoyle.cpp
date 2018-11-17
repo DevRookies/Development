@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Render.h"
 #include "EntityManager.h"
+#include "Pathfinding.h"
 //#include "DevRookiesApp.h"
 
 
@@ -12,7 +13,12 @@ JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
 
 JrGargoyle::JrGargoyle(iPoint pos) : Enemy(entityType::FLYING_ENEMY)
 {
-	/*texture = config.child("texture").child_value();
+
+}
+
+bool JrGargoyle::Awake(pugi::xml_node & config)
+{
+	gargoyle_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
@@ -24,7 +30,8 @@ JrGargoyle::JrGargoyle(iPoint pos) : Enemy(entityType::FLYING_ENEMY)
 
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
+	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);
+	return true;
 }
 
 JrGargoyle::~JrGargoyle()
@@ -33,12 +40,13 @@ JrGargoyle::~JrGargoyle()
 
 bool JrGargoyle::Update(float dt)
 {
+
 	return true;
 }
 
 bool JrGargoyle::Start()
 {
-	/*gargoyle_texture = App->textures->Load(texture.GetString());*/
+	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	return true;
 }
 
@@ -49,10 +57,11 @@ bool JrGargoyle::Fly()
 
 bool JrGargoyle::CleanUp()
 {
+	App->textures->UnLoad(gargoyle_tex);
+	gargoyle_tex = nullptr;
 	return true;
 }
 
-//This should go in Enemy.h and .cpp
 bool JrGargoyle::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 	for (; node; node = node.next_sibling("frame")) {
