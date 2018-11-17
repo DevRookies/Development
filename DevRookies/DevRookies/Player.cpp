@@ -11,14 +11,12 @@
 
 Player::Player(entityType type):Entity(type)
 {
-	//name.create("player");
 }
 
 Player::Player(entityType type, const float &x, const float &y)
 {
 	position.x = x;
 	position.y = y;
-	//name.create("player");
 }
 
 Player::~Player() {}
@@ -306,19 +304,21 @@ void Player::PreMove() {
 				current_state = AIR;
 			
 				
+			if (current_state == FLOOR) {
+				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+					current_movement = JUMP;
 
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && current_state == FLOOR)
-				current_movement = JUMP;
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+					current_movement = LEFT_HIT;
+					AddFX(2, 0);
+				}
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-				current_movement = LEFT_HIT;
-				AddFX(2, 0);
+				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+					current_movement = RIGHT_HIT;
+					AddFX(2, 0);
+				}
 			}
-
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-				current_movement = RIGHT_HIT;
-				AddFX(2, 0);
-			}
+			
 		}
 	
 	}
