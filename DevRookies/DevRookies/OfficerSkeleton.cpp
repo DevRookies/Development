@@ -9,7 +9,6 @@
 #include "Entity.h"
 #include "Enemy.h"
 #include "PathFinding.h"
-#include "Player.h"
 #include "Textures.h"
 
 
@@ -31,7 +30,7 @@ bool OfficerSkeleton::Start()
 
 bool OfficerSkeleton::Restart()
 {
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, this);
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
 	return true;
 }
 
@@ -85,12 +84,6 @@ bool OfficerSkeleton::Update(float dt)
 		sprite_flipX = false;
 		speed.x = -3;
 		speed.x = floor(speed.x*dt);
-
-		float distance = App->collision->CollisionCorrectionLeft(collider->rect);
-		if (-distance > speed.x)
-		{
-			speed.x = -distance;
-		}
 	}
 
 	if (current_movement == RIGHT_E)
@@ -98,12 +91,7 @@ bool OfficerSkeleton::Update(float dt)
 		sprite_flipX = true;
 		speed.x = 3;
 		speed.x = floor(speed.x*dt);
-
-		float distance = App->collision->CollisionCorrectionRight(collider->rect);
-		if (distance < speed.x)
-		{
-			speed.x = distance;
-		}
+		
 	}
 
 	position.x += speed.x;
@@ -113,12 +101,7 @@ bool OfficerSkeleton::Update(float dt)
 	if (speed.y > 0)
 	{
 
-		float distance = App->collision->CollisionCorrectionDown(collider->rect);
-		if (distance < speed.y)
-		{
-			speed.y = distance;
-			if (distance <= 1)current_state = ONFLOOR_E;
-		}
+		
 	}
 	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0F, sprite_flipX, sprite_flipY);
 
