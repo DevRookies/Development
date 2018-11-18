@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Map.h"
 #include "Window.h"
+#include "EntityManager.h"
 
 Player::Player(entityType type):Entity(type)
 {
