@@ -165,7 +165,8 @@ public:
 	MapData				data;
 	SDL_Rect			rect;
 	fPoint				init_player_position;
-	p2List<fPoint>		init_JrGargoyle_position,init_Officer_Skeleton;
+	p2List<fPoint>		init_JrGargoyle_position;
+	p2List<fPoint>		init_Skeleton_position;
 	
 
 private:
