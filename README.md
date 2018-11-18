@@ -72,7 +72,7 @@ Assignment 2: The player dashes, being able to kill enemies.
 	      EnemySpawner system from Tiled.
 	      GodMode visualize and pause debuggers.
 
-## Who maid what
+## Who made what
 
 Cere Venteo -> Dash player, Framerate + dt, Pause button, collision system, Player as Entity, Scene2 Module deleted.
 
