@@ -22,7 +22,6 @@ public:
 	bool	PostUpdate();
 	void	OnCollision(Collider* collider1);
 	void	Walk(const p2DynArray<iPoint> *path);
-	void	Die();
 
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:

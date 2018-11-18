@@ -5,10 +5,6 @@
 #include "Player.h"
 #include "Pathfinding.h"
 #include "Textures.h"
-/*#include "DevRookiesApp.h"
-#include "p2Log.h"
-#include "Entity.h"
-#include "Enemy.h"*/
 
 
 
@@ -132,6 +128,7 @@ bool OfficerSkeleton::CleanUp()
 {
 	App->textures->UnLoad(skeleton_tex);
 	skeleton_tex = nullptr;
+	collider->to_delete = true;
 	return true;
 }
 
@@ -139,7 +136,7 @@ bool OfficerSkeleton::CleanUp()
 void OfficerSkeleton::OnCollision(Collider * collider1)
 {
 	if (collider1->type == COLLIDER_PLAYER)
-		Die();
+		CleanUp();
 }
 
 bool OfficerSkeleton::LoadAnimation(pugi::xml_node &node, Animation &anim) {
@@ -171,13 +168,9 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 
 bool OfficerSkeleton::Restart(uint i)
 {
+	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
 	current_animation = &idle;
 	return true;
-}
-
-void OfficerSkeleton::Die() {
-
-	//App->entitymanager->DestroyEntity(this);
 }

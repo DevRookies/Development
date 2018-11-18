@@ -4,8 +4,8 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "Pathfinding.h"
+#include "SceneManager.h"
 #include "Textures.h"
-//#include "DevRookiesApp.h"
 
 
 JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
@@ -47,18 +47,20 @@ bool JrGargoyle::Start(uint i)
 bool JrGargoyle::PreUpdate()
 {
 	bool ret = true;
-	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
-	{
-		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
-		iPoint pos = { (int)position.x, (int)position.y };
-		App->pathfinding->CreatePath(pos, playerpos);
-		Fly(App->pathfinding->GetLastPath());
-		current_movement = LEFT;
-	}
-	else {
-		current_movement = IDLE;
-		//current_movement = LEFT;
-		current_animation = &fly;
+	if (App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
+		if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
+		{
+			iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
+			iPoint pos = { (int)position.x, (int)position.y };
+			App->pathfinding->CreatePath(pos, playerpos);
+			Fly(App->pathfinding->GetLastPath());
+			current_movement = LEFT;
+		}
+		else {
+			current_movement = IDLE;
+			//current_movement = LEFT;
+			current_animation = &fly;
+		}
 	}
 
 	return ret;
@@ -67,42 +69,36 @@ bool JrGargoyle::PreUpdate()
 bool JrGargoyle::Update(float dt)
 {
 	bool ret = true;
+	if (App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
+		if (current_movement == IDLE)
+		{
+			speed.x = 0;
+		}
+		else if (current_movement == LEFT)
+		{
+			flipX = false;
+			speed.x = -3;
+		}
+		else if (current_movement == RIGHT)
+		{
+			flipX = true;
+			speed.x = 3;
+		}
+		else if (current_movement == UP)
+		{
+			speed.y = -3;
+		}
+		else if (current_movement == DOWN)
+		{
+			speed.y = 3;
+		}
 
-	if (current_movement == IDLE)
-	{
-		speed.x = 0;
+		position.x += floor(speed.x * dt);
+		position.y += floor(speed.y * dt);
+		collider->rect.x = position.x;
+		collider->rect.y = position.y;
 	}
 
-	if (current_movement == LEFT)
-	{
-		flipX = false;
-		speed.x = -3;
-		speed.x = floor(speed.x*dt);
-	}
-
-	if (current_movement == RIGHT)
-	{
-		flipX = true;
-		speed.x = 3;
-		speed.x = floor(speed.x*dt);
-
-	}
-	if (current_movement == UP)
-	{
-		speed.y = 3;
-		speed.y = floor(speed.x*dt);
-	}
-	if (current_movement == DOWN)
-	{
-		speed.y = 3;
-		speed.y = floor(speed.x*dt);
-
-	}
-
-	position.x += speed.x;
-	position.y += speed.y;
-	collider->rect.x = position.x;
-	collider->rect.y = position.y;
 
 	return ret;
 }
@@ -110,7 +106,6 @@ bool JrGargoyle::Update(float dt)
 bool JrGargoyle::PostUpdate()
 {
 	App->render->Blit(gargoyle_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
-	
 	return true;
 }
 
@@ -118,13 +113,14 @@ bool JrGargoyle::CleanUp()
 {
 	App->textures->UnLoad(gargoyle_tex);
 	gargoyle_tex = nullptr;
+	collider->to_delete = true;
 	return true;
 }
 
 void JrGargoyle::OnCollision(Collider * collider1)
 {
 	if (collider1->type == COLLIDER_PLAYER)
-		Die();
+		CleanUp();
 }
 
 bool JrGargoyle::LoadAnimation(pugi::xml_node &node, Animation &anim) {
@@ -154,13 +150,9 @@ void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
 
 bool JrGargoyle::Restart(uint i)
 {
+	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	position = App->map->init_JrGargoyle_position.At(i - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,60,80 }, COLLIDER_ENEMY, App->entitymanager);
 	current_animation = &idle;
 	return true;
-}
-
-void JrGargoyle::Die() {
-
-	//App->entitymanager->DestroyEntity(this);
 }

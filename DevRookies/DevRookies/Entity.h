@@ -45,7 +45,6 @@ public:
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);
 	virtual void OnCollision(Collider*) {};
 	void		AddCollider();
-	void		Die();
 
 	bool flipX = false;
 
