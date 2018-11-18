@@ -15,6 +15,8 @@ EntityManager::EntityManager()
 	CreateEntity(entityType::PLAYER, {0,0});
 	CreateEntity(entityType::FLYING_ENEMY, { 0,0 });
 	CreateEntity(entityType::FLYING_ENEMY, { 0,0 });
+	CreateEntity(entityType::LAND_ENEMY, { 0,0 });
+	CreateEntity(entityType::LAND_ENEMY, { 0,0 });
 }
 
 EntityManager::~EntityManager()
