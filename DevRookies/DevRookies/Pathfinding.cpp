@@ -172,7 +172,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
 	
-
+	last_path.Clear();
 	PathList open;
 	PathList close;
 
@@ -226,7 +226,6 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 		}
 
-		//open.list.del(open.GetNodeLowestScore());
 	}
 
 	return -1;

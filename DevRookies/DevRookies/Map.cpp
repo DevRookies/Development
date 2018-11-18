@@ -243,6 +243,8 @@ bool Map::CleanUp()
 	data.objLayers.clear();
 
 	// Clean up the pugui tree
+	init_JrGargoyle_position.clear();
+	init_Skeleton_position.clear();
 	map_file.reset();
 
 	return true;

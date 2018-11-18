@@ -32,7 +32,7 @@ public:
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };
 	virtual bool Start(uint i) { return true; };
-	virtual bool Restart() { return true; };
+	virtual bool Restart(uint i) { return true; };
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
@@ -43,8 +43,9 @@ public:
 
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);
-	virtual void OnCollision(Collider*, Collider*) {};
+	virtual void OnCollision(Collider*) {};
 	void		AddCollider();
+	void		Die();
 
 	bool flipX = false;
 

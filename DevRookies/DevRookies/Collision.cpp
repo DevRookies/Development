@@ -47,7 +47,7 @@ bool Collision::PreUpdate()
 	Collider* c1;
 	Collider* c2;
 
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	/*for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 
 		if (colliders[i] != nullptr) {
@@ -62,17 +62,17 @@ bool Collision::PreUpdate()
 					if (c1->enable && c2->enable) {
 						if (c1->CheckCollision(c2->rect) == true)
 						{
-							if (matrix[c1->type][c2->type] && c1->callback)
-								c1->callback->OnCollision(c1, c2);
+							//if (matrix[c1->type][c2->type] && c1->callback)
+								//c1->callback->OnCollision(c1, c2);
 
-							if (matrix[c2->type][c1->type] && c2->callback)
-								c2->callback->OnCollision(c2, c1);
+							//if (matrix[c2->type][c1->type] && c2->callback)
+								//c2->callback->OnCollision(c2, c1);
 						}
 					}
 				}
 			}
 		}
-	}
+	}*/
 
 	return true;
 }

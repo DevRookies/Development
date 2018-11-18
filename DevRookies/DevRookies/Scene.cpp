@@ -67,6 +67,7 @@ bool Scene::Start()
 		break;
 	}
 	
+	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 

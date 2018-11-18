@@ -118,7 +118,7 @@ bool Player::Update(float dt)
 	
 		
 		
-	collider->SetPos(position.x, position.y + heigth_animation);
+	collider->SetPos(position.x, position.y + heigth_animation - collider_box_height);
 
 	return true;
 }
@@ -184,7 +184,7 @@ void Player::SetPosition(const float & x, const float & y)
 
 //Collider-----------------
 void Player::AddColliderPlayer() {
-	collider = App->collision->AddCollider({ 0,0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, App->entitymanager);
+	collider = App->collision->AddCollider({ 0, 0,collider_box_width, collider_box_height }, COLLIDER_PLAYER, App->entitymanager);
 }
 
 //----------------------------------------------------
@@ -195,11 +195,11 @@ void Player::OnCollision(Collider * collider1)
 		Win();
 	
 	if (!godmode) {
-		if (collider1->type == COLLIDER_ICE){
+		if (collider1->type == COLLIDER_ICE) {
 			current_state = FLOOR;
 			if (current_element == FIRE)
 				Die();
-		}		
+		}
 		else if (collider1->type == COLLIDER_FIRE) {
 			current_state = FLOOR;
 			if (current_element == ICE)
@@ -209,11 +209,11 @@ void Player::OnCollision(Collider * collider1)
 			current_state = FLOOR;
 			Die();
 		}
-		else if (collider1->type == COLLIDER_ENEMY) 
-			if(current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
+		else if (collider1->type == COLLIDER_ENEMY)
+			if (current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
 				Die();
 			else
-				//Kill();
+				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 		
 		if (App->render->camera.x <= -position.x) {
 			Die();
@@ -241,6 +241,13 @@ bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 }
 
 void Player::PreMove() {
+
+	if (App->collision->CheckCollision()) {
+		if (current_state != DEATH)
+			current_state = FLOOR;
+	}
+	else
+		current_state = AIR;
 
 	if (current_animation->GetCurrentFrameIndex() == 11 || (current_animation != &hitfire && current_animation != &hitice)) {
 		current_movement = IDLE;
@@ -278,14 +285,6 @@ void Player::PreMove() {
 				else
 					current_element = FIRE;
 
-			if (App->collision->CheckCollision()) {
-				if (current_state != DEATH)
-					current_state = FLOOR;
-			}
-			else 
-				current_state = AIR;
-			
-				
 			if (current_state == FLOOR) {
 				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 					current_movement = UP;

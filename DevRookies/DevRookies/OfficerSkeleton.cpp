@@ -44,15 +44,14 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 bool OfficerSkeleton::Start(uint i)
 {
 	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
-	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
 	return true;
 }
 
-bool OfficerSkeleton::Restart()
+bool OfficerSkeleton::Restart(uint i)
 {
+	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
 	return true;
 }
 
@@ -123,16 +122,10 @@ bool OfficerSkeleton::PostUpdate()
 	return true;
 }
 
-void OfficerSkeleton::OnCollision(Collider * collider1, Collider * collider2)
+void OfficerSkeleton::OnCollision(Collider * collider1)
 {
-	switch (collider1->type)
-	{
-	case COLLIDER_PLAYER://whenever the player collides with map limit he dies.
-		break;
-	default:
-		break;
-	}
-
+	if (collider1->type == COLLIDER_PLAYER)
+			Die();
 }
 
 bool OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)

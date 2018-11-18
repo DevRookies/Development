@@ -60,10 +60,12 @@ bool EntityManager::Restart()
 {
 	bool ret = true;
 	p2List_item<Entity*>* tmp = entities.start;
+	uint i = 0;
 	while (tmp != nullptr)
 	{
-		tmp->data->Restart();
+		tmp->data->Restart(i);
 		tmp = tmp->next;
+		i++;
 	}
 
 	return ret;
@@ -211,8 +213,13 @@ bool EntityManager::DestroyEntity(Entity * entity)
 
 void EntityManager::OnCollision(Collider* collider1, Collider* collider2)
 {
-	for (int i = 0; i < entities.count(); i++)
+	
+	p2List_item<Entity*>* tmp = entities.start;
+	while (tmp != nullptr)
 	{
-
+		if(tmp->data->collider == collider2)
+			tmp->data->OnCollision(collider1);
+		tmp = tmp->next;
 	}
 }
+	

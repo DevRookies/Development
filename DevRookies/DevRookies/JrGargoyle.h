@@ -11,11 +11,15 @@ public:
 	JrGargoyle(entityType type);
 	~JrGargoyle();
 
-	bool Awake(pugi::xml_node & config);
-	bool Update(float dt);
-	bool Start(uint i);
-	bool PostUpdate();
-	bool Fly();
+	bool	Awake(pugi::xml_node & config);
+	bool	Start(uint i);
+	bool	Restart(uint i);
+	bool	PreUpdate();
+	bool	Update(float dt);
+	bool	PostUpdate();
+	void	OnCollision(Collider* collider1);
+	void	Fly(const p2DynArray<iPoint> *path);
+	void	Die();
 
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:

@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Render.h"
 #include "EntityManager.h"
+#include "Player.h"
 #include "Pathfinding.h"
 #include "Textures.h"
 //#include "DevRookiesApp.h"
@@ -9,12 +10,14 @@
 
 JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
 {
-
 }
 JrGargoyle::JrGargoyle(entityType type) : Enemy(entityType::FLYING_ENEMY)
 {
-
 }
+JrGargoyle::~JrGargoyle()
+{
+}
+
 
 bool JrGargoyle::Awake(pugi::xml_node & conf)
 {
@@ -35,29 +38,74 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 	return true;
 }
 
-JrGargoyle::~JrGargoyle()
-{
-}
-
-bool JrGargoyle::Update(float dt)
-{
-
-	return true;
-}
-
 bool JrGargoyle::Start(uint i)
 {
 
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
-	position = App->map->init_JrGargoyle_position.At(i-1)->data;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
 	return true;
 }
 
-bool JrGargoyle::Fly()
+bool JrGargoyle::PreUpdate()
 {
-	return true;
+	bool ret = true;
+	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
+	{
+		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
+		iPoint pos = { (int)position.x, (int)position.y };
+		App->pathfinding->CreatePath(pos, playerpos);
+		Fly(App->pathfinding->GetLastPath());
+		current_movement = LEFT;
+	}
+	else {
+		current_movement = IDLE;
+		//current_movement = LEFT;
+		current_animation = &fly;
+	}
+
+	return ret;
+}
+
+bool JrGargoyle::Update(float dt)
+{
+	bool ret = true;
+
+	if (current_movement == IDLE)
+	{
+		speed.x = 0;
+	}
+
+	if (current_movement == LEFT)
+	{
+		flipX = false;
+		speed.x = -3;
+		speed.x = floor(speed.x*dt);
+	}
+
+	if (current_movement == RIGHT)
+	{
+		flipX = true;
+		speed.x = 3;
+		speed.x = floor(speed.x*dt);
+
+	}
+	if (current_movement == UP)
+	{
+		speed.y = 3;
+		speed.y = floor(speed.x*dt);
+	}
+	if (current_movement == DOWN)
+	{
+		speed.y = 3;
+		speed.y = floor(speed.x*dt);
+
+	}
+
+	position.x += speed.x;
+	position.y += speed.y;
+	collider->rect.x = position.x;
+	collider->rect.y = position.y;
+
+	return ret;
 }
 
 bool JrGargoyle::PostUpdate()
@@ -74,6 +122,12 @@ bool JrGargoyle::CleanUp()
 	return true;
 }
 
+void JrGargoyle::OnCollision(Collider * collider1)
+{
+	if (collider1->type == COLLIDER_PLAYER)
+		Die();
+}
+
 bool JrGargoyle::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 	for (; node; node = node.next_sibling("frame")) {
@@ -85,4 +139,29 @@ bool JrGargoyle::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 		anim.PushBack(frame_rect);
 	}
 	return true;
+}
+
+void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
+{
+	if (path->Count() > 0)
+	{
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+		}
+	}
+}
+
+bool JrGargoyle::Restart(uint i)
+{
+	position = App->map->init_JrGargoyle_position.At(i - 1)->data;
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,60,80 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
+	return true;
+}
+
+void JrGargoyle::Die() {
+
+	//App->entitymanager->DestroyEntity(this);
 }

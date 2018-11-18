@@ -18,11 +18,11 @@ public:
 	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
 	bool Start(uint i);
-	bool Restart();
+	bool Restart(uint i);
 	bool Walk(const p2DynArray<iPoint> *path);
 	bool PreUpdate();
 	bool PostUpdate();
-	void OnCollision(Collider* collider1, Collider*collider2);
+	void OnCollision(Collider* collider1);
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
