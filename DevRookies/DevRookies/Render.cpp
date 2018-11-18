@@ -184,6 +184,7 @@ bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, f
 	//Don't blit if not on screen
 	uint width, height = 0;
 	App->win->GetWindowSize(width, height);
+
 	if (rect.x + 100 + rect.w < 0 || rect.y + rect.h < 0 || rect.x > (int)width || rect.y > (int)height)
 	{
 		return false;
