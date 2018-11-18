@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Map.h"
 #include "Scene.h"
+#include "SceneManager.h"
 #include "Player.h"
 #include "SceneManager.h"
 #include "Pathfinding.h"
@@ -46,12 +47,16 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	uchar* data = nullptr;
 	switch (scene_actual)
 	{
 	case 1:
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
 		App->entitymanager->player->Restart(FIRE);
+		int width, height;
+		if (App->map->CreateWalkabilityMap(width, height, &data))
+			App->pathfinding->SetMap(width, height, data);
 		break;
 	case 2:
 		App->map->Load(tile_name_scene2.GetString());
@@ -64,11 +69,6 @@ bool Scene::Start()
 	
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
-
-	int width, height;
-	uchar* data = nullptr;
-	if (App->map->CreateWalkabilityMap(width, height, &data))
-		App->pathfinding->SetMap(width, height, data);
 
 	debug_tex = App->textures->Load("maps/navigation.png");
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
@@ -88,8 +88,8 @@ bool Scene::PreUpdate()
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	//iPoint p = App->render->ScreenToWorld(x, y);
-	iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	//iPoint p = App->render->ScreenToWorld(x + App->render->camera.x, y + App->render->camera.y);
 	p = App->map->WorldToMap(p.x, p.y);
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)

@@ -42,7 +42,7 @@ public:
 	void SpawnEnemies();
 
 	uint			scene_actual = 1;
-
+	SDL_Texture*	 debug_tex = nullptr;
 private:
 
 	p2SString		tile_name_scene1 = "", tile_name_scene2 = "";
@@ -52,7 +52,6 @@ private:
 
 	fPoint			godmode_pos, pause_pos;
 	
-	SDL_Texture*  debug_tex = nullptr;
 	SDL_Texture*  godmode_tex = nullptr;
 	SDL_Texture*  pause_tex = nullptr;
 };
