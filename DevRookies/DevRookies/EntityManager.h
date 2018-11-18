@@ -39,7 +39,7 @@ public:
 
 private:
 	uint			gargoyle_count = 2;
-	uint			skeleton_count = 0;
+	uint			skeleton_count = 2;
 };
 #endif // !__ENTITYMANAGER_H__
 

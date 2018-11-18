@@ -22,22 +22,7 @@ OfficerSkeleton::OfficerSkeleton(entityType type) : Enemy(entityType::LAND_ENEMY
 
 }
 
-bool OfficerSkeleton::Start(uint i)
-{
-	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
-	position = App->map->init_Skeleton_position.At(i - 1)->data;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
-	return true;
-}
-
-bool OfficerSkeleton::Restart()
-{
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
-	return true;
-}
-
-bool OfficerSkeleton::Awake(pugi::xml_node & conf) 
+bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 {
 	pugi::xml_node config = conf.child("OfficerSkeleton");
 	skeleton_texture = config.child("texture").child_value();
@@ -56,6 +41,23 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 	return true;
 }
 
+bool OfficerSkeleton::Start(uint i)
+{
+	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
+	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
+	return true;
+}
+
+bool OfficerSkeleton::Restart()
+{
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
+	return true;
+}
+
+
+
 
 OfficerSkeleton::~OfficerSkeleton()
 {
@@ -72,7 +74,7 @@ bool OfficerSkeleton::PreUpdate()
 	}
 	else current_movement = IDLE;*/
 	current_movement = LEFT;
-	current_animation = &walk;
+	//current_animation = &walk;
 	return true;
 }
 
@@ -107,7 +109,6 @@ bool OfficerSkeleton::Update(float dt)
 
 		
 	}
-	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0F, flipX);
 
 	position.y += speed.y;
 	collider->rect.y = position.y;

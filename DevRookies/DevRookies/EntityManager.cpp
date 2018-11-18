@@ -15,7 +15,7 @@ EntityManager::EntityManager()
 	name.create("entitymanager");
 	CreateEntity(entityType::PLAYER);
 	CreateEntity(entityType::FLYING_ENEMY);
-	//CreateEntity(entityType::LAND_ENEMY);
+	CreateEntity(entityType::LAND_ENEMY);
 }
 
 EntityManager::~EntityManager()
