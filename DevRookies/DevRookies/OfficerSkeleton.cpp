@@ -147,13 +147,9 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 		}
 		if (position.x > pos.x)
-		{
 			current_movement = LEFT;
-		}
 		if (position.x < pos.x)
-		{
 			current_movement = RIGHT;
-		}
 	}
 }
 

@@ -47,21 +47,19 @@ bool JrGargoyle::Start(uint i)
 bool JrGargoyle::PreUpdate()
 {
 	bool ret = true;
-	if (App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
-		if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
-		{
-			iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
-			iPoint pos = { (int)position.x, (int)position.y };
-			App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
-			Fly(App->pathfinding->GetLastPath());
-			current_movement = LEFT;
-		}
-		else {
-			current_movement = IDLE;
-			//current_movement = LEFT;
-			current_animation = &fly;
-		}
+
+	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
+	{
+		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
+		iPoint pos = { (int)position.x, (int)position.y };
+		App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
+		Fly(App->pathfinding->GetLastPath());
 	}
+	else {
+		current_movement = IDLE;
+		current_animation = &fly;
+	}
+	
 
 	return ret;
 }
@@ -69,36 +67,36 @@ bool JrGargoyle::PreUpdate()
 bool JrGargoyle::Update(float dt)
 {
 	bool ret = true;
-	if (App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
-		if (current_movement == IDLE)
-		{
-			speed.x = 0;
-		}
-		else if (current_movement == LEFT)
-		{
-			flipX = false;
-			speed.x = -3;
-		}
-		else if (current_movement == RIGHT)
-		{
-			flipX = true;
-			speed.x = 3;
-		}
-		else if (current_movement == UP)
-		{
-			speed.y = -3;
-		}
-		else if (current_movement == DOWN)
-		{
-			speed.y = 3;
-		}
 
-		position.x += floor(speed.x * dt);
-		position.y += floor(speed.y * dt);
-		collider->rect.x = position.x;
-		collider->rect.y = position.y;
+	if (current_movement == IDLE)
+	{
+		speed.x = 0;
+	}
+	else if (current_movement == LEFT)
+	{
+		flipX = false;
+		speed.x = -3;
+	}
+	else if (current_movement == RIGHT)
+	{
+		flipX = true;
+		speed.x = 30;
+
+	}
+	else if (current_movement == UP)
+	{
+		speed.y = -3;
+	}
+	else if (current_movement == DOWN)
+	{
+		speed.y = 30;
+
 	}
 
+	position.x += floor(speed.x * dt);
+	position.y += floor(speed.y * dt);
+	collider->rect.x = position.x;
+	collider->rect.y = position.y;
 
 	return ret;
 }
@@ -140,11 +138,20 @@ void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
 {
 	if (path->Count() > 0)
 	{
+		iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 		for (uint i = 0; i < path->Count(); ++i)
 		{
-			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 		}
+		if (position.x > pos.x)
+			current_movement = LEFT;
+		else if (position.x < pos.x)
+			current_movement = RIGHT;
+		if (position.y > pos.y) 
+			current_movement = UP;
+		else if (position.y < pos.y)
+			current_movement = DOWN;
 	}
 }
 
