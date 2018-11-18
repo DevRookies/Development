@@ -199,6 +199,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 				last_path.PushBack(current_node->pos);
 			}
 			last_path.Flip();
+			break;
 		}
 		else
 		{
