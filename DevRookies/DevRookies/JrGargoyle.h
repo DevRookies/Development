@@ -36,4 +36,4 @@ private:
 	Animation dead;
 };
 
-#endif
+#endif// _JRGARGOYLE_H__

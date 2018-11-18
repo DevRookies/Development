@@ -40,7 +40,6 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 
 bool JrGargoyle::Start(uint i)
 {
-
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	return true;
 }

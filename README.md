@@ -24,7 +24,7 @@ Trello: https://trello.com/b/6xGoDgxj/development
 ## Controls
 
 - ESC (to close the window).
-- RETURN (Pause)
+- ENTER (Pause)
 
 - F5 (Save).
 - F6 (Load).

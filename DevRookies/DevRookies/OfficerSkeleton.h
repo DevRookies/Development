@@ -2,27 +2,28 @@
 #define _OFFICERSKELETON_H__
 
 #include "Enemy.h"
-#include "Entity.h"
-#include "EntityManager.h"
+//#include "Entity.h"
+//#include "EntityManager.h"
 #include "Textures.h"
-#include "p2Point.h"
+//#include "p2Point.h"
 
 class OfficerSkeleton : public Enemy
 {
 public:
-
 	OfficerSkeleton();
 	OfficerSkeleton(entityType type);
 	~OfficerSkeleton();
 
-	bool Awake(pugi::xml_node & config);
-	bool Update(float dt);
-	bool Start(uint i);
-	bool Restart(uint i);
-	bool Walk(const p2DynArray<iPoint> *path);
-	bool PreUpdate();
-	bool PostUpdate();
-	void OnCollision(Collider* collider1);
+	bool	Awake(pugi::xml_node & config);
+	bool	Start(uint i);
+	bool	Restart(uint i);
+	bool	PreUpdate();
+	bool	Update(float dt);
+	bool	PostUpdate();
+	void	OnCollision(Collider* collider1);
+	void	Walk(const p2DynArray<iPoint> *path);
+	void	Die();
+
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 

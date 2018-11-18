@@ -2,24 +2,26 @@
 #include "Scene.h"
 #include "Render.h"
 #include "EntityManager.h"
-#include "DevRookiesApp.h"
-//more
-#include "p2Log.h"
-#include "EntityManager.h"
-#include "Entity.h"
-#include "Enemy.h"
-#include "PathFinding.h"
+#include "Player.h"
+#include "Pathfinding.h"
 #include "Textures.h"
+/*#include "DevRookiesApp.h"
+#include "p2Log.h"
+#include "Entity.h"
+#include "Enemy.h"*/
+
 
 
 OfficerSkeleton::OfficerSkeleton() : Enemy(entityType::LAND_ENEMY)
 {
 
 }
-
 OfficerSkeleton::OfficerSkeleton(entityType type) : Enemy(entityType::LAND_ENEMY)
 {
 
+}
+OfficerSkeleton::~OfficerSkeleton()
+{
 }
 
 bool OfficerSkeleton::Awake(pugi::xml_node & conf)
@@ -47,38 +49,30 @@ bool OfficerSkeleton::Start(uint i)
 	return true;
 }
 
-bool OfficerSkeleton::Restart(uint i)
-{
-	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
-	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
-	return true;
-}
-
-
-
-
-OfficerSkeleton::~OfficerSkeleton()
-{
-}
-
 bool OfficerSkeleton::PreUpdate()
 {
-	/*if (position.DistanceNoSqrt(App->entitymanager->player->position) < range_of_trigger)
+	bool ret = true;
+	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
 	{
-		iPoint iplayerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
-		iPoint ipos = { (int)position.x, (int)position.y };
-		App->pathfinding->CreatePath(ipos, iplayerpos);
+		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
+		iPoint pos = { (int)position.x, (int)position.y };
+		App->pathfinding->CreatePath(pos, playerpos);
 		Walk(App->pathfinding->GetLastPath());
+		current_movement = LEFT;
 	}
-	else current_movement = IDLE;*/
-	current_movement = LEFT;
-	current_animation = &walk;
-	return true;
+	else {
+		current_movement = IDLE;
+		/*current_movement = LEFT;*/
+		current_animation = &walk;
+	}
+
+	return ret;
 }
 
 bool OfficerSkeleton::Update(float dt)
 {
+	bool ret = true;
+
 	if (current_movement == IDLE)
 	{
 		speed.x = 0;
@@ -99,15 +93,27 @@ bool OfficerSkeleton::Update(float dt)
 		
 	}
 
+	if (current_movement == UP)
+	{
+		speed.y = 3;
+		speed.y = floor(speed.x*dt);
+	}
+	if (current_movement == DOWN)
+	{
+		speed.y = 3;
+		speed.y = floor(speed.x*dt);
+
+	}
+
 	position.x += speed.x;
 	collider->rect.x = position.x;
 
-	speed.y += floor(acceleration.y*dt);
+	/*speed.y += floor(acceleration.y*dt);
 	if (speed.y > 0)
 	{
 
 		
-	}
+	}*/
 
 	position.y += speed.y;
 	collider->rect.y = position.y;
@@ -122,22 +128,18 @@ bool OfficerSkeleton::PostUpdate()
 	return true;
 }
 
-void OfficerSkeleton::OnCollision(Collider * collider1)
-{
-	if (collider1->type == COLLIDER_PLAYER)
-			Die();
-}
-
-bool OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
-{
-	return true;
-}
-
 bool OfficerSkeleton::CleanUp()
 {
 	App->textures->UnLoad(skeleton_tex);
 	skeleton_tex = nullptr;
 	return true;
+}
+
+
+void OfficerSkeleton::OnCollision(Collider * collider1)
+{
+	if (collider1->type == COLLIDER_PLAYER)
+		Die();
 }
 
 bool OfficerSkeleton::LoadAnimation(pugi::xml_node &node, Animation &anim) {
@@ -151,4 +153,31 @@ bool OfficerSkeleton::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 		anim.PushBack(frame_rect);
 	}
 	return true;
+}
+
+
+void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
+{
+	if (path->Count() > 0)
+	{
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+		}
+	}
+}
+
+
+bool OfficerSkeleton::Restart(uint i)
+{
+	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
+	return true;
+}
+
+void OfficerSkeleton::Die() {
+
+	//App->entitymanager->DestroyEntity(this);
 }

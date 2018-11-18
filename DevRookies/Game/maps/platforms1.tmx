@@ -24113,10 +24113,10 @@
  </objectgroup>
  <objectgroup name="EnemyGargoyle">
   <object id="151" name="1" x="352" y="95" width="32" height="32"/>
-  <object id="152" name="1" x="979" y="341" width="32" height="32"/>
+  <object id="152" name="1" x="935" y="396" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="EnemySkeleton">
-  <object id="155" name="2" x="385" y="252" width="32" height="32"/>
-  <object id="156" name="2" x="866" y="188" width="32" height="32"/>
+  <object id="155" name="2" x="388" y="157" width="32" height="32"/>
+  <object id="156" name="2" x="867" y="98" width="32" height="32"/>
  </objectgroup>
 </map>
