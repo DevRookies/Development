@@ -16,11 +16,11 @@ Player::Player(entityType type):Entity(type)
 
 Player::~Player() {}
 
-bool Player::Awake(pugi::xml_node& config)
+bool Player::Awake(pugi::xml_node& conf)
 {
 	
 	bool ret = true;
-	config = config.child("player");
+	pugi::xml_node config = conf.child("player");
 	player_texture = config.child("texture").child_value();
 	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
 	collider_box_width = config.child("collider").attribute("width").as_int();

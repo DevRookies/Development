@@ -162,7 +162,7 @@
           <frame x="96" y="144" width="76" height="70"/>
           <frame x="192" y="143" width="87" height="71"/>
           <frame x="297" y="129" width="97" height="85"/>
-        </fly>;
+        </fly>
         <die speed="0.2F" loop ="false">
           <frame x="1" y="282" width="86" height="81"/>
           <frame x="109" y="230" width="97" height="132"/>
@@ -187,7 +187,7 @@
           <frame x="108" y="94" width="84" height="95"/>
           <frame x="218" y="96" width="82" height="93"/>
           <frame x="327" y="94" width="84" height="95"/>
-        </walk>;
+        </walk>
         <die speed="0.2F" loop ="false">
           <frame x="0" y="189" width="82" height="93"/>
           <frame x="102" y="207" width="89" height="75"/>

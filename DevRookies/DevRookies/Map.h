@@ -163,7 +163,7 @@ public:
 
 	MapData				data;
 	SDL_Rect			rect;
-	fPoint				init_player_position;
+	fPoint				init_player_position, init_JrGargoyle_position;
 	
 
 private:

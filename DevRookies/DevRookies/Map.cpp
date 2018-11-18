@@ -342,6 +342,11 @@ bool Map::Load(const char* file_name)
 				init_player_position.y = objects_node.child("object").attribute("y").as_float();
 				ret = true;
 			}
+			else if (type.operator==("Enemies")) {
+				init_JrGargoyle_position.x = objects_node.child("object").attribute("x").as_float();
+				init_JrGargoyle_position.y = objects_node.child("object").attribute("y").as_float();
+				ret = true;
+			}
 
 		}
 	}

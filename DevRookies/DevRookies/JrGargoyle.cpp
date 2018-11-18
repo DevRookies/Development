@@ -16,9 +16,9 @@ JrGargoyle::JrGargoyle(entityType type) : Enemy(entityType::FLYING_ENEMY)
 
 }
 
-bool JrGargoyle::Awake(pugi::xml_node & config)
+bool JrGargoyle::Awake(pugi::xml_node & conf)
 {
-	config = config.child("JrGargoyle");
+	pugi::xml_node config = conf.child("JrGargoyle");
 	gargoyle_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
@@ -48,6 +48,7 @@ bool JrGargoyle::Update(float dt)
 bool JrGargoyle::Start()
 {
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
+	position = App->map->init_JrGargoyle_position;
 	//collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, this);
 	return true;
 }

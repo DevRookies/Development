@@ -13,6 +13,7 @@ EntityManager::EntityManager()
 {
 	name.create("entitymanager");
 	CreateEntity(entityType::PLAYER, {0,0});
+	CreateEntity(entityType::FLYING_ENEMY, { 0,0 });
 }
 
 EntityManager::~EntityManager()
@@ -41,13 +42,8 @@ bool EntityManager::Start()
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
-		//tmp->data->Start();
-		if (tmp->data->type == entityType::PLAYER)
-			ret = tmp->data->Start();
+		tmp->data->Start();
 		tmp = tmp->next;
-		/*else if (tmp->data->type == Entity::entityType::LAND_ENEMY)
-			ret = tmp->data->Start();
-		tmp = tmp->next;*/
 	}
 
 	texture = App->textures->Load(PATH(folder.GetString(), texture_path.GetString()));
