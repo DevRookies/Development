@@ -36,6 +36,7 @@ bool OfficerSkeleton::Restart()
 
 bool OfficerSkeleton::Awake(pugi::xml_node & config) 
 {
+	config = config.child("OfficerSkeleton");
 	skeleton_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);

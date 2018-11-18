@@ -147,6 +147,7 @@
         </hit_ice>
       </animations>
     </player>
+    
     <JrGargoyle>
       <texture>textures/JrGargoyle.png</texture>
       <animations>
@@ -171,35 +172,32 @@
         </die>
       </animations>
     </JrGargoyle>
+
+    <OfficerSkeleton>
+      <texture>textures/OfficerSkeleton.png</texture>
+      <animations>
+        <idle speed="0.1F" loop="true">
+          <frame x="0" y="0" width="82" height="93"/>
+          <frame x="103" y="1" width="82" height="92"/>
+          <frame x="208" y="2" width="83" height="91"/>
+          <frame x="317" y="1" width="82" height="92"/>
+        </idle>
+        <walk speed="0.2F" loop="true">
+          <frame x="0" y="96" width="82" height="93"/>
+          <frame x="108" y="94" width="84" height="95"/>
+          <frame x="218" y="96" width="82" height="93"/>
+          <frame x="327" y="94" width="84" height="95"/>
+        </walk>;
+        <die speed="0.2F" loop ="false">
+          <frame x="0" y="189" width="82" height="93"/>
+          <frame x="102" y="207" width="89" height="75"/>
+          <frame x="216" y="218" width="89" height="64"/>
+          <frame x="329" y="203" width="89" height="79"/>
+          <frame x="442" y="223" width="68" height="59"/>
+          <frame x="544" y="223" width="49" height="59"/>
+        </die>
+      </animations>
+    </OfficerSkeleton>
   </entitymanager>
-  
-
- 
-
-  <OfficerSkeleton>
-    <texture>textures/OfficerSkeleton.png</texture>
-    <animations>
-      <idle speed="0.1F" loop="true">
-        <frame x="0" y="0" width="82" height="93"/>
-        <frame x="103" y="1" width="82" height="92"/>
-        <frame x="208" y="2" width="83" height="91"/>
-        <frame x="317" y="1" width="82" height="92"/>
-      </idle>
-      <walk speed="0.2F" loop="true">
-        <frame x="0" y="96" width="82" height="93"/>
-        <frame x="108" y="94" width="84" height="95"/>
-        <frame x="218" y="96" width="82" height="93"/>
-        <frame x="327" y="94" width="84" height="95"/>
-      </walk>;
-      <die speed="0.2F" loop ="false">
-        <frame x="0" y="189" width="82" height="93"/>
-        <frame x="102" y="207" width="89" height="75"/>
-        <frame x="216" y="218" width="89" height="64"/>
-        <frame x="329" y="203" width="89" height="79"/>
-        <frame x="442" y="223" width="68" height="59"/>
-        <frame x="544" y="223" width="49" height="59"/>
-      </die>
-    </animations>
-  </OfficerSkeleton>
 
 </config>
