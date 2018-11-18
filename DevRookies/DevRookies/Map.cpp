@@ -39,40 +39,76 @@ void Map::Draw(float dt)
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
 	p2List_item<TileSet*>* item_tileset = data.tilesets.start;
 
-	while (item_layer != nullptr)
-	{
-
-		for (uint i = 0; i < item_layer->data->width; i++)
+	if (App->render->debug_path) {
+		while (item_layer != nullptr)
 		{
-			for (uint j = 0; j < item_layer->data->height; j++)
+
+			for (uint i = 0; i < item_layer->data->width; i++)
 			{
-				iPoint rect = MapToWorld(i, j);
-				if (item_layer->data->Get(i, j) == 0)
+				for (uint j = 0; j < item_layer->data->height; j++)
 				{
-					continue;
-				}
-				while (item_tileset != nullptr) {
-					if (item_tileset->data->Contains(item_layer->data->Get(i, j))) break;
-					item_tileset = item_tileset->next;
-				}
+					iPoint rect = MapToWorld(i, j);
+					if (item_layer->data->Get(i, j) == 0)
+					{
+						continue;
+					}
+					while (item_tileset != nullptr) {
+						if (item_tileset->data->Contains(item_layer->data->Get(i, j))) break;
+						item_tileset = item_tileset->next;
+					}
 
-				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->Get(i, j));
-				
-				if (item_layer->data->parallax) {
-					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed);
-					App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed);
+					SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->Get(i, j));
+
+					if (item_layer->data->parallax) {
+						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed);
+						App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed);
+					}
+					else
+						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+
+
+
+					item_tileset = data.tilesets.start;
 				}
-				else
-					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
-
-					
-
-				item_tileset = data.tilesets.start;
 			}
+			item_layer = item_layer->next;
 		}
-		item_layer = item_layer->next;
 	}
-	
+	else if (App->render->debug_path == false) {
+		while (item_layer != nullptr && item_layer->data->name != "Navigation")
+		{
+
+			for (uint i = 0; i < item_layer->data->width; i++)
+			{
+				for (uint j = 0; j < item_layer->data->height; j++)
+				{
+					iPoint rect = MapToWorld(i, j);
+					if (item_layer->data->Get(i, j) == 0)
+					{
+						continue;
+					}
+					while (item_tileset != nullptr) {
+						if (item_tileset->data->Contains(item_layer->data->Get(i, j))) break;
+						item_tileset = item_tileset->next;
+					}
+
+					SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->Get(i, j));
+
+					if (item_layer->data->parallax) {
+						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed);
+						App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed);
+					}
+					else
+						App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+
+
+
+					item_tileset = data.tilesets.start;
+				}
+			}
+			item_layer = item_layer->next;
+		}
+	}
 }
 
 int Properties::Get(const char* value, int default_value) const
