@@ -41,23 +41,22 @@ void Map::Draw(float dt)
 
 	while (item_layer != nullptr)
 	{
-
 		for (uint i = 0; i < item_layer->data->width; i++)
 		{
 			for (uint j = 0; j < item_layer->data->height; j++)
 			{
 				iPoint rect = MapToWorld(i, j);
-				if (item_layer->data->tiles[item_layer->data->Get(i, j)] == 0)
+				if (item_layer->data->Get(i, j) == 0)
 				{
 					continue;
 				}
 				while (item_tileset != nullptr) {
-					if (item_tileset->data->Contains(item_layer->data->tiles[item_layer->data->Get(i, j)])) break;
+					if (item_tileset->data->Contains(item_layer->data->Get(i, j))) break;
 					item_tileset = item_tileset->next;
 				}
 
-				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
-				
+				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->Get(i, j));
+
 				if (item_layer->data->parallax) {
 					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile, parallax_speed);
 					App->render->Blit(item_tileset->data->texture, rect.x + (item_layer->data->width * 32), rect.y, &tile, parallax_speed);
@@ -65,15 +64,13 @@ void Map::Draw(float dt)
 				else
 					App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
 
-					
-
 				item_tileset = data.tilesets.start;
 			}
 		}
 		item_layer = item_layer->next;
 	}
-	
 }
+	
 
 int Properties::Get(const char* value, int default_value) const
 {
@@ -91,21 +88,13 @@ int Properties::Get(const char* value, int default_value) const
 
 TileSet* Map::GetTilesetFromTileId(int id) const
 {
-	p2List_item<TileSet*>* item = data.tilesets.start;
-	TileSet* set = item->data;
-
-	while (item)
+	p2List_item<TileSet*>* tileset = data.tilesets.start;
+	while (tileset != NULL)
 	{
-		if (id < item->data->firstgid)
-		{
-			set = item->prev->data;
-			break;
-		}
-		set = item->data;
-		item = item->next;
+		if (tileset->next && id < tileset->next->data->firstgid) return tileset->data;
+		tileset = tileset->next;
 	}
-
-	return set;
+	return data.tilesets.end->data;
 }
 
 iPoint Map::MapToWorld(int x, int y) const
@@ -121,26 +110,10 @@ iPoint Map::MapToWorld(int x, int y) const
 
 iPoint Map::WorldToMap(int x, int y) const
 {
-	iPoint ret(0, 0);
+	iPoint ret;
 
-	if (data.type == MAPTYPE_ORTHOGONAL)
-	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
-	}
-	else if (data.type == MAPTYPE_ISOMETRIC)
-	{
-
-		float half_width = data.tile_width * 0.5f;
-		float half_height = data.tile_height * 0.5f;
-		ret.x = int((x / half_width + y / half_height) / 2) - 1;
-		ret.y = int((y / half_height - (x / half_width)) / 2);
-	}
-	else
-	{
-		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
-	}
+	ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;
 
 	return ret;
 }
@@ -231,17 +204,6 @@ bool Map::CleanUp()
 	}
 	data.maplayers.clear();
 
-	//Remove all ObjectGroups
-	p2List_item<ObjectsGroups*>* obj;
-	obj = data.objLayers.start;
-
-	while (obj != NULL)
-	{
-		RELEASE(obj->data);
-		obj = obj->next;
-	}
-	data.objLayers.clear();
-
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -299,19 +261,6 @@ bool Map::Load(const char* file_name)
 		}
 
 		data.maplayers.add(maplayer);
-	}
-
-	//Load obj info --------------------------------------------------
-	pugi::xml_node group;
-	for (group = map_file.child("map").child("objectgroup"); group && ret; group = group.next_sibling("objectgroup"))
-	{
-		ObjectsGroups* set = new ObjectsGroups();
-
-		if (ret == true)
-		{
-			ret = LoadObjectLayers(group, set);
-		}
-		data.objLayers.add(set);
 	}
 
 	// Load collider info ----------------------------------------------
@@ -376,16 +325,6 @@ bool Map::Load(const char* file_name)
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
-		}
-
-		p2List_item<ObjectsGroups*>* obj_layer = data.objLayers.start;
-		while (obj_layer != NULL)
-		{
-			ObjectsGroups* o = obj_layer->data;
-			LOG("Group ----");
-			LOG("Gname: %s", o->name.GetString());
-
-			obj_layer = obj_layer->next;
 		}
 	}
 
@@ -530,19 +469,30 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
 	LoadProperties(node, layer->properties);
-	layer->tiles = new uint[layer->width*layer->height];
+	/*layer->tiles = new uint[layer->width*layer->height];*/
 	if (layer->name == "background") {
 		layer->parallax = true;
 	}
 	
-	memset(layer->tiles, 0, sizeof(uint)*layer->width*layer->height);
-	
-	pugi::xml_node data = node.child("data");
-	uint i = 0u;
+	//memset(layer->tiles, 0, sizeof(uint)*layer->width*layer->height);
+	//
+	//pugi::xml_node data = node.child("data");
+	//uint i = 0u;
 
-	for (pugi::xml_node tile = data.child("tile"); tile; tile = tile.next_sibling("tile"))
-	{
-		layer->tiles[i] = tile.attribute("gid").as_uint();
+	//for (pugi::xml_node tile = data.child("tile"); tile; tile = tile.next_sibling("tile"))
+	//{
+	//	layer->tiles[i] = tile.attribute("gid").as_uint();
+	//	i++;
+	//}
+
+	uint size = layer->width*layer->height;
+	layer->data = new uint[size];
+	memset(layer->data, 0, sizeof(unsigned int) * size);
+
+	pugi::xml_node tile;
+	uint i = 0U;
+	for (tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile")) {
+		layer->data[i] = tile.attribute("gid").as_uint();
 		i++;
 	}
 
@@ -607,27 +557,6 @@ bool Map::LoadCollider(pugi::xml_node & node, uint type)
 	return true;
 }
 
-bool Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroups * group)
-{
-	bool ret = true;
-
-	group->name = node.attribute("name").as_string();
-
-	for (pugi::xml_node& obj = node.child("object"); obj && ret; obj = obj.next_sibling("object"))
-	{
-		ObjectsData* data = new ObjectsData;
-
-		data->height = obj.attribute("height").as_uint();
-		data->width = obj.attribute("width").as_uint();
-		data->x = obj.attribute("x").as_uint();
-		data->y = obj.attribute("y").as_uint();
-		data->name = obj.attribute("name").as_uint();
-
-		group->objects.add(data);
-	}
-
-	return ret;
-}
 bool Map::LoadEnemyPosition(pugi::xml_node & node)
 {
 	p2SString type = node.attribute("name").as_string();
@@ -642,10 +571,4 @@ bool Map::LoadEnemyPosition(pugi::xml_node & node)
 	}
 
 	return true;
-}
-
-
-ObjectsGroups::~ObjectsGroups()
-{
-	objects.clear();
 }

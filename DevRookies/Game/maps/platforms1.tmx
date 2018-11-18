@@ -18034,6 +18034,87 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="initialPos">
+  <object id="13" x="162.667" y="137.333" width="52" height="50.6667">
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="border_col">
+  <object id="1" x="0" y="0" width="6400" height="1"/>
+  <object id="4" x="0" y="0" width="1" height="960"/>
+  <object id="7" x="6399" y="0" width="1" height="960"/>
+  <object id="10" x="0" y="959" width="6400" height="1"/>
+ </objectgroup>
+ <objectgroup name="poison_col">
+  <object id="153" x="5" y="835" width="6400" height="4"/>
+ </objectgroup>
+ <objectgroup name="fire_col_top">
+  <object id="79" x="2.5" y="193.5" width="250" height="3"/>
+  <object id="81" x="545" y="257" width="157" height="4.5"/>
+  <object id="82" x="609" y="545.5" width="222" height="3.5"/>
+  <object id="84" x="1057" y="193.5" width="285.5" height="5.5"/>
+  <object id="85" x="1570" y="641" width="412" height="5.5"/>
+  <object id="86" x="1763" y="481.5" width="59.5" height="3"/>
+  <object id="87" x="1730" y="257.5" width="221" height="4.5"/>
+  <object id="88" x="2018" y="417.5" width="60" height="5"/>
+  <object id="89" x="2368.5" y="641" width="158.5" height="5"/>
+  <object id="90" x="2241" y="193" width="189.5" height="5.5"/>
+  <object id="91" x="2273" y="352.5" width="189" height="5.5"/>
+  <object id="92" x="2785" y="385.5" width="253" height="4.5"/>
+  <object id="93" x="2882" y="577" width="156" height="5"/>
+  <object id="94" x="3296.5" y="512" width="190.5" height="4"/>
+  <object id="95" x="3778.5" y="480.5" width="59.5" height="5"/>
+  <object id="96" x="4033.5" y="482" width="60" height="4"/>
+  <object id="97" x="4288.5" y="481.5" width="62.5" height="4"/>
+  <object id="98" x="4546" y="481" width="61.5" height="4"/>
+  <object id="99" x="4801.5" y="448.5" width="157" height="5.5"/>
+  <object id="104" x="5217.5" y="480.5" width="188" height="5.5"/>
+  <object id="107" x="5730" y="514" width="156" height="4"/>
+  <object id="140" x="1121.33" y="481.333" width="124" height="4.66667"/>
+  <object id="143" x="288" y="737.25" width="286" height="3.5"/>
+  <object id="144" x="801" y="705.583" width="63.3333" height="3.5"/>
+  <object id="145" x="1280.33" y="672.917" width="94" height="3.5"/>
+ </objectgroup>
+ <objectgroup name="ice_col_top">
+  <object id="50" x="320.667" y="289.333" width="158.666" height="3.33333"/>
+  <object id="51" x="257.334" y="480.667" width="282.667" height="3.33333"/>
+  <object id="52" x="898.667" y="513.333" width="156" height="3.33333"/>
+  <object id="53" x="770" y="224.667" width="220" height="2.66667"/>
+  <object id="55" x="1410.66" y="161.333" width="220" height="4"/>
+  <object id="56" x="1635.34" y="481.334" width="59.3333" height="3.33333"/>
+  <object id="57" x="1890.67" y="450" width="58.6667" height="4.66667"/>
+  <object id="58" x="2147.33" y="385.334" width="58" height="4.66667"/>
+  <object id="59" x="2018.67" y="225.333" width="153.333" height="5.33333"/>
+  <object id="60" x="2082" y="673.333" width="217.333" height="4.66667"/>
+  <object id="61" x="2594" y="610" width="220" height="5.33333"/>
+  <object id="62" x="2529.33" y="322" width="188" height="6"/>
+  <object id="63" x="2497.33" y="162" width="412" height="4.66667"/>
+  <object id="64" x="3106.67" y="546" width="122.667" height="4"/>
+  <object id="65" x="3106.67" y="353.333" width="218.667" height="4"/>
+  <object id="66" x="3553.33" y="481.333" width="156.667" height="4"/>
+  <object id="67" x="3906.66" y="481.333" width="58" height="3.33333"/>
+  <object id="68" x="4162" y="481.334" width="60" height="4.66667"/>
+  <object id="69" x="4418.67" y="481.333" width="58.6667" height="4.66667"/>
+  <object id="70" x="4673.33" y="481.333" width="60.6667" height="4.66667"/>
+  <object id="71" x="5026" y="512.667" width="122.667" height="4"/>
+  <object id="72" x="5474.66" y="450" width="187.333" height="4"/>
+  <object id="139" x="1316" y="481.333" width="251.333" height="3.33333"/>
+  <object id="146" x="640.667" y="705.667" width="94.666" height="3.33333"/>
+  <object id="147" x="928.667" y="705" width="29.9993" height="3.33333"/>
+  <object id="148" x="1026" y="705.667" width="189.333" height="3.33333"/>
+  <object id="149" x="1441.33" y="673.667" width="60.666" height="3.33333"/>
+ </objectgroup>
+ <objectgroup name="final_col">
+  <object id="154" x="5953.67" y="641.667" width="442.667" height="4.66667"/>
+ </objectgroup>
+ <objectgroup name="EnemyGargoyle">
+  <object id="151" name="1" x="352" y="95" width="32" height="32"/>
+  <object id="152" name="1" x="979" y="341" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="EnemySkeleton">
+  <object id="155" name="2" x="385" y="252" width="32" height="32"/>
+  <object id="156" name="2" x="866" y="188" width="32" height="32"/>
+ </objectgroup>
  <layer name="Navigation" width="200" height="30">
   <data>
    <tile gid="0"/>
@@ -24038,85 +24119,4 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="initialPos">
-  <object id="13" x="162.667" y="137.333" width="52" height="50.6667">
-   <ellipse/>
-  </object>
- </objectgroup>
- <objectgroup name="border_col">
-  <object id="1" x="0" y="0" width="6400" height="1"/>
-  <object id="4" x="0" y="0" width="1" height="960"/>
-  <object id="7" x="6399" y="0" width="1" height="960"/>
-  <object id="10" x="0" y="959" width="6400" height="1"/>
- </objectgroup>
- <objectgroup name="poison_col">
-  <object id="153" x="5" y="835" width="6400" height="4"/>
- </objectgroup>
- <objectgroup name="fire_col_top">
-  <object id="79" x="2.5" y="193.5" width="250" height="3"/>
-  <object id="81" x="545" y="257" width="157" height="4.5"/>
-  <object id="82" x="609" y="545.5" width="222" height="3.5"/>
-  <object id="84" x="1057" y="193.5" width="285.5" height="5.5"/>
-  <object id="85" x="1570" y="641" width="412" height="5.5"/>
-  <object id="86" x="1763" y="481.5" width="59.5" height="3"/>
-  <object id="87" x="1730" y="257.5" width="221" height="4.5"/>
-  <object id="88" x="2018" y="417.5" width="60" height="5"/>
-  <object id="89" x="2368.5" y="641" width="158.5" height="5"/>
-  <object id="90" x="2241" y="193" width="189.5" height="5.5"/>
-  <object id="91" x="2273" y="352.5" width="189" height="5.5"/>
-  <object id="92" x="2785" y="385.5" width="253" height="4.5"/>
-  <object id="93" x="2882" y="577" width="156" height="5"/>
-  <object id="94" x="3296.5" y="512" width="190.5" height="4"/>
-  <object id="95" x="3778.5" y="480.5" width="59.5" height="5"/>
-  <object id="96" x="4033.5" y="482" width="60" height="4"/>
-  <object id="97" x="4288.5" y="481.5" width="62.5" height="4"/>
-  <object id="98" x="4546" y="481" width="61.5" height="4"/>
-  <object id="99" x="4801.5" y="448.5" width="157" height="5.5"/>
-  <object id="104" x="5217.5" y="480.5" width="188" height="5.5"/>
-  <object id="107" x="5730" y="514" width="156" height="4"/>
-  <object id="140" x="1121.33" y="481.333" width="124" height="4.66667"/>
-  <object id="143" x="288" y="737.25" width="286" height="3.5"/>
-  <object id="144" x="801" y="705.583" width="63.3333" height="3.5"/>
-  <object id="145" x="1280.33" y="672.917" width="94" height="3.5"/>
- </objectgroup>
- <objectgroup name="ice_col_top">
-  <object id="50" x="320.667" y="289.333" width="158.666" height="3.33333"/>
-  <object id="51" x="257.334" y="480.667" width="282.667" height="3.33333"/>
-  <object id="52" x="898.667" y="513.333" width="156" height="3.33333"/>
-  <object id="53" x="770" y="224.667" width="220" height="2.66667"/>
-  <object id="55" x="1410.66" y="161.333" width="220" height="4"/>
-  <object id="56" x="1635.34" y="481.334" width="59.3333" height="3.33333"/>
-  <object id="57" x="1890.67" y="450" width="58.6667" height="4.66667"/>
-  <object id="58" x="2147.33" y="385.334" width="58" height="4.66667"/>
-  <object id="59" x="2018.67" y="225.333" width="153.333" height="5.33333"/>
-  <object id="60" x="2082" y="673.333" width="217.333" height="4.66667"/>
-  <object id="61" x="2594" y="610" width="220" height="5.33333"/>
-  <object id="62" x="2529.33" y="322" width="188" height="6"/>
-  <object id="63" x="2497.33" y="162" width="412" height="4.66667"/>
-  <object id="64" x="3106.67" y="546" width="122.667" height="4"/>
-  <object id="65" x="3106.67" y="353.333" width="218.667" height="4"/>
-  <object id="66" x="3553.33" y="481.333" width="156.667" height="4"/>
-  <object id="67" x="3906.66" y="481.333" width="58" height="3.33333"/>
-  <object id="68" x="4162" y="481.334" width="60" height="4.66667"/>
-  <object id="69" x="4418.67" y="481.333" width="58.6667" height="4.66667"/>
-  <object id="70" x="4673.33" y="481.333" width="60.6667" height="4.66667"/>
-  <object id="71" x="5026" y="512.667" width="122.667" height="4"/>
-  <object id="72" x="5474.66" y="450" width="187.333" height="4"/>
-  <object id="139" x="1316" y="481.333" width="251.333" height="3.33333"/>
-  <object id="146" x="640.667" y="705.667" width="94.666" height="3.33333"/>
-  <object id="147" x="928.667" y="705" width="29.9993" height="3.33333"/>
-  <object id="148" x="1026" y="705.667" width="189.333" height="3.33333"/>
-  <object id="149" x="1441.33" y="673.667" width="60.666" height="3.33333"/>
- </objectgroup>
- <objectgroup name="final_col">
-  <object id="154" x="5953.67" y="641.667" width="442.667" height="4.66667"/>
- </objectgroup>
- <objectgroup name="EnemyGargoyle">
-  <object id="151" name="1" x="352" y="95" width="32" height="32"/>
-  <object id="152" name="1" x="979" y="341" width="32" height="32"/>
- </objectgroup>
- <objectgroup name="EnemySkeleton">
-  <object id="155" name="2" x="385" y="252" width="32" height="32"/>
-  <object id="156" name="2" x="866" y="188" width="32" height="32"/>
- </objectgroup>
 </map>
