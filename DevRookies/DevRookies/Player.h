@@ -68,7 +68,6 @@ public:
 	fPoint		GetPosition() const;
 	void		SetPosition(const float &x, const float &y);
 	void		OnCollision(Collider* collider1);
-	void		OnCollision(Collider* collider1, Collider* collider2);
 	void		AddColliderPlayer();
 	void		Restart(ELEMENT element);
 	bool		isDead();
