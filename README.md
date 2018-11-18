@@ -1,6 +1,6 @@
 ﻿# Version of the game
 
-Fire&Ice v.0.0.5
+Fire&Ice v.0.0.5.1
 
 ## Description
 
@@ -48,7 +48,7 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F9 (Show colliders and pathfinding).
 - F10 (God Mode).
 - F11 (Framerate Cap).
-- F12 (Mute).
+- M (Mute).
 
 - WASD (to Move in GodMode)
 
