@@ -132,8 +132,11 @@ bool JrGargoyle::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
-	node.append_child("position").append_attribute("x") = position.x;
-	node.append_child("position").append_attribute("y") = position.y;
+	if (gargoyle_tex != nullptr) {
+		pugi::xml_node pos = node.append_child("position");
+		pos.append_attribute("x") = position.x;
+		pos.append_attribute("y") = position.y;
+	}
 
 	return ret;
 }
