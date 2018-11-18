@@ -18,6 +18,28 @@ Entity::~Entity()
 {
 }
 
+bool Entity::Load(pugi::xml_node & save_game)
+{
+	return false;
+	position.x = save_game.child("position").attribute("x").as_float();
+	position.y = save_game.child("position").attribute("y").as_float();
+	speed.x = save_game.child("speed").attribute("x").as_float();
+	speed.y = save_game.child("speed").attribute("y").as_float();
+	return true;
+}
+
+bool Entity::Save(pugi::xml_node & save_game) const
+{
+	return false;
+	pugi::xml_node position_node = save_game.append_child("position");
+	position_node.append_attribute("x") = position.x;
+	position_node.append_attribute("y") = position.y;
+	pugi::xml_node velocity_node = save_game.append_child("speed");
+	velocity_node.append_attribute("x") = speed.x;
+	velocity_node.append_attribute("y") = speed.y;
+	return true;
+}
+
 void Entity::AddFX(const int channel, const int repeat) const
 {
 	App->audio->PlayFx(channel, repeat);
