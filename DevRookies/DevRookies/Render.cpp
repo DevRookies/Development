@@ -289,10 +289,3 @@ void Render::SetCamera(uint x, uint y)
 	camera.x = x;
 	camera.y = y;
 }
-
-bool Render::InCamera(SDL_Rect rect)
-{
-	return ((-camera.x < rect.x + rect.w) && (rect.x < -camera.x + camera.w)
-		&& (-camera.y < rect.y + rect.h) && (rect.y < -camera.y + camera.h));
-}
-

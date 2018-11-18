@@ -40,7 +40,6 @@ struct MapLayer
 	p2SString				name = "";
 	uint					width = 0u;
 	uint					height = 0u;
-	//uint*					data = 0u;
 	Properties				properties;
 	uint*					data = nullptr;
 	bool					parallax = false;
@@ -144,13 +143,11 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadProperties(pugi::xml_node& node, Properties& properties);//DIFF
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollider(pugi::xml_node& node, uint type);
 	bool LoadEnemyPosition(pugi::xml_node& node);
 
 	TileSet* GetTilesetFromTileId(int id) const;
-
-	//void Parallax();
 public:
 
 	MapData				data;

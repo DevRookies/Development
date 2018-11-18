@@ -175,36 +175,39 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	last_path.Clear();
 	PathList open;
-	PathList closed;
+	PathList close;
 
-	PathNode node_origin(0, origin.DistanceNoSqrt(destination), origin, nullptr);
+	PathNode node_origin;
+	node_origin.g = 0;
+	node_origin.h = origin.DistanceNoSqrt(destination);
+	node_origin.pos = origin;
+	node_origin.parent = nullptr;
 	open.list.add(node_origin);
 
 	while (open.list.count() > 0)
 	{
-		closed.list.add(open.GetNodeLowestScore()->data);
+		close.list.add(open.GetNodeLowestScore()->data);
 		open.list.del(open.GetNodeLowestScore());
 
-		if (closed.list.end->data.pos == destination)
+		if (close.list.end->data.pos == destination)
 		{
-			const PathNode* node = nullptr;
-			for (node = &open.GetNodeLowestScore()->data; node->pos != origin; node = node->parent) {
-				last_path.PushBack(node->pos);
+			const PathNode* current_node = nullptr;
+			for (current_node = &open.GetNodeLowestScore()->data; current_node->pos != origin; current_node = current_node->parent) {
+				last_path.PushBack(current_node->pos);
 			}
-			last_path.PushBack(node->pos);
+			last_path.PushBack(current_node->pos);
 			last_path.Flip();
 			break;
 		}
 		else {
-			PathList walkable_adjacents;
-			closed.list.end->data.FindWalkableAdjacents(walkable_adjacents);
+			PathList childs;
+			close.list.end->data.FindWalkableAdjacents(childs);
 
-			p2List_item<PathNode>* adjacent_node = walkable_adjacents.list.start;
+			p2List_item<PathNode>* adjacent_node = childs.list.start;
 
 			while (adjacent_node != NULL)
 			{
-				BROFILER_CATEGORY("Propagation", Profiler::Color::PaleVioletRed);
-				if (!closed.Find(adjacent_node->data.pos))
+				if (!close.Find(adjacent_node->data.pos))
 				{
 					adjacent_node->data.CalculateF(destination);
 					if (open.Find(adjacent_node->data.pos))
@@ -221,7 +224,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		}
 	}
 
-	LOG("LOL ITS RETARDED %f", timer->ReadMs());
+	LOG("PATHFINDING MS%f", timer->ReadMs());
 
 	return -1;
 }

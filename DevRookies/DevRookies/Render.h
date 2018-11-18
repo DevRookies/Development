@@ -46,7 +46,6 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	void SetCamera(uint x, uint y);
-	bool InCamera(SDL_Rect rect);
 
 public:
 

@@ -88,11 +88,11 @@ int Properties::Get(const char* value, int default_value) const
 
 TileSet* Map::GetTilesetFromTileId(int id) const
 {
-	p2List_item<TileSet*>* tileset = data.tilesets.start;
-	while (tileset != NULL)
+	p2List_item<TileSet*>* item = data.tilesets.start;
+	while (item != NULL)
 	{
-		if (tileset->next && id < tileset->next->data->firstgid) return tileset->data;
-		tileset = tileset->next;
+		if (item->next && id < item->next->data->firstgid) return item->data;
+		item = item->next;
 	}
 	return data.tilesets.end->data;
 }
@@ -469,29 +469,18 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
 	LoadProperties(node, layer->properties);
-	/*layer->tiles = new uint[layer->width*layer->height];*/
 	if (layer->name == "background") {
 		layer->parallax = true;
 	}
-	
-	//memset(layer->tiles, 0, sizeof(uint)*layer->width*layer->height);
-	//
-	//pugi::xml_node data = node.child("data");
-	//uint i = 0u;
-
-	//for (pugi::xml_node tile = data.child("tile"); tile; tile = tile.next_sibling("tile"))
-	//{
-	//	layer->tiles[i] = tile.attribute("gid").as_uint();
-	//	i++;
-	//}
 
 	uint size = layer->width*layer->height;
 	layer->data = new uint[size];
-	memset(layer->data, 0, sizeof(unsigned int) * size);
 
-	pugi::xml_node tile;
-	uint i = 0U;
-	for (tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile")) {
+	memset(layer->data, 0, sizeof(unsigned int) * size);
+	uint i = 0u;
+
+
+	for (pugi::xml_node tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile")) {
 		layer->data[i] = tile.attribute("gid").as_uint();
 		i++;
 	}
