@@ -35,6 +35,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	lvl2_music_name = config.child("lvl2_music_name").child_value();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
+	godmode_texture = config.child("godmode_tex").child_value();
+	godmode_pos = { config.child("godmode_tex").attribute("x").as_float(),  config.child("godmode_tex").attribute("y").as_float() };
+	pause_texture = config.child("pause_tex").child_value();
+	pause_pos = { config.child("pause_tex").attribute("x").as_float(),  config.child("pause_tex").attribute("y").as_float() };
 	active = true;
 	return ret;
 }
@@ -67,6 +71,8 @@ bool Scene::Start()
 		App->pathfinding->SetMap(width, height, data);
 
 	debug_tex = App->textures->Load("maps/navigation.png");
+	godmode_tex = App->textures->Load(godmode_texture.GetString());
+	pause_tex = App->textures->Load(pause_texture.GetString());
 
 	return true;
 }
@@ -168,6 +174,18 @@ bool Scene::Update(float dt)
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
 
+	if (App->entitymanager->player->godmode) {
+		godmode_pos.x = App->render->camera.x;
+		godmode_pos.y = App->render->camera.y;
+		App->render->Blit(godmode_tex, godmode_pos.x, godmode_pos.y, NULL, -1.0f);
+	}
+
+	if (App->pause) {
+		pause_pos.x = App->render->camera.x + App->win->GetScreenWidth() / 6;
+		pause_pos.y = App->render->camera.y + App->win->GetScreenHeight() / 3;
+		App->render->Blit(pause_tex, pause_pos.x, pause_pos.y, NULL, -1.0f);
+	}
+
 	return true;
 }
 
@@ -192,6 +210,10 @@ bool Scene::CleanUp()
 
 	App->textures->UnLoad(debug_tex);
 	debug_tex = nullptr;
+	App->textures->UnLoad(godmode_tex);
+	godmode_tex = nullptr;
+	App->textures->UnLoad(pause_tex);
+	pause_tex = nullptr;
 
 	return true;
 }
@@ -234,12 +256,12 @@ void Scene::SpawnEnemies()
 			{
 				if (objdata->data->name == 1)
 				{
-					App->entitymanager->CreateEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
+					App->entitymanager->CreateEntity(entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
 				}
 
 				else if (objdata->data->name == 2)
 				{
-					App->entitymanager->CreateEntity(Entity::entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
+					App->entitymanager->CreateEntity(entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
 				}
 			}
 		}

@@ -18,8 +18,7 @@ public:
 	//iPoint position;
 
 public:
-	Enemy(Entity::entityType type);
-	Enemy(Entity::entityType type, iPoint position);
+	Enemy(entityType type);
 	virtual ~Enemy();
 
 	// Called before the first frame

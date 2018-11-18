@@ -3,15 +3,8 @@
 #include "Collision.h"
 #include "Render.h"
 
-Enemy::Enemy(Entity::entityType type) : Entity(type)
+Enemy::Enemy(entityType type) : Entity(type)
 {
-}
-
-Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
-{
-	position.x = pos.x;
-	position.y = pos.y;
-
 }
 
 Enemy::~Enemy()
@@ -58,13 +51,13 @@ const Collider* Enemy::GetCollider() const
 bool Enemy::Save(pugi::xml_node &data) const
 {
 	bool ret = true;
-	if (type == LAND_ENEMY)
+	if (type == entityType::LAND_ENEMY)
 	{
 		pugi::xml_node OfficerSkeleton = data.append_child("OfficerSkeleton");;
 		OfficerSkeleton.append_child("position").append_attribute("x") = position.x;
 		OfficerSkeleton.child("position").append_attribute("y") = position.y;
 	}
-	else if (type == FLYING_ENEMY)
+	else if (type == entityType::FLYING_ENEMY)
 	{
 		pugi::xml_node JrGargoyle = data.append_child("JrGargoyle");;
 		JrGargoyle.append_child("position").append_attribute("x") = position.x;

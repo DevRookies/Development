@@ -12,10 +12,6 @@ JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
 
 }
 
-JrGargoyle::JrGargoyle(iPoint pos) : Enemy(entityType::FLYING_ENEMY)
-{
-
-}
 
 bool JrGargoyle::Awake(pugi::xml_node & config)
 {

@@ -8,26 +8,23 @@
 #include "Textures.h"
 #include "Collision.h"
 
-class Player;
+enum class entityType
+{
+	PLAYER,
+	FLYING_ENEMY,
+	LAND_ENEMY,
+	NO_TYPE,
+};
 
 class Entity
 {
-public:
-	enum entityType
-	{
-		NO_TYPE,
-		PLAYER,
-		FLYING_ENEMY,
-		LAND_ENEMY
-	};
-
 protected:
-	enum MOVEMENT_ENEMY { IDLE_E, RIGHT_E, LEFT_E, UP_E, DOWN_E };
-	enum STATE_ENEMY { ONFLOOR_E, AIR_E, DEATH_E };
+	enum MOVEMENT {IDLE, RIGHT, LEFT, UP, DOWN, DEAD, LEFT_HIT, RIGHT_HIT};
+	enum STATE {FLOOR, AIR, DEATH, WIN };
 
-	STATE_ENEMY current_state;
-	MOVEMENT_ENEMY last_movement;
-	MOVEMENT_ENEMY current_movement = IDLE_E;
+	STATE current_state;
+	MOVEMENT last_movement;
+	MOVEMENT current_movement = IDLE;
 
 public:
 	Entity();
@@ -49,18 +46,14 @@ public:
 	virtual void OnCollision(Collider*, Collider*) {};
 	void		AddCollider();
 
-	bool sprite_flipY = false;
-	bool sprite_flipX = false;
+	bool flipX = false;
 
 	virtual fPoint GetPosition();
 	virtual void SetPosition(const float &x, const float &y);
 
 public:
 	entityType type;
-	fPoint speed;
-	iPoint position;
-	iPoint max_speed;
-	iPoint gravity; //fPoint?
+	fPoint speed, position, max_speed, acceleration;
 
 	Collider* collider = nullptr;
 	Animation* current_animation = nullptr;

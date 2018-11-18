@@ -36,7 +36,9 @@
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
     <tile_name_scene2>platforms2.tmx</tile_name_scene2>
     <lvl2_music_name>Escape.ogg</lvl2_music_name>
-    <camera x="0" y="0" />    
+    <camera x="0" y="0" />
+    <godmode_tex x="0" y="0">textures/godmode.png</godmode_tex>
+    <pause_tex x="0" y="0">textures/pause.png</pause_tex>
   </scene>
 
   <audio>
@@ -55,8 +57,7 @@
 
   <entitymanager>
     <player>
-      <godmode_tex x="0" y="0">textures/godmode.png</godmode_tex>
-      <pause_tex x="0" y="0">textures/pause.png</pause_tex>
+      
       <texture>textures/character.png</texture>
       <position x="0.0f" y="0.0f"/>
       <collider width="40.0f" height="5.0f"/>

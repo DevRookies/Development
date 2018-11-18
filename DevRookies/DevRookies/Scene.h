@@ -45,13 +45,16 @@ public:
 
 private:
 
-	p2SString		tile_name_scene1 = "";
-	p2SString		tile_name_scene2 = "";
-	p2SString		lvl1_music_name = "";
-	p2SString		lvl2_music_name = "";
+	p2SString		tile_name_scene1 = "", tile_name_scene2 = "";
+	p2SString		lvl1_music_name = "", lvl2_music_name = ""; 
+	p2SString		godmode_texture = "", pause_texture = "";
 	SDL_Rect		camera;
+
+	fPoint			godmode_pos, pause_pos;
 	
-	SDL_Texture* debug_tex;
+	SDL_Texture*  debug_tex = nullptr;
+	SDL_Texture*  godmode_tex = nullptr;
+	SDL_Texture*  pause_tex = nullptr;
 };
 
 #endif // __SCENE_H__

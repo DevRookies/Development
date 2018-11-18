@@ -5,13 +5,14 @@
 #include "Entity.h"
 #include "EntityManager.h"
 #include "Textures.h"
+#include "p2Point.h"
 
 class OfficerSkeleton : public Enemy
 {
 public:
 
 	OfficerSkeleton();
-	OfficerSkeleton(iPoint position);
+	OfficerSkeleton(entityType type);
 	~OfficerSkeleton();
 
 	bool Awake(pugi::xml_node & config);

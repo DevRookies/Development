@@ -17,7 +17,7 @@ OfficerSkeleton::OfficerSkeleton() : Enemy(entityType::LAND_ENEMY)
 
 }
 
-OfficerSkeleton::OfficerSkeleton(iPoint pos) : Enemy(LAND_ENEMY, pos)
+OfficerSkeleton::OfficerSkeleton(entityType type) : Enemy(entityType::LAND_ENEMY)
 {
 
 }
@@ -59,36 +59,36 @@ OfficerSkeleton::~OfficerSkeleton()
 
 bool OfficerSkeleton::PreUpdate()
 {
-	if (position.DistanceNoSqrt(App->entitymanager->player->position) < range_of_trigger)
+	/*if (position.DistanceNoSqrt(App->entitymanager->player->position) < range_of_trigger)
 	{
 		iPoint iplayerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
 		iPoint ipos = { (int)position.x, (int)position.y };
 		App->pathfinding->CreatePath(ipos, iplayerpos);
 		Walk(App->pathfinding->GetLastPath());
 	}
-	else current_movement = IDLE_E;
-	current_movement = LEFT_E;
+	else current_movement = IDLE;*/
+	current_movement = LEFT;
 	current_animation = &walk;
 	return true;
 }
 
 bool OfficerSkeleton::Update(float dt)
 {
-	if (current_movement == IDLE_E)
+	if (current_movement == IDLE)
 	{
 		speed.x = 0;
 	}
 
-	if (current_movement == LEFT_E)
+	if (current_movement == LEFT)
 	{
-		sprite_flipX = false;
+		flipX = false;
 		speed.x = -3;
 		speed.x = floor(speed.x*dt);
 	}
 
-	if (current_movement == RIGHT_E)
+	if (current_movement == RIGHT)
 	{
-		sprite_flipX = true;
+		flipX = true;
 		speed.x = 3;
 		speed.x = floor(speed.x*dt);
 		
@@ -103,7 +103,7 @@ bool OfficerSkeleton::Update(float dt)
 
 		
 	}
-	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0F, sprite_flipX, sprite_flipY);
+	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0F, flipX);
 
 	position.y += speed.y;
 	collider->rect.y = position.y;

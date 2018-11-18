@@ -8,7 +8,7 @@ class JrGargoyle : public Enemy
 {
 public:
 	JrGargoyle();
-	JrGargoyle(iPoint position);
+	JrGargoyle(entityType type);
 	~JrGargoyle();
 
 	bool Awake(pugi::xml_node & config);

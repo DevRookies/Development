@@ -12,7 +12,7 @@
 EntityManager::EntityManager()
 {
 	name.create("entitymanager");
-	CreateEntity(Entity::entityType::PLAYER, {0,0});
+	CreateEntity(entityType::PLAYER, {0,0});
 }
 
 EntityManager::~EntityManager()
@@ -26,7 +26,7 @@ bool EntityManager::Awake(pugi::xml_node &config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
-	LoadEntityInfo(Entity::entityType::LAND_ENEMY, config.child("enemy"));
+	LoadEntityInfo(entityType::LAND_ENEMY, config.child("enemy"));
 	return ret;
 }
 
@@ -37,7 +37,7 @@ bool EntityManager::Start()
 	while (tmp != nullptr)
 	{
 		//tmp->data->Start();
-		if (tmp->data->type == Entity::entityType::PLAYER)
+		if (tmp->data->type == entityType::PLAYER)
 			ret = tmp->data->Start();
 		tmp = tmp->next;
 		/*else if (tmp->data->type == Entity::entityType::LAND_ENEMY)
@@ -124,7 +124,7 @@ bool EntityManager::Save(pugi::xml_node& file) const
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type == Entity::entityType::PLAYER)
+		if (tmp->data->type == entityType::PLAYER)
 		{
 			tmp->data->Save(file.append_child("player"));
 		}
@@ -142,17 +142,17 @@ bool EntityManager::Load(pugi::xml_node& file)
 	pugi::xml_node OfficerSkeleton = file.child("OfficerSkeleton");
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type == Entity::entityType::PLAYER)
+		if (tmp->data->type == entityType::PLAYER)
 		{
 			tmp->data->Load(file.child("player"));
 		}
-		if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
+		if (tmp->data->type == entityType::FLYING_ENEMY)
 		{
 			tmp->data->Load(JrGargoyle);
 			JrGargoyle = JrGargoyle.next_sibling("JrGargoyle");
 
 		}
-		else if (tmp->data->type == Entity::entityType::LAND_ENEMY)
+		else if (tmp->data->type == entityType::LAND_ENEMY)
 		{
 			tmp->data->Load(OfficerSkeleton);
 			OfficerSkeleton = OfficerSkeleton.next_sibling("OfficerSkeleton");
@@ -162,21 +162,21 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return ret;
 }
 
-Entity* EntityManager::CreateEntity(Entity::entityType type, iPoint position)
+Entity* EntityManager::CreateEntity(entityType type, iPoint position)
 {
 	Entity* tmp = nullptr;
 
 	switch (type)
 	{
-	case Entity::entityType::PLAYER:
+	case entityType::PLAYER:
 		player = new Player(type);
 		entities.add(player);
 		break;
-	case Entity::entityType::FLYING_ENEMY:
-		tmp = new JrGargoyle(position);
+	case entityType::FLYING_ENEMY:
+		tmp = new JrGargoyle(type);
 		break;
-	case Entity::entityType::LAND_ENEMY:
-		tmp = new OfficerSkeleton(position);
+	case entityType::LAND_ENEMY:
+		tmp = new OfficerSkeleton(type);
 		break;
 	}
 
@@ -207,21 +207,21 @@ void EntityManager::OnCollision(Collider* collider1, Collider* collider2)
 	}
 }
 
-void EntityManager::LoadEntityInfo(Entity::entityType type, pugi::xml_node & node)
+void EntityManager::LoadEntityInfo(entityType type, pugi::xml_node & node)
 {
 	switch (type)
 	{
 	
-	case Entity::entityType::LAND_ENEMY: {
+	case entityType::LAND_ENEMY: {
 		pugi::xml_node officer_skeleton = node.child("OfficerSkeleton");
-		skeleton_info.speed.x = officer_skeleton.child("speed").attribute("x").as_float();
-		skeleton_info.speed.y = officer_skeleton.child("speed").attribute("y").as_float();
-		skeleton_info.acceleration.x = officer_skeleton.child("acceleration").attribute("x").as_float();
-		skeleton_info.acceleration.y = officer_skeleton.child("acceleration").attribute("y").as_float();
-		skeleton_info.range_of_trigger = officer_skeleton.child("range_of_trigger").attribute("value").as_float();
+		//skeleton_info.speed.x = officer_skeleton.child("speed").attribute("x").as_float();
+		//skeleton_info.speed.y = officer_skeleton.child("speed").attribute("y").as_float();
+		//skeleton_info.acceleration.x = officer_skeleton.child("acceleration").attribute("x").as_float();
+		//skeleton_info.acceleration.y = officer_skeleton.child("acceleration").attribute("y").as_float();
+		//skeleton_info.range_of_trigger = officer_skeleton.child("range_of_trigger").attribute("value").as_float();
 
 	}break;
-	case  Entity::entityType::NO_TYPE:
+	case  entityType::NO_TYPE:
 		break;
 	default:
 		break;

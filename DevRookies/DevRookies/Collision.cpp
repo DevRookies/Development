@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "Collision.h"
 #include "EntityManager.h"
+#include "Player.h"
 #include "Brofiler/Brofiler.h"
 
 Collision::Collision()

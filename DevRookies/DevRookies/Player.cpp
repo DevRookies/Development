@@ -13,23 +13,13 @@ Player::Player(entityType type):Entity(type)
 {
 }
 
-Player::Player(entityType type, const float &x, const float &y)
-{
-	position.x = x;
-	position.y = y;
-}
-
 Player::~Player() {}
 
 bool Player::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Character");
+	
 	bool ret = true;
 
-	godmode_texture = config.child("godmode_tex").child_value();
-	godmode_pos = { config.child("godmode_tex").attribute("x").as_float(),  config.child("godmode_tex").attribute("y").as_float() };
-	pause_texture = config.child("pause_tex").child_value();
-	pause_pos = { config.child("pause_tex").attribute("x").as_float(),  config.child("pause_tex").attribute("y").as_float() };
 	player_texture = config.child("texture").child_value();
 	position = { config.child("position").attribute("x").as_float(),  config.child("position").attribute("y").as_float() };
 	collider_box_width = config.child("collider").attribute("width").as_int();
@@ -97,9 +87,8 @@ bool Player::Start()
 	App->audio->LoadFx(dash_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
-	player_tex = App->textures->Load(player_texture.GetString());
-	godmode_tex = App->textures->Load(godmode_texture.GetString());
-	pause_tex = App->textures->Load(pause_texture.GetString());
+	texture = App->textures->Load(player_texture.GetString());
+	
 		
 	return true;
 }
@@ -136,32 +125,19 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	if (visibility) {
-		App->render->Blit(player_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+		App->render->Blit(texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	}
 	
-	if (godmode) {
-		godmode_pos.x = App->render->camera.x;
-		godmode_pos.y = App->render->camera.y;
-		App->render->Blit(godmode_tex, godmode_pos.x, godmode_pos.y, NULL, -1.0f);
-	}
-
-	if (App->pause) {
-		pause_pos.x = App->render->camera.x + App->win->GetScreenWidth() / 6;
-		pause_pos.y = App->render->camera.y + App->win->GetScreenHeight() / 3;
-		App->render->Blit(pause_tex, pause_pos.x, pause_pos.y, NULL, -1.0f);
-	}
+	
 
 	return true;
 }
 
 bool Player::CleanUp()
 {
-	App->textures->UnLoad(player_tex);
-	player_tex = nullptr;
-	App->textures->UnLoad(godmode_tex);
-	godmode_tex = nullptr;
-	App->textures->UnLoad(pause_tex);
-	pause_tex = nullptr;
+	App->textures->UnLoad(texture);
+	texture = nullptr;
+	
 
 	return true;
 }
@@ -281,14 +257,14 @@ void Player::PreMove() {
 
 		if (godmode) {
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-				if (current_godmove != UP)
-					current_godmove = DOWN;
+				if (current_godmove != UPGOD)
+					current_godmove = DOWNGOD;
 				else
 					current_godmove = IDLEGOD;
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-				if (current_godmove != DOWN)
-					current_godmove = UP;
+				if (current_godmove != DOWNGOD)
+					current_godmove = UPGOD;
 				else
 					current_godmove = IDLEGOD;
 		}
@@ -309,7 +285,7 @@ void Player::PreMove() {
 				
 			if (current_state == FLOOR) {
 				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-					current_movement = JUMP;
+					current_movement = UP;
 
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 					current_movement = LEFT_HIT;
@@ -354,7 +330,7 @@ void Player::Move() {
 			current_animation = &hitfire;
 			Hit();
 			break;
-		case JUMP:
+		case UP:
 			current_animation = &jumpfire;
 			Jump();
 			break;
@@ -383,7 +359,7 @@ void Player::Move() {
 			current_animation = &hitice;
 			Hit();
 			break;
-		case JUMP:
+		case UP:
 			current_animation = &jumpice;
 			Jump();
 			break;
@@ -507,4 +483,12 @@ void Player::Restart(ELEMENT element)
 	visibility = true;
 	deadfire.Reset();
 	deadice.Reset();
+}
+
+bool Player::isDead()
+{
+	bool ret = false;
+	if (current_state == DEATH)
+		ret = true;
+	return ret;
 }
