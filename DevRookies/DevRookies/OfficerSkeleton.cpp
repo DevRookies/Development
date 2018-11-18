@@ -22,10 +22,10 @@ OfficerSkeleton::OfficerSkeleton(entityType type) : Enemy(entityType::LAND_ENEMY
 
 }
 
-bool OfficerSkeleton::Start()
+bool OfficerSkeleton::Start(uint i)
 {
 	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
-	position = App->map->init_JrGargoyle_position;
+	position = App->map->init_Officer_Skeleton.At(i - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
 	current_animation = &idle;
 	return true;

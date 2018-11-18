@@ -17,7 +17,7 @@ public:
 
 	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
-	bool Start();
+	bool Start(uint i);
 	bool Restart();
 	bool Walk(const p2DynArray<iPoint> *path);
 	bool PreUpdate();
