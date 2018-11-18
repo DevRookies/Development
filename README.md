@@ -1,6 +1,6 @@
 ﻿# Version of the game
 
-Fire&Ice v.0.0.4
+Fire&Ice v.0.0.5
 
 ## Description
 
