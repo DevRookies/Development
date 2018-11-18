@@ -57,7 +57,7 @@ bool JrGargoyle::PreUpdate()
 	}
 	else {
 		current_movement = IDLE;
-		current_animation = &fly;
+		current_animation = &idle;
 	}
 	
 
@@ -138,20 +138,23 @@ void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
 {
 	if (path->Count() > 0)
 	{
-		iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+		if (path->At(1) != nullptr) {
+			iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+			}
+			if (position.x > pos.x)
+				current_movement = LEFT;
+			else if (position.x < pos.x)
+				current_movement = RIGHT;
+			if (position.y > pos.y)
+				current_movement = UP;
+			else if (position.y < pos.y)
+				current_movement = DOWN;
 		}
-		if (position.x > pos.x)
-			current_movement = LEFT;
-		else if (position.x < pos.x)
-			current_movement = RIGHT;
-		if (position.y > pos.y) 
-			current_movement = UP;
-		else if (position.y < pos.y)
-			current_movement = DOWN;
+		
 	}
 }
 
@@ -161,5 +164,6 @@ bool JrGargoyle::Restart(uint i)
 	position = App->map->init_JrGargoyle_position.At(i - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,60,80 }, COLLIDER_ENEMY, App->entitymanager);
 	current_animation = &idle;
+	current_movement = IDLE;
 	return true;
 }

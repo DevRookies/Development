@@ -57,7 +57,7 @@ bool OfficerSkeleton::PreUpdate()
 	}
 	else {
 		current_movement = IDLE;
-		current_animation = &walk;
+		current_animation = &idle;
 	}
 
 	return ret;
@@ -140,16 +140,21 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 {
 	if (path->Count() > 0)
 	{
-		iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+		if (path->At(1) != nullptr) {
+			iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+			for (uint i = 0; i < path->Count(); ++i)
+			{
+				iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+				App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+			}
+			if (position.x > pos.x)
+				current_movement = LEFT;
+			else if (position.x < pos.x)
+				current_movement = RIGHT;
+			if (position.y> pos.y + 20 || position.y < pos.y - 20)
+				current_movement = IDLE;
 		}
-		if (position.x > pos.x)
-			current_movement = LEFT;
-		if (position.x < pos.x)
-			current_movement = RIGHT;
+		
 	}
 }
 
@@ -160,5 +165,6 @@ bool OfficerSkeleton::Restart(uint i)
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
 	current_animation = &idle;
+	current_movement = IDLE;
 	return true;
 }

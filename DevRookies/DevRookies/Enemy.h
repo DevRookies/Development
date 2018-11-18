@@ -14,7 +14,7 @@ protected:
 	/*Animation * animation = nullptr;
 	Collider* collider = nullptr;*/
 
-	float distance = 500.0F;
+	float distance = 400.0F;
 
 public:
 	//iPoint position;
