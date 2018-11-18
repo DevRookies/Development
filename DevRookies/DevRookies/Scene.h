@@ -39,7 +39,6 @@ public:
 
 	//Restart scene
 	void Restart() const;
-	void SpawnEnemies();
 
 	uint			scene_actual = 1;
 

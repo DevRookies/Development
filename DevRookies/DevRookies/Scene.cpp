@@ -246,24 +246,4 @@ void Scene::Restart() const
 	App->entitymanager->player->visibility = false;
 }
 
-void Scene::SpawnEnemies()
-{
-	for (p2List_item<ObjectsGroups*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
-	{
-		if (obj->data->name == ("Enemies"))
-		{
-			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
-			{
-				if (objdata->data->name == 1)
-				{
-					App->entitymanager->CreateEntity(entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
-				}
 
-				else if (objdata->data->name == 2)
-				{
-					App->entitymanager->CreateEntity(entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
-				}
-			}
-		}
-	}
-}
