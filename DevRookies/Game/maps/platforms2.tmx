@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="394">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="30" tilewidth="32" tileheight="32" nextobjectid="396">
  <tileset firstgid="1" name="platforms" tilewidth="32" tileheight="32" tilecount="30" columns="5">
   <image source="platformsPath.png" width="160" height="192"/>
   <terraintypes>
@@ -24177,5 +24177,11 @@
  </objectgroup>
  <objectgroup name="final_col">
   <object id="206" x="5985.33" y="578.667" width="411.333" height="6.66667"/>
+ </objectgroup>
+ <objectgroup name="EnemyGargoyle">
+  <object id="394" name="1" x="268" y="209" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup name="EnemySkeleton">
+  <object id="395" name="2" x="800" y="153" width="32" height="32"/>
  </objectgroup>
 </map>

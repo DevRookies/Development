@@ -25,6 +25,9 @@ OfficerSkeleton::OfficerSkeleton(entityType type) : Enemy(entityType::LAND_ENEMY
 bool OfficerSkeleton::Start()
 {
 	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
+	position = App->map->init_JrGargoyle_position;
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
 	return true;
 }
 
@@ -34,9 +37,9 @@ bool OfficerSkeleton::Restart()
 	return true;
 }
 
-bool OfficerSkeleton::Awake(pugi::xml_node & config) 
+bool OfficerSkeleton::Awake(pugi::xml_node & conf) 
 {
-	config = config.child("OfficerSkeleton");
+	pugi::xml_node config = conf.child("OfficerSkeleton");
 	skeleton_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
@@ -114,6 +117,8 @@ bool OfficerSkeleton::Update(float dt)
 
 bool OfficerSkeleton::PostUpdate() 
 {
+	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+
 	return true;
 }
 
