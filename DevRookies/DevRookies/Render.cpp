@@ -4,8 +4,6 @@
 #include "Window.h"
 #include "Render.h"
 #include "Player.h"
-#include "Input.h"
-#include "Map.h"
 #include "SceneManager.h"
 #include "EntityManager.h"
 #include "Brofiler/Brofiler.h"
@@ -74,10 +72,6 @@ bool Render::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
 
 	SDL_RenderClear(renderer);
-
-	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-	//	draw_pathfinding = !draw_pathfinding;
-
 	return true;
 }
 
@@ -284,8 +278,10 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	return ret;
 }
 
-void Render::SetCamera(uint x, uint y) 
-{
+void Render::SetCamera(uint x, uint y) {
 	camera.x = x;
 	camera.y = y;
 }
+
+
+

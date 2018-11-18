@@ -7,7 +7,6 @@
 #include "p2Log.h"
 #include "EntityManager.h"
 #include "Entity.h"
-#include "Map.h"
 #include "Enemy.h"
 #include "PathFinding.h"
 #include "Textures.h"

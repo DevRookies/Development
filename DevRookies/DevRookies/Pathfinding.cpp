@@ -2,8 +2,9 @@
 #include "p2Log.h"
 #include "DevRookiesApp.h"
 #include "PathFinding.h"
+//#include "Render.h"
+//#include "Input.h"
 #include "Brofiler/Brofiler.h"
-
 PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
 	name.create("pathfinding");
@@ -25,7 +26,6 @@ bool PathFinding::CleanUp()
 	return true;
 }
 
-// Sets up the walkability map
 void PathFinding::SetMap(uint width, uint height, uchar* data)
 {
 	this->width = width;
@@ -168,12 +168,11 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	BROFILER_CATEGORY("PathFinding", Profiler::Color::Gold);
-	PerfTimer* timer = new PerfTimer();
+	BROFILER_CATEGORY("PathFinding", Profiler::Color::Brown);
 
 	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
+	
 
-	last_path.Clear();
 	PathList open;
 	PathList close;
 
@@ -184,47 +183,51 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	node_origin.parent = nullptr;
 	open.list.add(node_origin);
 
-	while (open.list.count() > 0)
+	while (open.list.count() != 0)
 	{
 		close.list.add(open.GetNodeLowestScore()->data);
 		open.list.del(open.GetNodeLowestScore());
 
 		if (close.list.end->data.pos == destination)
 		{
-			const PathNode* current_node = nullptr;
-			for (current_node = &open.GetNodeLowestScore()->data; current_node->pos != origin; current_node = current_node->parent) {
+			const PathNode* current_node = &close.list.end->data;
+			last_path.PushBack(current_node->pos);
+
+			while (current_node->pos != origin)
+			{
+				current_node = current_node->parent;
 				last_path.PushBack(current_node->pos);
 			}
-			last_path.PushBack(current_node->pos);
 			last_path.Flip();
-			break;
 		}
-		else {
+		else
+		{
 			PathList childs;
 			close.list.end->data.FindWalkableAdjacents(childs);
-
-			p2List_item<PathNode>* adjacent_node = childs.list.start;
-
-			while (adjacent_node != NULL)
+			p2List_item<PathNode>* child_node = childs.list.start;
+			
+			while (child_node != NULL)
 			{
-				if (!close.Find(adjacent_node->data.pos))
+				if (!close.Find(child_node->data.pos))
 				{
-					adjacent_node->data.CalculateF(destination);
-					if (open.Find(adjacent_node->data.pos))
+					child_node->data.CalculateF(destination);
+					if (open.Find(child_node->data.pos))
 					{
-						PathNode old_node = open.Find(adjacent_node->data.pos)->data;
-						old_node.parent = adjacent_node->data.parent;
+
+						PathNode old_node = open.Find(child_node->data.pos)->data;
+						old_node.parent = child_node->data.parent;
+						
 					}
-					else open.list.add(adjacent_node->data);
+					else
+						open.list.add(child_node->data);
+					
 				}
-
-				adjacent_node = adjacent_node->next;
-
+				child_node = child_node->next;
 			}
 		}
-	}
 
-	LOG("PATHFINDING MS%f", timer->ReadMs());
+		//open.list.del(open.GetNodeLowestScore());
+	}
 
 	return -1;
 }

@@ -57,8 +57,6 @@ bool Scene::Start()
 		int width, height;
 		if (App->map->CreateWalkabilityMap(width, height, &data))
 			App->pathfinding->SetMap(width, height, data);
-
-		RELEASE_ARRAY(data);
 		break;
 	case 2:
 		App->map->Load(tile_name_scene2.GetString());

@@ -40,17 +40,18 @@ struct MapLayer
 	p2SString				name = "";
 	uint					width = 0u;
 	uint					height = 0u;
+	uint*					data = 0u;
 	Properties				properties;
-	uint*					data = nullptr;
+	uint*					tiles = nullptr;
 	bool					parallax = false;
 	~MapLayer() {
-		if (data != nullptr)
+		if (tiles != nullptr)
 		{
-			delete[] data;
+			delete[] tiles;
 		}
 	}
 	uint Get(int x, int y) const {
-		return data[x + (width * y)];
+		return tiles[x + (width * y)];
 	}
 };
 
@@ -87,6 +88,13 @@ struct ObjectsData
 
 };
 
+struct ObjectsGroups
+{
+	p2SString				name;
+	p2List<ObjectsData*>	objects;
+	~ObjectsGroups();
+};
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -105,6 +113,7 @@ struct MapData
 	MapTypes				type;
 	p2List<TileSet*>		tilesets;
 	p2List<MapLayer*>		maplayers;
+	p2List<ObjectsGroups*>	objLayers;
 
 };
 
@@ -145,9 +154,12 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollider(pugi::xml_node& node, uint type);
+	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroups* group);
 	bool LoadEnemyPosition(pugi::xml_node& node);
 
 	TileSet* GetTilesetFromTileId(int id) const;
+
+
 public:
 
 	MapData				data;

@@ -5,7 +5,6 @@
 #include "Pathfinding.h"
 #include "Textures.h"
 //#include "DevRookiesApp.h"
-#include "Map.h"
 
 
 JrGargoyle::JrGargoyle() : Enemy(entityType::FLYING_ENEMY)
