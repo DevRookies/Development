@@ -36,7 +36,6 @@ public:
 	SDL_Texture*	texture = nullptr;
 	p2List<Entity*> entities;
 	Player*			player = nullptr;
-private:
 	uint			gargoyle_count = 2;
 	uint			skeleton_count = 2;
 };
