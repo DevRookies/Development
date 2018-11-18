@@ -70,26 +70,20 @@ bool OfficerSkeleton::Update(float dt)
 	if (current_movement == IDLE)
 	{
 		speed.x = 0;
+		speed.y = 0;
+		current_animation = &idle;
 	}
 	else if (current_movement == LEFT)
 	{
 		flipX = false;
 		speed.x = -3;
+		current_animation = &walk;
 	}
 	else if (current_movement == RIGHT)
 	{
 		flipX = true;
 		speed.x = 30;
-		
-	}
-	else if (current_movement == UP)
-	{
-		speed.y = -3;
-	}
-	else if (current_movement == DOWN)
-	{
-		speed.y = 3;
-
+		current_animation = &walk;
 	}
 
 	position.x += floor(speed.x * dt);
@@ -164,7 +158,6 @@ bool OfficerSkeleton::Restart(uint i)
 	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
-	current_movement = IDLE;
+	flipX = false;
 	return true;
 }

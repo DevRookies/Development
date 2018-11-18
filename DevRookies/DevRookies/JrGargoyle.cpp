@@ -47,7 +47,6 @@ bool JrGargoyle::Start(uint i)
 bool JrGargoyle::PreUpdate()
 {
 	bool ret = true;
-
 	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
 	{
 		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
@@ -59,7 +58,6 @@ bool JrGargoyle::PreUpdate()
 		current_movement = IDLE;
 		current_animation = &idle;
 	}
-	
 
 	return ret;
 }
@@ -71,26 +69,31 @@ bool JrGargoyle::Update(float dt)
 	if (current_movement == IDLE)
 	{
 		speed.x = 0;
+		speed.y = 0;
+		current_animation = &idle;
 	}
 	else if (current_movement == LEFT)
 	{
 		flipX = false;
 		speed.x = -3;
+		current_animation = &fly;
 	}
 	else if (current_movement == RIGHT)
 	{
 		flipX = true;
 		speed.x = 30;
+		current_animation = &fly;
 
 	}
 	else if (current_movement == UP)
 	{
 		speed.y = -3;
+		current_animation = &fly;
 	}
 	else if (current_movement == DOWN)
 	{
 		speed.y = 30;
-
+		current_animation = &fly;
 	}
 
 	position.x += floor(speed.x * dt);
@@ -163,7 +166,6 @@ bool JrGargoyle::Restart(uint i)
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	position = App->map->init_JrGargoyle_position.At(i - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,60,80 }, COLLIDER_ENEMY, App->entitymanager);
-	current_animation = &idle;
-	current_movement = IDLE;
+	flipX = false;
 	return true;
 }
