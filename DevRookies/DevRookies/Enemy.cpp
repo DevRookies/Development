@@ -38,11 +38,6 @@ bool Enemy::CleanUp()
 	return false;
 }
 
-void Enemy::Die()
-{
-
-}
-
 const Collider* Enemy::GetCollider() const
 {
 	return collider;

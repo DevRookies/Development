@@ -266,7 +266,7 @@ void Player::PreMove() {
 				current_movement = IDLE;
 
 		if (godmode) {
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 				if (current_godmove != UPGOD)
 					current_godmove = DOWNGOD;
 				else
@@ -279,7 +279,7 @@ void Player::PreMove() {
 					current_godmove = IDLEGOD;
 		}
 		else{
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 				if (current_element == FIRE)
 					current_element = ICE;
 				else
@@ -289,12 +289,12 @@ void Player::PreMove() {
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 					current_movement = UP;
 
-				if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 					current_movement = LEFT_HIT;
 					AddFX(2, 0);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 					current_movement = RIGHT_HIT;
 					AddFX(2, 0);
 				}

@@ -23,9 +23,7 @@ private:
 	fPoint		lastPosition;
 	p2SString   player_texture, jump_fx_name, dash_fx_name, dead_fx_name, victory_fx_name;
 
-	
 	uint		heigth_animation = 53;
-	uint		scene = 1;
 	
 	void		PreMove();
 	void		Move();

@@ -36,7 +36,6 @@ public:
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
-
 	virtual bool CleanUp() { return true; };
 	virtual bool Save(pugi::xml_node& file) const;
 	virtual bool Load(pugi::xml_node& file);
@@ -46,7 +45,7 @@ public:
 	virtual void OnCollision(Collider*) {};
 	void		AddCollider();
 
-	bool flipX = false;
+	
 
 	virtual fPoint GetPosition();
 	virtual void SetPosition(const float &x, const float &y);
@@ -58,6 +57,7 @@ public:
 	Collider* collider = nullptr;
 	Animation* current_animation = nullptr;
 	SDL_Texture* texture = nullptr;
+	bool flipX = false;
 
 };
 

@@ -11,8 +11,6 @@
 class Enemy: public Entity
 {
 protected:
-	/*Animation * animation = nullptr;
-	Collider* collider = nullptr;*/
 
 	float distance = 400.0F;
 
@@ -44,7 +42,6 @@ public:
 
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider*, Collider*) {};
-	void Die();
 
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
