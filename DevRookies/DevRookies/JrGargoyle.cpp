@@ -18,6 +18,7 @@ JrGargoyle::JrGargoyle(entityType type) : Enemy(entityType::FLYING_ENEMY)
 
 bool JrGargoyle::Awake(pugi::xml_node & config)
 {
+	config = config.child("JrGargoyle");
 	gargoyle_texture = config.child("texture").child_value();
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);

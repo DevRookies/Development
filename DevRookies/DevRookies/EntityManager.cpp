@@ -22,7 +22,12 @@ EntityManager::~EntityManager()
 bool EntityManager::Awake(pugi::xml_node &config)
 {
 	bool ret = true;
-	player->Awake(config.child("player"));
+	p2List_item<Entity*>* tmp = entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->Awake(config);
+		tmp = tmp->next;
+	}
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
