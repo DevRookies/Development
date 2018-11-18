@@ -54,11 +54,9 @@ bool OfficerSkeleton::PreUpdate()
 		iPoint pos = { (int)position.x, (int)position.y };
 		App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
 		Walk(App->pathfinding->GetLastPath());
-		current_movement = LEFT;
 	}
 	else {
 		current_movement = IDLE;
-		/*current_movement = LEFT;*/
 		current_animation = &walk;
 	}
 
@@ -73,45 +71,30 @@ bool OfficerSkeleton::Update(float dt)
 	{
 		speed.x = 0;
 	}
-
-	if (current_movement == LEFT)
+	else if (current_movement == LEFT)
 	{
 		flipX = false;
 		speed.x = -3;
-		speed.x = floor(speed.x*dt);
 	}
-
-	if (current_movement == RIGHT)
+	else if (current_movement == RIGHT)
 	{
 		flipX = true;
-		speed.x = 3;
-		speed.x = floor(speed.x*dt);
+		speed.x = 30;
 		
 	}
-
-	if (current_movement == UP)
+	else if (current_movement == UP)
 	{
-		speed.y = 3;
-		speed.y = floor(speed.x*dt);
+		speed.y = -3;
 	}
-	if (current_movement == DOWN)
+	else if (current_movement == DOWN)
 	{
 		speed.y = 3;
-		speed.y = floor(speed.x*dt);
 
 	}
 
-	position.x += speed.x;
+	position.x += floor(speed.x * dt);
+	position.y += floor(speed.y * dt);
 	collider->rect.x = position.x;
-
-	/*speed.y += floor(acceleration.y*dt);
-	if (speed.y > 0)
-	{
-
-		
-	}*/
-
-	position.y += speed.y;
 	collider->rect.y = position.y;
 
 	return true;
@@ -157,10 +140,19 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 {
 	if (path->Count() > 0)
 	{
+		iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 		for (uint i = 0; i < path->Count(); ++i)
 		{
-			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 			App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+		}
+		if (position.x > pos.x)
+		{
+			current_movement = LEFT;
+		}
+		if (position.x < pos.x)
+		{
+			current_movement = RIGHT;
 		}
 	}
 }
