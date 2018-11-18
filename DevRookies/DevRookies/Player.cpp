@@ -82,7 +82,7 @@ bool Player::Awake(pugi::xml_node& conf)
 
 }
 
-bool Player::Start()
+bool Player::Start(uint i)
 {
 	App->audio->LoadFx(jump_fx_name.GetString());
 	App->audio->LoadFx(dash_fx_name.GetString());

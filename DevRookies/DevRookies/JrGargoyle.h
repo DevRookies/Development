@@ -13,7 +13,7 @@ public:
 
 	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
-	bool Start();
+	bool Start(uint i);
 	bool PostUpdate();
 	bool Fly();
 

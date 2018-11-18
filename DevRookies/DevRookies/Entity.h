@@ -31,7 +31,7 @@ public:
 	Entity(entityType type);
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };
-	virtual bool Start() { return true; };
+	virtual bool Start(uint i) { return true; };
 	virtual bool Restart() { return true; };
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
