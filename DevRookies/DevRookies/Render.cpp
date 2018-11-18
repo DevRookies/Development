@@ -159,6 +159,8 @@ iPoint Render::ScreenToWorld(int x, int y) const
 // Blit to screen
 bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, bool flipX, double angle, int pivot_x, int pivot_y) const
 {
+	BROFILER_CATEGORY("Blit", Profiler::Color::Black);
+
 	bool ret = true;
 	uint scale = App->win->GetScale();
 
@@ -178,6 +180,14 @@ bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, f
 
 	rect.w *= scale;
 	rect.h *= scale;
+
+	//Don't blit if not on screen
+	uint width, height = 0;
+	App->win->GetWindowSize(width, height);
+	if (rect.x + rect.w < 0 || rect.y + rect.h < 0 || rect.x > width || rect.y > height)
+	{
+		return false;
+	}
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
