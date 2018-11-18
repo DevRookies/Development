@@ -32,13 +32,13 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F8 (Volume Up).
 
 ### Player: 
-- W (to jump).
+
 - A (to go backwards).
 - S (to change between forms).
 - D (to go forwards).
 
-- SPACE (to dash).
-
+- SPACE (to jump).
+- B (to attack).
 
 ### Developer
 
