@@ -3,6 +3,7 @@
 #include "DevRookiesApp.h"
 #include "Window.h"
 #include "Render.h"
+#include "Input.h"
 #include "Player.h"
 #include "SceneManager.h"
 #include "EntityManager.h"
@@ -72,6 +73,10 @@ bool Render::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateRender", Profiler::Color::Orange);
 
 	SDL_RenderClear(renderer);
+
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		debug_path = !debug_path;
+
 	return true;
 }
 

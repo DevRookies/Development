@@ -38,8 +38,8 @@ public:
 	virtual bool PostUpdate() { return true; };
 
 	virtual bool CleanUp() { return true; };
-	virtual bool Save(pugi::xml_node& file) const { return true; };
-	virtual bool Load(pugi::xml_node& file) { return true; };
+	virtual bool Save(pugi::xml_node& file) const;
+	virtual bool Load(pugi::xml_node& file);
 
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);

@@ -45,12 +45,12 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F1 (Start from the first level).
 - F2 (Start from the current level).
 - F3 (Start from the second level).
-- F9 (Colliders).
+- F9 (Show colliders and pathfinding).
 - F10 (God Mode).
 - F11 (Framerate Cap).
 - F12 (Mute).
 
-- WASD (o Move in GodMode)
+- WASD (to Move in GodMode)
 
 - LeftClick (path).
 

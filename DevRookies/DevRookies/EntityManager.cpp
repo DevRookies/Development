@@ -135,6 +135,14 @@ bool EntityManager::Save(pugi::xml_node& file) const
 		{
 			tmp->data->Save(file.append_child("player"));
 		}
+		if (tmp->data->type == entityType::FLYING_ENEMY)
+		{
+			tmp->data->Save(file.append_child("JrGargoyle"));
+		}
+		if (tmp->data->type == entityType::LAND_ENEMY)
+		{
+			tmp->data->Save(file.append_child("OfficerSkeleton"));
+		}
 		tmp = tmp->next;
 	}
 	return ret;
@@ -151,15 +159,14 @@ bool EntityManager::Load(pugi::xml_node& file)
 	{
 		if (tmp->data->type == entityType::PLAYER)
 		{
-			tmp->data->Load(file.child("player"));
+			tmp->data->Load(player);
 		}
 		if (tmp->data->type == entityType::FLYING_ENEMY)
 		{
 			tmp->data->Load(JrGargoyle);
 			JrGargoyle = JrGargoyle.next_sibling("JrGargoyle");
-
 		}
-		else if (tmp->data->type == entityType::LAND_ENEMY)
+		if (tmp->data->type == entityType::LAND_ENEMY)
 		{
 			tmp->data->Load(OfficerSkeleton);
 			OfficerSkeleton = OfficerSkeleton.next_sibling("OfficerSkeleton");

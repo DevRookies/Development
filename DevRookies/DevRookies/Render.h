@@ -57,6 +57,7 @@ public:
 	int				camera_max;
 	uint			start_time;
 	uint			restart_start_time;
+	bool			debug_path = false;
 };
 
 #endif // __RENDER_H__
