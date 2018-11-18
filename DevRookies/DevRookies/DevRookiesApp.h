@@ -91,9 +91,9 @@ public:
 	Render*				render = nullptr;
 	Textures*			textures = nullptr;
 	Audio*				audio = nullptr;
-	SceneManager*		scenemanager = nullptr;
 	Scene*				scene = nullptr;
 	Map*				map = nullptr;
+	SceneManager*		scenemanager = nullptr;
 	Collision*			collision = nullptr;
 	PathFinding*		pathfinding = nullptr;
 	EntityManager*		entitymanager = nullptr;
