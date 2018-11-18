@@ -224,12 +224,12 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 bool Audio::StopMusic()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN && mute == false)
+	if (mute == false)
 	{
 		mute = true;
 		Mix_VolumeMusic(0);
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN && mute == true)
+	else if (mute == true)
 	{
 		mute = false;
 		Mix_VolumeMusic(volume);
