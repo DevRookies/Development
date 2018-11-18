@@ -118,6 +118,26 @@ bool JrGargoyle::CleanUp()
 	return true;
 }
 
+bool JrGargoyle::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	position.x = node.child("position").attribute("x").as_float(0);
+	position.y = node.child("position").attribute("y").as_float(0);
+
+	return ret;
+}
+
+bool JrGargoyle::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	node.append_child("position").append_attribute("x") = position.x;
+	node.append_child("position").append_attribute("y") = position.y;
+
+	return ret;
+}
+
 void JrGargoyle::OnCollision(Collider * collider1)
 {
 	if (collider1->type == COLLIDER_PLAYER)

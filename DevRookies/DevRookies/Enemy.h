@@ -38,13 +38,15 @@ public:
 	// Called before quitting
 	virtual bool CleanUp();
 
+	//Save and Load
+	virtual bool Load(pugi::xml_node&);
+	virtual bool Save(pugi::xml_node&) const;
+
 	const Collider* GetCollider() const;
 
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void OnCollision(Collider*, Collider*) {};
 
-	bool Save(pugi::xml_node&) const;
-	bool Load(pugi::xml_node&);
 };
 
 #endif // __ENEMY_H__

@@ -20,6 +20,10 @@ public:
 	void	OnCollision(Collider* collider1);
 	void	Fly(const p2DynArray<iPoint> *path);
 
+	//Save and Load
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);
 private:
 
