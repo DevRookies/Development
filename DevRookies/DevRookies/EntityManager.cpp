@@ -7,16 +7,15 @@
 #include "JrGargoyle.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "Textures.h"
+#include "Map.h"
 #include "Brofiler/Brofiler.h"
 
 EntityManager::EntityManager()
 {
 	name.create("entitymanager");
-	CreateEntity(entityType::PLAYER, {0,0});
-	CreateEntity(entityType::FLYING_ENEMY, { 0,0 });
-	CreateEntity(entityType::FLYING_ENEMY, { 0,0 });
-	CreateEntity(entityType::LAND_ENEMY, { 0,0 });
-	CreateEntity(entityType::LAND_ENEMY, { 0,0 });
+	CreateEntity(entityType::PLAYER);
+	CreateEntity(entityType::FLYING_ENEMY);
+	//CreateEntity(entityType::LAND_ENEMY);
 }
 
 EntityManager::~EntityManager()
@@ -26,6 +25,7 @@ EntityManager::~EntityManager()
 bool EntityManager::Awake(pugi::xml_node &config)
 {
 	bool ret = true;
+
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
@@ -35,13 +35,13 @@ bool EntityManager::Awake(pugi::xml_node &config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
-	LoadEntityInfo(entityType::LAND_ENEMY, config.child("enemy"));
 	return ret;
 }
 
 bool EntityManager::Start()
 {
 	bool ret = true;
+	
 	p2List_item<Entity*>* tmp = entities.start;
 	uint i = 0;
 	while (tmp != nullptr)
@@ -120,7 +120,6 @@ bool EntityManager::CleanUp()
 		tmp = tmp->next;
 	}
 	entities.clear();
-	player->CleanUp();
 	return ret;
 }
 
@@ -168,7 +167,7 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return ret;
 }
 
-Entity* EntityManager::CreateEntity(entityType type, iPoint position)
+Entity* EntityManager::CreateEntity(entityType type)
 {
 	Entity* tmp = nullptr;
 
@@ -179,15 +178,20 @@ Entity* EntityManager::CreateEntity(entityType type, iPoint position)
 		entities.add(player);
 		break;
 	case entityType::FLYING_ENEMY:
-		tmp = new JrGargoyle(type);
+		for (uint i = 0; i < gargoyle_count; i++)
+		{
+			tmp = new JrGargoyle(type);
+			entities.add(tmp);
+		}
 		break;
 	case entityType::LAND_ENEMY:
-		tmp = new OfficerSkeleton(type);
+		for (uint i = 0; i < skeleton_count; i++)
+		{
+			tmp = new OfficerSkeleton(type);
+			entities.add(tmp);
+		}
 		break;
 	}
-
-	if (tmp)
-		entities.add(tmp);
 
 	return tmp;
 }
@@ -210,26 +214,5 @@ void EntityManager::OnCollision(Collider* collider1, Collider* collider2)
 	for (int i = 0; i < entities.count(); i++)
 	{
 
-	}
-}
-
-void EntityManager::LoadEntityInfo(entityType type, pugi::xml_node & node)
-{
-	switch (type)
-	{
-	
-	case entityType::LAND_ENEMY: {
-		pugi::xml_node officer_skeleton = node.child("OfficerSkeleton");
-		//skeleton_info.speed.x = officer_skeleton.child("speed").attribute("x").as_float();
-		//skeleton_info.speed.y = officer_skeleton.child("speed").attribute("y").as_float();
-		//skeleton_info.acceleration.x = officer_skeleton.child("acceleration").attribute("x").as_float();
-		//skeleton_info.acceleration.y = officer_skeleton.child("acceleration").attribute("y").as_float();
-		//skeleton_info.range_of_trigger = officer_skeleton.child("range_of_trigger").attribute("value").as_float();
-
-	}break;
-	case  entityType::NO_TYPE:
-		break;
-	default:
-		break;
 	}
 }

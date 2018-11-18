@@ -47,6 +47,7 @@ bool JrGargoyle::Update(float dt)
 
 bool JrGargoyle::Start(uint i)
 {
+
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	position = App->map->init_JrGargoyle_position.At(i-1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);

@@ -342,7 +342,7 @@ bool Map::Load(const char* file_name)
 				init_player_position.y = objects_node.child("object").attribute("y").as_float();
 				ret = true;
 			}
-			else if (type.operator==("Enemies")) {
+			else if (type.operator==("EnemyGargoyle") || type.operator==("EnemySkeleton")) {
 				LoadEnemyPosition(objects_node);
 				ret = true;
 			}
@@ -630,10 +630,14 @@ bool Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroups * group)
 }
 bool Map::LoadEnemyPosition(pugi::xml_node & node)
 {
+	p2SString type = node.attribute("name").as_string();
 	pugi::xml_node object;
 	for (object = node.child("object"); object; object = object.next_sibling("object")) {
-
-		init_JrGargoyle_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
+		
+		if(type.operator==("EnemyGargoyle"))
+			init_JrGargoyle_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
+		else
+			init_Skeleton_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
 
 	}
 

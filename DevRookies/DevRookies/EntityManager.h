@@ -10,11 +10,6 @@
 
 class Player;
 
-/*struct officer_skeleton_info {
-	fPoint speed, acceleration;
-	float range_of_trigger;
-};*/
-
 class EntityManager : public Module
 {
 public:
@@ -31,19 +26,20 @@ public:
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
-	Entity* CreateEntity(entityType type, iPoint position);
+	Entity* CreateEntity(entityType type);
 	bool DestroyEntity(Entity* entity);
-	//void DestroyEntities();
 	void OnCollision(Collider* collider1, Collider* collider2);
-	void LoadEntityInfo(entityType type, pugi::xml_node & node);
 
 public:
 	p2SString		folder;
 	p2SString		texture_path;
-	SDL_Texture*	texture;
+	SDL_Texture*	texture = nullptr;
 	p2List<Entity*> entities;
 	Player*			player = nullptr;
-	//officer_skeleton_info skeleton_info;
+
+private:
+	uint			gargoyle_count = 2;
+	uint			skeleton_count = 0;
 };
 #endif // !__ENTITYMANAGER_H__
 
