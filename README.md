@@ -1,10 +1,10 @@
 ﻿# Version of the game
 
-Fire&Ice v.0.0.3
+Fire&Ice v.0.0.4
 
 ## Description
 
-The third version of jump 'n run platformer game. You will be able to play with the character being able to jump, run, change between forms and even die falling into the venom! Make sure to save the game in crucial situations.
+The third version of jump 'n run platformer game. You will be able to play with the character being able to jump, run, change between forms, kill enemies and even die falling into the venom! Make sure to save the game in crucial situations.
 Fire goes with fire and ice goes with ice. Don't forget that!
 
 ## Links
@@ -24,22 +24,20 @@ Trello: https://trello.com/b/6xGoDgxj/development
 ## Controls
 
 - ESC (to close the window).
+- RETURN (Pause)
 
 - F5 (Save).
 - F6 (Load).
 - F7 (Volume Down).
 - F8 (Volume Up).
-- F11 (Stop Music).
 
 ### Player: 
-
-- W (to change to fire form).
-
+- W (to jump).
 - A (to go backwards).
-- S (to change to ice form).
+- S (to change between forms).
 - D (to go forwards).
 
-- SPACE (to jump).
+- SPACE (to dash).
 
 
 ### Developer
@@ -49,7 +47,12 @@ Trello: https://trello.com/b/6xGoDgxj/development
 - F3 (Start from the second level).
 - F9 (Colliders).
 - F10 (God Mode).
+- F11 (Framerate Cap).
+- F12 (Mute).
 
+- WASD (o Move in GodMode)
+
+- LeftClick (path).
 
 ## Instructions to execute
 
@@ -63,6 +66,17 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 Assignment 1: The player can change between two forms in order to walk on the different types of platforms.
 	      Volume setUp with F7,F8,F11.
+
+Assignment 2: The player dashes, being able to kill enemies.
+	      Collider system.
+	      EnemySpawner system from Tiled.
+	      GodMode visualize and pause debuggers.
+
+## Who maid what
+
+Cere Venteo -> Dash player, Framerate + dt, Pause button, collision system, Player as Entity, Scene2 Module deleted.
+
+Lluís Moreu -> Pathfinding, Entity + Entity manager, UML, Enemies, Brofiler.
 
 ## Artist references
 
