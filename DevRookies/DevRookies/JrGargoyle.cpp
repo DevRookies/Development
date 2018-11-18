@@ -52,7 +52,7 @@ bool JrGargoyle::PreUpdate()
 		{
 			iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
 			iPoint pos = { (int)position.x, (int)position.y };
-			App->pathfinding->CreatePath(pos, playerpos);
+			App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
 			Fly(App->pathfinding->GetLastPath());
 			current_movement = LEFT;
 		}
