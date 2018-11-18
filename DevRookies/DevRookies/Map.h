@@ -155,6 +155,7 @@ private:
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollider(pugi::xml_node& node, uint type);
 	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroups* group);
+	bool LoadEnemyPosition(pugi::xml_node& node);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
@@ -163,7 +164,8 @@ public:
 
 	MapData				data;
 	SDL_Rect			rect;
-	fPoint				init_player_position, init_JrGargoyle_position;
+	fPoint				init_player_position;
+	p2List<fPoint>		init_JrGargoyle_position;
 	
 
 private:

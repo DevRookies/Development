@@ -343,8 +343,7 @@ bool Map::Load(const char* file_name)
 				ret = true;
 			}
 			else if (type.operator==("Enemies")) {
-				init_JrGargoyle_position.x = objects_node.child("object").attribute("x").as_float();
-				init_JrGargoyle_position.y = objects_node.child("object").attribute("y").as_float();
+				LoadEnemyPosition(objects_node);
 				ret = true;
 			}
 
@@ -629,6 +628,18 @@ bool Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroups * group)
 
 	return ret;
 }
+bool Map::LoadEnemyPosition(pugi::xml_node & node)
+{
+	pugi::xml_node object;
+	for (object = node.child("object"); object; object = object.next_sibling("object")) {
+
+		init_JrGargoyle_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
+
+	}
+
+	return true;
+}
+
 
 ObjectsGroups::~ObjectsGroups()
 {
