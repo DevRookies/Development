@@ -218,6 +218,9 @@ void Player::OnCollision(Collider * collider1)
 		}
 	}
 }
+void Player::OnCollision(Collider * collider1, Collider * collider2)
+{
+}
 
 void Player::AddFX(const int channel , const int repeat) const
 {
