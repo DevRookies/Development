@@ -14,6 +14,7 @@ public:
 	bool Awake(pugi::xml_node & config);
 	bool Update(float dt);
 	bool Start();
+	bool PostUpdate();
 	bool Fly();
 
 	bool LoadAnimation(pugi::xml_node &node, Animation &anim);

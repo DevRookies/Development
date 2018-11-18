@@ -49,12 +49,20 @@ bool JrGargoyle::Start()
 {
 	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	position = App->map->init_JrGargoyle_position;
-	//collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, this);
+	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,32,32 }, COLLIDER_ENEMY, App->entitymanager);
+	current_animation = &idle;
 	return true;
 }
 
 bool JrGargoyle::Fly()
 {
+	return true;
+}
+
+bool JrGargoyle::PostUpdate()
+{
+	App->render->Blit(gargoyle_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+	
 	return true;
 }
 
