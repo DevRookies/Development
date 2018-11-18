@@ -31,9 +31,9 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
 	idle.loop = config.child("animations").child("idle").attribute("loop").as_bool(true);
 
-	LoadAnimation(config.child("animations").child("fly").child("frame"), walk);
-	walk.speed = config.child("animations").child("fly").attribute("speed").as_float();
-	walk.loop = config.child("animations").child("fly").attribute("loop").as_bool(true);
+	LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
+	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
+	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
 
 	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
@@ -74,7 +74,7 @@ bool OfficerSkeleton::PreUpdate()
 	}
 	else current_movement = IDLE;*/
 	current_movement = LEFT;
-	//current_animation = &walk;
+	current_animation = &walk;
 	return true;
 }
 

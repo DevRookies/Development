@@ -212,6 +212,8 @@ void Player::OnCollision(Collider * collider1)
 		else if (collider1->type == COLLIDER_ENEMY) 
 			if(current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
 				Die();
+			else
+				//Kill();
 		
 		if (App->render->camera.x <= -position.x) {
 			Die();
@@ -426,9 +428,9 @@ void Player::Jump()
 
 void Player::GodMove()
 {
-	if (current_godmove == DOWN)
+	if (current_godmove == DOWNGOD)
 		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
-	else if (current_godmove == UP)
+	else if (current_godmove == UPGOD)
 		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
 	else
 		speed.y = 0;
