@@ -7,9 +7,8 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
-#include "SceneManager.h"
 #include "Map.h"
-#include "Player.h"
+#include "SceneManager.h"
 #include "Collision.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
@@ -28,8 +27,8 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	textures = new Textures();
 	audio = new Audio();
-	map = new Map();
 	scene = new Scene();
+	map = new Map();
 	scenemanager = new SceneManager();
 	collision = new Collision();
 	pathfinding = new PathFinding();
@@ -41,10 +40,10 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(textures);
 	AddModule(audio);
+	AddModule(collision);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(scenemanager);
-	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(entitymanager);
 

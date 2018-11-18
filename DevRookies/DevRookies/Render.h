@@ -46,6 +46,7 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	void SetCamera(uint x, uint y);
+	bool InCamera(SDL_Rect rect);
 
 public:
 
@@ -57,6 +58,7 @@ public:
 	int				camera_max;
 	uint			start_time;
 	uint			restart_start_time;
+	//bool			draw_pathfinding = true;
 };
 
 #endif // __RENDER_H__
