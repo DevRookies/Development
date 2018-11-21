@@ -23,12 +23,13 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	void OnCollision(Collider* collider1, Collider* collider2);
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 
 	Entity* CreateEntity(entityType type);
 	bool DestroyEntity(Entity* entity);
-	void OnCollision(Collider* collider1, Collider* collider2);
+	
 
 public:
 	p2SString		folder;

@@ -28,6 +28,7 @@ bool Player::Awake(pugi::xml_node& conf)
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
+	max_jump = { config.child("max_jump").attribute("x").as_float() , config.child("max_jump").attribute("y").as_float() };
 	jump_cont_start = config.child("jump_cont_start").attribute("value").as_int();
 	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
@@ -107,17 +108,17 @@ bool Player::Update(float dt)
 {
 	if (current_state != DEATH && App->scenemanager->current_step == App->scenemanager->none && App->render->start_time == 0) {
 		Move();
-		speed.y = floor(speed.y * dt);
-		speed.x = floor(speed.x * dt);
-
-		position += speed;
 	}
 
 	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) 
 		App->scene->Restart();
 	
-		
-		
+
+	speed.y = floor(speed.y * dt);
+	speed.x = floor(speed.x * dt);
+	position += speed;
+	//SOLUCIONAR LAS ANIMACIONES CON DT!!
+	//current_animation->speed = 10 * dt;
 	collider->SetPos(position.x, position.y + heigth_animation - collider_box_height);
 
 	return true;
@@ -291,12 +292,12 @@ void Player::PreMove() {
 				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 					current_movement = UP;
 
-				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && flipX) {
 					current_movement = LEFT_HIT;
 					AddFX(2, 0);
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && !flipX) {
 					current_movement = RIGHT_HIT;
 					AddFX(2, 0);
 				}
@@ -388,7 +389,7 @@ void Player::Move() {
 				current_animation = &jumpice;
 
 			if (jump_cont > 0) {
-				speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+				speed.y = acceleration.y * -max_jump.y + (1 - acceleration.y) * speed.y;
 				jump_cont--;
 			}
 			else
@@ -490,6 +491,8 @@ void Player::Restart(ELEMENT element)
 
 	AddColliderPlayer();
 	SetPosition(App->map->init_player_position.x, App->map->init_player_position.y);
+	speed.x = 0;
+	speed.y = 0;
 	flipX = false;
 	visibility = true;
 	deadfire.Reset();

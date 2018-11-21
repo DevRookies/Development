@@ -59,12 +59,13 @@
     <player>
       <texture>textures/character.png</texture>
       <position x="0.0f" y="0.0f"/>
-      <collider width="40.0f" height="50.0f"/>
+      <collider width="40.0f" height="52.0f"/>
       <speed x="0.0f" y="0.0f"/>
-      <acceleration x="0.8f" y="0.6f"/>
-      <max_speed x="200.0f" y="200.0f"/>
+      <acceleration x="1.0f" y="0.8f"/>
+      <max_speed x="250.0f" y="300.0f"/>
+      <max_jump x="250.0f" y="250.0f"/>
       <hit_speed value="300.0f"/>
-      <jump_cont_start value="15"/>
+      <jump_cont_start value="10"/>
       <jump_fx_name source="jump.wav"/>
       <dash_fx_name source="dash.wav"/>
       <dead_fx_name source="negative_beeps.wav"/>
@@ -149,6 +150,9 @@
 
     <JrGargoyle>
       <texture>textures/JrGargoyle.png</texture>
+      <speed x="0.0f" y="0.0f"/>
+      <acceleration x="0.8f" y="0.6f"/>
+      <max_speed x="50.0f" y="50.0f"/>
       <animations>
         <idle speed="0.1F" loop="true">
           <frame x="1" y="1" width="77" height="110"/>
@@ -174,6 +178,9 @@
 
     <OfficerSkeleton>
       <texture>textures/OfficerSkeleton.png</texture>
+      <speed x="0.0f" y="0.0f"/>
+      <acceleration x="0.8f" y="0.6f"/>
+      <max_speed x="50.0f" y="100.0f"/>
       <animations>
         <idle speed="0.1F" loop="true">
           <frame x="0" y="0" width="82" height="93"/>

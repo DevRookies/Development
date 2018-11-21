@@ -220,12 +220,11 @@ bool EntityManager::DestroyEntity(Entity * entity)
 
 void EntityManager::OnCollision(Collider* collider1, Collider* collider2)
 {
-	
 	p2List_item<Entity*>* tmp = entities.start;
 	while (tmp != nullptr)
 	{
 		if(tmp->data->collider == collider2)
-			tmp->data->OnCollision(collider1);
+			tmp->data->OnCollision(collider1, collider2);
 		tmp = tmp->next;
 	}
 }

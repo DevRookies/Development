@@ -17,7 +17,7 @@ public:
 	bool	PreUpdate();
 	bool	Update(float dt);
 	bool	PostUpdate();
-	void	OnCollision(Collider* collider1);
+	void	OnCollision(Collider* collider1, Collider* collider2);
 	void	Fly(const p2DynArray<iPoint> *path);
 
 	//Save and Load

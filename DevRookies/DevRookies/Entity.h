@@ -42,7 +42,7 @@ public:
 
 	void		AddFX(const int channel, const int repeat) const;
 	bool		LoadAnimation(pugi::xml_node &node, Animation &anim);
-	virtual void OnCollision(Collider*) {};
+	virtual void OnCollision(Collider* collider1, Collider* collider2) {};
 	void		AddCollider();
 
 	

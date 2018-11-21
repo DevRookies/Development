@@ -22,7 +22,11 @@ JrGargoyle::~JrGargoyle()
 bool JrGargoyle::Awake(pugi::xml_node & conf)
 {
 	pugi::xml_node config = conf.child("JrGargoyle");
+
 	gargoyle_texture = config.child("texture").child_value();
+	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
+	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
+	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
 
 	LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
 	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
@@ -75,24 +79,28 @@ bool JrGargoyle::Update(float dt)
 	else if (current_movement == LEFT)
 	{
 		flipX = false;
-		speed.x = -3;
+		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+		speed.y = 0;
 		current_animation = &fly;
 	}
 	else if (current_movement == RIGHT)
 	{
 		flipX = true;
-		speed.x = 30;
+		speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
+		speed.y = 0;
 		current_animation = &fly;
 
 	}
 	else if (current_movement == UP)
 	{
-		speed.y = -3;
+		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+		speed.x = 0;
 		current_animation = &fly;
 	}
 	else if (current_movement == DOWN)
 	{
-		speed.y = 30;
+		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+		speed.x = 0;
 		current_animation = &fly;
 	}
 
@@ -141,7 +149,7 @@ bool JrGargoyle::Save(pugi::xml_node& node) const
 	return ret;
 }
 
-void JrGargoyle::OnCollision(Collider * collider1)
+void JrGargoyle::OnCollision(Collider* collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER)
 		CleanUp();
@@ -175,9 +183,9 @@ void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
 				current_movement = LEFT;
 			else if (position.x < pos.x)
 				current_movement = RIGHT;
-			if (position.y > pos.y)
+			else if (position.y >= pos.y)
 				current_movement = UP;
-			else if (position.y < pos.y)
+			else 
 				current_movement = DOWN;
 		}
 		
