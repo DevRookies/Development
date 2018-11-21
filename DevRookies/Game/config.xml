@@ -62,9 +62,9 @@
       <collider width="40.0f" height="40.0f"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
-      <max_speed x="200.0f" y="300.0f"/>
+      <max_speed x="200.0f" y="200.0f"/>
       <hit_speed value="300.0f"/>
-      <jump_speed value="30.0f"/>
+      <jump_cont_start value="15"/>
       <jump_fx_name source="jump.wav"/>
       <dash_fx_name source="dash.wav"/>
       <dead_fx_name source="negative_beeps.wav"/>
@@ -82,7 +82,7 @@
           <frame x="2184" y="58" width="60" height="57"/>
           <frame x="2125" y="58" width="59" height="55"/>
         </run_fire>;
-        <jump_fire>
+        <jump_fire speed="0.1F" loop ="true">
           <frame x="2184" y="58" width="60" height="57"/>
         </jump_fire>
         <die_fire speed="0.15F" loop ="false">
@@ -121,7 +121,7 @@
           <frame x="2004" y="58" width="60" height="57"/>
           <frame x="1945" y="58" width="59" height="56"/>
         </run_ice>;
-        <jump_ice>
+        <jump_ice speed="0.1F" loop ="true">
           <frame x="2004" y="58" width="60" height="57"/>
         </jump_ice>
         <die_ice speed="0.1F" loop ="false">

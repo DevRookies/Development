@@ -28,7 +28,7 @@ bool Player::Awake(pugi::xml_node& conf)
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
-	jump_speed = config.child("jump_speed").attribute("value").as_int();
+	jump_cont_start = config.child("jump_cont_start").attribute("value").as_int();
 	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
 	dash_fx_name = config.child("dash_fx_name").attribute("source").as_string();
@@ -304,6 +304,7 @@ void Player::PreMove() {
 	
 	}
 
+
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godmode = !godmode;
 		
@@ -383,7 +384,15 @@ void Player::Move() {
 				current_animation = &jumpfire;
 			else
 				current_animation = &jumpice;
-			speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+			if (jump_cont > 0) {
+				speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+				jump_cont--;
+			}
+			else
+				speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
+			
+				
+			
 		}
 	}
 	else {
@@ -420,7 +429,7 @@ void Player::Hit()
 
 void Player::Jump() 
 {
-	speed.y = jump_speed * -max_speed.y + (1 - jump_speed) * speed.y;
+	jump_cont = jump_cont_start;
 	current_state = AIR;
 	AddFX(1, 0);
 }

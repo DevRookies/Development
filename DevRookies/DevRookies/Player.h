@@ -18,7 +18,7 @@ private:
 	Animation	idleice, runice, jumpice, deadice, hitice;
 	Animation	godmode_anim;
 
-	int			jump_speed, hit_speed;
+	int			hit_speed, jump_cont, jump_cont_start;
 	int			collider_box_width, collider_box_height;
 	fPoint		lastPosition;
 	p2SString   player_texture, jump_fx_name, dash_fx_name, dead_fx_name, victory_fx_name;
