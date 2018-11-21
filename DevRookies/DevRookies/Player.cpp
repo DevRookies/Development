@@ -197,11 +197,13 @@ void Player::OnCollision(Collider * collider1)
 	if (!godmode) {
 		if (collider1->type == COLLIDER_ICE) {
 			current_state = FLOOR;
+			SetPosition(position.x, collider1->rect.y - collider_box_height);
 			if (current_element == FIRE)
 				Die();
 		}
 		else if (collider1->type == COLLIDER_FIRE) {
 			current_state = FLOOR;
+			SetPosition(position.x, collider1->rect.y - collider_box_height);
 			if (current_element == ICE)
 				Die();
 		}
@@ -272,7 +274,7 @@ void Player::PreMove() {
 				else
 					current_godmove = IDLEGOD;
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 				if (current_godmove != DOWNGOD)
 					current_godmove = UPGOD;
 				else
@@ -384,15 +386,13 @@ void Player::Move() {
 				current_animation = &jumpfire;
 			else
 				current_animation = &jumpice;
+
 			if (jump_cont > 0) {
 				speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
 				jump_cont--;
 			}
 			else
 				speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
-			
-				
-			
 		}
 	}
 	else {

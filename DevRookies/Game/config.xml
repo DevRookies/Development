@@ -59,7 +59,7 @@
     <player>
       <texture>textures/character.png</texture>
       <position x="0.0f" y="0.0f"/>
-      <collider width="40.0f" height="40.0f"/>
+      <collider width="40.0f" height="50.0f"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="200.0f" y="200.0f"/>
