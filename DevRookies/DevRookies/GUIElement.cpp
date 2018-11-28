@@ -1,7 +1,7 @@
 #include "DevRookiesApp.h"
-#include "UIElement.h"
+#include "GUIElement.h"
 #include "Render.h"
-#include "UIManager.h"
+#include "GUIManager.h"
 #include "Input.h"
 #include "Textures.h"
 

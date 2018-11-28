@@ -91,7 +91,6 @@ bool Player::Start(uint i)
 	App->audio->LoadFx(victory_fx_name.GetString());	
 	texture = App->textures->Load(player_texture.GetString());
 	
-		
 	return true;
 }
 
@@ -118,7 +117,7 @@ bool Player::Update(float dt)
 	speed.x = floor(speed.x * dt);
 	position += speed;
 	//SOLUCIONAR LAS ANIMACIONES CON DT!!
-	//current_animation->speed = 10 * dt;
+	current_animation->speed = current_animation->speed * dt;
 	collider->SetPos(position.x, position.y + heigth_animation - collider_box_height);
 
 	return true;
@@ -129,9 +128,6 @@ bool Player::PostUpdate()
 	if (visibility) {
 		App->render->Blit(texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	}
-	
-	
-
 	return true;
 }
 
