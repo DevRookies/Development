@@ -10,16 +10,6 @@ struct SDL_Rect;
 class p2SString;
 class UIElement;
 
-enum UI_Type
-{
-	IMAGE,
-	BUTTON,
-	CHECKBOX,
-	LABEL,
-	SLIDER,
-	NO_TYPE,
-
-};
 
 // ---------------------------------------------------
 class UIManager : public Module
@@ -51,6 +41,7 @@ public:
 	bool CleanUp();
 
 	bool DestroyUIElement(UIElement *element);
+	//UIElement* CreateElements(UI_Type type, iPoint pos, SDL_Rect rect);
 
 	UIElement* CreateImage(iPoint pos, SDL_Rect rect);
 	UIElement* CreateButton(iPoint pos, SDL_Rect rect);
@@ -66,6 +57,7 @@ private:
 
 	SDL_Texture* ui_tex = nullptr;
 	p2SString ui_texture;
+	iPoint position;
 };
 
 #endif // __!UIMANAGER_H__

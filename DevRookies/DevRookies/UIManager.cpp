@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "UIManager.h"
 
-//#include "UIImage.h"
+#include "UI_Image.h"
 //#include "UIButton.h"
 //#include "UICheckbox.h"
 //#include "UILabel.h"
@@ -114,7 +114,10 @@ bool UIManager::DestroyUIElement(UIElement *element) {
 
 UIElement* UIManager::CreateImage(iPoint pos, SDL_Rect rect) 
 {
-	return nullptr;
+	UIElement* tmp_img = new UIImage(position, rect);
+	
+	return tmp_img;
+
 }
 
 UIElement* UIManager::CreateButton(iPoint pos, SDL_Rect rect)

@@ -14,6 +14,7 @@
 #include "Pathfinding.h"
 #include "EntityManager.h"
 #include "UIManager.h"
+#include "Fonts.h"
 #include "DevRookiesApp.h"
 #include"Brofiler/Brofiler.h"
 
@@ -37,6 +38,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	entitymanager = new EntityManager();
 	uimanager = new UIManager();
+	fonts = new Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -51,6 +53,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(entitymanager);
 	AddModule(uimanager);
+	AddModule(fonts);
 
 	// render last to swap buffer
 	AddModule(render);

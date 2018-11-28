@@ -20,6 +20,7 @@ class Collision;
 class PathFinding;
 class EntityManager;
 class UIManager;
+class Fonts;
 
 class DevRookiesApp
 {
@@ -99,6 +100,7 @@ public:
 	PathFinding*		pathfinding = nullptr;
 	EntityManager*		entitymanager = nullptr;
 	UIManager*			uimanager = nullptr;
+	Fonts*				fonts = nullptr;
 
 private:
 

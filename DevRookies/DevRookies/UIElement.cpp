@@ -6,7 +6,7 @@
 #include "Textures.h"
 
 
-UIElement::UIElement(iPoint pos, UI_Type type)
+UIElement::UIElement(UI_Type type, Module* callback)
 {
 
 }
