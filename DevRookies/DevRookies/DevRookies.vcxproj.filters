@@ -67,6 +67,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Modules\App</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -156,6 +162,12 @@
     <ClInclude Include="Enemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Modules\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -187,6 +199,9 @@
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{50895f79-5364-4090-adc6-3b9f5a872464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{783b283e-085c-4f2a-a4be-8d3b677ea9cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

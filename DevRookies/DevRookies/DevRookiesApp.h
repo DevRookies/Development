@@ -19,6 +19,7 @@ class SceneManager;
 class Collision;
 class PathFinding;
 class EntityManager;
+class UIManager;
 
 class DevRookiesApp
 {
@@ -97,6 +98,7 @@ public:
 	Collision*			collision = nullptr;
 	PathFinding*		pathfinding = nullptr;
 	EntityManager*		entitymanager = nullptr;
+	UIManager*			uimanager = nullptr;
 
 private:
 

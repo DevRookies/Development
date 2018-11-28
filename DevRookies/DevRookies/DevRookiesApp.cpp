@@ -13,6 +13,7 @@
 #include "Collision.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
+#include "UIManager.h"
 #include "DevRookiesApp.h"
 #include"Brofiler/Brofiler.h"
 
@@ -35,6 +36,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	collision = new Collision();
 	pathfinding = new PathFinding();
 	entitymanager = new EntityManager();
+	uimanager = new UIManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -48,6 +50,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(entitymanager);
+	AddModule(uimanager);
 
 	// render last to swap buffer
 	AddModule(render);
