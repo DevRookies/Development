@@ -14,7 +14,7 @@
     <ProjectGuid>{2AF9969B-F202-497B-AF30-7BEF9CE8005E}</ProjectGuid>
     <RootNamespace>programacio_2</RootNamespace>
     <ProjectName>DevRookies</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -81,6 +81,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Fonts.cpp" />
+    <ClCompile Include="GUIButton.cpp" />
+    <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="JrGargoyle.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="DevRookiesApp.cpp" />
@@ -110,6 +112,8 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Fonts.h" />
+    <ClInclude Include="GUIButton.h" />
+    <ClInclude Include="GUILabel.h" />
     <ClInclude Include="JrGargoyle.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="OfficerSkeleton.h" />

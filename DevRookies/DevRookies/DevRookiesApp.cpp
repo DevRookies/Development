@@ -13,7 +13,7 @@
 #include "Collision.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
-#include "UIManager.h"
+#include "GUIManager.h"
 #include "Fonts.h"
 #include "DevRookiesApp.h"
 #include"Brofiler/Brofiler.h"
@@ -37,7 +37,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	collision = new Collision();
 	pathfinding = new PathFinding();
 	entitymanager = new EntityManager();
-	uimanager = new UIManager();
+	guimanager = new GUIManager();
 	fonts = new Fonts();
 
 	// Ordered for awake / Start / Update
@@ -52,7 +52,7 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(entitymanager);
-	AddModule(uimanager);
+	AddModule(guimanager);
 	AddModule(fonts);
 
 	// render last to swap buffer

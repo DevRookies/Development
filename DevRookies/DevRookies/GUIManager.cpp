@@ -6,10 +6,10 @@
 #include "Input.h"
 #include "GUIManager.h"
 
-//#include "GUI_Image.h"
-//#include "GUIButton.h"
+#include "GUIImage.h"
+#include "GUIButton.h"
+#include "GUILabel.h"
 //#include "GUICheckbox.h"
-//#include "GUILabel.h"
 //#include "GUISlider.h"
 #include "GUIElement.h"
 
@@ -148,18 +148,19 @@ GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos)
 		ret = new GUIImage(pos);
 		gui_elements.add(ret);
 		break;
-	/*case BUTTON:
-		ret = new GUIButton(pos);
-		gui_elements.add(ret);
-		break;
-	case CHECKBOX:
-		ret = new GUICheckBox(pos);
-		gui_elements.add(ret);
-		break;
 	case LABEL:
 		ret = new GUILabel(pos);
 		gui_elements.add(ret);
 		break;
+	case BUTTON:
+		ret = new GUIButton(pos);
+		gui_elements.add(ret);
+		break;
+	/*case CHECKBOX:
+		ret = new GUICheckBox(pos);
+		gui_elements.add(ret);
+		break;
+
 	case SLIDER:
 		ret = new GUISlider(pos);
 		gui_elements.add(ret);
@@ -173,23 +174,23 @@ GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback = 
 	GUIImage* tmp_img = (GUIImage*)App->guimanager->CreateElement(IMAGE, pos);
 	tmp_img->rect = rect;
 	tmp_img->callback = callback;
-	tmp_img->Awake(name);
+	//tmp_img->Awake(name);
 	tmp_img->Start();
-	
+
 	return tmp_img;
 }
 
-//GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect)
-//{
-//	return nullptr;
-//}
-//
+GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, Module* callback = nullptr)
+{
+	return nullptr;
+}
+
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr)
+{
+	return nullptr;
+}
+
 //GUICheckBox * GUIManager::CreateCheckBox(iPoint pos, bool checked)
-//{
-//	return nullptr;
-//}
-//
-//GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text)
 //{
 //	return nullptr;
 //}
@@ -199,7 +200,9 @@ GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback = 
 //	return nullptr;
 //}
 //
-//GUIElement* GUIManager::GetMouseElement(iPoint pos)
-//{
-//	return nullptr;
-//}
+
+GUIElement* GUIManager::GetMouseElement(iPoint pos)
+{
+	
+	return nullptr;
+}

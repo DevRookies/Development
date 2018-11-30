@@ -6,6 +6,8 @@
 #include "p2Point.h"
 #include "GUIElement.h"
 #include "GUIImage.h"
+#include "GUIButton.h"
+#include "GUILabel.h"
 
 
 class GUIElement;
@@ -41,10 +43,10 @@ public:
 	
 
 	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
-	/*GUIButton* CreateButton(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
-	GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
-	GUILabel* CreateLabel(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, FontType = ZEALAND, SDL_Color color = { 255,255,255,255 }, Module* callback = nullptr);
-	GUISlider* CreateSlider(iPoint pos, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, Module* callback = nullptr);*/
+	GUIButton* CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
+	GUILabel* CreateLabel(iPoint pos, p2SString text, Module* callback = nullptr);
+	//GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
+	//GUISlider* CreateSlider(iPoint pos, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, Module* callback = nullptr);
 
 	GUIElement* GetMouseElement(iPoint pos);
 
