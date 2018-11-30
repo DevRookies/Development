@@ -2,8 +2,8 @@
 #define __GUIBUTTON_H__
 
 #include "GUIElement.h"
-//#include "GUILabel.h"
 #include "Fonts.h"
+#include "GUILabel.h"
 
 class GUIButton : public GUIElement
 {
@@ -11,7 +11,7 @@ private:
 	SDL_Rect normal;
 	SDL_Rect hovered;
 	SDL_Rect pressed;
-	//UILabel* label = nullptr;
+	GUILabel* label = nullptr;
 
 public:
 

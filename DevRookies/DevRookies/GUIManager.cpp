@@ -138,7 +138,7 @@ void GUIManager::DestroyGUIElement(GUIElement *element) {
 	}
 }
 
-GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos)
+GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos, p2SString text, int size)
 {
 	GUIElement* ret = nullptr;
 
@@ -149,7 +149,7 @@ GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos)
 		gui_elements.add(ret);
 		break;
 	case LABEL:
-		ret = new GUILabel(pos);
+		ret = new GUILabel(pos, text, size);
 		gui_elements.add(ret);
 		break;
 	case BUTTON:
@@ -180,15 +180,30 @@ GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback = 
 	return tmp_img;
 }
 
-GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, Module* callback = nullptr)
+GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, int size, Module* callback = nullptr)
 {
-	return nullptr;
+	GUILabel* tmp_lbl = (GUILabel*)App->guimanager->CreateElement(LABEL, pos, text, size);
+	tmp_lbl->text = text;
+	tmp_lbl->callback = callback;
+	tmp_lbl->size = size;
+	//tmp_img->Awake(name);
+	tmp_lbl->Start();
+
+	return tmp_lbl;
 }
+
 
 GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr)
 {
-	return nullptr;
+	GUIButton* tmp_btn = (GUIButton*)App->guimanager->CreateElement(BUTTON, pos);
+	tmp_btn->rect = rect;
+	tmp_btn->callback = callback;
+	//tmp_img->Awake(name);
+	tmp_btn->Start();
+
+	return tmp_btn;
 }
+
 
 //GUICheckBox * GUIManager::CreateCheckBox(iPoint pos, bool checked)
 //{
@@ -203,6 +218,17 @@ GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback 
 
 GUIElement* GUIManager::GetMouseElement(iPoint pos)
 {
+
+	for (int i = 0; i < gui_elements.count(); i++) {
+		if (gui_elements[i] != nullptr)
+		{
+			if ((pos.x > gui_elements[i]->GetPosition().x && pos.x < gui_elements[i]->GetPosition().x + gui_elements[i]->GetRect().w) && (pos.y > gui_elements[i]->GetPosition().y && pos.y < gui_elements[i]->GetPosition().y + gui_elements[i]->GetRect().h))
+			{
+				GUIElement* tmp_returnable_element = gui_elements[i];
+				return tmp_returnable_element;
+			}
+		}
+	}
 	
 	return nullptr;
 }

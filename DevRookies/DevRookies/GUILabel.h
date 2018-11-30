@@ -15,7 +15,6 @@ private:
 	
 public:
 	GUILabel(iPoint pos,p2SString text, int size);
-	GUILabel(iPoint pos,p2SString text, int size, uint32 boxWidth);
 	~GUILabel();
 	void SetText(p2SString text);
 

@@ -44,7 +44,7 @@ public:
 
 	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
 	GUIButton* CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
-	GUILabel* CreateLabel(iPoint pos, p2SString text, Module* callback = nullptr);
+	GUILabel* CreateLabel(iPoint pos, p2SString text, int size, Module* callback = nullptr);
 	//GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
 	//GUISlider* CreateSlider(iPoint pos, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, Module* callback = nullptr);
 
@@ -52,7 +52,7 @@ public:
 
 private:
 
-	GUIElement * CreateElement(GUI_Type type, iPoint pos);
+	GUIElement * CreateElement(GUI_Type type, iPoint pos, p2SString text, int size);
 	void UpdateElemEvent() const;
 	bool ManageElemEvent();
 	void DestroyGUIElement(GUIElement* element);

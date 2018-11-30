@@ -12,7 +12,8 @@ GUIButton::GUIButton(iPoint pos) : GUIElement(GUI_Type::BUTTON)
 }
 
 GUIButton::~GUIButton()
-{}
+{
+}
 
 
 bool GUIButton::Awake(pugi::xml_node & conf)
