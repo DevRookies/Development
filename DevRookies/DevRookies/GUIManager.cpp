@@ -5,13 +5,13 @@
 #include "Textures.h"
 #include "Input.h"
 #include "GUIManager.h"
-
+#include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
 //#include "GUICheckbox.h"
 //#include "GUISlider.h"
-#include "GUIElement.h"
+
 
 #include "Brofiler\Brofiler.h"
 
@@ -100,7 +100,7 @@ bool GUIManager::PostUpdate()
 	{
 		tmp->data->PostUpdate();
 		if (debug)
-			tmp->data->DebugDraw();
+			//tmp->data->DebugDraw();
 		tmp = tmp->next;
 	}
 
@@ -138,21 +138,21 @@ void GUIManager::DestroyGUIElement(GUIElement *element) {
 	}
 }
 
-GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos, p2SString text, int size)
+GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos)
 {
 	GUIElement* ret = nullptr;
 
 	switch (type)
 	{
-	case IMAGE:
+	case GUI_Type::IMAGE:
 		ret = new GUIImage(pos);
 		gui_elements.add(ret);
 		break;
-	case LABEL:
-		ret = new GUILabel(pos, text, size);
+	case GUI_Type::LABEL:
+		ret = new GUILabel(pos);
 		gui_elements.add(ret);
 		break;
-	case BUTTON:
+	case GUI_Type::BUTTON:
 		ret = new GUIButton(pos);
 		gui_elements.add(ret);
 		break;
@@ -169,9 +169,9 @@ GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos, p2SString text,
 	return ret;
 }
 
-GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback = nullptr)
+GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback)
 {
-	GUIImage* tmp_img = (GUIImage*)App->guimanager->CreateElement(IMAGE, pos);
+	GUIImage* tmp_img = (GUIImage*)App->guimanager->CreateElement(GUI_Type::IMAGE, pos);
 	tmp_img->rect = rect;
 	tmp_img->callback = callback;
 	//tmp_img->Awake(name);
@@ -180,12 +180,12 @@ GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback = 
 	return tmp_img;
 }
 
-GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, int size, Module* callback = nullptr)
+GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, int size, Module* callback)
 {
-	GUILabel* tmp_lbl = (GUILabel*)App->guimanager->CreateElement(LABEL, pos, text, size);
+	GUILabel* tmp_lbl = (GUILabel*)App->guimanager->CreateElement(GUI_Type::LABEL, pos);
 	tmp_lbl->text = text;
 	tmp_lbl->callback = callback;
-	tmp_lbl->size = size;
+	//tmp_lbl->size = size;
 	//tmp_img->Awake(name);
 	tmp_lbl->Start();
 
@@ -193,9 +193,9 @@ GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, int size, Module* 
 }
 
 
-GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr)
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback)
 {
-	GUIButton* tmp_btn = (GUIButton*)App->guimanager->CreateElement(BUTTON, pos);
+	GUIButton* tmp_btn = (GUIButton*)App->guimanager->CreateElement(GUI_Type::BUTTON, pos);
 	tmp_btn->rect = rect;
 	tmp_btn->callback = callback;
 	//tmp_img->Awake(name);

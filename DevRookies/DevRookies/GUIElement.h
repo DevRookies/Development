@@ -3,12 +3,11 @@
 
 #include "p2Point.h"
 #include "SDL\include\SDL_rect.h"
-#include "GUIManager.h"
 #include "Module.h"
 
 struct SDL_Texture;
 
-enum GUI_Type
+enum class GUI_Type
 {
 	IMAGE,
 	LABEL,
@@ -18,23 +17,23 @@ enum GUI_Type
 	NO_TYPE
 };
 
-enum GUI_State
-{
-	NORMAL,
-	MOUSE_ENTER,
-	MOUSE_LEAVE,
-	LEFT_MOUSE_PRESSED,
-	LEFT_MOUSE_RELEASED,
-	RIGHT_MOUSE_PRESSED,
-	LEFT_MOUSE_RELEASED,
-	HOVERED,
 
-	NO_TYPE
-};
 
 class GUIElement
 {
-
+protected:
+	enum GUI_State
+	{
+		NORMAL,
+		MOUSE_ENTER,
+		MOUSE_LEAVE,
+		LEFT_MOUSE_PRESSED,
+		LEFT_MOUSE_RELEASED,
+		RIGHT_MOUSE_PRESSED,
+		HOVERED,
+		NO_STATE
+	};
+	
 public:
 	GUIElement(GUI_Type type,Module* callback = nullptr);
 	virtual ~GUIElement();

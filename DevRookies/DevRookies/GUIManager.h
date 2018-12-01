@@ -52,9 +52,9 @@ public:
 
 private:
 
-	GUIElement * CreateElement(GUI_Type type, iPoint pos, p2SString text, int size);
-	void UpdateElemEvent() const;
-	bool ManageElemEvent();
+	GUIElement* CreateElement(GUI_Type type, iPoint pos);
+	//void UpdateElemEvent() const;
+	//bool ManageElemEvent();
 	void DestroyGUIElement(GUIElement* element);
 
 	p2List<GUIElement*> gui_elements;

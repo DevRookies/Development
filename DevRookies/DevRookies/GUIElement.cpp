@@ -1,7 +1,7 @@
-#include "DevRookiesApp.h"
-#include "GUIElement.h"
-#include "Render.h"
 #include "GUIManager.h"
+#include "GUIElement.h"
+#include "DevRookiesApp.h"
+#include "Render.h"
 #include "Input.h"
 #include "Textures.h"
 
@@ -22,7 +22,7 @@ bool GUIElement::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
-
+	return true;
 }
 
 void GUIElement::Draw(SDL_Texture* sprites)
@@ -31,11 +31,11 @@ void GUIElement::Draw(SDL_Texture* sprites)
 	{
 		switch (this->type)
 		{
-		case IMAGE:
-		case LABEL:
+		case GUI_Type::IMAGE:
+		case GUI_Type::LABEL:
 			App->render->Blit(texture, screen_position.x, screen_position.y, &rect);
 			break;
-		case BUTTON:
+		case GUI_Type::BUTTON:
 		//case SLIDER:
 		//case CHECK_BOX:
 		default:
