@@ -63,7 +63,6 @@
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="1.0f" y="0.8f"/>
       <max_speed x="250.0f" y="300.0f"/>
-      <max_jump x="250.0f" y="250.0f"/>
       <hit_speed value="300.0f"/>
       <jump_cont_start value="10"/>
       <jump_fx_name source="jump.wav"/>
@@ -71,28 +70,28 @@
       <dead_fx_name source="negative_beeps.wav"/>
       <victory_fx_name source="ta_da.wav"/>
       <animations>
-        <idle_fire speed="0.1F" loop="true">
+        <idle_fire speed="5.1F" loop="true">
           <frame x="2021" y="0" width="55" height="56"/>
           <frame x="2077" y="0" width="56" height="56"/>
           <frame x="2133" y="0" width="55" height="56"/>
           <frame x="2189" y="0" width="55" height="56"/>
         </idle_fire>
-        <run_fire speed="0.2F" loop="true">
+        <run_fire speed="5.2F" loop="true">
           <frame x="2065" y="58" width="59" height="55"/>
           <frame x="2125" y="58" width="59" height="55"/>
           <frame x="2184" y="58" width="60" height="57"/>
           <frame x="2125" y="58" width="59" height="55"/>
         </run_fire>;
-        <jump_fire speed="0.1F" loop ="true">
+        <jump_fire speed="5.1F" loop ="true">
           <frame x="2184" y="58" width="60" height="57"/>
         </jump_fire>
-        <die_fire speed="0.15F" loop ="false">
+        <die_fire speed="5.15F" loop ="false">
           <frame x="2191" y="384" width="53" height="63"/>
           <frame x="2131" y="384" width="59" height="63"/>
           <frame x="2070" y="384" width="60" height="63"/>
           <frame x="2009" y="384" width="60" height="63"/>
         </die_fire>
-        <hit_fire speed="0.8F" loop ="true">
+        <hit_fire speed="5.8F" loop ="true">
           <frame x="1134" y="246" width="68" height="51"/>
           <frame x="1205" y="237" width="73" height="62"/>
           <frame x="1284" y="233" width="81" height="71"/>
@@ -106,32 +105,32 @@
           <frame x="2078" y="239" width="83" height="70"/>
           <frame x="1134" y="246" width="68" height="51"/>
         </hit_fire>
-        <godmode speed="0.1F" loop ="true">
+        <godmode speed="5.1F" loop ="true">
           <frame x="1205" y="237" width="73" height="62"/>
           <frame x="2078" y="239" width="83" height="70"/>
         </godmode>
-        <idle_ice speed="0.1F" loop="true">
+        <idle_ice speed="5.1F" loop="true">
           <frame x="1797" y="0" width="55" height="56"/>
           <frame x="1853" y="0" width="56" height="56"/>
           <frame x="1909" y="0" width="55" height="56"/>
           <frame x="1965" y="0" width="55" height="56"/>
         </idle_ice>
-        <run_ice speed="0.2F" loop="true">
+        <run_ice speed="5.2F" loop="true">
           <frame x="1885" y="58" width="59" height="56"/>
           <frame x="1945" y="58" width="59" height="56"/>
           <frame x="2004" y="58" width="60" height="57"/>
           <frame x="1945" y="58" width="59" height="56"/>
         </run_ice>;
-        <jump_ice speed="0.1F" loop ="true">
+        <jump_ice speed="5.1F" loop ="true">
           <frame x="2004" y="58" width="60" height="57"/>
         </jump_ice>
-        <die_ice speed="0.1F" loop ="false">
+        <die_ice speed="5.1F" loop ="false">
           <frame x="1954" y="384" width="53" height="63"/>
           <frame x="1894" y="384" width="59" height="63"/>
           <frame x="1834" y="384" width="60" height="63"/>
           <frame x="1773" y="384" width="60" height="63"/>
         </die_ice>
-        <hit_ice speed="0.8F" loop ="true">
+        <hit_ice speed="5.8F" loop ="true">
           <frame x="0" y="251" width="68" height="51"/>
           <frame x="73" y="243" width="73" height="62"/>
           <frame x="152" y="236" width="81" height="71"/>
@@ -154,19 +153,19 @@
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="50.0f"/>
       <animations>
-        <idle speed="0.1F" loop="true">
+        <idle speed="5.1F" loop="true">
           <frame x="1" y="1" width="77" height="110"/>
           <frame x="99" y="34" width="76" height="76"/>
           <frame x="199" y="33" width="88" height="77"/>
           <frame x="307" y="18" width="97" height="92"/>
         </idle>
-        <fly speed="0.2F" loop="true">
+        <fly speed="5.2F" loop="true">
           <frame x="1" y="110" width="77" height="104"/>
           <frame x="96" y="144" width="76" height="70"/>
           <frame x="192" y="143" width="87" height="71"/>
           <frame x="297" y="129" width="97" height="85"/>
         </fly>
-        <die speed="0.2F" loop ="false">
+        <die speed="5.2F" loop ="false">
           <frame x="1" y="282" width="86" height="81"/>
           <frame x="109" y="230" width="97" height="132"/>
           <frame x="236" y="221" width="77" height="141"/>
@@ -182,19 +181,19 @@
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="100.0f"/>
       <animations>
-        <idle speed="0.1F" loop="true">
+        <idle speed="5.1F" loop="true">
           <frame x="0" y="0" width="82" height="93"/>
           <frame x="103" y="1" width="82" height="92"/>
           <frame x="208" y="2" width="83" height="91"/>
           <frame x="317" y="1" width="82" height="92"/>
         </idle>
-        <walk speed="0.2F" loop="true">
+        <walk speed="5.2F" loop="true">
           <frame x="0" y="96" width="82" height="93"/>
           <frame x="108" y="94" width="84" height="95"/>
           <frame x="218" y="96" width="82" height="93"/>
           <frame x="327" y="94" width="84" height="95"/>
         </walk>
-        <die speed="0.2F" loop ="false">
+        <die speed="5.2F" loop ="false">
           <frame x="0" y="189" width="82" height="93"/>
           <frame x="102" y="207" width="89" height="75"/>
           <frame x="216" y="218" width="89" height="64"/>

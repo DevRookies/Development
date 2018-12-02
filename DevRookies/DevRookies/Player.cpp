@@ -28,7 +28,6 @@ bool Player::Awake(pugi::xml_node& conf)
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
-	max_jump = { config.child("max_jump").attribute("x").as_float() , config.child("max_jump").attribute("y").as_float() };
 	jump_cont_start = config.child("jump_cont_start").attribute("value").as_int();
 	hit_speed = config.child("hit_speed").attribute("value").as_int();
 	jump_fx_name = config.child("jump_fx_name").attribute("source").as_string();
@@ -114,10 +113,15 @@ bool Player::Update(float dt)
 	
 
 	speed.y = floor(speed.y * dt);
+	float distance = App->collision->CollisionCorrectionDown(collider->rect);
+	if (distance < speed.y)
+	{
+		speed.y = distance;
+	}
 	speed.x = floor(speed.x * dt);
 	position += speed;
-	//SOLUCIONAR LAS ANIMACIONES CON DT!!
-	current_animation->speed = current_animation->speed * dt;
+	
+	current = current_animation->GetCurrentFrame(dt);
 	collider->SetPos(position.x, position.y + heigth_animation - collider_box_height);
 
 	return true;
@@ -126,7 +130,7 @@ bool Player::Update(float dt)
 bool Player::PostUpdate()
 {
 	if (visibility) {
-		App->render->Blit(texture, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+		App->render->Blit(texture, position.x, position.y, &current, 1.0f, flipX);
 	}
 	return true;
 }
@@ -307,8 +311,6 @@ void Player::PreMove() {
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		godmode = !godmode;
 		
-	
-		
 }
 
 void Player::Move() {
@@ -385,7 +387,7 @@ void Player::Move() {
 				current_animation = &jumpice;
 
 			if (jump_cont > 0) {
-				speed.y = acceleration.y * -max_jump.y + (1 - acceleration.y) * speed.y;
+				speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * -speed.y;
 				jump_cont--;
 			}
 			else
@@ -402,7 +404,7 @@ void Player::Walk()
 {
 	if (current_movement == LEFT)
 	{
-		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * -speed.x;
 		flipX = true;
 	}
 	else
@@ -415,7 +417,7 @@ void Player::Walk()
 void Player::Hit()
 {
 	if (current_movement == LEFT_HIT) {
-		speed.x = acceleration.x * -hit_speed + (1 - acceleration.x) * speed.x;
+		speed.x = acceleration.x * -hit_speed + (1 - acceleration.x) * -speed.x;
 		flipX = true;
 	}
 	else{
@@ -436,7 +438,7 @@ void Player::GodMove()
 	if (current_godmove == DOWNGOD)
 		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
 	else if (current_godmove == UPGOD)
-		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * -speed.y;
 	else
 		speed.y = 0;
 }

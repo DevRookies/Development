@@ -64,6 +64,7 @@ public:
 	bool		CleanUp();
 
 	Collider*	AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	float		CollisionCorrectionDown(SDL_Rect char_rect);
 	bool		CheckCollision() const;
 	Collider*	player_collider = nullptr;
 

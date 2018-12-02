@@ -157,6 +157,28 @@ Collider* Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* call
 
 
 // -----------------------------------------------------
+//CORRECTION DOWN
+float Collision::CollisionCorrectionDown(SDL_Rect rect)
+{
+	float closer = 1000.0F;
+	for (int i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] != nullptr && (colliders[i]->type == COLLIDER_ICE || colliders[i]->type == COLLIDER_FIRE))
+		{
+			if (rect.x < colliders[i]->rect.x + colliders[i]->rect.w  && rect.x + rect.w > colliders[i]->rect.x)
+			{
+				float distance = fabs(colliders[i]->rect.y - (rect.y + rect.h));
+				if (closer > distance)
+				{
+					closer = distance + 0.5f;
+				}
+			}
+		}
+
+	}
+	return closer;
+}
+
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
@@ -187,6 +209,8 @@ bool Collision::CheckCollision() const
 				ret = true;
 			}
 		}
+		
+		
 	}
 
 	return ret;

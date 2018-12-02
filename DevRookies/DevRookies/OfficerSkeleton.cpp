@@ -71,6 +71,20 @@ bool OfficerSkeleton::PreUpdate()
 bool OfficerSkeleton::Update(float dt)
 {
 	bool ret = true;
+	speed.y = floor((acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y) * dt);
+	float distance = App->collision->CollisionCorrectionDown(collider->rect);
+	if (distance < speed.y)
+	{
+		speed.y = distance;
+		if (distance <= 1) 
+			speed.y = 0;
+		else 
+			current_movement = DOWN;
+	}
+	else 
+		current_movement = DOWN;
+	
+		
 
 	if (current_movement == IDLE)
 	{
@@ -81,7 +95,7 @@ bool OfficerSkeleton::Update(float dt)
 	else if (current_movement == LEFT)
 	{
 		flipX = false;
-		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * -speed.x;
 		current_animation = &walk;
 	}
 	else if (current_movement == RIGHT)
@@ -90,20 +104,21 @@ bool OfficerSkeleton::Update(float dt)
 		speed.x = acceleration.x * max_speed.x + (1 - acceleration.x) * speed.x;
 		current_animation = &walk;
 	}
-	if (current_state == AIR) {
-		speed.y = acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y;
-	}
-	position.x += floor(speed.x * dt);
-	position.y += floor(speed.y * dt);
+	
+	
+
+	speed.x = floor(speed.x * dt);
+	position += speed;
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
+	current = current_animation->GetCurrentFrame(dt);
 
 	return true;
 }
 
 bool OfficerSkeleton::PostUpdate() 
 {
-	App->render->Blit(skeleton_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+	App->render->Blit(skeleton_tex, position.x, position.y, &current, 1.0f, flipX);
 
 	return true;
 }
@@ -144,12 +159,10 @@ void OfficerSkeleton::OnCollision(Collider * collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER)
 		CleanUp();
-
-	if (collider1->type == COLLIDER_FIRE || collider1->type == COLLIDER_ICE) {
-		current_state = FLOOR;
+	else if (collider1->type == COLLIDER_POISON) {
+		CleanUp();
 	}
-	else
-		current_state = AIR;
+	
 }
 
 bool OfficerSkeleton::LoadAnimation(pugi::xml_node &node, Animation &anim) {
@@ -193,6 +206,5 @@ bool OfficerSkeleton::Restart(uint i)
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
 	flipX = false;
-	current_state = FLOOR;
 	return true;
 }

@@ -79,7 +79,7 @@ bool JrGargoyle::Update(float dt)
 	else if (current_movement == LEFT)
 	{
 		flipX = false;
-		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * speed.x;
+		speed.x = acceleration.x * -max_speed.x + (1 - acceleration.x) * -speed.x;
 		speed.y = 0;
 		current_animation = &fly;
 	}
@@ -93,7 +93,7 @@ bool JrGargoyle::Update(float dt)
 	}
 	else if (current_movement == UP)
 	{
-		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * speed.y;
+		speed.y = acceleration.y * -max_speed.y + (1 - acceleration.y) * -speed.y;
 		speed.x = 0;
 		current_animation = &fly;
 	}
@@ -108,13 +108,13 @@ bool JrGargoyle::Update(float dt)
 	position.y += floor(speed.y * dt);
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
-
+	current = current_animation->GetCurrentFrame(dt);
 	return ret;
 }
 
 bool JrGargoyle::PostUpdate()
 {
-	App->render->Blit(gargoyle_tex, position.x, position.y, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+	App->render->Blit(gargoyle_tex, position.x, position.y, &current, 1.0f, flipX);
 	return true;
 }
 
