@@ -65,11 +65,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	pressed.w = 229;
 	pressed.h = 69;
 
-	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	image = App->guimanager->CreateImage(iPoint(500, 500), normal, nullptr, this);
-	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
-	button = App->guimanager->CreateButton(iPoint(500, 600), normal,hovered,pressed, nullptr, this);
-
 	return ret;
 }
 
@@ -96,6 +91,11 @@ bool Scene::Start()
 		break;
 	}
 	
+	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	image = App->guimanager->CreateImage(iPoint(500, 500), img_rect, App->guimanager->GetAtlas(), this);
+	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
+	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);
+
 	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
