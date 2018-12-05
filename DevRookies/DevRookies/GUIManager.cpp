@@ -12,7 +12,7 @@
 //#include "GUICheckbox.h"
 //#include "GUISlider.h"
 
-
+#include "SDL_ttf/include/SDL_ttf.h"
 #include "Brofiler\Brofiler.h"
 
 GUIManager::GUIManager() : Module()
@@ -28,13 +28,7 @@ bool GUIManager::Awake(pugi::xml_node& conf)
 	LOG("Loading GUI texture");
 	bool ret = true;
 	
-	gui_texture = conf.child("gui").attribute("texture").as_string("");
-	p2List_item<GUIElement*>* tmp = gui_elements.start;
-	while (tmp != nullptr)
-	{
-		tmp->data->Awake(conf);
-		tmp = tmp->next;
-	}
+	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
 	
 	return ret;
 }
@@ -44,13 +38,7 @@ bool GUIManager::Start()
 {
 	bool ret = true;
 
-	texture = App->textures->Load(gui_texture.GetString());
-	p2List_item<GUIElement*>* tmp = gui_elements.start;
-	while (tmp != nullptr)
-	{
-		tmp->data->Start();
-		tmp = tmp->next;
-	}
+	atlas = App->textures->Load(atlas_file_name.GetString());
 
 	return ret;
 }
@@ -61,14 +49,37 @@ bool GUIManager::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateGUI", Profiler::Color::Orange)
 	bool ret = true;
 
-	p2List_item<GUIElement*>* tmp = gui_elements.start;
-	while (tmp != nullptr)
-	{
-		tmp->data->PreUpdate();
-		if (tmp->data->to_delete)
-			DestroyGUIElement(tmp->data);
-		tmp = tmp->next;
+	SDL_Rect rect_mouse;
 
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
+	{
+		//define the rect_mouse
+		rect_mouse.x = tmp->data->position.x - tmp->data->rect.w / 2;
+		rect_mouse.y = tmp->data->position.y - tmp->data->rect.h / 2;
+		rect_mouse.w = tmp->data->rect.w;
+		rect_mouse.h = tmp->data->rect.h;
+
+		//check if the mouse is inside of the rect boundaries AND give a state
+		if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
+		{
+			//tmp->data->hovered = true;
+			if (App->input->GetMouseButtonDown(1)) 
+			{
+				state = GUI_State::PRESSED;
+			}
+			else 
+			{
+				state = GUI_State::HOVERED;
+			}
+		}
+		else
+		{
+			//tmp->data->hovered = false;
+			state = GUI_State::NORMAL;
+		}
 	}
 
 	return ret;
@@ -79,12 +90,16 @@ bool GUIManager::Update(float dt) {
 	BROFILER_CATEGORY("UpdateGUI", Profiler::Color::LemonChiffon)
 	bool ret = true;
 
-	p2List_item<GUIElement*>* tmp = gui_elements.start;
-	while (tmp != nullptr)
+	/*for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
-		tmp->data->Update(dt);
-		tmp = tmp->next;
-	}
+		if (tmp->data->hovered)
+		{
+			if (tmp->data->callback)
+			{
+				
+			}
+		}
+	}*/
 
 	return ret;
 }
@@ -95,15 +110,6 @@ bool GUIManager::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateGUI", Profiler::Color::Purple)
 	bool ret = true;
 
-	p2List_item<GUIElement*>* tmp = gui_elements.start;
-	while (tmp != nullptr)
-	{
-		tmp->data->PostUpdate();
-		if (debug)
-			//tmp->data->DebugDraw();
-		tmp = tmp->next;
-	}
-
 	return ret;
 }
 
@@ -113,12 +119,10 @@ bool GUIManager::CleanUp()
 	LOG("Freeing GUI");
 	bool ret = true;
 
-	App->textures->UnLoad(texture);
 	p2List_item<GUIElement*>* tmp = gui_elements.start;
 	while (tmp != nullptr)
 	{
-		tmp->data->CleanUp();
-		DestroyGUIElement(tmp->data);
+		RELEASE(tmp->data);
 		tmp = tmp->next;
 	}
 	gui_elements.clear();
@@ -126,80 +130,69 @@ bool GUIManager::CleanUp()
 	return ret;
 }
 
+SDL_Texture* GUIManager::GetAtlas()
+{
+	return atlas;
+}
+
+
 void GUIManager::DestroyGUIElement(GUIElement *element) {
 
 	for (int i = 0; i < gui_elements.count(); i++)
 	{
 		if (gui_elements[i] == element) {
-			gui_elements[i]->CleanUp();
 			delete gui_elements[i];
 			gui_elements[i] = nullptr;
 		}
 	}
 }
 
-GUIElement* GUIManager::CreateElement(GUI_Type type, iPoint pos)
+GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture , Module* callback )
 {
-	GUIElement* ret = nullptr;
+	SDL_Texture* tex = nullptr;
 
-	switch (type)
+	if (texture == nullptr)
 	{
-	case GUI_Type::IMAGE:
-		ret = new GUIImage(pos);
-		gui_elements.add(ret);
-		break;
-	case GUI_Type::LABEL:
-		ret = new GUILabel(pos);
-		gui_elements.add(ret);
-		break;
-	case GUI_Type::BUTTON:
-		ret = new GUIButton(pos);
-		gui_elements.add(ret);
-		break;
-	/*case CHECKBOX:
-		ret = new GUICheckBox(pos);
-		gui_elements.add(ret);
-		break;
-
-	case SLIDER:
-		ret = new GUISlider(pos);
-		gui_elements.add(ret);
-		break;*/
+		tex = atlas;
 	}
-	return ret;
-}
+	else
+	{
+		tex = texture;
+	}
 
-GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback)
-{
-	GUIImage* tmp_img = (GUIImage*)App->guimanager->CreateElement(GUI_Type::IMAGE, pos);
-	tmp_img->rect = rect;
+	GUIImage* tmp_img = new GUIImage(pos, rect, texture);
 	tmp_img->callback = callback;
-	//tmp_img->Awake(name);
-	tmp_img->Start();
+	gui_elements.add(tmp_img);
 
 	return tmp_img;
 }
 
-GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, int size, Module* callback)
+GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, Module* callback )
 {
-	GUILabel* tmp_lbl = (GUILabel*)App->guimanager->CreateElement(GUI_Type::LABEL, pos);
-	tmp_lbl->text = text;
+	GUILabel* tmp_lbl = new GUILabel(pos, text, font);
 	tmp_lbl->callback = callback;
-	//tmp_lbl->size = size;
-	//tmp_img->Awake(name);
-	tmp_lbl->Start();
+	gui_elements.add(tmp_lbl);
 
 	return tmp_lbl;
 }
 
 
-GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect rect, Module* callback)
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture , Module* callback )
 {
-	GUIButton* tmp_btn = (GUIButton*)App->guimanager->CreateElement(GUI_Type::BUTTON, pos);
-	tmp_btn->rect = rect;
+	SDL_Texture* tex = nullptr;
+
+	if (texture == nullptr)
+	{
+		tex = atlas;
+	}
+	else
+	{
+		tex = texture;
+	}
+
+	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,texture) ;
 	tmp_btn->callback = callback;
-	//tmp_img->Awake(name);
-	tmp_btn->Start();
+	gui_elements.add(tmp_btn);
 
 	return tmp_btn;
 }

@@ -6,9 +6,10 @@
 #include "Textures.h"
 
 
-GUIElement::GUIElement(GUI_Type type, Module* callback)
+GUIElement::GUIElement(iPoint pos, GUI_Type type, Module* callback)
 {
-
+	this->position = pos;
+	this->callback = callback;
 }
 
 GUIElement::~GUIElement()
@@ -22,6 +23,8 @@ bool GUIElement::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
+	
+
 	return true;
 }
 
@@ -33,7 +36,7 @@ void GUIElement::Draw(SDL_Texture* sprites)
 		{
 		case GUI_Type::IMAGE:
 		case GUI_Type::LABEL:
-			App->render->Blit(texture, screen_position.x, screen_position.y, &rect);
+			//App->render->Blit(texture, screen_position.x, screen_position.y, &rect);
 			break;
 		case GUI_Type::BUTTON:
 		//case SLIDER:

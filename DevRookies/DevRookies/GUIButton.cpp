@@ -3,67 +3,40 @@
 #include "p2Log.h"
 #include "Textures.h"
 #include "Render.h"
+#include "GUIManager.h"
 
 #include "Brofiler\Brofiler.h"
 
 
-GUIButton::GUIButton(iPoint pos) : GUIElement(GUI_Type::BUTTON)
+GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture) : GUIElement(pos, GUI_Type::BUTTON, callback)
 {
+	this->normal = normal;
+	this->hovered = hovered;
+	this->pressed = pressed;
+	this->texture = texture;
 }
 
 GUIButton::~GUIButton()
 {
+
 }
 
-
-bool GUIButton::Awake(pugi::xml_node & conf)
-{
-	bool ret = false;
-
-	pugi::xml_node config = conf.child("GUIImage");
-
-	tex = config.child("texture").child_value();
-
-	return ret;
-}
-
-bool GUIButton::Start()
-{
-	bool ret = false;
-
-	texture = App->textures->Load(tex.GetString());
-
-	return ret;
-}
-
-bool GUIButton::CleanUp()
-{
-	bool ret = false;
-
-	if (texture != nullptr)
-		App->textures->UnLoad(texture);
-	to_delete = true;
-
-	return ret;
-}
-
-bool GUIButton::Update(float dt)
-{
-	bool ret = false;
-
-
-	return ret;
-}
 
 bool GUIButton::PostUpdate()
 {
 	bool ret = false;
 
-	App->render->Blit(texture, position.x, position.y, &rect);
+	switch (App->guimanager->state) {
+	case GUI_State::HOVERED:
+		App->render->Blit(texture, position.x, position.y, &hovered, 0.0f);
+		break;
+	case GUI_State::NORMAL:
+		App->render->Blit(texture, position.x, position.y, &normal, 0.0f);
+		break;
+	case GUI_State::PRESSED:
+		App->render->Blit(texture, position.x, position.y, &pressed, 0.0f);
+		break;
+	}
 
 	return ret;
-}
-
-void GUIButton::PrintText() {
-
 }

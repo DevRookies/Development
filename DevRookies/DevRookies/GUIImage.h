@@ -5,22 +5,11 @@
 
 class GUIImage : public GUIElement
 {
-private:
-	SDL_Rect image;
-
 public:
 
-	GUIImage(iPoint pos);
+	GUIImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture = nullptr);
 	virtual ~GUIImage();
-	bool Awake(pugi::xml_node & conf);
-	bool Start();
-	bool Update(float dt);
 	bool PostUpdate();
-	bool CleanUp();
-
-private:
-	//SDL_Texture *  image_texture = nullptr;
-	//p2SString   gui_image_tex;
 };
 
 #endif //__!GUIIMAGE_H__

@@ -8,19 +8,16 @@
 
 class GUILabel : public GUIElement
 {
-private:
-	Fonts normal_font;
-
-	int size = 0;
-	
 public:
-	GUILabel(iPoint pos);
-	~GUILabel();
-	void SetText(p2SString text);
+	GUILabel(iPoint pos,p2SString text, _TTF_Font* font);
+	virtual ~GUILabel();
 
+	void SetText(p2SString text);
+	bool Draw();
 
 public:
 	p2SString text;
+	_TTF_Font * font = nullptr;
 };
 
 #endif //__GUILABEL_H__

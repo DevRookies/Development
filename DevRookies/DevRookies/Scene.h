@@ -2,6 +2,11 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "GUIManager.h"
+#include "GUIButton.h"
+#include "GUIElement.h"
+#include "GUIImage.h"
+#include "GUILabel.h"
 
 struct SDL_Texture;
 
@@ -53,6 +58,16 @@ private:
 	
 	SDL_Texture*  godmode_tex = nullptr;
 	SDL_Texture*  pause_tex = nullptr;
+
+	GUIImage* image = nullptr;
+	GUILabel* label = nullptr;
+	GUIButton* button = nullptr;
+	
+	SDL_Rect img_rect;
+
+	SDL_Rect normal;
+	SDL_Rect pressed;
+	SDL_Rect hovered;
 };
 
 #endif // __SCENE_H__

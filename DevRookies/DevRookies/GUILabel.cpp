@@ -8,12 +8,10 @@
 #include "Brofiler\Brofiler.h"
 
 
-GUILabel::GUILabel(iPoint pos) : GUIElement(GUI_Type::LABEL)
+GUILabel::GUILabel(iPoint pos, p2SString text, _TTF_Font* font) : GUIElement(pos, GUI_Type::LABEL, callback)
 {
-	int width = 0, height = 0;
-	App->fonts->CalcSize(this->text.GetString(), width, height, App->fonts->default);
-	rect.w = width;
-	rect.h = height;
+	SetText(text);
+	this->font = font;
 }
 
 GUILabel::~GUILabel()
@@ -21,12 +19,22 @@ GUILabel::~GUILabel()
 
 void GUILabel::SetText(p2SString text)
 {
-	App->textures->UnLoad(texture);
-	texture = nullptr;
-	this->text = text;
+	text.create(text.GetString());
 
 	int width = 0, height = 0;
-	App->fonts->CalcSize(this->text.GetString(), width, height, App->fonts->default);
+	App->fonts->CalcSize(text.GetString(), width, height, font);
 	rect.w = width;
 	rect.h = height;
+
+	SDL_Color color = { 255, 255, 255, 255 };
+	texture = App->fonts->Print(text.GetString(), color, font);
+}
+
+bool GUILabel::Draw()
+{
+	bool ret = false;
+
+	App->render->Blit(texture, position.x - rect.w / 2, position.y - rect.h / 2, &rect, 0.0f);
+
+	return ret;
 }

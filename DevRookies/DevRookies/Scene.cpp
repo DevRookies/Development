@@ -30,6 +30,7 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
 	tile_name_scene1 = config.child("tile_name_scene1").child_value();
 	tile_name_scene2 = config.child("tile_name_scene2").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
@@ -41,6 +42,34 @@ bool Scene::Awake(pugi::xml_node& config)
 	pause_texture = config.child("pause_tex").child_value();
 	pause_pos = { config.child("pause_tex").attribute("x").as_float(),  config.child("pause_tex").attribute("y").as_float() };
 	active = true;
+
+
+	//xml this rects!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	img_rect.x = 485;
+	img_rect.y = 829;
+	img_rect.w = 328;
+	img_rect.h = 103;
+
+	normal.x = 0;
+	normal.y = 113;
+	normal.w = 229;
+	normal.h = 69;
+
+	hovered.x = 411;
+	hovered.y = 169;
+	hovered.w = 229;
+	hovered.h = 69;
+
+	pressed.x = 642;
+	pressed.y = 169;
+	pressed.w = 229;
+	pressed.h = 69;
+
+	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	image = App->guimanager->CreateImage(iPoint(500, 500), normal, nullptr, this);
+	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
+	button = App->guimanager->CreateButton(iPoint(500, 600), normal,hovered,pressed, nullptr, this);
+
 	return ret;
 }
 
@@ -200,6 +229,10 @@ bool Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	image->PostUpdate();
+	label->PostUpdate();
+	button->PostUpdate();
 
 	return ret;
 }

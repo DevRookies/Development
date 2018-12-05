@@ -17,33 +17,22 @@ enum class GUI_Type
 	NO_TYPE
 };
 
-
+enum GUI_State
+{
+	NORMAL,
+	PRESSED,
+	HOVERED,
+	NO_STATE
+};
 
 class GUIElement
 {
-protected:
-	enum GUI_State
-	{
-		NORMAL,
-		MOUSE_ENTER,
-		MOUSE_LEAVE,
-		LEFT_MOUSE_PRESSED,
-		LEFT_MOUSE_RELEASED,
-		RIGHT_MOUSE_PRESSED,
-		HOVERED,
-		NO_STATE
-	};
-	
 public:
-	GUIElement(GUI_Type type,Module* callback = nullptr);
+	GUIElement(iPoint pos, GUI_Type type,Module* callback = nullptr);
 	virtual ~GUIElement();
 
-	virtual bool Awake(pugi::xml_node&config) { return true; };
-	virtual bool Start() { return true; };
-	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt);
 	virtual bool PostUpdate() { return true; };
-	virtual bool CleanUp() { return true; };
 	virtual void Draw(SDL_Texture* texture);
 	//virtual void DebugDraw();
 
@@ -60,6 +49,7 @@ public:
 	iPoint		position,screen_position;
 	Module*		callback = nullptr;
 	bool		to_delete = false;
+	bool		hovered = false;
 
 private:
 

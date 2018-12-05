@@ -8,6 +8,9 @@
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
+#include "SDL_ttf/include/SDL_ttf.h"
+
+#define CURSOR_WIDTH 2
 
 
 class GUIElement;
@@ -40,26 +43,26 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
+	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture = nullptr, Module* callback = nullptr);
+	GUILabel* CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, Module* callback = nullptr);
+	GUIButton* CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture = nullptr, Module* callback = nullptr);
 
-	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
-	GUIButton* CreateButton(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
-	GUILabel* CreateLabel(iPoint pos, p2SString text, int size, Module* callback = nullptr);
 	//GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
 	//GUISlider* CreateSlider(iPoint pos, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, Module* callback = nullptr);
 
+	SDL_Texture* GetAtlas();
+
 	GUIElement* GetMouseElement(iPoint pos);
 
+	GUI_State state;
 private:
 
-	GUIElement* CreateElement(GUI_Type type, iPoint pos);
-	//void UpdateElemEvent() const;
-	//bool ManageElemEvent();
+	SDL_Texture * atlas;
+	p2SString atlas_file_name;
+
 	void DestroyGUIElement(GUIElement* element);
 
 	p2List<GUIElement*> gui_elements;
-	SDL_Texture* texture = nullptr;
-	p2SString gui_texture;
 
 	bool debug = false;
 };
