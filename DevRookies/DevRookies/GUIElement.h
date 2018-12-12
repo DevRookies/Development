@@ -37,7 +37,7 @@ public:
 	//virtual void DebugDraw();
 
 	iPoint GetPosition() const;
-	void SetPosition(iPoint pos);
+	//void SetPosition(iPoint pos);
 	SDL_Rect GetRect() const;
 
 
@@ -46,7 +46,8 @@ public:
 	p2SString   tex;
 	GUI_Type	type;
 	SDL_Rect	rect;
-	iPoint		position,screen_position;
+	iPoint		position;
+	//iPoint	screen_position;
 	Module*		callback = nullptr;
 	bool		to_delete = false;
 	bool		hovered = false;

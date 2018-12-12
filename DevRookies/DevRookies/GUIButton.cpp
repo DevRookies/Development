@@ -10,6 +10,9 @@
 
 GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture) : GUIElement(pos, GUI_Type::BUTTON, callback)
 {
+	rect = normal;
+	rect.x = position.x;
+	rect.y = position.y;
 	this->normal = normal;
 	this->hovered = hovered;
 	this->pressed = pressed;
@@ -37,6 +40,6 @@ bool GUIButton::PostUpdate()
 		App->render->Blit(texture, position.x, position.y, &pressed, 0.0f);
 		break;
 	}
-
+	App->render->DrawQuad(rect, 255, 0, 0,100,true,false);
 	return ret;
 }
