@@ -59,18 +59,44 @@ private:
 	SDL_Texture*  godmode_tex = nullptr;
 	SDL_Texture*  pause_tex = nullptr;
 
-	GUIImage* image = nullptr;
-	GUIImage* image2 = nullptr;
+	//----------------------------------------------------------------------------------------
+	//------------------------------GUI-------------------------------------------------------
+	//----------------------------------------------------------------------------------------
 
-	GUILabel* label = nullptr;
-	GUIButton* button = nullptr;
+	//--------------------------GUIElements---------------------------------------------------
+	GUIImage* windows_img = nullptr;
+
+	GUIButton* play_btn = nullptr;
+	GUIButton* continue_btn = nullptr;
+	GUIButton* settings_btn = nullptr;
+	GUIButton* credits_btn = nullptr;
+	GUIButton* exit_btn = nullptr;
+
+	//GUILabel* label = nullptr;
 	
-	SDL_Rect img_rect;
-	SDL_Rect img2_rect;
+	//--------------------------GUIRects---------------------------------------------------
 
-	SDL_Rect normal;
-	SDL_Rect pressed;
-	SDL_Rect hovered;
+	SDL_Rect windows_rect;
+
+	SDL_Rect play_normal;
+	SDL_Rect play_pressed;
+	SDL_Rect play_hovered;
+
+	SDL_Rect continue_normal;
+	SDL_Rect continue_pressed;
+	SDL_Rect continue_hovered;
+
+	SDL_Rect settings_normal;
+	SDL_Rect settings_pressed;
+	SDL_Rect settings_hovered;
+
+	SDL_Rect credits_normal;
+	SDL_Rect credits_pressed;
+	SDL_Rect credits_hovered;
+
+	SDL_Rect exit_normal;
+	SDL_Rect exit_pressed;
+	SDL_Rect exit_hovered;
 };
 
 #endif // __SCENE_H__

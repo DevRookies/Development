@@ -46,30 +46,85 @@ bool Scene::Awake(pugi::xml_node& config)
 
 
 	//xml this rects!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	img_rect.x = 4;
-	img_rect.y = 120;
-	img_rect.w = 115;
-	img_rect.h = 114;
+	windows_rect.x = 11;
+	windows_rect.y = 962;
+	windows_rect.w = 681;
+	windows_rect.h = 453;
 
-	img2_rect.x = 11;
-	img2_rect.y = 962;
-	img2_rect.w = 681;
-	img2_rect.h = 453;
+	play_normal.x = 255;
+	play_normal.y = 120;
+	play_normal.w = 115;
+	play_normal.h = 114;
 
-	//normal.x = 0;
-	//normal.y = 113;
-	//normal.w = 229;
-	//normal.h = 69;
+	play_hovered.x = 4;
+	play_hovered.y = 120;
+	play_hovered.w = 115;
+	play_hovered.h = 114;
 
-	//hovered.x = 411;
-	//hovered.y = 169;
-	//hovered.w = 229;
-	//hovered.h = 69;
+	play_pressed.x = 129;
+	play_pressed.y = 120;
+	play_pressed.w = 116;
+	play_pressed.h = 114;
 
-	//pressed.x = 642;
-	//pressed.y = 169;
-	//pressed.w = 229;
-	//pressed.h = 69;
+	continue_normal.x = 254;
+	continue_normal.y = 238;
+	continue_normal.w = 116;
+	continue_normal.h = 114;
+
+	continue_hovered.x = 4;
+	continue_hovered.y = 238;
+	continue_hovered.w = 114;
+	continue_hovered.h = 113;
+
+	continue_pressed.x = 128;
+	continue_pressed.y = 238;
+	continue_pressed.w = 116;
+	continue_pressed.h = 113;
+
+	settings_normal.x = 254;
+	settings_normal.y = 354;
+	settings_normal.w = 116;
+	settings_normal.h = 113;
+
+	settings_hovered.x = 4;
+	settings_hovered.y = 354;
+	settings_hovered.w = 114;
+	settings_hovered.h = 113;
+
+	settings_pressed.x = 128;
+	settings_pressed.y = 354;
+	settings_pressed.w = 116;
+	settings_pressed.h = 113;
+
+	credits_normal.x = 254;
+	credits_normal.y = 472;
+	credits_normal.w = 116;
+	credits_normal.h = 114;
+
+	credits_hovered.x = 4;
+	credits_hovered.y = 472;
+	credits_hovered.w = 114;
+	credits_hovered.h = 114;
+
+	credits_pressed.x = 128;
+	credits_pressed.y = 472;
+	credits_pressed.w = 116;
+	credits_pressed.h = 114;
+
+	exit_normal.x = 254;
+	exit_normal.y = 593;
+	exit_normal.w = 116;
+	exit_normal.h = 113;
+
+	exit_hovered.x = 4;
+	exit_hovered.y = 593;
+	exit_hovered.w = 114;
+	exit_hovered.h = 113;
+
+	exit_pressed.x = 128;
+	exit_pressed.y = 593;
+	exit_pressed.w = 116;
+	exit_pressed.h = 113;
 
 	return ret;
 }
@@ -102,14 +157,19 @@ bool Scene::Start()
 		break;
 	}
 	
-	/*_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	image2 = App->guimanager->CreateImage(iPoint(230, 230), img2_rect, App->guimanager->GetAtlas(), this);
-	image = App->guimanager->CreateImage(iPoint(250, 250), img_rect, App->guimanager->GetAtlas(), this);
+	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
 
+	//if (scene_actual = 0) {
+		windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, App->guimanager->GetAtlas(), this);
 
-	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
-	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);*/
-
+		play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, App->guimanager->GetAtlas(), this);
+		continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, App->guimanager->GetAtlas(), this);
+		settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, App->guimanager->GetAtlas(), this);
+		credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, App->guimanager->GetAtlas(), this);
+		exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, App->guimanager->GetAtlas(), this);
+	
+	
 	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
