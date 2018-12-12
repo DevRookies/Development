@@ -143,9 +143,7 @@ bool Scene::Start()
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
 		App->entitymanager->player->Restart(FIRE);
-		int width, height;
-		if (App->map->CreateWalkabilityMap(width, height, &data))
-			App->pathfinding->SetMap(width, height, data);
+		
 		break;
 	case 2:
 		App->map->Load(tile_name_scene2.GetString());
@@ -160,7 +158,7 @@ bool Scene::Start()
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
 
-	//if (scene_actual = 0) {
+	if (scene_actual == 0) {
 		windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, App->guimanager->GetAtlas(), this);
 
 		play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, App->guimanager->GetAtlas(), this);
@@ -168,7 +166,11 @@ bool Scene::Start()
 		settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, App->guimanager->GetAtlas(), this);
 		credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, App->guimanager->GetAtlas(), this);
 		exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, App->guimanager->GetAtlas(), this);
+	}
 	
+	int width, height;
+	if (App->map->CreateWalkabilityMap(width, height, &data))
+		App->pathfinding->SetMap(width, height, data);
 	
 	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);

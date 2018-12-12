@@ -218,7 +218,7 @@ void Player::OnCollision(Collider * collider1)
 			else
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 		
-		if (App->render->camera.x <= -position.x) {
+		if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
 			Die();
 		}
 	}
