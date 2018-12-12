@@ -49,6 +49,9 @@ bool GUIManager::PreUpdate()
 	BROFILER_CATEGORY("PreUpdateGUI", Profiler::Color::Orange)
 	bool ret = true;
 
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		debug = !debug;
+
 	SDL_Rect rect_mouse;
 
 	int x, y;
@@ -102,6 +105,16 @@ bool GUIManager::PostUpdate()
 	while (tmp != nullptr)
 	{
 		tmp->data->PostUpdate();
+		if (debug) {
+			SDL_Rect rect;
+			rect.x = tmp->data->position.x;
+			rect.y = tmp->data->position.y;
+			rect.w = tmp->data->rect.w;
+			rect.h = tmp->data->rect.h;
+
+			tmp->data->position;
+			App->render->DrawQuad(rect, 255, 0, 255, 100, true, false);
+		}
 		tmp = tmp->next;
 	}
 

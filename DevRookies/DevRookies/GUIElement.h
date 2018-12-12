@@ -31,9 +31,8 @@ public:
 	GUIElement(iPoint pos, GUI_Type type,Module* callback = nullptr);
 	virtual ~GUIElement();
 
-	virtual bool Update(float dt);
+	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
-	virtual void Draw(SDL_Texture* texture);
 
 	iPoint GetPosition() const;
 	SDL_Rect GetRect() const;
@@ -47,10 +46,6 @@ public:
 	iPoint		position;
 	Module*		callback = nullptr;
 	GUI_State	state;
-
-private:
-
-	bool debug = false;
 	
 };
 

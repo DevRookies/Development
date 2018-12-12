@@ -18,19 +18,6 @@ GUIElement::~GUIElement()
 	texture = nullptr;
 }
 
-bool GUIElement::Update(float dt) 
-{
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		debug = !debug;
-
-	return true;
-}
-
-void GUIElement::Draw(SDL_Texture* sprites)
-{
-	//debug draw
-}
-
 iPoint GUIElement::GetPosition() const
 {
 	return this->position;

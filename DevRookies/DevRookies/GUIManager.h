@@ -61,6 +61,8 @@ private:
 	void DestroyGUIElement(GUIElement* element);
 
 	p2List<GUIElement*> gui_elements;
+
+	bool debug = false;
 };
 
 #endif // __!GUIMANAGER_H__

@@ -40,6 +40,5 @@ bool GUIButton::PostUpdate()
 		App->render->Blit(texture, position.x, position.y, &pressed, 0.0f);
 		break;
 	}
-	App->render->DrawQuad(rect, 255, 0, 0,100,true,false);
 	return ret;
 }
