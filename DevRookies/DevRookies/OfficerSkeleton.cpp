@@ -148,8 +148,9 @@ bool OfficerSkeleton::Save(pugi::xml_node& node) const
 
 void OfficerSkeleton::OnCollision(Collider * collider1, Collider* collider2)
 {
-	if (collider1->type == COLLIDER_PLAYER)
+	if (collider1->type == COLLIDER_PLAYER) {
 		CleanUp();
+	}
 	else if (collider1->type == COLLIDER_POISON) {
 		CleanUp();
 	}
