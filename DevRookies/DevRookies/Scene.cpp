@@ -100,13 +100,13 @@ bool Scene::Start()
 		break;
 	}
 	
-	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	/*_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	image2 = App->guimanager->CreateImage(iPoint(230, 230), img2_rect, App->guimanager->GetAtlas(), this);
 	image = App->guimanager->CreateImage(iPoint(250, 250), img_rect, App->guimanager->GetAtlas(), this);
 
 
 	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
-	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);
+	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);*/
 
 	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
@@ -158,7 +158,7 @@ bool Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
 		scene_actual = 1;
-		App->scenemanager->FadeToBlack();
+		Restart();
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -167,7 +167,7 @@ bool Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		scene_actual = 2;
-		App->scenemanager->FadeToBlack();
+		Restart();
 	}
 		
 
@@ -250,7 +250,15 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	App->map->CleanUp();
+	App->entitymanager->player->CleanUp();
+	p2List_item<Entity*>* tmp = App->entitymanager->entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->CleanUp();
+		tmp = tmp->next;
+	}
 	App->collision->CleanUp();
+
 
 	App->textures->UnLoad(debug_tex);
 	debug_tex = nullptr;
@@ -288,6 +296,13 @@ void Scene::Restart() const
 {
 	App->scenemanager->FadeToBlack(scene_actual);
 	App->entitymanager->player->visibility = false;
+	p2List_item<Entity*>* tmp = App->entitymanager->entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->visibility = false;
+		tmp = tmp->next;
+	}
+	
 }
 
 

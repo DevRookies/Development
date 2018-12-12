@@ -88,7 +88,7 @@ bool Player::Start(uint i)
 	App->audio->LoadFx(dash_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
-	texture = App->textures->Load(player_texture.GetString());
+	
 	
 	return true;
 }
@@ -113,8 +113,8 @@ bool Player::Update(float dt)
 	
 
 	speed.y = floor(speed.y * dt);
-	float distance = App->collision->CollisionCorrectionDown(collider->rect);
-	if (distance < speed.y)
+	float distance = App->collision->CollisionCorrectionDown(collider->rect) + 0.5f;
+	if (distance <= speed.y)
 	{
 		speed.y = distance;
 	}
@@ -245,14 +245,17 @@ bool Player::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 void Player::PreMove() {
 
-	if (App->collision->CheckCollision()) {
-		if (current_state != DEATH)
-			current_state = FLOOR;
-	}
-	else
-		current_state = AIR;
+	
 
 	if (current_animation->GetCurrentFrameIndex() == 11 || (current_animation != &hitfire && current_animation != &hitice)) {
+		
+		if (App->collision->CheckCollision()) {
+			if (current_state != DEATH)
+				current_state = FLOOR;
+		}
+		else
+			current_state = AIR;
+
 		current_movement = IDLE;
 		current_godmove = IDLEGOD;
 
@@ -295,11 +298,15 @@ void Player::PreMove() {
 				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && flipX) {
 					current_movement = LEFT_HIT;
 					AddFX(2, 0);
+					hitfire.setCurrentFrameIndex(0);
+					hitice.setCurrentFrameIndex(0);
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && !flipX) {
 					current_movement = RIGHT_HIT;
 					AddFX(2, 0);
+					hitfire.setCurrentFrameIndex(0);
+					hitice.setCurrentFrameIndex(0);
 				}
 			}
 			
@@ -478,6 +485,7 @@ void Player::Win() {
 
 void Player::Restart(ELEMENT element)
 {
+	texture = App->textures->Load(player_texture.GetString());
 	current_state = FLOOR;
 	current_movement = IDLE;
 	current_element = element;
