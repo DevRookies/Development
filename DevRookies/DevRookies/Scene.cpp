@@ -51,6 +51,36 @@ bool Scene::Awake(pugi::xml_node& config)
 	windows_rect.w = 681;
 	windows_rect.h = 453;
 
+	title_rect.x = 560;
+	title_rect.y = 1456;
+	title_rect.w = 518;
+	title_rect.h = 134;
+
+	license_rect.x = 10;
+	license_rect.y = 1470;
+	license_rect.w = 447;
+	license_rect.h = 268;
+
+	music_rect.x = 769;
+	music_rect.y = 358;
+	music_rect.w = 115;
+	music_rect.h = 113;
+
+	fx_rect.x = 769;
+	fx_rect.y = 239;
+	fx_rect.w = 115;
+	fx_rect.h = 114;
+
+	minus_rect.x = 599;
+	minus_rect.y = 518;
+	minus_rect.w = 33;
+	minus_rect.h = 32;
+
+	plus_rect.x = 599;
+	plus_rect.y = 485;
+	plus_rect.w = 33;
+	plus_rect.h = 32;
+
 	play_normal.x = 255;
 	play_normal.y = 120;
 	play_normal.w = 115;
@@ -156,9 +186,19 @@ bool Scene::Start()
 	}
 
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
+	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
 
+	/*settings_img = App->guimanager->CreateImage(iPoint(310, 187), settings_normal, App->guimanager->GetAtlas(), this);
+	credits_img = App->guimanager->CreateImage(iPoint(310, 187), credits_normal, App->guimanager->GetAtlas(), this);*/
+	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, App->guimanager->GetAtlas(), this);
 	windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, App->guimanager->GetAtlas(), this);
+	//license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect, App->guimanager->GetAtlas(), this);
+	//music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, App->guimanager->GetAtlas(), this);
+	//fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, App->guimanager->GetAtlas(), this);
+	//minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, App->guimanager->GetAtlas(), this);
+	//plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect, App->guimanager->GetAtlas(), this);
+	//minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect, App->guimanager->GetAtlas(), this);
+	//plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect, App->guimanager->GetAtlas(), this);
 
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, App->guimanager->GetAtlas(), this);
 	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, App->guimanager->GetAtlas(), this);
@@ -219,7 +259,7 @@ bool Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::GoldenRod);
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN ) {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || play_btn->state == PRESSED) {
 		scene_actual = 1;
 		Restart();
 	}
@@ -237,7 +277,7 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN || continue_btn->state == PRESSED)
 		App->LoadGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
@@ -249,6 +289,10 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
 	
+	//if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)            //IN GAME MENU
+	//{
+	//	//pause
+	//}
 
 	App->map->Draw(dt);
 
@@ -302,7 +346,7 @@ bool Scene::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateScene", Profiler::Color::Purple);
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if(exit_btn->state == PRESSED)
 		ret = false;
 
 	return ret;

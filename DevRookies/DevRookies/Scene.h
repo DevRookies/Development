@@ -65,6 +65,16 @@ private:
 
 	//--------------------------GUIElements---------------------------------------------------
 	GUIImage* windows_img = nullptr;
+	GUIImage* title_img = nullptr;
+	GUIImage* settings_img = nullptr;
+	GUIImage* credits_img = nullptr;
+	GUIImage* license_img = nullptr;
+	GUIImage* music_img = nullptr;
+	GUIImage* fx_img = nullptr;
+	GUIImage* minus_music_img = nullptr;
+	GUIImage* plus_music_img = nullptr;
+	GUIImage* minus_fx_img = nullptr;
+	GUIImage* plus_fx_img = nullptr;
 
 	GUIButton* play_btn = nullptr;
 	GUIButton* continue_btn = nullptr;
@@ -77,6 +87,12 @@ private:
 	//--------------------------GUIRects---------------------------------------------------
 
 	SDL_Rect windows_rect;
+	SDL_Rect title_rect;
+	SDL_Rect license_rect;
+	SDL_Rect music_rect;
+	SDL_Rect fx_rect;
+	SDL_Rect minus_rect;
+	SDL_Rect plus_rect;
 
 	SDL_Rect play_normal;
 	SDL_Rect play_pressed;
