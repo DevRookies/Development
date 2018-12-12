@@ -82,6 +82,7 @@ bool Scene::Start()
 	{
 	case 0:
 		App->map->Load(tile_name_scene0.GetString());
+		App->entitymanager->player->Restart(FIRE);
 		break;
 	case 1:
 		App->map->Load(tile_name_scene1.GetString());
@@ -90,13 +91,12 @@ bool Scene::Start()
 		int width, height;
 		if (App->map->CreateWalkabilityMap(width, height, &data))
 			App->pathfinding->SetMap(width, height, data);
-		App->entitymanager->Restart();
 		break;
 	case 2:
 		App->map->Load(tile_name_scene2.GetString());
 		App->audio->PlayMusic(lvl2_music_name.GetString());
 		App->entitymanager->player->Restart(ICE);
-		App->entitymanager->Restart();
+		
 		break;
 	default:
 		break;
@@ -110,7 +110,7 @@ bool Scene::Start()
 	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
 	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);*/
 
-	
+	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
 
