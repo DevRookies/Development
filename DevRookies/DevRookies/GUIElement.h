@@ -34,10 +34,8 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate() { return true; };
 	virtual void Draw(SDL_Texture* texture);
-	//virtual void DebugDraw();
 
 	iPoint GetPosition() const;
-	//void SetPosition(iPoint pos);
 	SDL_Rect GetRect() const;
 
 
@@ -47,11 +45,8 @@ public:
 	GUI_Type	type;
 	SDL_Rect	rect;
 	iPoint		position;
-	//iPoint	screen_position;
 	Module*		callback = nullptr;
-	bool		to_delete = false;
-	bool		hovered = false;
-	GUI_State state;
+	GUI_State	state;
 
 private:
 

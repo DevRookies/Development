@@ -36,32 +36,7 @@ iPoint GUIElement::GetPosition() const
 	return this->position;
 }
 
-/*void GUIElement::SetPosition(iPoint pos) 
-{
-	this->screen_position = iPoint(pos);
-}*/
-
 SDL_Rect GUIElement::GetRect() const 
 {
 	return rect;
 }
-
-//iPoint GUIElement::GetLocalPosition() const
-//{
-//	return this->local_position;
-//}
-//
-//iPoint GUIElement::GetScreenPosition() const
-//{
-//	return this->screen_position;
-//}
-//
-//void GUIElement::SetLocalPosition(iPoint pos) 
-//{
-//	this->local_position = iPoint(pos);
-//}
-//
-//void GUIElement::SetScreenPosition(iPoint pos) 
-//{
-//	this->screen_position = iPoint(pos);
-//}

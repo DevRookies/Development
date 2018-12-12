@@ -68,7 +68,7 @@ bool GUIManager::PreUpdate()
 			//tmp->data->hovered = true;
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT)== KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				//state = GUI_State::PRESSED;
+				tmp->data->state = GUI_State::PRESSED;
 			}
 			else 
 			{
@@ -77,8 +77,7 @@ bool GUIManager::PreUpdate()
 		}
 		else
 		{
-			//tmp->data->hovered = false;
-			//state = GUI_State::NORMAL;
+			tmp->data->state = GUI_State::NORMAL;
 		}
 	}
 
@@ -89,17 +88,6 @@ bool GUIManager::Update(float dt) {
 
 	BROFILER_CATEGORY("UpdateGUI", Profiler::Color::LemonChiffon)
 	bool ret = true;
-
-	/*for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
-	{
-		if (tmp->data->hovered)
-		{
-			if (tmp->data->callback)
-			{
-				
-			}
-		}
-	}*/
 
 	return ret;
 }
@@ -215,20 +203,3 @@ GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovere
 //	return nullptr;
 //}
 //
-
-GUIElement* GUIManager::GetMouseElement(iPoint pos)
-{
-
-	for (int i = 0; i < gui_elements.count(); i++) {
-		if (gui_elements[i] != nullptr)
-		{
-			if ((pos.x > gui_elements[i]->GetPosition().x && pos.x < gui_elements[i]->GetPosition().x + gui_elements[i]->GetRect().w) && (pos.y > gui_elements[i]->GetPosition().y && pos.y < gui_elements[i]->GetPosition().y + gui_elements[i]->GetRect().h))
-			{
-				GUIElement* tmp_returnable_element = gui_elements[i];
-				return tmp_returnable_element;
-			}
-		}
-	}
-	
-	return nullptr;
-}
