@@ -45,11 +45,11 @@ public:
 	//Restart scene
 	void Restart() const;
 
-	uint			scene_actual = 1;
+	uint			scene_actual = 0;
 	SDL_Texture*	 debug_tex = nullptr;
 private:
 
-	p2SString		tile_name_scene1 = "", tile_name_scene2 = "";
+	p2SString		tile_name_scene0 = "", tile_name_scene1 = "", tile_name_scene2 = "";
 	p2SString		lvl1_music_name = "", lvl2_music_name = ""; 
 	p2SString		godmode_texture = "", pause_texture = "";
 	SDL_Rect		camera;

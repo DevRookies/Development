@@ -36,6 +36,7 @@
   </map>
   
   <scene>
+    <tile_name_scene0>platforms0.tmx</tile_name_scene0>
     <tile_name_scene1>platforms1.tmx</tile_name_scene1>
 	  <lvl1_music_name>spaghetti_guitar_in_space.ogg</lvl1_music_name>
     <tile_name_scene2>platforms2.tmx</tile_name_scene2>

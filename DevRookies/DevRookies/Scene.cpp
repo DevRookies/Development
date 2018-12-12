@@ -31,6 +31,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	tile_name_scene0 = config.child("tile_name_scene0").child_value();
 	tile_name_scene1 = config.child("tile_name_scene1").child_value();
 	tile_name_scene2 = config.child("tile_name_scene2").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
@@ -79,6 +80,9 @@ bool Scene::Start()
 	uchar* data = nullptr;
 	switch (scene_actual)
 	{
+	case 0:
+		App->map->Load(tile_name_scene0.GetString());
+		break;
 	case 1:
 		App->map->Load(tile_name_scene1.GetString());
 		App->audio->PlayMusic(lvl1_music_name.GetString());
