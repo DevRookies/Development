@@ -95,7 +95,7 @@
           <frame x="2070" y="384" width="60" height="63"/>
           <frame x="2009" y="384" width="60" height="63"/>
         </die_fire>
-        <hit_fire speed="5.8F" loop ="true">
+        <hit_fire speed="16.8F" loop ="true">
           <frame x="1134" y="246" width="68" height="51"/>
           <frame x="1205" y="237" width="73" height="62"/>
           <frame x="1284" y="233" width="81" height="71"/>
@@ -134,7 +134,7 @@
           <frame x="1834" y="384" width="60" height="63"/>
           <frame x="1773" y="384" width="60" height="63"/>
         </die_ice>
-        <hit_ice speed="5.8F" loop ="true">
+        <hit_ice speed="16.8F" loop ="true">
           <frame x="0" y="251" width="68" height="51"/>
           <frame x="73" y="243" width="73" height="62"/>
           <frame x="152" y="236" width="81" height="71"/>

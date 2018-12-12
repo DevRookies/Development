@@ -45,7 +45,6 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 
 bool OfficerSkeleton::Start(uint i)
 {
-	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
 	return true;
 }
 
@@ -73,19 +72,13 @@ bool OfficerSkeleton::Update(float dt)
 	bool ret = true;
 	speed.y = floor((acceleration.y * max_speed.y + (1 - acceleration.y) * speed.y) * dt);
 	float distance = App->collision->CollisionCorrectionDown(collider->rect);
-	if (distance < speed.y)
+	if (distance <= speed.y)
 	{
 		speed.y = distance;
-		if (distance <= 1) 
-			speed.y = 0;
-		else 
-			current_movement = DOWN;
 	}
 	else 
 		current_movement = DOWN;
 	
-		
-
 	if (current_movement == IDLE)
 	{
 		speed.x = 0;
@@ -105,8 +98,6 @@ bool OfficerSkeleton::Update(float dt)
 		current_animation = &walk;
 	}
 	
-	
-
 	speed.x = floor(speed.x * dt);
 	position += speed;
 	collider->rect.x = position.x;
@@ -118,7 +109,8 @@ bool OfficerSkeleton::Update(float dt)
 
 bool OfficerSkeleton::PostUpdate() 
 {
-	App->render->Blit(skeleton_tex, position.x, position.y, &current, 1.0f, flipX);
+	if(visibility)
+		App->render->Blit(skeleton_tex, position.x, position.y, &current, 1.0f, flipX);
 
 	return true;
 }
@@ -151,7 +143,6 @@ bool OfficerSkeleton::Save(pugi::xml_node& node) const
 		pos.append_attribute("y") = position.y;
 	}
 		
-
 	return ret;
 }
 
@@ -188,7 +179,8 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 				iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+				if(visibility)
+					App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 			}
 			if (position.x > pos.x)
 				current_movement = LEFT;
@@ -206,5 +198,6 @@ bool OfficerSkeleton::Restart(uint i)
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
 	flipX = false;
+	visibility = true;
 	return true;
 }

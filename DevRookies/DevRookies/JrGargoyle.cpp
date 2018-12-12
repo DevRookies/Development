@@ -44,7 +44,6 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 
 bool JrGargoyle::Start(uint i)
 {
-	gargoyle_tex = App->textures->Load(gargoyle_texture.GetString());
 	return true;
 }
 
@@ -114,7 +113,8 @@ bool JrGargoyle::Update(float dt)
 
 bool JrGargoyle::PostUpdate()
 {
-	App->render->Blit(gargoyle_tex, position.x, position.y, &current, 1.0f, flipX);
+	if (visibility)
+		App->render->Blit(gargoyle_tex, position.x, position.y, &current, 1.0f, flipX);
 	return true;
 }
 
@@ -177,7 +177,8 @@ void JrGargoyle::Fly(const p2DynArray<iPoint> *path)
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 				iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+				if (visibility)
+					App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 			}
 			if (position.x > pos.x)
 				current_movement = LEFT;
@@ -198,5 +199,6 @@ bool JrGargoyle::Restart(uint i)
 	position = App->map->init_JrGargoyle_position.At(i - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,60,80 }, COLLIDER_ENEMY, App->entitymanager);
 	flipX = false;
+	visibility = true;
 	return true;
 }

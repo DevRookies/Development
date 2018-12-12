@@ -59,6 +59,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	SDL_Rect	current;
 	bool flipX = false;
+	bool visibility = true;
 
 };
 

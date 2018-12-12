@@ -165,14 +165,17 @@ float Collision::CollisionCorrectionDown(SDL_Rect rect)
 	{
 		if (colliders[i] != nullptr && (colliders[i]->type == COLLIDER_ICE || colliders[i]->type == COLLIDER_FIRE))
 		{
-			if (rect.x < colliders[i]->rect.x + colliders[i]->rect.w  && rect.x + rect.w > colliders[i]->rect.x)
-			{
-				float distance = fabs(colliders[i]->rect.y - (rect.y + rect.h));
-				if (closer > distance)
+			if (colliders[i]->rect.y >= rect.y + rect.h) {
+				if (rect.x < colliders[i]->rect.x + colliders[i]->rect.w  && rect.x + rect.w > colliders[i]->rect.x)
 				{
-					closer = distance + 0.5f;
+					float distance = fabs(colliders[i]->rect.y - (rect.y + rect.h));
+					if (closer > distance)
+					{
+						closer = distance;
+					}
 				}
 			}
+			
 		}
 
 	}
