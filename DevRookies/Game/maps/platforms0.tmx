@@ -4905,11 +4905,11 @@
   <object id="417" name="1" x="646" y="180" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="12" name="EnemySkeleton">
-  <object id="395" name="2" x="221" y="384" width="32" height="32"/>
-  <object id="418" name="2" x="1096" y="243" width="32" height="32"/>
-  <object id="419" name="2" x="1000" y="298" width="32" height="32"/>
-  <object id="420" name="2" x="906" y="381" width="32" height="32"/>
-  <object id="421" name="2" x="310" y="449" width="32" height="32"/>
-  <object id="422" name="2" x="76" y="262" width="32" height="32"/>
+  <object id="395" name="2" x="1241" y="112" width="32" height="32"/>
+  <object id="418" name="2" x="1240" y="215" width="32" height="32"/>
+  <object id="419" name="2" x="1243" y="323" width="32" height="32"/>
+  <object id="420" name="2" x="1243" y="424" width="32" height="32"/>
+  <object id="421" name="2" x="1241" y="518" width="32" height="32"/>
+  <object id="422" name="2" x="1240" y="635" width="32" height="32"/>
  </objectgroup>
 </map>
