@@ -45,25 +45,30 @@ bool Scene::Awake(pugi::xml_node& config)
 
 
 	//xml this rects!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	img_rect.x = 485;
-	img_rect.y = 829;
-	img_rect.w = 328;
-	img_rect.h = 103;
+	img_rect.x = 4;
+	img_rect.y = 120;
+	img_rect.w = 115;
+	img_rect.h = 114;
 
-	normal.x = 0;
-	normal.y = 113;
-	normal.w = 229;
-	normal.h = 69;
+	img2_rect.x = 11;
+	img2_rect.y = 962;
+	img2_rect.w = 681;
+	img2_rect.h = 453;
 
-	hovered.x = 411;
-	hovered.y = 169;
-	hovered.w = 229;
-	hovered.h = 69;
+	//normal.x = 0;
+	//normal.y = 113;
+	//normal.w = 229;
+	//normal.h = 69;
 
-	pressed.x = 642;
-	pressed.y = 169;
-	pressed.w = 229;
-	pressed.h = 69;
+	//hovered.x = 411;
+	//hovered.y = 169;
+	//hovered.w = 229;
+	//hovered.h = 69;
+
+	//pressed.x = 642;
+	//pressed.y = 169;
+	//pressed.w = 229;
+	//pressed.h = 69;
 
 	return ret;
 }
@@ -92,7 +97,10 @@ bool Scene::Start()
 	}
 	
 	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	image = App->guimanager->CreateImage(iPoint(500, 500), img_rect, App->guimanager->GetAtlas(), this);
+	image2 = App->guimanager->CreateImage(iPoint(230, 230), img2_rect, App->guimanager->GetAtlas(), this);
+	image = App->guimanager->CreateImage(iPoint(250, 250), img_rect, App->guimanager->GetAtlas(), this);
+
+
 	label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Hello World"), font, this);
 	button = App->guimanager->CreateButton(iPoint(500, 600), normal, hovered, pressed, App->guimanager->GetAtlas(), this);
 
@@ -229,10 +237,6 @@ bool Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
-	image->PostUpdate();
-	label->PostUpdate();
-	button->PostUpdate();
 
 	return ret;
 }

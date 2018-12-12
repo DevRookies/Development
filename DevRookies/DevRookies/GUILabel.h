@@ -13,7 +13,7 @@ public:
 	virtual ~GUILabel();
 
 	void SetText(p2SString text);
-	bool Draw();
+	bool PostUpdate();
 
 public:
 	p2SString text;

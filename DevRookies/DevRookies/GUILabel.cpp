@@ -30,7 +30,7 @@ void GUILabel::SetText(p2SString text)
 	texture = App->fonts->Print(text.GetString(), color, font);
 }
 
-bool GUILabel::Draw()
+bool GUILabel::PostUpdate()
 {
 	bool ret = false;
 

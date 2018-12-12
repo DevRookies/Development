@@ -57,8 +57,8 @@ bool GUIManager::PreUpdate()
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
 		//define the rect_mouse
-		rect_mouse.x = tmp->data->position.x - tmp->data->rect.w / 2;
-		rect_mouse.y = tmp->data->position.y - tmp->data->rect.h / 2;
+		rect_mouse.x = tmp->data->position.x;
+		rect_mouse.y = tmp->data->position.y;
 		rect_mouse.w = tmp->data->rect.w;
 		rect_mouse.h = tmp->data->rect.h;
 
@@ -66,7 +66,7 @@ bool GUIManager::PreUpdate()
 		if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
 		{
 			//tmp->data->hovered = true;
-			if (App->input->GetMouseButtonDown(1)) 
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT)== KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
 				state = GUI_State::PRESSED;
 			}
@@ -109,6 +109,13 @@ bool GUIManager::PostUpdate()
 {
 	BROFILER_CATEGORY("PostUpdateGUI", Profiler::Color::Purple)
 	bool ret = true;
+
+	p2List_item<GUIElement*>* tmp = gui_elements.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->PostUpdate();
+		tmp = tmp->next;
+	}
 
 	return ret;
 }

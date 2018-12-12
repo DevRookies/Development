@@ -60,10 +60,13 @@ private:
 	SDL_Texture*  pause_tex = nullptr;
 
 	GUIImage* image = nullptr;
+	GUIImage* image2 = nullptr;
+
 	GUILabel* label = nullptr;
 	GUIButton* button = nullptr;
 	
 	SDL_Rect img_rect;
+	SDL_Rect img2_rect;
 
 	SDL_Rect normal;
 	SDL_Rect pressed;
