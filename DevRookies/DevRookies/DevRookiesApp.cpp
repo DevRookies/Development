@@ -46,14 +46,14 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(textures);
 	AddModule(audio);
-	AddModule(map);
-	AddModule(guimanager);
 	AddModule(fonts);
-	AddModule(scene);
+	AddModule(map);
 	AddModule(scenemanager);
-	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(entitymanager);
+	AddModule(collision);
+	AddModule(guimanager);
+	AddModule(scene);
 
 
 	// render last to swap buffer
