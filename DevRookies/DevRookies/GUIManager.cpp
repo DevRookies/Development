@@ -68,17 +68,17 @@ bool GUIManager::PreUpdate()
 			//tmp->data->hovered = true;
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT)== KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				state = GUI_State::PRESSED;
+				//state = GUI_State::PRESSED;
 			}
 			else 
 			{
-				state = GUI_State::HOVERED;
+				tmp->data->state = GUI_State::HOVERED;
 			}
 		}
 		else
 		{
 			//tmp->data->hovered = false;
-			state = GUI_State::NORMAL;
+			//state = GUI_State::NORMAL;
 		}
 	}
 

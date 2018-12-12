@@ -54,7 +54,7 @@ public:
 
 	GUIElement* GetMouseElement(iPoint pos);
 
-	GUI_State state;
+	
 private:
 
 	SDL_Texture * atlas;

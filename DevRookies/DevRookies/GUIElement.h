@@ -51,6 +51,7 @@ public:
 	Module*		callback = nullptr;
 	bool		to_delete = false;
 	bool		hovered = false;
+	GUI_State state;
 
 private:
 

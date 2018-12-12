@@ -29,7 +29,7 @@ bool GUIButton::PostUpdate()
 {
 	bool ret = false;
 
-	switch (App->guimanager->state) {
+	switch (state) {
 	case GUI_State::HOVERED:
 		App->render->Blit(texture, position.x, position.y, &hovered, 0.0f);
 		break;
