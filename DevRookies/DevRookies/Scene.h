@@ -45,12 +45,16 @@ public:
 	//Restart scene
 	void Restart() const;
 
+	void AddFX(const int channel, const int repeat) const;
+	//bool LoadAnimation(pugi::xml_node &node, Animation &anim);
+
 	uint			scene_actual = 0;
 	SDL_Texture*	 debug_tex = nullptr;
 private:
 
 	p2SString		tile_name_scene0 = "", tile_name_scene1 = "", tile_name_scene2 = "";
-	p2SString		lvl1_music_name = "", lvl2_music_name = ""; 
+	p2SString		lvl0_music_name = "", lvl1_music_name = "", lvl2_music_name = "";
+	p2SString		hover_fx_name = "";
 	p2SString		godmode_texture = "", pause_texture = "";
 	SDL_Rect		camera;
 

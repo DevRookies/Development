@@ -34,8 +34,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	tile_name_scene0 = config.child("tile_name_scene0").child_value();
 	tile_name_scene1 = config.child("tile_name_scene1").child_value();
 	tile_name_scene2 = config.child("tile_name_scene2").child_value();
+	lvl0_music_name = config.child("lvl0_music_name").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
 	lvl2_music_name = config.child("lvl2_music_name").child_value();
+	hover_fx_name = config.child("hover_fx_name").attribute("source").as_string();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
 	godmode_texture = config.child("godmode_tex").child_value();
@@ -167,6 +169,7 @@ bool Scene::Start()
 	{
 	case 0:
 		App->map->Load(tile_name_scene0.GetString());
+		App->audio->PlayMusic(lvl0_music_name.GetString());
 		App->entitymanager->player->Restart(FIRE);
 		break;
 	case 1:
@@ -184,6 +187,8 @@ bool Scene::Start()
 	default:
 		break;
 	}
+
+	App->audio->LoadFx(hover_fx_name.GetString());
 
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
@@ -271,15 +276,13 @@ bool Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::GoldenRod);
 
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		scene_actual = 0;
+		Restart();
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || play_btn->state == PRESSED) {
 		scene_actual = 1;
-		title_img->Enabled(false);
-		windows_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
 		Restart();
 	}
 		
@@ -375,8 +378,12 @@ bool Scene::Update(float dt)
 		exit_btn->Enabled(true);
 	}
 
-	App->map->Draw(dt);
+	//does not work, plays players' fx
+	if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
+		App->scene->AddFX(0, 0);
 
+	App->map->Draw(dt);
+	
 	if (App->render->debug_path) {
 		int x, y;
 		App->input->GetMousePosition(x, y);
@@ -493,4 +500,21 @@ void Scene::Restart() const
 	
 }
 
+void Scene::AddFX(const int channel, const int repeat) const
+{
+	App->audio->PlayFx(channel, repeat);
+}
+
+/*bool Scene::LoadAnimation(pugi::xml_node &node, Animation &anim) {
+
+	for (; node; node = node.next_sibling("frame")) {
+		SDL_Rect frame_rect;
+		frame_rect.x = node.attribute("x").as_int();
+		frame_rect.y = node.attribute("y").as_int();
+		frame_rect.w = node.attribute("width").as_int();
+		frame_rect.h = node.attribute("height").as_int();
+		anim.PushBack(frame_rect);
+	}
+	return true;
+}*/
 

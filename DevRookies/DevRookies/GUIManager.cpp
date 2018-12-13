@@ -11,6 +11,7 @@
 #include "GUILabel.h"
 //#include "GUICheckbox.h"
 //#include "GUISlider.h"
+#include "Scene.h"
 
 #include "SDL_ttf/include/SDL_ttf.h"
 #include "Brofiler\Brofiler.h"
@@ -104,7 +105,7 @@ bool GUIManager::PostUpdate()
 	p2List_item<GUIElement*>* tmp = gui_elements.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->enabled)
+		if (tmp->data->enabled && App->scene->scene_actual == 0)
 			tmp->data->PostUpdate();
 		
 		if (debug) {
