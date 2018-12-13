@@ -30,10 +30,9 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render();
 	textures = new Textures();
 	audio = new Audio();
-	
+	scenemanager = new SceneManager();
 	scene = new Scene();
 	map = new Map();
-	scenemanager = new SceneManager();
 	collision = new Collision();
 	pathfinding = new PathFinding();
 	entitymanager = new EntityManager();
@@ -48,12 +47,12 @@ DevRookiesApp::DevRookiesApp(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(fonts);
 	AddModule(map);
-	AddModule(scenemanager);
 	AddModule(pathfinding);
 	AddModule(entitymanager);
 	AddModule(collision);
 	AddModule(guimanager);
 	AddModule(scene);
+	AddModule(scenemanager);
 
 
 	// render last to swap buffer
