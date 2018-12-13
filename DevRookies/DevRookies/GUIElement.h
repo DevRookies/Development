@@ -37,7 +37,6 @@ public:
 	iPoint GetPosition() const;
 	SDL_Rect GetRect() const;
 
-	void SetLocalPosition(int x, int y);
 	void Enabled(bool enabled);
 
 

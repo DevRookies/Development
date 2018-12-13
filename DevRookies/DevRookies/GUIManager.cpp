@@ -10,7 +10,7 @@
 #include "GUIButton.h"
 #include "GUILabel.h"
 //#include "GUICheckbox.h"
-#include "GUISlider.h"
+//#include "GUISlider.h"
 #include "Scene.h"
 
 #include "SDL_ttf/include/SDL_ttf.h"
@@ -60,31 +60,32 @@ bool GUIManager::PreUpdate()
 
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
-		if (tmp->data->enabled) {
-			//define the rect_mouse
-			rect_mouse.x = tmp->data->position.x;
-			rect_mouse.y = tmp->data->position.y;
-			rect_mouse.w = tmp->data->rect.w;
-			rect_mouse.h = tmp->data->rect.h;
+		
+		//define the rect_mouse
+		rect_mouse.x = tmp->data->position.x;
+		rect_mouse.y = tmp->data->position.y;
+		rect_mouse.w = tmp->data->rect.w;
+		rect_mouse.h = tmp->data->rect.h;
 
-			//check if the mouse is inside of the rect boundaries AND give a state
-			if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
+		//check if the mouse is inside of the rect boundaries AND give a state
+		if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
+		{
+			//tmp->data->hovered = true;
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
-				//tmp->data->hovered = true;
-				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-				{
+				if (tmp->data->enabled) 
 					tmp->data->state = GUI_State::PRESSED;
-				}
-				else
-				{
-					tmp->data->state = GUI_State::HOVERED;
-				}
 			}
 			else
 			{
-				tmp->data->state = GUI_State::NORMAL;
+				tmp->data->state = GUI_State::HOVERED;
 			}
 		}
+		else
+		{
+			tmp->data->state = GUI_State::NORMAL;
+		}
+		
 	}
 
 	return ret;
@@ -107,19 +108,21 @@ bool GUIManager::PostUpdate()
 	p2List_item<GUIElement*>* tmp = gui_elements.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->enabled)
+		if (tmp->data->enabled) {
 			tmp->data->PostUpdate();
-		
-		if (debug) {
-			SDL_Rect rect;
-			rect.x = tmp->data->position.x;
-			rect.y = tmp->data->position.y;
-			rect.w = tmp->data->rect.w;
-			rect.h = tmp->data->rect.h;
 
-			tmp->data->position;
-			App->render->DrawQuad(rect, 255, 0, 255, 100, true, false);
+			if (debug) {
+				SDL_Rect rect;
+				rect.x = tmp->data->position.x;
+				rect.y = tmp->data->position.y;
+				rect.w = tmp->data->rect.w;
+				rect.h = tmp->data->rect.h;
+
+				tmp->data->position;
+				App->render->DrawQuad(rect, 255, 0, 255, 100, true, false);
+			}
 		}
+			
 		tmp = tmp->next;
 	}
 
@@ -189,16 +192,13 @@ GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovere
 	return tmp_btn;
 }
 
-GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, Module* callback)
-{
-	GUISlider* tmp_sli = new GUISlider(pos, rect);
-	tmp_sli->callback = callback;
-	gui_elements.add(tmp_sli);
-
-	return tmp_sli;
-}
 
 //GUICheckBox * GUIManager::CreateCheckBox(iPoint pos, bool checked)
+//{
+//	return nullptr;
+//}
+//
+//GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect slider_rect)
 //{
 //	return nullptr;
 //}

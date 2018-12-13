@@ -42,8 +42,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	camera.y = config.child("camera").attribute("y").as_int();
 	godmode_texture = config.child("godmode_tex").child_value();
 	godmode_pos = { config.child("godmode_tex").attribute("x").as_float(),  config.child("godmode_tex").attribute("y").as_float() };
-	pause_texture = config.child("pause_tex").child_value();
-	pause_pos = { config.child("pause_tex").attribute("x").as_float(),  config.child("pause_tex").attribute("y").as_float() };
 	active = true;
 
 
@@ -205,11 +203,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	back_menu_pressed.w = 116;
 	back_menu_pressed.h = 113;
 
-	slider_rect.x = 641;
-	slider_rect.y = 559;
-	slider_rect.w = 53;
-	slider_rect.h = 51;
-
 	return ret;
 }
 
@@ -242,76 +235,9 @@ bool Scene::Start()
 
 	App->audio->LoadFx(hover_fx_name.GetString());
 
-	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
-
-	//HEADERS
-	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
-	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal,credits_hovered,credits_pressed, this);
-	settings_hud_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
-
-	//BASE UI
-	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, this);
-	windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, this);
-	windows_hud_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, this);
-
-	//CREDITS
-	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect,  this);
-
-	//MAIN_MENU
-	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
-	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
-	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
-	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
-	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
-
-	//SETTINGS
-	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
-	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
-	minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, this);
-	plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect,this);
-	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect,this);
-	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect,  this);
-	music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
-	fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
-
-	//HUD
-	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
-	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect, this);
-	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
-	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
-	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
-	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
-	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
-
-	//MAINMENU
-	//title_img->Enabled(false);
-	//play_btn->Enabled(false);
-	//continue_btn->Enabled(false);
-	//settings_btn->Enabled(false);
-	//credits_btn->Enabled(false);
-	//exit_btn->Enabled(false);
-	//windows_img->Enabled(false);
-
-	settings_home_btn->Enabled(false);
-	settings_hud_home_btn->Enabled(false);
-	credits_home_btn->Enabled(false);
-	license_img->Enabled(false);
-	music_img->Enabled(false);
-	fx_img ->Enabled(false);
-	minus_music_img ->Enabled(false);
-	plus_music_img ->Enabled(false);
-	minus_fx_img ->Enabled(false);
-	plus_fx_img ->Enabled(false);
-	//HUD
-	coins_img->Enabled(false);
-	life_img->Enabled(false);
-	time_img->Enabled(false);
-	score_img->Enabled(false);
-	resume_btn->Enabled(false);
-	settings_hud_btn->Enabled(false);
-	back_menu_btn->Enabled(false);
-	windows_hud_img->Enabled(false);
+	//----GUI-------------
+	GUIStart();
+	
 
 	//--------------------------------------------------------------------------Pathfinding.......................................................................
 	int width, height;
@@ -370,8 +296,6 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || play_btn->state == PRESSED) {
 		scene_actual = 1;
 		Restart();
-
-
 	}
 		
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -382,7 +306,6 @@ bool Scene::Update(float dt)
 		scene_actual = 2;
 		Restart();
 	}
-		
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
@@ -407,186 +330,8 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
 	
-	if (scene_actual != 0) {
-		//disable UI scene0
-		title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
-		windows_img->Enabled(false);
-
-		//enable HUD
-		coins_img->Enabled(true);
-		life_img->Enabled(true);
-		time_img->Enabled(true);
-		score_img->Enabled(true);
-	}
-
-	//if (scene_actual == 0 && printUI_base == true) {
-	//	title_img->Enabled(true);
-	//	play_btn->Enabled(true);
-	//	continue_btn->Enabled(true);
-	//	settings_btn->Enabled(true);
-	//	credits_btn->Enabled(true);
-	//	exit_btn->Enabled(true);
-	//	windows_img->Enabled(true);
-	//	//enable HUD--------------------------------------------------------------------------------------------------------
-	//	coins_img->Enabled(false);
-	//	life_img->Enabled(false);
-	//	time_img->Enabled(false);
-	//	score_img->Enabled(false);
-	//}
-
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual!=0)            //IN GAME MENU
-	{
-		App->pause = true;
-				
-		//enable HUD pause
-		windows_hud_img->Enabled(true);
-		resume_btn->Enabled(true);
-		settings_hud_btn->Enabled(true);
-		back_menu_btn->Enabled(true);
-	}
-
-	if (resume_btn->state == PRESSED) {
-		App->pause = false;
-
-		//disable HUD pause
-		windows_hud_img->Enabled(false);
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-	}
-
-	if (settings_hud_btn->state == PRESSED) {
-		//disable UIscene0
-		/*title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);*/
-
-		//disable HUD pause
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-
-		//enable settings
-		//windows_hud_img->Enabled(true);
-		settings_hud_home_btn->Enabled(true);
-		music_img->Enabled(true);
-		fx_img->Enabled(true);
-		minus_music_img->Enabled(true);
-		plus_music_img->Enabled(true);
-		minus_fx_img->Enabled(true);
-		plus_fx_img->Enabled(true);
-	}
-
-	if (back_menu_btn->state == PRESSED) {
-		scene_actual = 0;
-		Restart();
-
-		App->pause = false;
-
-		//disable HUD pause
-		windows_hud_img->Enabled(false);
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-
-		//why it doesnt work?----------------------------------------------------------------------------------------------------------------------------------
-		coins_img->Enabled(false);
-		life_img->Enabled(false);
-		time_img->Enabled(false);
-		score_img->Enabled(false);
-	}
-
-	if (settings_btn->state == PRESSED) { //CAN'T BE PRESSED MORE THAN ONCE
-		//disable 
-		title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
-		//enable
-		settings_home_btn->Enabled(true);
-		music_img->Enabled(true);
-		fx_img->Enabled(true);
-		minus_music_img->Enabled(true);
-		plus_music_img->Enabled(true);
-		minus_fx_img->Enabled(true);
-		plus_fx_img->Enabled(true);
-	}
-
-	if (credits_btn->state == PRESSED) {
-		printUI_base == false;
-
-		//disable
-		title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
-		//enable
-		credits_home_btn->Enabled(true);
-		license_img->Enabled(true);
-	}
-
-	if (settings_hud_home_btn->state == PRESSED) {
-		//disable
-		settings_hud_home_btn->Enabled(false);
-		music_img->Enabled(false);
-		fx_img->Enabled(false);
-		minus_music_img->Enabled(false);
-		plus_music_img->Enabled(false);
-		minus_fx_img->Enabled(false);
-		plus_fx_img->Enabled(false);
-		//enable
-		resume_btn->Enabled(true);
-		settings_hud_btn->Enabled(true);
-		back_menu_btn->Enabled(true);
-	}
-
-	if (settings_home_btn->state == PRESSED) {
-		//disable
-		settings_home_btn->Enabled(false);
-		music_img->Enabled(false);
-		fx_img->Enabled(false);
-		minus_music_img->Enabled(false);
-		plus_music_img->Enabled(false);
-		minus_fx_img->Enabled(false);
-		plus_fx_img->Enabled(false);
-		//enable
-
-		title_img->Enabled(true);
-		play_btn->Enabled(true);
-		continue_btn->Enabled(true);
-		settings_btn->Enabled(true);
-		credits_btn->Enabled(true);
-		exit_btn->Enabled(true);
-	}
-
-	if (credits_home_btn->state == PRESSED) {
-		//disable
-		credits_home_btn->Enabled(false);
-		license_img->Enabled(false);
-		//enable
-		title_img->Enabled(true);
-		play_btn->Enabled(true);
-		continue_btn->Enabled(true);
-		settings_btn->Enabled(true);
-		credits_btn->Enabled(true);
-		exit_btn->Enabled(true);
-	}
-
-	//does not work, plays players' fx
-	if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
-		App->scene->AddFX(0, 0);
+	//----GUI-------
+	GUIUpdate();
 
 	App->map->Draw(dt);
 	
@@ -623,12 +368,6 @@ bool Scene::Update(float dt)
 		godmode_pos.x = App->render->camera.x;
 		godmode_pos.y = App->render->camera.y;
 		App->render->Blit(godmode_tex, godmode_pos.x, godmode_pos.y, NULL, -1.0f);
-	}
-
-	if (App->pause) {
-		pause_pos.x = App->render->camera.x + App->win->GetScreenWidth() / 6;
-		pause_pos.y = App->render->camera.y + App->win->GetScreenHeight() / 3;
-		App->render->Blit(pause_tex, pause_pos.x, pause_pos.y, NULL, -1.0f);
 	}
 
 	return true;
@@ -711,6 +450,262 @@ void Scene::AddFX(const int channel, const int repeat) const
 	App->audio->PlayFx(channel, repeat);
 }
 
+void Scene::GUIStart()
+{
+	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
+
+	//HEADERS
+	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
+	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal, credits_hovered, credits_pressed, this);
+	settings_hud_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
+
+	//BASE UI
+	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, this);
+	windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, this);
+	windows_hud_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, this);
+
+	//CREDITS
+	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect, this);
+
+	//SETTINGS
+	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
+	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
+	minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, this);
+	plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect, this);
+	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect, this);
+	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect, this);
+
+	//HUD
+	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
+	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect, this);
+	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
+	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
+	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
+	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
+	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
+
+	//MAIN_MENU
+	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
+	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
+	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
+	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
+	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
+
+	//MAINMENU
+	//title_img->Enabled(false);
+	//play_btn->Enabled(false);
+	//continue_btn->Enabled(false);
+	//settings_btn->Enabled(false);
+	//credits_btn->Enabled(false);
+	//exit_btn->Enabled(false);
+	//windows_img->Enabled(false);
+
+	settings_home_btn->Enabled(false);
+	settings_hud_home_btn->Enabled(false);
+	credits_home_btn->Enabled(false);
+	license_img->Enabled(false);
+	music_img->Enabled(false);
+	fx_img->Enabled(false);
+	minus_music_img->Enabled(false);
+	plus_music_img->Enabled(false);
+	minus_fx_img->Enabled(false);
+	plus_fx_img->Enabled(false);
+	//HUD
+	coins_img->Enabled(false);
+	life_img->Enabled(false);
+	time_img->Enabled(false);
+	score_img->Enabled(false);
+	resume_btn->Enabled(false);
+	settings_hud_btn->Enabled(false);
+	back_menu_btn->Enabled(false);
+	windows_hud_img->Enabled(false);
+}
+
+void Scene::GUIUpdate()
+{
+	if (scene_actual != 0) {
+		//disable UI scene0
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		windows_img->Enabled(false);
+
+		//enable HUD
+		coins_img->Enabled(true);
+		life_img->Enabled(true);
+		time_img->Enabled(true);
+		score_img->Enabled(true);
+	}
+
+	//if (scene_actual == 0 && printUI_base == true) {
+	//	title_img->Enabled(true);
+	//	play_btn->Enabled(true);
+	//	continue_btn->Enabled(true);
+	//	settings_btn->Enabled(true);
+	//	credits_btn->Enabled(true);
+	//	exit_btn->Enabled(true);
+	//	windows_img->Enabled(true);
+	//	//enable HUD--------------------------------------------------------------------------------------------------------
+	//	coins_img->Enabled(false);
+	//	life_img->Enabled(false);
+	//	time_img->Enabled(false);
+	//	score_img->Enabled(false);
+	//}
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0)            //IN GAME MENU
+	{
+		App->pause = true;
+
+		//enable HUD pause
+		windows_hud_img->Enabled(true);
+		resume_btn->Enabled(true);
+		settings_hud_btn->Enabled(true);
+		back_menu_btn->Enabled(true);
+	}
+
+	if (resume_btn->state == PRESSED) {
+		App->pause = false;
+
+		//disable HUD pause
+		windows_hud_img->Enabled(false);
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+	}
+
+	if (settings_hud_btn->state == PRESSED) {
+		//disable UIscene0
+		/*title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);*/
+
+		//disable HUD pause
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+
+		//enable settings
+		//windows_hud_img->Enabled(true);
+		settings_hud_home_btn->Enabled(true);
+		music_img->Enabled(true);
+		fx_img->Enabled(true);
+		minus_music_img->Enabled(true);
+		plus_music_img->Enabled(true);
+		minus_fx_img->Enabled(true);
+		plus_fx_img->Enabled(true);
+	}
+
+	if (back_menu_btn->state == PRESSED) {
+		scene_actual = 0;
+		Restart();
+
+		App->pause = false;
+
+		//disable HUD pause
+		windows_hud_img->Enabled(false);
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+
+		//why it doesnt work?----------------------------------------------------------------------------------------------------------------------------------
+		coins_img->Enabled(false);
+		life_img->Enabled(false);
+		time_img->Enabled(false);
+		score_img->Enabled(false);
+	}
+
+	if (settings_btn->state == PRESSED) { //CAN'T BE PRESSED MORE THAN ONCE
+										  //disable 
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		settings_home_btn->Enabled(true);
+		music_img->Enabled(true);
+		fx_img->Enabled(true);
+		minus_music_img->Enabled(true);
+		plus_music_img->Enabled(true);
+		minus_fx_img->Enabled(true);
+		plus_fx_img->Enabled(true);
+	}
+
+	if (credits_btn->state == PRESSED) {
+		printUI_base == false;
+
+		//disable
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		credits_home_btn->Enabled(true);
+		license_img->Enabled(true);
+	}
+
+	if (settings_hud_home_btn->state == PRESSED) {
+		//disable
+		settings_hud_home_btn->Enabled(false);
+		music_img->Enabled(false);
+		fx_img->Enabled(false);
+		minus_music_img->Enabled(false);
+		plus_music_img->Enabled(false);
+		minus_fx_img->Enabled(false);
+		plus_fx_img->Enabled(false);
+		//enable
+		resume_btn->Enabled(true);
+		settings_hud_btn->Enabled(true);
+		back_menu_btn->Enabled(true);
+	}
+
+	if (settings_home_btn->state == PRESSED) {
+		//disable
+		settings_home_btn->Enabled(false);
+		music_img->Enabled(false);
+		fx_img->Enabled(false);
+		minus_music_img->Enabled(false);
+		plus_music_img->Enabled(false);
+		minus_fx_img->Enabled(false);
+		plus_fx_img->Enabled(false);
+		//enable
+
+		title_img->Enabled(true);
+		play_btn->Enabled(true);
+		continue_btn->Enabled(true);
+		settings_btn->Enabled(true);
+		credits_btn->Enabled(true);
+		exit_btn->Enabled(true);
+	}
+
+	if (credits_home_btn->state == PRESSED) {
+		//disable
+		credits_home_btn->Enabled(false);
+		license_img->Enabled(false);
+		//enable
+		title_img->Enabled(true);
+		play_btn->Enabled(true);
+		continue_btn->Enabled(true);
+		settings_btn->Enabled(true);
+		credits_btn->Enabled(true);
+		exit_btn->Enabled(true);
+	}
+
+	//does not work, plays players' fx
+	//if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
+		//App->scene->AddFX(0, 0);
+
+}
 /*bool Scene::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 	for (; node; node = node.next_sibling("frame")) {

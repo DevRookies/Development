@@ -32,7 +32,3 @@ void GUIElement::Enabled(bool enabled)
 {
 	this->enabled = enabled;
 }
-
-void GUIElement::SetLocalPosition(int x , int y) {
-	this->position = iPoint(x,y);
-}

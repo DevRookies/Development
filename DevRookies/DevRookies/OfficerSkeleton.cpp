@@ -198,7 +198,10 @@ bool OfficerSkeleton::Restart(uint i)
 	skeleton_tex = App->textures->Load(skeleton_texture.GetString());
 	position = App->map->init_Skeleton_position.At(i - App->map->init_JrGargoyle_position.count() - 1)->data;
 	collider = App->collision->AddCollider({ (int)position.x, (int)position.y,80,90 }, COLLIDER_ENEMY, App->entitymanager);
-	flipX = false;
+	if (App->scene->scene_actual == 0)
+		flipX = true;
+	else
+		flipX = false;
 	visibility = true;
 	return true;
 }
