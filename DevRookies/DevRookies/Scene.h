@@ -63,12 +63,15 @@ private:
 	SDL_Texture*  godmode_tex = nullptr;
 	SDL_Texture*  pause_tex = nullptr;
 
+	bool printUI_base = true;
+
 	//----------------------------------------------------------------------------------------
 	//------------------------------GUI-------------------------------------------------------
 	//----------------------------------------------------------------------------------------
 
 	//--------------------------GUIElements---------------------------------------------------
 	GUIImage* windows_img = nullptr;
+	GUIImage* windows_hud_img = nullptr;
 	GUIImage* title_img = nullptr;
 	GUIImage* license_img = nullptr;
 	GUIImage* music_img = nullptr;
@@ -91,6 +94,7 @@ private:
 	GUIButton* exit_btn = nullptr;
 	GUIButton* resume_btn = nullptr;
 	GUIButton* settings_hud_btn = nullptr;
+	GUIButton* settings_hud_home_btn = nullptr;
 	GUIButton* back_menu_btn = nullptr;
 
 	//GUILabel* label = nullptr;

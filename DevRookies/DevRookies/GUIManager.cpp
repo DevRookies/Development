@@ -60,28 +60,30 @@ bool GUIManager::PreUpdate()
 
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
-		//define the rect_mouse
-		rect_mouse.x = tmp->data->position.x;
-		rect_mouse.y = tmp->data->position.y;
-		rect_mouse.w = tmp->data->rect.w;
-		rect_mouse.h = tmp->data->rect.h;
+		if (tmp->data->enabled) {
+			//define the rect_mouse
+			rect_mouse.x = tmp->data->position.x;
+			rect_mouse.y = tmp->data->position.y;
+			rect_mouse.w = tmp->data->rect.w;
+			rect_mouse.h = tmp->data->rect.h;
 
-		//check if the mouse is inside of the rect boundaries AND give a state
-		if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
-		{
-			//tmp->data->hovered = true;
-			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT)== KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			//check if the mouse is inside of the rect boundaries AND give a state
+			if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
 			{
-				tmp->data->state = GUI_State::PRESSED;
+				//tmp->data->hovered = true;
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				{
+					tmp->data->state = GUI_State::PRESSED;
+				}
+				else
+				{
+					tmp->data->state = GUI_State::HOVERED;
+				}
 			}
-			else 
+			else
 			{
-				tmp->data->state = GUI_State::HOVERED;
+				tmp->data->state = GUI_State::NORMAL;
 			}
-		}
-		else
-		{
-			tmp->data->state = GUI_State::NORMAL;
 		}
 	}
 
