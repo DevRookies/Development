@@ -157,20 +157,10 @@ void GUIManager::DestroyGUIElement(GUIElement *element) {
 	}
 }
 
-GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture , Module* callback )
+GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback )
 {
-	SDL_Texture* tex = nullptr;
 
-	if (texture == nullptr)
-	{
-		tex = atlas;
-	}
-	else
-	{
-		tex = texture;
-	}
-
-	GUIImage* tmp_img = new GUIImage(pos, rect, texture);
+	GUIImage* tmp_img = new GUIImage(pos, rect, atlas);
 	tmp_img->callback = callback;
 	gui_elements.add(tmp_img);
 
@@ -187,20 +177,9 @@ GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, M
 }
 
 
-GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture , Module* callback )
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, Module* callback )
 {
-	SDL_Texture* tex = nullptr;
-
-	if (texture == nullptr)
-	{
-		tex = atlas;
-	}
-	else
-	{
-		tex = texture;
-	}
-
-	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,texture) ;
+	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,atlas) ;
 	tmp_btn->callback = callback;
 	gui_elements.add(tmp_btn);
 
