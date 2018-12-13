@@ -48,6 +48,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 
 	//xml this rects!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//Images
 	windows_rect.x = 11;
 	windows_rect.y = 962;
 	windows_rect.w = 681;
@@ -83,6 +84,22 @@ bool Scene::Awake(pugi::xml_node& config)
 	plus_rect.w = 33;
 	plus_rect.h = 32;
 
+	coins_rect.x = 7;
+	coins_rect.y = 834;
+	coins_rect.w = 216;
+	coins_rect.h = 77;
+
+	life_rect.x = 245;
+	life_rect.y = 834;
+	life_rect.w = 217;
+	life_rect.h = 77;
+
+	score_rect.x = 497;
+	score_rect.y = 842;
+	score_rect.w = 308;
+	score_rect.h = 66;
+
+	//Buttons
 	play_normal.x = 255;
 	play_normal.y = 120;
 	play_normal.w = 115;
@@ -148,15 +165,35 @@ bool Scene::Awake(pugi::xml_node& config)
 	exit_normal.w = 116;
 	exit_normal.h = 113;
 
-	exit_hovered.x = 4;
-	exit_hovered.y = 593;
-	exit_hovered.w = 114;
-	exit_hovered.h = 113;
+	resume_normal.x = 255;
+	resume_normal.y = 713;
+	resume_normal.w = 115;
+	resume_normal.h = 113;
 
-	exit_pressed.x = 128;
-	exit_pressed.y = 593;
-	exit_pressed.w = 116;
-	exit_pressed.h = 113;
+	resume_hovered.x = 4;
+	resume_hovered.y = 713;
+	resume_hovered.w = 115;
+	resume_hovered.h = 113;
+
+	resume_pressed.x = 129;
+	resume_pressed.y = 713;
+	resume_pressed.w = 116;
+	resume_pressed.h = 113;
+
+	back_menu_normal.x = 769;
+	back_menu_normal.y = 121;
+	back_menu_normal.w = 115;
+	back_menu_normal.h = 113;
+
+	back_menu_hovered.x = 517;
+	back_menu_hovered.y = 121;
+	back_menu_hovered.w = 116;
+	back_menu_hovered.h = 113;
+
+	back_menu_pressed.x = 643;
+	back_menu_pressed.y = 121;
+	back_menu_pressed.w = 116;
+	back_menu_pressed.h = 113;
 
 	return ret;
 }
@@ -193,12 +230,18 @@ bool Scene::Start()
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
 
+	//HEADERS
 	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
 	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal,credits_hovered,credits_pressed, this);
 
+	//BASE UI
 	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, this);
 	windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, this);
+
+	//CREDITS
 	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect,  this);
+
+	//SETTINGS
 	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
 	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
 	minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, this);
@@ -206,12 +249,23 @@ bool Scene::Start()
 	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect,this);
 	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect,  this);
 
+	//HUD
+	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
+	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect, this);
+	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
+	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
+	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
+	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
+	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
+
+	//MAIN_MENU
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
 	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
 	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
 	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
 	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
 
+	//MAINMENU
 	settings_home_btn->Enabled(false);
 	credits_home_btn->Enabled(false);
 	license_img->Enabled(false);
@@ -221,6 +275,14 @@ bool Scene::Start()
 	plus_music_img ->Enabled(false);
 	minus_fx_img ->Enabled(false);
 	plus_fx_img ->Enabled(false);
+	//HUD
+	coins_img->Enabled(false);
+	life_img->Enabled(false);
+	time_img->Enabled(false);
+	score_img->Enabled(false);
+	resume_btn->Enabled(false);
+	settings_hud_btn->Enabled(false);
+	back_menu_btn->Enabled(false);
 
 	//--------------------------------------------------------------------------Pathfinding.......................................................................
 	int width, height;
@@ -311,10 +373,56 @@ bool Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
 	
-	//if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)            //IN GAME MENU
-	//{
-	//	//pause
-	//}
+	if (scene_actual != 0) {
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) != KEY_DOWN)
+			windows_img->Enabled(false);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual!=0)            //IN GAME MENU
+	{
+		//pause game
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		
+		//
+		windows_img->Enabled(true);
+		coins_img->Enabled(true);
+		life_img->Enabled(true);
+		time_img->Enabled(true);
+		score_img->Enabled(true);
+		resume_btn->Enabled(true);
+		settings_hud_btn->Enabled(true);
+		back_menu_btn->Enabled(true);
+	}
+
+	if (settings_btn->state == PRESSED) {
+		//disable
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		settings_home_btn->Enabled(true);
+		music_img->Enabled(true);
+		fx_img->Enabled(true);
+		minus_music_img->Enabled(true);
+		plus_music_img->Enabled(true);
+		minus_fx_img->Enabled(true);
+		plus_fx_img->Enabled(true);
+	}
 
 	if (settings_btn->state == PRESSED) {
 		//disable

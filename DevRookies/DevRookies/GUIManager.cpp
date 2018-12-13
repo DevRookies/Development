@@ -105,7 +105,7 @@ bool GUIManager::PostUpdate()
 	p2List_item<GUIElement*>* tmp = gui_elements.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->enabled && App->scene->scene_actual == 0)
+		if (tmp->data->enabled)
 			tmp->data->PostUpdate();
 		
 		if (debug) {

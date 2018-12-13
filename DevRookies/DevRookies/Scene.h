@@ -77,6 +77,10 @@ private:
 	GUIImage* plus_music_img = nullptr;
 	GUIImage* minus_fx_img = nullptr;
 	GUIImage* plus_fx_img = nullptr;
+	GUIImage* coins_img = nullptr;
+	GUIImage* life_img = nullptr;
+	GUIImage* score_img = nullptr;
+	GUIImage* time_img = nullptr;
 
 	GUIButton* settings_home_btn = nullptr;
 	GUIButton* credits_home_btn = nullptr;
@@ -85,6 +89,9 @@ private:
 	GUIButton* settings_btn = nullptr;
 	GUIButton* credits_btn = nullptr;
 	GUIButton* exit_btn = nullptr;
+	GUIButton* resume_btn = nullptr;
+	GUIButton* settings_hud_btn = nullptr;
+	GUIButton* back_menu_btn = nullptr;
 
 	//GUILabel* label = nullptr;
 	
@@ -97,6 +104,9 @@ private:
 	SDL_Rect fx_rect;
 	SDL_Rect minus_rect;
 	SDL_Rect plus_rect;
+	SDL_Rect coins_rect;
+	SDL_Rect life_rect;
+	SDL_Rect score_rect;
 
 	SDL_Rect play_normal;
 	SDL_Rect play_pressed;
@@ -117,6 +127,14 @@ private:
 	SDL_Rect exit_normal;
 	SDL_Rect exit_pressed;
 	SDL_Rect exit_hovered;
+
+	SDL_Rect resume_normal;
+	SDL_Rect resume_pressed;
+	SDL_Rect resume_hovered;
+
+	SDL_Rect back_menu_normal;
+	SDL_Rect back_menu_pressed;
+	SDL_Rect back_menu_hovered;
 };
 
 #endif // __SCENE_H__
