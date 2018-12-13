@@ -7,6 +7,7 @@
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUILabel.h"
+#include "GUISlider.h"
 
 struct SDL_Texture;
 
@@ -98,10 +99,13 @@ private:
 	GUIButton* settings_hud_home_btn = nullptr;
 	GUIButton* back_menu_btn = nullptr;
 
+	GUISlider* music_sli = nullptr;
+	GUISlider* fx_sli = nullptr;
+
 	//GUILabel* label = nullptr;
 	
 	//--------------------------GUIRects---------------------------------------------------
-
+	//IMG
 	SDL_Rect windows_rect;
 	SDL_Rect title_rect;
 	SDL_Rect license_rect;
@@ -113,6 +117,7 @@ private:
 	SDL_Rect life_rect;
 	SDL_Rect score_rect;
 
+	//BTN
 	SDL_Rect play_normal;
 	SDL_Rect play_pressed;
 	SDL_Rect play_hovered;
@@ -140,6 +145,9 @@ private:
 	SDL_Rect back_menu_normal;
 	SDL_Rect back_menu_pressed;
 	SDL_Rect back_menu_hovered;
+
+	//SLI
+	SDL_Rect slider_rect;
 };
 
 #endif // __SCENE_H__

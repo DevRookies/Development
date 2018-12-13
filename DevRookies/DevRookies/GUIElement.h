@@ -38,7 +38,7 @@ public:
 	SDL_Rect GetRect() const;
 
 	void Enabled(bool enabled);
-
+	void SetLocalPosition(int x, int y);
 
 public:
 	SDL_Texture* texture = nullptr;

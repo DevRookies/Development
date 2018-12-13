@@ -8,6 +8,7 @@
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
+#include "GUISlider.h"
 #include "SDL_ttf/include/SDL_ttf.h"
 
 #define CURSOR_WIDTH 2
@@ -46,9 +47,10 @@ public:
 	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
 	GUILabel* CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, Module* callback = nullptr);
 	GUIButton* CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, Module* callback = nullptr);
+	GUISlider* CreateSlider(iPoint pos, SDL_Rect rect, Module* callback = nullptr);
 
 	//GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
-	//GUISlider* CreateSlider(iPoint pos, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, Module* callback = nullptr);
+	
 
 	SDL_Texture* GetAtlas();
 
