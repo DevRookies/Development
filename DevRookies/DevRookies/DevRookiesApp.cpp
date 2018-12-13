@@ -161,7 +161,7 @@ bool DevRookiesApp::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	if(input->GetWindowEvent(WE_QUIT) == true)
+	if(input->GetWindowEvent(WE_QUIT) == true || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
 	if(ret == true)
