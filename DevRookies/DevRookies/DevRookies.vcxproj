@@ -83,6 +83,7 @@
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUILabel.cpp" />
+    <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="JrGargoyle.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="DevRookiesApp.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Fonts.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUILabel.h" />
+    <ClInclude Include="GUISlider.h" />
     <ClInclude Include="JrGargoyle.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="OfficerSkeleton.h" />

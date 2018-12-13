@@ -85,6 +85,9 @@
     <ClCompile Include="GUILabel.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUISlider.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -190,6 +193,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUILabel.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISlider.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

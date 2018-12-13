@@ -205,6 +205,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	back_menu_pressed.w = 116;
 	back_menu_pressed.h = 113;
 
+	slider_rect.x = 641;
+	slider_rect.y = 559;
+	slider_rect.w = 53;
+	slider_rect.h = 51;
+
 	return ret;
 }
 
@@ -253,6 +258,13 @@ bool Scene::Start()
 	//CREDITS
 	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect,  this);
 
+	//MAIN_MENU
+	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
+	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
+	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
+	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
+	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
+
 	//SETTINGS
 	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
 	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
@@ -260,6 +272,8 @@ bool Scene::Start()
 	plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect,this);
 	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect,this);
 	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect,  this);
+	music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
+	fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
@@ -269,13 +283,6 @@ bool Scene::Start()
 	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
-
-	//MAIN_MENU
-	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
-	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
-	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
-	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
-	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
 
 	//MAINMENU
 	//title_img->Enabled(false);

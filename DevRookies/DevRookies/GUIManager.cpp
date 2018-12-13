@@ -10,7 +10,7 @@
 #include "GUIButton.h"
 #include "GUILabel.h"
 //#include "GUICheckbox.h"
-//#include "GUISlider.h"
+#include "GUISlider.h"
 #include "Scene.h"
 
 #include "SDL_ttf/include/SDL_ttf.h"
@@ -189,13 +189,16 @@ GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovere
 	return tmp_btn;
 }
 
+GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, Module* callback)
+{
+	GUISlider* tmp_sli = new GUISlider(pos, rect);
+	tmp_sli->callback = callback;
+	gui_elements.add(tmp_sli);
+
+	return tmp_sli;
+}
 
 //GUICheckBox * GUIManager::CreateCheckBox(iPoint pos, bool checked)
-//{
-//	return nullptr;
-//}
-//
-//GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect slider_rect)
 //{
 //	return nullptr;
 //}
