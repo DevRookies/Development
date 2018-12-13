@@ -104,7 +104,9 @@ bool GUIManager::PostUpdate()
 	p2List_item<GUIElement*>* tmp = gui_elements.start;
 	while (tmp != nullptr)
 	{
-		tmp->data->PostUpdate();
+		if (tmp->data->enabled)
+			tmp->data->PostUpdate();
+		
 		if (debug) {
 			SDL_Rect rect;
 			rect.x = tmp->data->position.x;

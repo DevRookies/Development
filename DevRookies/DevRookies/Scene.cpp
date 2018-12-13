@@ -188,17 +188,18 @@ bool Scene::Start()
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
 
-	/*settings_img = App->guimanager->CreateImage(iPoint(310, 187), settings_normal, App->guimanager->GetAtlas(), this);
-	credits_img = App->guimanager->CreateImage(iPoint(310, 187), credits_normal, App->guimanager->GetAtlas(), this);*/
+	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, App->guimanager->GetAtlas(), this);
+	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal,credits_hovered,credits_pressed, App->guimanager->GetAtlas(), this);
+
 	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, App->guimanager->GetAtlas(), this);
 	windows_img = App->guimanager->CreateImage(iPoint(300, 254), windows_rect, App->guimanager->GetAtlas(), this);
-	//license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect, App->guimanager->GetAtlas(), this);
-	//music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, App->guimanager->GetAtlas(), this);
-	//fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, App->guimanager->GetAtlas(), this);
-	//minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, App->guimanager->GetAtlas(), this);
-	//plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect, App->guimanager->GetAtlas(), this);
-	//minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect, App->guimanager->GetAtlas(), this);
-	//plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect, App->guimanager->GetAtlas(), this);
+	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect, App->guimanager->GetAtlas(), this);
+	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, App->guimanager->GetAtlas(), this);
+	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, App->guimanager->GetAtlas(), this);
+	minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, App->guimanager->GetAtlas(), this);
+	plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect, App->guimanager->GetAtlas(), this);
+	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect, App->guimanager->GetAtlas(), this);
+	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect, App->guimanager->GetAtlas(), this);
 
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, App->guimanager->GetAtlas(), this);
 	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, App->guimanager->GetAtlas(), this);
@@ -206,7 +207,17 @@ bool Scene::Start()
 	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, App->guimanager->GetAtlas(), this);
 	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, App->guimanager->GetAtlas(), this);
 
-	
+	settings_home_btn->Enabled(false);
+	credits_home_btn->Enabled(false);
+	license_img->Enabled(false);
+	music_img->Enabled(false);
+	fx_img ->Enabled(false);
+	minus_music_img ->Enabled(false);
+	plus_music_img ->Enabled(false);
+	minus_fx_img ->Enabled(false);
+	plus_fx_img ->Enabled(false);
+
+	//--------------------------------------------------------------------------Pathfinding.......................................................................
 	int width, height;
 	if (App->map->CreateWalkabilityMap(width, height, &data))
 		App->pathfinding->SetMap(width, height, data);
@@ -218,6 +229,7 @@ bool Scene::Start()
 	debug_tex = App->textures->Load("maps/navigation.png");
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
 	pause_tex = App->textures->Load(pause_texture.GetString());
+
 
 	return true;
 }
@@ -261,6 +273,13 @@ bool Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || play_btn->state == PRESSED) {
 		scene_actual = 1;
+		title_img->Enabled(false);
+		windows_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
 		Restart();
 	}
 		
@@ -293,6 +312,68 @@ bool Scene::Update(float dt)
 	//{
 	//	//pause
 	//}
+
+	if (settings_btn->state == PRESSED) {
+		//disable
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		settings_home_btn->Enabled(true);
+		music_img->Enabled(true);
+		fx_img->Enabled(true);
+		minus_music_img->Enabled(true);
+		plus_music_img->Enabled(true);
+		minus_fx_img->Enabled(true);
+		plus_fx_img->Enabled(true);
+	}
+
+	if (credits_btn->state == PRESSED) {
+		//disable
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		credits_home_btn->Enabled(true);
+		license_img->Enabled(true);
+	}
+
+	if (settings_home_btn->state == PRESSED) {
+		//disable
+		settings_home_btn->Enabled(false);
+		music_img->Enabled(false);
+		fx_img->Enabled(false);
+		minus_music_img->Enabled(false);
+		plus_music_img->Enabled(false);
+		minus_fx_img->Enabled(false);
+		plus_fx_img->Enabled(false);
+		//enable
+		title_img->Enabled(true);
+		play_btn->Enabled(true);
+		continue_btn->Enabled(true);
+		settings_btn->Enabled(true);
+		credits_btn->Enabled(true);
+		exit_btn->Enabled(true);
+	}
+
+	if (credits_home_btn->state == PRESSED) {
+		//disable
+		credits_home_btn->Enabled(false);
+		license_img->Enabled(false);
+		//enable
+		title_img->Enabled(true);
+		play_btn->Enabled(true);
+		continue_btn->Enabled(true);
+		settings_btn->Enabled(true);
+		credits_btn->Enabled(true);
+		exit_btn->Enabled(true);
+	}
 
 	App->map->Draw(dt);
 

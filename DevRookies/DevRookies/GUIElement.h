@@ -37,6 +37,8 @@ public:
 	iPoint GetPosition() const;
 	SDL_Rect GetRect() const;
 
+	void Enabled(bool enabled);
+
 
 public:
 	SDL_Texture* texture = nullptr;
@@ -46,7 +48,7 @@ public:
 	iPoint		position;
 	Module*		callback = nullptr;
 	GUI_State	state;
-	
+	bool		enabled = true;
 };
 
 #endif // __!GUIELEMENT_H__

@@ -27,3 +27,8 @@ SDL_Rect GUIElement::GetRect() const
 {
 	return rect;
 }
+
+void GUIElement::Enabled(bool enabled)
+{
+	this->enabled = enabled;
+}
