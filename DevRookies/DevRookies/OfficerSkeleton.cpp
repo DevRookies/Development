@@ -51,18 +51,20 @@ bool OfficerSkeleton::Start(uint i)
 bool OfficerSkeleton::PreUpdate()
 {
 	bool ret = true;
-
-	if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
-	{
-		iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
-		iPoint pos = { (int)position.x, (int)position.y };
-		App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
-		Walk(App->pathfinding->GetLastPath());
+	if (visibility) {
+		if (position.DistanceManhattan(App->entitymanager->player->position) < distance)
+		{
+			iPoint playerpos = { (int)App->entitymanager->player->position.x, (int)App->entitymanager->player->position.y };
+			iPoint pos = { (int)position.x, (int)position.y };
+			App->pathfinding->CreatePath(App->map->WorldToMap(pos.x, pos.y), App->map->WorldToMap(playerpos.x, playerpos.y));
+			Walk(App->pathfinding->GetLastPath());
+		}
+		else {
+			current_movement = IDLE;
+			current_animation = &idle;
+		}
 	}
-	else {
-		current_movement = IDLE;
-		current_animation = &idle;
-	}
+	
 
 	return ret;
 }
@@ -99,7 +101,8 @@ bool OfficerSkeleton::Update(float dt)
 	}
 	
 	speed.x = floor(speed.x * dt);
-	position += speed;
+	if(App->render->start_time == 0)
+		position += speed;
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
 	current = current_animation->GetCurrentFrame(dt);
@@ -120,6 +123,7 @@ bool OfficerSkeleton::CleanUp()
 	App->textures->UnLoad(skeleton_tex);
 	skeleton_tex = nullptr;
 	collider->to_delete = true;
+	visibility = false;
 	return true;
 }
 
@@ -180,8 +184,7 @@ void OfficerSkeleton::Walk(const p2DynArray<iPoint> *path)
 			for (uint i = 0; i < path->Count(); ++i)
 			{
 				iPoint pos_debug = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-				if(visibility)
-					App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+				App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 			}
 			if (position.x > pos.x)
 				current_movement = LEFT;

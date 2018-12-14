@@ -128,6 +128,8 @@ bool Render::Save(pugi::xml_node& data) const
 	cam.append_attribute("x") = camera.x;
 	cam.append_attribute("y") = camera.y;
 
+	
+
 	return true;
 }
 

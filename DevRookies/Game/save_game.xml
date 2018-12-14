@@ -8,52 +8,54 @@
 		<volume_fx value="70" />
 		<mute value="false" />
 	</audio>
+	<fonts />
 	<map />
+	<pathfinding />
+	<collision />
+	<gui />
 	<scene>
 		<scene_actual value="1" />
 	</scene>
 	<scenemanager />
-	<collision />
-	<pathfinding />
 	<entitymanager>
 		<player>
-			<position x="607.666992" y="207" />
+			<position x="818.666992" y="142" />
 			<godmode value="false" />
 			<element value="0" />
 			<flipX value="false" />
 		</player>
 		<JrGargoyle>
-			<position x="925" y="580" />
+			<position x="3378.23999" y="136.363998" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="1793" y="125" />
+			<position x="4039" y="223" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="4039" y="333" />
+			<position x="4581" y="230" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="4589" y="336" />
+			<position x="2696.76001" y="69.1514969" />
 		</JrGargoyle>
 		<OfficerSkeleton>
-			<position x="481" y="388" />
+			<position x="1899" y="454.333008" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="816" y="132" />
+			<position x="952.359985" y="104.515198" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="1506" y="390" />
+			<position x="1258" y="677" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="2847" y="69" />
+			<position x="2347" y="134.332993" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="2772" y="518" />
+			<position x="2256" y="679.333008" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="3003" y="293" />
+			<position x="2805.33008" y="390" />
 		</OfficerSkeleton>
 	</entitymanager>
 	<render>
-		<camera x="-284" y="0" />
+		<camera x="-398" y="0" />
 	</render>
 </game_state>
