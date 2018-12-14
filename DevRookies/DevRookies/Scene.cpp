@@ -528,6 +528,8 @@ void Scene::GUIStart()
 	settings_hud_btn->Enabled(false);
 	back_menu_btn->Enabled(false);
 	windows_hud_img->Enabled(false);
+	music_sli->Enabled(false);
+	fx_sli->Enabled(false);
 }
 
 void Scene::GUIUpdate()
