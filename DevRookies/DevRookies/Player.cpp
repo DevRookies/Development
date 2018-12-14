@@ -119,6 +119,10 @@ bool Player::Update(float dt)
 		speed.y = distance;
 	}
 	speed.x = floor(speed.x * dt);
+
+	if (App->scene->scene_actual == 0)
+		speed.x = 0;
+
 	position += speed;
 	
 	current = current_animation->GetCurrentFrame(dt);
@@ -191,37 +195,40 @@ void Player::AddColliderPlayer() {
 //----------------------------------------------------
 void Player::OnCollision(Collider * collider1)
 {
-	
-	if (collider1->type == COLLIDER_FINAL)
-		Win();
-	
-	if (!godmode) {
-		if (collider1->type == COLLIDER_ICE) {
-			current_state = FLOOR;
-			SetPosition(position.x, collider1->rect.y - collider_box_height);
-			if (current_element == FIRE)
+	if (App->scene->scene_actual != 0) 
+	{
+		if (collider1->type == COLLIDER_FINAL)
+			Win();
+
+		if (!godmode) {
+			if (collider1->type == COLLIDER_ICE) {
+				current_state = FLOOR;
+				SetPosition(position.x, collider1->rect.y - collider_box_height);
+				if (current_element == FIRE)
+					Die();
+			}
+			else if (collider1->type == COLLIDER_FIRE) {
+				current_state = FLOOR;
+				SetPosition(position.x, collider1->rect.y - collider_box_height);
+				if (current_element == ICE)
+					Die();
+			}
+			else if (collider1->type == COLLIDER_POISON) {
+				current_state = FLOOR;
 				Die();
-		}
-		else if (collider1->type == COLLIDER_FIRE) {
-			current_state = FLOOR;
-			SetPosition(position.x, collider1->rect.y - collider_box_height);
-			if (current_element == ICE)
+			}
+			else if (collider1->type == COLLIDER_ENEMY)
+				if (current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
+					Die();
+				else
+					App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
+
+			if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
 				Die();
-		}
-		else if (collider1->type == COLLIDER_POISON) {
-			current_state = FLOOR;
-			Die();
-		}
-		else if (collider1->type == COLLIDER_ENEMY)
-			if (current_movement != LEFT_HIT && current_movement != RIGHT_HIT)
-				Die();
-			else
-				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
-		
-		if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
-			Die();
+			}
 		}
 	}
+	
 }
 
 void Player::AddFX(const int channel , const int repeat) const
