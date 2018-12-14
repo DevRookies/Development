@@ -222,6 +222,10 @@ void Player::OnCollision(Collider * collider1)
 					Die();
 				else
 					App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
+			else if (collider1->type == COLLIDER_COIN) {
+				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
+				coin_counter += 1;
+			}
 
 			if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
 				Die();

@@ -281,6 +281,7 @@ bool Map::CleanUp()
 	// Clean up the pugui tree
 	init_JrGargoyle_position.clear();
 	init_Skeleton_position.clear();
+	init_Coin_position.clear();
 	map_file.reset();
 
 	return true;
@@ -380,7 +381,7 @@ bool Map::Load(const char* file_name)
 				init_player_position.y = objects_node.child("object").attribute("y").as_float();
 				ret = true;
 			}
-			else if (type.operator==("EnemyGargoyle") || type.operator==("EnemySkeleton")) {
+			else if (type.operator==("EnemyGargoyle") || type.operator==("EnemySkeleton") || type.operator==("Coin")) {
 				LoadEnemyPosition(objects_node);
 				ret = true;
 			}
@@ -674,9 +675,10 @@ bool Map::LoadEnemyPosition(pugi::xml_node & node)
 		
 		if(type.operator==("EnemyGargoyle"))
 			init_JrGargoyle_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
-		else
+		else if (type.operator==("EnemySkeleton"))
 			init_Skeleton_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
-
+		else
+			init_Coin_position.add({ object.attribute("x").as_float(), object.attribute("y").as_float() });
 	}
 
 	return true;

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "OfficerSkeleton.h"
 #include "JrGargoyle.h"
+#include "Coin.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "Textures.h"
 #include "Map.h"
@@ -16,6 +17,7 @@ EntityManager::EntityManager()
 	CreateEntity(entityType::PLAYER);
 	CreateEntity(entityType::FLYING_ENEMY);
 	CreateEntity(entityType::LAND_ENEMY);
+	CreateEntity(entityType::COIN);
 }
 
 EntityManager::~EntityManager()
@@ -143,6 +145,10 @@ bool EntityManager::Save(pugi::xml_node& file) const
 		{
 			tmp->data->Save(file.append_child("OfficerSkeleton"));
 		}
+		if (tmp->data->type == entityType::COIN)
+		{
+			tmp->data->Save(file.append_child("Coin"));
+		}
 		tmp = tmp->next;
 	}
 	return ret;
@@ -155,6 +161,7 @@ bool EntityManager::Load(pugi::xml_node& file)
 	pugi::xml_node player = file.child("player");
 	pugi::xml_node JrGargoyle = file.child("JrGargoyle");
 	pugi::xml_node OfficerSkeleton = file.child("OfficerSkeleton");
+	pugi::xml_node Coin = file.child("Coin");
 	while (tmp != nullptr)
 	{
 		if (tmp->data->type == entityType::PLAYER)
@@ -170,6 +177,11 @@ bool EntityManager::Load(pugi::xml_node& file)
 		{
 			tmp->data->Load(OfficerSkeleton);
 			OfficerSkeleton = OfficerSkeleton.next_sibling("OfficerSkeleton");
+		}
+		if (tmp->data->type == entityType::COIN)
+		{
+			tmp->data->Load(Coin);
+			Coin = Coin.next_sibling("Coin");
 		}
 		tmp = tmp->next;
 	}
@@ -197,6 +209,13 @@ Entity* EntityManager::CreateEntity(entityType type)
 		for (uint i = 0; i < skeleton_count; i++)
 		{
 			tmp = new OfficerSkeleton(type);
+			entities.add(tmp);
+		}
+		break;
+	case entityType::COIN:
+		for (uint i = 0; i < coin_count; i++)
+		{
+			tmp = new Coin(type);
 			entities.add(tmp);
 		}
 		break;

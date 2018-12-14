@@ -20,6 +20,7 @@ Collision::Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_BORDER] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_FINAL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_COIN] = true;
 }
 
 // Destructor
@@ -99,20 +100,23 @@ bool Collision::Update(float dt)
 				case COLLIDER_ICE: // blue
 					App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, 80);
 					break;
-				case COLLIDER_FIRE: // red
+				case COLLIDER_FIRE: // blue
 					App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, 80);
 					break;
-				case COLLIDER_POISON: // green
+				case COLLIDER_POISON: // red
 					App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, 80);
 					break;
 				case COLLIDER_BORDER: // black
 					App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, 80);
 					break;
-				case COLLIDER_ENEMY: // black
+				case COLLIDER_ENEMY: // red
 					App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, 80);
 					break;
-				case COLLIDER_FINAL: // black
+				case COLLIDER_FINAL: // green
 					App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, 80);
+					break;
+				case COLLIDER_COIN: // yellow
+					App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, 80);
 					break;
 				}
 			}

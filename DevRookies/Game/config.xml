@@ -211,6 +211,20 @@
         </die>
       </animations>
     </OfficerSkeleton>
+
+    <Coin>
+      <texture>textures/Coin.png</texture>
+      <coin_fx_name source="coin.wav"/>
+      <animations>
+        <flip speed="5.1F" loop="true">
+          <frame x="0" y="0" width="23" height="24"/>
+          <frame x="25" y="0" width="25" height="24"/>
+          <frame x="52" y="0" width="23" height="24"/>
+          <frame x="77" y="0" width="5" height="24"/>
+        </flip>
+      </animations>
+    </Coin>
+    
   </entitymanager>
 
 </config>

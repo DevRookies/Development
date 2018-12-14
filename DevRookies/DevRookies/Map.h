@@ -167,6 +167,7 @@ public:
 	fPoint				init_player_position;
 	p2List<fPoint>		init_JrGargoyle_position;
 	p2List<fPoint>		init_Skeleton_position;
+	p2List<fPoint>		init_Coin_position;
 	
 
 private:

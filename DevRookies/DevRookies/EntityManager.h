@@ -39,6 +39,7 @@ public:
 	Player*			player = nullptr;
 	uint			gargoyle_count = 4;
 	uint			skeleton_count = 6;
+	uint			coin_count = 10; //KEEP AN EYE ON THIS
 };
 #endif // !__ENTITYMANAGER_H__
 

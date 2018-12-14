@@ -91,6 +91,9 @@
     <ClCompile Include="GUISlider.h">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="GUILabel.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
