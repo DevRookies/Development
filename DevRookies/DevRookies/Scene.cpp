@@ -324,10 +324,10 @@ bool Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
-		App->audio->VolumeDown();
+		App->audio->VolumeDown(-1);
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-		App->audio->VolumeUp();
+		App->audio->VolumeUp(-1);
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
