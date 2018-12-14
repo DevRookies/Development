@@ -688,4 +688,8 @@ void Scene::GUIUpdate()
 
 }
 
-
+void Scene::HUDUpdate()
+{
+	coins->SetText(App->entitymanager->player->coin_counter);
+	lifes->SetText(App->entitymanager->player->lifes);
+}

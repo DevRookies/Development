@@ -74,6 +74,7 @@ private:
 	void GUICreate();
 	void GUIStart();
 	void GUIUpdate();
+	void HUDUpdate();
 	//--------------------------GUIElements---------------------------------------------------
 	GUIImage* windows_img = nullptr;
 	GUIImage* windows_hud_img = nullptr;
