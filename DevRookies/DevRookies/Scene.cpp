@@ -534,6 +534,12 @@ void Scene::GUIStart()
 
 void Scene::GUIUpdate()
 {
+	if (restarting) {
+		restarting = false;
+		scene_actual = 0;
+		Restart();
+	}
+
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED) {
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
@@ -550,6 +556,7 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
+
 		//enable
 		settings_home_btn->Enabled(true);
 		music_img->Enabled(true);
@@ -567,8 +574,8 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(false);
 		minus_fx_img->Enabled(false);
 		plus_fx_img->Enabled(false);
-		//enable
 
+		//enable
 		title_img->Enabled(true);
 		play_btn->Enabled(true);
 		continue_btn->Enabled(true);
@@ -585,6 +592,7 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
+
 		//enable
 		credits_home_btn->Enabled(true);
 		license_img->Enabled(true);
@@ -592,6 +600,7 @@ void Scene::GUIUpdate()
 		//disable
 		credits_home_btn->Enabled(false);
 		license_img->Enabled(false);
+
 		//enable
 		title_img->Enabled(true);
 		play_btn->Enabled(true);
@@ -599,9 +608,9 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
-	}else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0)            //IN GAME MENU
-	{
+	}else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0) { // IN GAME MENU---------------
 		App->pause = true;
+
 		//enable HUD pause
 		windows_hud_img->Enabled(true);
 		resume_btn->Enabled(true);
@@ -638,26 +647,24 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(false);
 		minus_fx_img->Enabled(false);
 		plus_fx_img->Enabled(false);
+
 		//enable
 		resume_btn->Enabled(true);
 		settings_hud_btn->Enabled(true);
 		back_menu_btn->Enabled(true);
 	}else if (back_menu_btn->state == PRESSED) {
-		
 		//disable HUD pause
 		windows_hud_img->Enabled(false);
 		resume_btn->Enabled(false);
 		settings_hud_btn->Enabled(false);
 		back_menu_btn->Enabled(false);
-
-		//why it doesnt work?----------------------------------------------------------------------------------------------------------------------------------
 		coins_img->Enabled(false);
 		life_img->Enabled(false);
 		time_img->Enabled(false);
 		score_img->Enabled(false);
 
-		scene_actual = 0;
-		Restart();
+		restarting = true;
+		
 	}
 
 	

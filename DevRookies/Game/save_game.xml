@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="128" />
+		<volume value="178" />
 		<volume_fx value="70" />
 		<mute value="false" />
 	</audio>
@@ -13,79 +13,77 @@
 	<pathfinding />
 	<gui />
 	<scene>
-		<scene_actual value="0" />
+		<scene_actual value="1" />
 	</scene>
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="614.333008" y="286.665985" />
+			<position x="1292.66699" y="462" />
 			<godmode value="false" />
 			<element value="0" />
-			<flipX value="false" />
+			<flipX value="true" />
 		</player>
 		<JrGargoyle>
-			<position x="833.666016" y="487" />
+			<position x="3378.23999" y="136.363998" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="1025.67004" y="110.334" />
+			<position x="4039" y="223" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="1098.67004" y="261" />
+			<position x="4581" y="230" />
 		</JrGargoyle>
 		<JrGargoyle>
-			<position x="1158.67004" y="539.333008" />
+			<position x="2696.76001" y="69.1514969" />
 		</JrGargoyle>
 		<OfficerSkeleton>
-			<position x="69.3333969" y="580.666016" />
+			<position x="1899" y="454.333008" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="383.997009" y="487" />
+			<position x="990.359985" y="104.515198" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="213.332993" y="133.667007" />
+			<position x="1108" y="678" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="144.334" y="963" />
+			<position x="2347" y="134.332993" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="210" y="964" />
+			<position x="2256" y="679.333008" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
-			<position x="113" y="294" />
+			<position x="2805.33008" y="390" />
 		</OfficerSkeleton>
 		<Coin>
-			<position x="344" y="681" />
+			<position x="370" y="456" />
 		</Coin>
 		<Coin>
-			<position x="544" y="679" />
+			<position x="0" y="0" />
 		</Coin>
 		<Coin>
-			<position x="706" y="681" />
+			<position x="1688" y="468" />
 		</Coin>
 		<Coin>
-			<position x="881" y="680" />
+			<position x="2620" y="400" />
 		</Coin>
 		<Coin>
-			<position x="884" y="352" />
+			<position x="3146" y="546" />
 		</Coin>
 		<Coin>
-			<position x="365" y="357" />
+			<position x="3558" y="416" />
 		</Coin>
 		<Coin>
-			<position x="155" y="162" />
+			<position x="5648" y="418" />
 		</Coin>
 		<Coin>
-			<position x="1050" y="165" />
+			<position x="4756" y="418" />
 		</Coin>
 		<Coin>
-			<position x="1131" y="612" />
+			<position x="4182" y="406" />
 		</Coin>
-		<Coin>
-			<position x="115" y="625" />
-		</Coin>
+		<Coin />
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="0" y="0" />
+		<camera x="-720" y="0" />
 	</render>
 </game_state>
