@@ -50,7 +50,7 @@
 
   <audio>
     <default_music_fade_time value="2.0"/>
-    <volume value="125"/>
+    <volume value="100"/>
 	  <volume_change_ratio value="25"/>
     <mute value="false"/>
 	  <music> 
