@@ -316,18 +316,11 @@ bool Scene::Update(float dt)
 		Restart();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN || back_menu_btn->state == PRESSED)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN || continue_btn->state == PRESSED) {
 		App->LoadGame();
-		title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
-		windows_img->Enabled(false);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
@@ -446,6 +439,7 @@ void Scene::Restart() const
 	App->scenemanager->FadeToBlack(scene_actual);
 	App->entitymanager->player->visibility = false;
 	p2List_item<Entity*>* tmp = App->entitymanager->entities.start;
+	App->pause = false;
 	while (tmp != nullptr)
 	{
 		tmp->data->visibility = false;
@@ -536,132 +530,20 @@ void Scene::GUIStart()
 		break;
 	}
 	
-	////HIDDEN SUBMENUS
-	//settings_home_btn->Enabled(false);
-	//settings_hud_home_btn->Enabled(false);
-	//credits_home_btn->Enabled(false);
-	//license_img->Enabled(false);
-	//music_img->Enabled(false);
-	//fx_img->Enabled(false);
-	//minus_music_img->Enabled(false);
-	//plus_music_img->Enabled(false);
-	//minus_fx_img->Enabled(false);
-	//plus_fx_img->Enabled(false);
-
-	////HUD
-	//coins_img->Enabled(false);
-	//life_img->Enabled(false);
-	//time_img->Enabled(false);
-	//score_img->Enabled(false);
-	//resume_btn->Enabled(false);
-	//settings_hud_btn->Enabled(false);
-	//back_menu_btn->Enabled(false);
-	//windows_hud_img->Enabled(false);
-	//music_sli->Enabled(false);
-	//fx_sli->Enabled(false);
 }
 
 void Scene::GUIUpdate()
 {
-	//if (scene_actual != 0) {
-	//	//disable UI scene0
-	//	title_img->Enabled(false);
-	//	play_btn->Enabled(false);
-	//	continue_btn->Enabled(false);
-	//	settings_btn->Enabled(false);
-	//	credits_btn->Enabled(false);
-	//	exit_btn->Enabled(false);
-	//	windows_img->Enabled(false);
-
-	//	//enable HUD
-	//	coins_img->Enabled(true);
-	//	life_img->Enabled(true);
-	//	time_img->Enabled(true);
-	//	score_img->Enabled(true);
-	//}
-
-	//if (scene_actual == 0 && printUI_base == true) {
-	//	title_img->Enabled(true);
-	//	play_btn->Enabled(true);
-	//	continue_btn->Enabled(true);
-	//	settings_btn->Enabled(true);
-	//	credits_btn->Enabled(true);
-	//	exit_btn->Enabled(true);
-	//	windows_img->Enabled(true);
-	//	//enable HUD--------------------------------------------------------------------------------------------------------
-	//	coins_img->Enabled(false);
-	//	life_img->Enabled(false);
-	//	time_img->Enabled(false);
-	//	score_img->Enabled(false);
-	//}
-
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0)            //IN GAME MENU
-	{
-		App->pause = true;
-
-		//enable HUD pause
-		windows_hud_img->Enabled(true);
-		resume_btn->Enabled(true);
-		settings_hud_btn->Enabled(true);
-		back_menu_btn->Enabled(true);
-	}
-
-	if (resume_btn->state == PRESSED) {
-		App->pause = false;
-
-		//disable HUD pause
-		windows_hud_img->Enabled(false);
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-	}
-
-	if (settings_hud_btn->state == PRESSED) {
-		//disable UIscene0
-		/*title_img->Enabled(false);
+	if (play_btn->state == PRESSED || continue_btn->state == PRESSED) {
+		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);*/
-
-		//disable HUD pause
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-
-		//enable settings
-		//windows_hud_img->Enabled(true);
-		settings_hud_home_btn->Enabled(true);
-		music_img->Enabled(true);
-		fx_img->Enabled(true);
-		minus_music_img->Enabled(true);
-		plus_music_img->Enabled(true);
-		minus_fx_img->Enabled(true);
-		plus_fx_img->Enabled(true);
-	}
-
-	if (back_menu_btn->state == PRESSED) {
-		scene_actual = 0;
-		Restart();
-
-		App->pause = false;
-
-		//disable HUD pause
-		windows_hud_img->Enabled(false);
-		resume_btn->Enabled(false);
-		settings_hud_btn->Enabled(false);
-		back_menu_btn->Enabled(false);
-
-		//why it doesnt work?----------------------------------------------------------------------------------------------------------------------------------
-		coins_img->Enabled(false);
-		life_img->Enabled(false);
-		time_img->Enabled(false);
-		score_img->Enabled(false);
-	}
-
-	if (settings_btn->state == PRESSED) { //CAN'T BE PRESSED MORE THAN ONCE
-										  //disable 
+		exit_btn->Enabled(false);
+		windows_img->Enabled(false);
+	}else if (settings_btn->state == PRESSED) {
+		//disable
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
@@ -676,39 +558,7 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(true);
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
-	}
-
-	if (credits_btn->state == PRESSED) {
-		printUI_base == false;
-
-		//disable
-		title_img->Enabled(false);
-		play_btn->Enabled(false);
-		continue_btn->Enabled(false);
-		settings_btn->Enabled(false);
-		credits_btn->Enabled(false);
-		exit_btn->Enabled(false);
-		//enable
-		credits_home_btn->Enabled(true);
-		license_img->Enabled(true);
-	}
-
-	if (settings_hud_home_btn->state == PRESSED) {
-		//disable
-		settings_hud_home_btn->Enabled(false);
-		music_img->Enabled(false);
-		fx_img->Enabled(false);
-		minus_music_img->Enabled(false);
-		plus_music_img->Enabled(false);
-		minus_fx_img->Enabled(false);
-		plus_fx_img->Enabled(false);
-		//enable
-		resume_btn->Enabled(true);
-		settings_hud_btn->Enabled(true);
-		back_menu_btn->Enabled(true);
-	}
-
-	if (settings_home_btn->state == PRESSED) {
+	}else if (settings_home_btn->state == PRESSED) {
 		//disable
 		settings_home_btn->Enabled(false);
 		music_img->Enabled(false);
@@ -725,9 +575,20 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
-	}
+	}else if (credits_btn->state == PRESSED) {
+		printUI_base == false;
 
-	if (credits_home_btn->state == PRESSED) {
+		//disable
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		//enable
+		credits_home_btn->Enabled(true);
+		license_img->Enabled(true);
+	}else if (credits_home_btn->state == PRESSED) {
 		//disable
 		credits_home_btn->Enabled(false);
 		license_img->Enabled(false);
@@ -738,23 +599,77 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
+	}else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0)            //IN GAME MENU
+	{
+		App->pause = true;
+		//enable HUD pause
+		windows_hud_img->Enabled(true);
+		resume_btn->Enabled(true);
+		settings_hud_btn->Enabled(true);
+		back_menu_btn->Enabled(true);
+	}else if (resume_btn->state == PRESSED) {
+		App->pause = false;
+
+		//disable HUD pause
+		windows_hud_img->Enabled(false);
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+	}else if (settings_hud_btn->state == PRESSED) {
+		//disable HUD pause
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+
+		//enable settings
+		settings_hud_home_btn->Enabled(true);
+		music_img->Enabled(true);
+		fx_img->Enabled(true);
+		minus_music_img->Enabled(true);
+		plus_music_img->Enabled(true);
+		minus_fx_img->Enabled(true);
+		plus_fx_img->Enabled(true);
+	}else if (settings_hud_home_btn->state == PRESSED) {
+		//disable
+		settings_hud_home_btn->Enabled(false);
+		music_img->Enabled(false);
+		fx_img->Enabled(false);
+		minus_music_img->Enabled(false);
+		plus_music_img->Enabled(false);
+		minus_fx_img->Enabled(false);
+		plus_fx_img->Enabled(false);
+		//enable
+		resume_btn->Enabled(true);
+		settings_hud_btn->Enabled(true);
+		back_menu_btn->Enabled(true);
+	}else if (back_menu_btn->state == PRESSED) {
+		
+		//disable HUD pause
+		windows_hud_img->Enabled(false);
+		resume_btn->Enabled(false);
+		settings_hud_btn->Enabled(false);
+		back_menu_btn->Enabled(false);
+
+		//why it doesnt work?----------------------------------------------------------------------------------------------------------------------------------
+		coins_img->Enabled(false);
+		life_img->Enabled(false);
+		time_img->Enabled(false);
+		score_img->Enabled(false);
+
+		scene_actual = 0;
+		Restart();
 	}
+
+	
+
+	
+
+	
 
 	//does not work, plays players' fx
 	//if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
 		//App->scene->AddFX(0, 0);
 
 }
-/*bool Scene::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
-	for (; node; node = node.next_sibling("frame")) {
-		SDL_Rect frame_rect;
-		frame_rect.x = node.attribute("x").as_int();
-		frame_rect.y = node.attribute("y").as_int();
-		frame_rect.w = node.attribute("width").as_int();
-		frame_rect.h = node.attribute("height").as_int();
-		anim.PushBack(frame_rect);
-	}
-	return true;
-}*/
 
