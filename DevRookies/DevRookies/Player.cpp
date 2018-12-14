@@ -109,14 +109,10 @@ bool Player::Update(float dt)
 	}
 
 	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) {
-		if (lifes > 0) {
-			App->scene->Restart();
-		}
-		else if (lifes == 0) {
+		if (lifes == 0) {
 			App->scene->scene_actual = 0;
-			App->scene->Restart();
 		}
-			
+		App->scene->Restart();	
 	}
 
 	speed.y = floor(speed.y * dt);
