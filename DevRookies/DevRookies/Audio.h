@@ -13,11 +13,10 @@ class Audio : public Module
 public:
 	uint volume;
 	uint volume_fx;
+	uint max_volume;
 	float default_music_fade_time;
 	uint volume_change_ratio;
 	bool mute;
-	bool volume_down;
-	bool volume_up;
 
 	Audio();
 
@@ -40,9 +39,9 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	//Change Volume	
-	bool StopMusic();
-	bool VolumeUp();
-	bool VolumeDown();
+	void StopMusic();
+	void VolumeUp(int vol);
+	void VolumeDown(int vol);
 
 	//Save & Load volume
 	bool Load(pugi::xml_node&);

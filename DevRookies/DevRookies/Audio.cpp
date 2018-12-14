@@ -26,7 +26,8 @@ bool Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	volume = config.child("volume").attribute("value").as_uint();
-	volume_fx = config.child("volume_fx").attribute("value").as_uint();
+	volume_fx = config.child("volume").attribute("value").as_uint();
+	max_volume = config.child("volume").attribute("value").as_uint();
 	default_music_fade_time = config.child("default_music_fade_time").attribute("value").as_float();
 	volume_change_ratio = config.child("volume_change_ratio").attribute("value").as_uint();
 	mute = config.child("mute").attribute("value").as_bool(false);
@@ -192,76 +193,78 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	if (id > 0 && id <= fx.count())
 	{
-		if (mute == true) {
-			Mix_VolumeChunk(fx[id - 1], 0);
-			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		}
-		else {
-			Mix_VolumeChunk(fx[id - 1], volume_fx);
-			Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		}
-	}
-
-	if (volume_up == true) {
-		volume_fx += volume_change_ratio;
-		Mix_VolumeChunk(fx[id - 1], volume_fx);
 		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		volume_up = false;
-	}
-
-	if (volume_down == true) {
-		if (volume > 0) {
-			volume_fx -= volume_change_ratio;
-		}
-		Mix_VolumeChunk(fx[id - 1], volume_fx);
-		Mix_PlayChannel(-1, fx[id - 1], repeat, 0);
-		volume_down = false;
 	}
 
 	LOG("VOLUME %d", volume_fx);
 	return ret;
 }
 
-bool Audio::StopMusic()
+void Audio::StopMusic()
 {
 	if (mute == false)
 	{
-		mute = true;
 		Mix_VolumeMusic(0);
+		for (int id = 1; id <= fx.count(); id++)
+		{
+			Mix_VolumeChunk(fx[id - 1], 0);
+		}
 	}
 	else if (mute == true)
 	{
-		mute = false;
 		Mix_VolumeMusic(volume);
+		for (int id = 1; id <= fx.count(); id++)
+		{
+			Mix_VolumeChunk(fx[id - 1], volume_fx);
+		}
 	}
-
-	return mute;
+	mute = !mute;
 }
 
-bool Audio::VolumeUp()
+void Audio::VolumeUp(int vol)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-	{
-		volume += volume_change_ratio;
-		Mix_VolumeMusic(volume);
-		volume_up = true;
+	if (vol == -1) {
+		if (volume < max_volume) {
+			volume += volume_change_ratio;
+			volume_fx += volume_change_ratio;
+
+			Mix_VolumeMusic(volume);
+
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
+		}
 	}
-	return volume_up;
+	else {
+		volume = vol - volume_change_ratio;
+		volume_fx = vol - volume_change_ratio;
+		VolumeUp(-1);
+	}
+	
 }
 
-bool Audio::VolumeDown()
+void Audio::VolumeDown(int vol)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-	{
+	if (vol == -1) {
 		if (volume > 0) {
 			volume -= volume_change_ratio;
+			volume_fx -= volume_change_ratio;
 		}
-		Mix_VolumeMusic(volume);	
-		volume_down = true;
-	}
-	return volume_down;
-}
+		Mix_VolumeMusic(volume);
 
+		for (int id = 1; id <= fx.count(); id++)
+		{
+			Mix_VolumeChunk(fx[id - 1], volume_fx);
+		}
+	}
+	else {
+		volume = vol + volume_change_ratio;
+		volume_fx = vol + volume_change_ratio;
+		VolumeDown(-1);
+	}
+	
+}
 
 bool Audio::Load(pugi::xml_node& data)
 {

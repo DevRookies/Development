@@ -322,11 +322,11 @@ bool Scene::Update(float dt)
 		App->LoadGame();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-		App->audio->VolumeDown();
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+		App->audio->VolumeDown(-1);
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		App->audio->VolumeUp();
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+		App->audio->VolumeUp(-1);
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
