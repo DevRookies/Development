@@ -10,7 +10,11 @@ Coin::Coin(entityType type) :Entity(type)
 {
 }
 
-Coin::~Coin() {}
+Coin::~Coin() 
+{
+	if (collider != nullptr)
+		collider->to_delete = true;
+}
 
 bool Coin::Awake(pugi::xml_node& conf)
 {
