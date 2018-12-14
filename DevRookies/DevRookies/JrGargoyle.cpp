@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "EntityManager.h"
 #include "Player.h"
+#include "Audio.h"
 #include "Pathfinding.h"
 #include "SceneManager.h"
 #include "Textures.h"
@@ -24,6 +25,8 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 	pugi::xml_node config = conf.child("JrGargoyle");
 
 	gargoyle_texture = config.child("texture").child_value();
+	die_fx_name = config.child("die_fx_name").attribute("source").as_string();
+
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
 	max_speed = { config.child("max_speed").attribute("x").as_float() , config.child("max_speed").attribute("y").as_float() };
@@ -44,6 +47,7 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 
 bool JrGargoyle::Start(uint i)
 {
+	App->audio->LoadFx(die_fx_name.GetString());
 	return true;
 }
 

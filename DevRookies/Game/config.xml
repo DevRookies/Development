@@ -155,6 +155,7 @@
 
     <JrGargoyle>
       <texture>textures/JrGargoyle.png</texture>
+      <die_fx_name source="agh.wav"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="50.0f"/>
@@ -183,6 +184,7 @@
 
     <OfficerSkeleton>
       <texture>textures/OfficerSkeleton.png</texture>
+      <die_fx_name source="agh.wav"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="100.0f"/>
