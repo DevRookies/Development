@@ -112,12 +112,12 @@ bool Player::Update(float dt)
 		if (lifes > 0) {
 			App->scene->Restart();
 		}
-		else if (lifes == 0)
-			App->scene->scene_actual == 0;
+		else if (lifes == 0) {
+			App->scene->scene_actual = 0;
+			App->scene->Restart();
+		}
+			
 	}
-		
-	//if lifes == 0 --> fade scene0
-	
 
 	speed.y = floor(speed.y * dt);
 	float distance = App->collision->CollisionCorrectionDown(collider->rect) + 0.5f;
