@@ -229,8 +229,15 @@ void Player::OnCollision(Collider * collider1)
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 				++coin_counter;
 				AddFX(6, 0);
+				score += 100;
+				if (coin_counter == 10) {
+					score += 1000;
+					++lifes;
+					LOG("SCORE/LIFES 10 COIN: %i; %i", score, lifes);
+				}
 				App->scene->HUDUpdate();
 				LOG("COINS: %i", coin_counter);
+				LOG("SCORE COIN: %i", score);
 			}
 
 			if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
@@ -479,6 +486,8 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
+		score = 0;
+		coin_counter = 0;
 		--lifes;
 		App->scene->HUDUpdate();
 		LOG("LIFES: %i", lifes);
