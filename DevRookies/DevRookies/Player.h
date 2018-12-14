@@ -81,6 +81,7 @@ public:
 	bool		godmode = false;
 	bool		visibility = true;
 	int			coin_counter = 0;
+	int			lifes = 3;
 };
 
 #endif // __PLAYER_H__

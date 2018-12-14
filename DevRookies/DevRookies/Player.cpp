@@ -108,8 +108,15 @@ bool Player::Update(float dt)
 		Move();
 	}
 
-	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) 
-		App->scene->Restart();
+	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) {
+		if (lifes > 0) {
+			App->scene->Restart();
+		}
+		else if (lifes == 0)
+			App->scene->scene_actual == 0;
+	}
+		
+	//if lifes == 0 --> fade scene0
 	
 
 	speed.y = floor(speed.y * dt);
@@ -224,7 +231,8 @@ void Player::OnCollision(Collider * collider1)
 					App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 			else if (collider1->type == COLLIDER_COIN) {
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
-				coin_counter += 1;
+				++coin_counter;
+				LOG("COINS: %i", coin_counter);
 			}
 
 			if (App->render->camera.x <= -position.x || collider1->type == COLLIDER_BORDER) {
@@ -473,6 +481,8 @@ void Player::Die() {
 		else {
 			current_animation = &deadice;
 		}
+		--lifes;
+		LOG("LIFES: %i", lifes);
 	}
 }
 

@@ -14,7 +14,7 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle) : GUIElement(pos, GUI_Type:
 	rect.y = position.y;
 
 	//make this dont blit when enabled == false
-	slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
+	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
 }
 
 GUISlider::~GUISlider()
