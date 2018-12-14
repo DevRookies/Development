@@ -105,7 +105,8 @@ private:
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
-	//GUILabel* label = nullptr;
+	GUILabel* coins = nullptr;
+	GUILabel* lifes = nullptr;
 	
 	//--------------------------GUIRects---------------------------------------------------
 	//IMG

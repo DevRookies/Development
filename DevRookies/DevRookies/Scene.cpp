@@ -495,6 +495,15 @@ void Scene::GUICreate()
 	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
+
+	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+
+	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
+	p2SString life_str("%i", App->entitymanager->player->lifes);
+
+	coins = App->guimanager->CreateLabel(iPoint(925, 40), coin_str, font, this);
+	lifes = App->guimanager->CreateLabel(iPoint(1135, 40), life_str, font, this);
+
 }
 
 void Scene::GUIStart()
@@ -517,6 +526,8 @@ void Scene::GUIStart()
 		life_img->Enabled(true);
 		time_img->Enabled(true);
 		score_img->Enabled(true);
+		coins->Enabled(true);
+		lifes->Enabled(true);
 		break;
 	case 2:
 		//enable HUD
@@ -524,6 +535,8 @@ void Scene::GUIStart()
 		life_img->Enabled(true);
 		time_img->Enabled(true);
 		score_img->Enabled(true);
+		coins->Enabled(true);
+		lifes->Enabled(true);
 		break;
 	default:
 		break;
@@ -661,6 +674,8 @@ void Scene::GUIUpdate()
 		life_img->Enabled(false);
 		time_img->Enabled(false);
 		score_img->Enabled(false);
+		coins->Enabled(false);
+		lifes->Enabled(false);
 
 		restarting = true;
 		
