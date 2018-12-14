@@ -5,8 +5,8 @@
 #include "SDL\include\SDL_pixels.h"
 #include "p2List.h"
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 12
+#define DEFAULT_FONT "fonts/zombiebites/Zombiebites.ttf"
+#define DEFAULT_FONT_SIZE 48
 
 struct SDL_Texture;
 struct _TTF_Font;

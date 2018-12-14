@@ -496,13 +496,13 @@ void Scene::GUICreate()
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
 
-	_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
+	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
 
 	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 	p2SString life_str("%i", App->entitymanager->player->lifes);
 
-	coins = App->guimanager->CreateLabel(iPoint(925, 40), coin_str, font, this);
-	lifes = App->guimanager->CreateLabel(iPoint(1135, 40), life_str, font, this);
+	coins = App->guimanager->CreateLabel(iPoint(950, 46), coin_str, font, this);
+	lifes = App->guimanager->CreateLabel(iPoint(1150, 46), life_str, font, this);
 
 }
 
