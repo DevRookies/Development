@@ -316,16 +316,16 @@ void Player::PreMove() {
 
 				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && flipX) {
 					current_movement = LEFT_HIT;
-					AddFX(2, 0);
 					hitfire.setCurrentFrameIndex(0);
 					hitice.setCurrentFrameIndex(0);
+					AddFX(3, 0);
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN && !flipX) {
 					current_movement = RIGHT_HIT;
-					AddFX(2, 0);
 					hitfire.setCurrentFrameIndex(0);
 					hitice.setCurrentFrameIndex(0);
+					AddFX(3, 0);
 				}
 			}
 			
@@ -456,7 +456,7 @@ void Player::Jump()
 {
 	jump_cont = jump_cont_start;
 	current_state = AIR;
-	AddFX(1, 0);
+	AddFX(2, 0);
 }
 
 void Player::GodMove()
@@ -473,7 +473,7 @@ void Player::GodMove()
 void Player::Die() {
 
 	if (!godmode) {
-		AddFX(3, 0);
+		AddFX(4, 0);
 		current_state = DEATH;
 		if (current_element == FIRE) {
 			current_animation = &deadfire;
@@ -489,7 +489,7 @@ void Player::Die() {
 //When player wins--------
 void Player::Win() {
 
-	AddFX(4, 0);
+	AddFX(5, 0);
 	current_state = WIN;
 	if (current_element == FIRE)
 		current_animation = &idlefire;

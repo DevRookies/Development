@@ -55,7 +55,7 @@ private:
 
 	p2SString		tile_name_scene0 = "", tile_name_scene1 = "", tile_name_scene2 = "";
 	p2SString		lvl0_music_name = "", lvl1_music_name = "", lvl2_music_name = "";
-	p2SString		hover_fx_name = "";
+	p2SString		press_fx_name = "";
 	p2SString		godmode_texture = "", pause_texture = "";
 	SDL_Rect		camera;
 

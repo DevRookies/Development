@@ -37,7 +37,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	lvl0_music_name = config.child("lvl0_music_name").child_value();
 	lvl1_music_name = config.child("lvl1_music_name").child_value();
 	lvl2_music_name = config.child("lvl2_music_name").child_value();
-	hover_fx_name = config.child("hover_fx_name").attribute("source").as_string();
+	press_fx_name = config.child("press_fx_name").attribute("source").as_string();
 	camera.x = config.child("camera").attribute("x").as_int();
 	camera.y = config.child("camera").attribute("y").as_int();
 	godmode_texture = config.child("godmode_tex").child_value();
@@ -238,7 +238,7 @@ bool Scene::Start()
 		break;
 	}
 
-	App->audio->LoadFx(hover_fx_name.GetString());
+	App->audio->LoadFx(press_fx_name.GetString());
 
 	//----GUI-------------
 	if (!guicreated) {
@@ -400,7 +400,6 @@ bool Scene::CleanUp()
 		tmp = tmp->next;
 	}
 	App->collision->CleanUp();
-
 
 	App->textures->UnLoad(debug_tex);
 	debug_tex = nullptr;
@@ -667,15 +666,9 @@ void Scene::GUIUpdate()
 		
 	}
 
+	if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
+		App->scene->AddFX(1, 0);
 	
-
-	
-
-	
-
-	//does not work, plays players' fx
-	//if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
-		//App->scene->AddFX(0, 0);
 
 }
 
