@@ -666,7 +666,8 @@ void Scene::GUIUpdate()
 		
 	}
 
-	if (credits_home_btn->state == PRESSED || settings_home_btn->state == PRESSED || play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || credits_btn->state == PRESSED || exit_btn->state == PRESSED)
+	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || settings_home_btn->state == PRESSED || credits_btn->state == PRESSED || credits_home_btn->state == PRESSED
+		|| resume_btn->state == PRESSED || settings_hud_btn->state == PRESSED || settings_hud_home_btn->state == PRESSED || back_menu_btn->state == PRESSED)
 		App->scene->AddFX(1, 0);
 	
 
