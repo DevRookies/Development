@@ -47,10 +47,13 @@ public:
 	void Restart() const;
 
 	void AddFX(const int channel, const int repeat) const;
-	//bool LoadAnimation(pugi::xml_node &node, Animation &anim);
+
+	void HUDUpdate();
 
 	uint			scene_actual = 0;
 	SDL_Texture*	 debug_tex = nullptr;
+	
+
 private:
 
 	p2SString		tile_name_scene0 = "", tile_name_scene1 = "", tile_name_scene2 = "";
@@ -74,7 +77,7 @@ private:
 	void GUICreate();
 	void GUIStart();
 	void GUIUpdate();
-	void HUDUpdate();
+	
 	//--------------------------GUIElements---------------------------------------------------
 	GUIImage* windows_img = nullptr;
 	GUIImage* windows_hud_img = nullptr;
@@ -106,6 +109,8 @@ private:
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
+	p2SString coin_str = "0";
+	p2SString life_str = "3";
 	GUILabel* coins = nullptr;
 	GUILabel* lifes = nullptr;
 	

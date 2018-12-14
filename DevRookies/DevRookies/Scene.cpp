@@ -246,13 +246,13 @@ bool Scene::Start()
 		guicreated = true;
 	}
 	GUIStart();
-	
+
 
 	//--------------------------------------------------------------------------Pathfinding.......................................................................
 	int width, height;
 	if (App->map->CreateWalkabilityMap(width, height, &data))
 		App->pathfinding->SetMap(width, height, data);
-	
+
 	App->entitymanager->Restart();
 	App->render->SetCamera(camera.x, camera.y);
 	App->render->start_time = App->render->restart_start_time;
@@ -306,9 +306,9 @@ bool Scene::Update(float dt)
 		scene_actual = 1;
 		Restart();
 	}
-		
+
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		Restart(); 
+		Restart();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
@@ -331,12 +331,12 @@ bool Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		App->audio->StopMusic();
-	
+
 	//----GUI-------
 	GUIUpdate();
 
 	App->map->Draw(dt);
-	
+
 	if (App->render->debug_path) {
 		int x, y;
 		App->input->GetMousePosition(x, y);
@@ -381,7 +381,7 @@ bool Scene::PostUpdate()
 	BROFILER_CATEGORY("PostUpdateScene", Profiler::Color::Purple);
 	bool ret = true;
 
-	if(exit_btn->state == PRESSED)
+	if (exit_btn->state == PRESSED)
 		ret = false;
 
 	return ret;
@@ -415,7 +415,7 @@ bool Scene::CleanUp()
 bool Scene::Load(pugi::xml_node& node)
 {
 	bool ret = true;
-	
+
 	scene_actual = node.child("scene_actual").attribute("value").as_int();
 
 	CleanUp();
@@ -444,7 +444,7 @@ void Scene::Restart() const
 		tmp->data->visibility = false;
 		tmp = tmp->next;
 	}
-	
+
 }
 
 void Scene::AddFX(const int channel, const int repeat) const
@@ -452,7 +452,7 @@ void Scene::AddFX(const int channel, const int repeat) const
 	App->audio->PlayFx(channel, repeat);
 }
 
-void Scene::GUICreate() 
+void Scene::GUICreate()
 {
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
@@ -498,9 +498,6 @@ void Scene::GUICreate()
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
 
-	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
-	p2SString life_str("%i", App->entitymanager->player->lifes);
-
 	coins = App->guimanager->CreateLabel(iPoint(950, 46), coin_str, font, this);
 	lifes = App->guimanager->CreateLabel(iPoint(1150, 46), life_str, font, this);
 
@@ -541,7 +538,7 @@ void Scene::GUIStart()
 	default:
 		break;
 	}
-	
+
 }
 
 void Scene::GUIUpdate()
@@ -560,7 +557,8 @@ void Scene::GUIUpdate()
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
 		windows_img->Enabled(false);
-	}else if (settings_btn->state == PRESSED) {
+	}
+	else if (settings_btn->state == PRESSED) {
 		//disable
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
@@ -577,7 +575,8 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(true);
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
-	}else if (settings_home_btn->state == PRESSED) {
+	}
+	else if (settings_home_btn->state == PRESSED) {
 		//disable
 		settings_home_btn->Enabled(false);
 		music_img->Enabled(false);
@@ -594,7 +593,8 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
-	}else if (credits_btn->state == PRESSED) {
+	}
+	else if (credits_btn->state == PRESSED) {
 		printUI_base == false;
 
 		//disable
@@ -608,7 +608,8 @@ void Scene::GUIUpdate()
 		//enable
 		credits_home_btn->Enabled(true);
 		license_img->Enabled(true);
-	}else if (credits_home_btn->state == PRESSED) {
+	}
+	else if (credits_home_btn->state == PRESSED) {
 		//disable
 		credits_home_btn->Enabled(false);
 		license_img->Enabled(false);
@@ -620,7 +621,8 @@ void Scene::GUIUpdate()
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
-	}else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0) { // IN GAME MENU---------------
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0) { // IN GAME MENU---------------
 		App->pause = true;
 
 		//enable HUD pause
@@ -628,7 +630,8 @@ void Scene::GUIUpdate()
 		resume_btn->Enabled(true);
 		settings_hud_btn->Enabled(true);
 		back_menu_btn->Enabled(true);
-	}else if (resume_btn->state == PRESSED) {
+	}
+	else if (resume_btn->state == PRESSED) {
 		App->pause = false;
 
 		//disable HUD pause
@@ -636,7 +639,8 @@ void Scene::GUIUpdate()
 		resume_btn->Enabled(false);
 		settings_hud_btn->Enabled(false);
 		back_menu_btn->Enabled(false);
-	}else if (settings_hud_btn->state == PRESSED) {
+	}
+	else if (settings_hud_btn->state == PRESSED) {
 		//disable HUD pause
 		resume_btn->Enabled(false);
 		settings_hud_btn->Enabled(false);
@@ -650,7 +654,8 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(true);
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
-	}else if (settings_hud_home_btn->state == PRESSED) {
+	}
+	else if (settings_hud_home_btn->state == PRESSED) {
 		//disable
 		settings_hud_home_btn->Enabled(false);
 		music_img->Enabled(false);
@@ -664,7 +669,8 @@ void Scene::GUIUpdate()
 		resume_btn->Enabled(true);
 		settings_hud_btn->Enabled(true);
 		back_menu_btn->Enabled(true);
-	}else if (back_menu_btn->state == PRESSED) {
+	}
+	else if (back_menu_btn->state == PRESSED) {
 		//disable HUD pause
 		windows_hud_img->Enabled(false);
 		resume_btn->Enabled(false);
@@ -678,18 +684,23 @@ void Scene::GUIUpdate()
 		lifes->Enabled(false);
 
 		restarting = true;
-		
+
 	}
 
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || settings_home_btn->state == PRESSED || credits_btn->state == PRESSED || credits_home_btn->state == PRESSED
 		|| resume_btn->state == PRESSED || settings_hud_btn->state == PRESSED || settings_hud_home_btn->state == PRESSED || back_menu_btn->state == PRESSED)
 		App->scene->AddFX(1, 0);
-	
+
 
 }
 
 void Scene::HUDUpdate()
 {
-	coins->SetText(App->entitymanager->player->coin_counter);
-	lifes->SetText(App->entitymanager->player->lifes);
+	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
+	p2SString life_str("%i", App->entitymanager->player->lifes);
+
+	coins->SetText(coin_str);
+	lifes->SetText(life_str);
 }
+
+

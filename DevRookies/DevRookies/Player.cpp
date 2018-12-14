@@ -232,6 +232,7 @@ void Player::OnCollision(Collider * collider1)
 			else if (collider1->type == COLLIDER_COIN) {
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 				++coin_counter;
+				App->scene->HUDUpdate();
 				LOG("COINS: %i", coin_counter);
 			}
 
@@ -482,6 +483,7 @@ void Player::Die() {
 			current_animation = &deadice;
 		}
 		--lifes;
+		App->scene->HUDUpdate();
 		LOG("LIFES: %i", lifes);
 	}
 }

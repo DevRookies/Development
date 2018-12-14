@@ -80,7 +80,7 @@ public:
 
 	bool		godmode = false;
 	bool		visibility = true;
-	int			coin_counter = 0;
+	int			coin_counter =0;
 	int			lifes = 3;
 };
 
