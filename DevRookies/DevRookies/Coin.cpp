@@ -36,6 +36,17 @@ bool Coin::Start(uint i)
 	return true;
 }
 
+bool Coin::Update(float dt)
+{
+	bool ret = true;
+
+	current_animation = &flip;
+
+	current = current_animation->GetCurrentFrame(dt);
+
+	return ret;
+}
+
 bool Coin::PostUpdate()
 {
 	if (visibility)
@@ -48,7 +59,7 @@ bool Coin::CleanUp()
 	App->textures->UnLoad(coin_tex);
 	coin_tex = nullptr;
 	collider->to_delete = true;
-	//visibility = false;
+	visibility = false;
 	return true;
 }
 

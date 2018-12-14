@@ -26,6 +26,8 @@ void GUILabel::SetText(p2SString text)
 	rect.w = width;
 	rect.h = height;
 
+	//y + h_font + margin?
+
 	SDL_Color color = { 255, 255, 255, 255 };
 	texture = App->fonts->Print(text.GetString(), color, font);
 }

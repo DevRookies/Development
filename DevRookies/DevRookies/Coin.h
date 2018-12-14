@@ -25,7 +25,7 @@ public:
 	bool PreUpdate() {return true;};
 
 	// Called each loop iteration
-	bool Update(float dt) { return true; };
+	bool Update(float dt);
 
 	// Called before all Updates
 	bool PostUpdate();

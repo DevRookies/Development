@@ -123,6 +123,8 @@ bool JrGargoyle::CleanUp()
 	App->textures->UnLoad(gargoyle_tex);
 	gargoyle_tex = nullptr;
 	collider->to_delete = true;
+	visibility = false;
+
 	return true;
 }
 
