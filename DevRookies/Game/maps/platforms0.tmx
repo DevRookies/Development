@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="424">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="426">
  <tileset firstgid="1" name="platforms" tilewidth="32" tileheight="32" tilecount="30" columns="5">
   <image source="platformsPath.png" width="160" height="192"/>
   <terraintypes>
@@ -2720,6 +2720,15 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2779,15 +2788,38 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2894,38 +2926,6 @@
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2960,18 +2960,18 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3048,55 +3048,55 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile gid="2"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile gid="4"/>
@@ -3134,44 +3134,44 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3188,8 +3188,6 @@
    <tile gid="4"/>
    <tile gid="4"/>
    <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3206,12 +3204,14 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
-   <tile gid="2"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -4845,7 +4845,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="initialPos">
-  <object id="13" x="530.333" y="681.333" width="52" height="50.6667">
+  <object id="13" x="810.333" y="1018.67" width="52" height="50.6667">
    <ellipse/>
   </object>
  </objectgroup>
@@ -4859,20 +4859,22 @@
   <object id="12" x="-4.93325" y="838.082" width="1280.27" height="0.800167"/>
  </objectgroup>
  <objectgroup id="8" name="fire_col_top">
-  <object id="144" x="320.333" y="353" width="284.667" height="4.66667"/>
-  <object id="145" x="321" y="481.333" width="123.333" height="4.66667"/>
-  <object id="148" x="513.333" y="546" width="90" height="5.33333"/>
+  <object id="144" x="69.6663" y="223.667" width="284.667" height="4.66667"/>
+  <object id="145" x="322.333" y="421.333" width="123.333" height="4.66667"/>
+  <object id="148" x="514.666" y="515.333" width="90" height="5.33333"/>
   <object id="149" x="65.0003" y="673.667" width="124.333" height="6"/>
-  <object id="150" x="70.3337" y="417.333" width="182" height="6.66667"/>
-  <object id="154" x="257" y="610" width="187.667" height="5.33333"/>
+  <object id="150" x="66.3337" y="388" width="182" height="6.66667"/>
+  <object id="154" x="322.333" y="579.333" width="123.667" height="5.33333"/>
   <object id="155" x="258.997" y="738.667" width="216.334" height="4.66667"/>
   <object id="409" x="516" y="737" width="88" height="4"/>
+  <object id="424" x="792" y="1082" width="88" height="4"/>
+  <object id="425" x="97.6667" y="1048" width="231.333" height="5.33333"/>
  </objectgroup>
  <objectgroup id="9" name="ice_col_top" offsetx="-1" offsety="1">
   <object id="209" x="834.167" y="419.167" width="125" height="3"/>
   <object id="210" x="675" y="736" width="89.5" height="5.5"/>
   <object id="212" x="673" y="512.5" width="91.5" height="4.5"/>
-  <object id="214" x="835.167" y="578.333" width="184" height="4.5"/>
+  <object id="214" x="835.167" y="578.333" width="120" height="4.5"/>
   <object id="215" x="807" y="736.5" width="214.5" height="4"/>
   <object id="216" x="1090.5" y="673.5" width="122.5" height="4.5"/>
   <object id="219" x="1026.67" y="386" width="187.5" height="4.5"/>
@@ -4880,17 +4882,17 @@
  </objectgroup>
  <objectgroup id="10" name="final_col" visible="0"/>
  <objectgroup id="11" name="EnemyGargoyle">
-  <object id="394" name="1" x="108.333" y="188.333" width="32" height="32"/>
-  <object id="396" name="1" x="389.667" y="103.667" width="32" height="32"/>
-  <object id="397" name="1" x="1090.67" y="175.667" width="32" height="32"/>
-  <object id="417" name="1" x="978.667" y="47.3333" width="32" height="32"/>
+  <object id="394" name="1" x="833.666" y="487" width="32" height="32"/>
+  <object id="396" name="1" x="963" y="97.0003" width="32" height="32"/>
+  <object id="397" name="1" x="1098.67" y="261" width="32" height="32"/>
+  <object id="417" name="1" x="1158.67" y="539.333" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="12" name="EnemySkeleton">
-  <object id="395" name="2" x="66.6667" y="579.333" width="32" height="32"/>
-  <object id="418" name="2" x="1157.33" y="579" width="32" height="32"/>
-  <object id="419" name="2" x="1148" y="293.667" width="32" height="32"/>
-  <object id="420" name="2" x="797.667" y="160.333" width="32" height="32"/>
-  <object id="421" name="2" x="446" y="252" width="32" height="32"/>
-  <object id="422" name="2" x="70.3333" y="323.333" width="32" height="32"/>
+  <object id="395" name="2" x="69.3334" y="580.666" width="32" height="32"/>
+  <object id="418" name="2" x="383.997" y="487" width="32" height="32"/>
+  <object id="419" name="2" x="213.333" y="133.667" width="32" height="32"/>
+  <object id="420" name="2" x="144.334" y="963" width="32" height="32"/>
+  <object id="421" name="2" x="210" y="964" width="32" height="32"/>
+  <object id="422" name="2" x="113" y="294" width="32" height="32"/>
  </objectgroup>
 </map>
