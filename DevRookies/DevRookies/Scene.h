@@ -51,8 +51,7 @@ public:
 	void HUDUpdate();
 
 	uint			scene_actual = 0;
-	SDL_Texture*	 debug_tex = nullptr;
-	
+	SDL_Texture*	debug_tex = nullptr;
 
 private:
 
@@ -109,8 +108,12 @@ private:
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
+	p2SString time_str = "0";
+	p2SString score_str = "0";
 	p2SString coin_str = "0";
 	p2SString life_str = "3";
+	GUILabel* time = nullptr;
+	GUILabel* score = nullptr;
 	GUILabel* coins = nullptr;
 	GUILabel* lifes = nullptr;
 	

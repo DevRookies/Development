@@ -154,6 +154,9 @@ void OfficerSkeleton::OnCollision(Collider * collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER) {
 		CleanUp();
+		App->entitymanager->player->score += 200;
+		LOG("SCORE ENEMY: %i", App->entitymanager->player->score);
+		App->scene->HUDUpdate();
 	}
 	else if (collider1->type == COLLIDER_POISON) {
 		CleanUp();

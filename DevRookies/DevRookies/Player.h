@@ -82,6 +82,7 @@ public:
 	bool		visibility = true;
 	int			coin_counter =0;
 	int			lifes = 3;
+	int			score = 0;
 };
 
 #endif // __PLAYER_H__
