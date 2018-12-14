@@ -48,7 +48,7 @@ public:
 	iPoint		position;
 	Module*		callback = nullptr;
 	GUI_State	state;
-	bool		enabled = true;
+	bool		enabled = false;
 };
 
 #endif // __!GUIELEMENT_H__
