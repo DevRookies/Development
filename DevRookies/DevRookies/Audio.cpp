@@ -240,6 +240,7 @@ bool Audio::StopMusic()
 
 bool Audio::VolumeUp()
 {
+	//put buttons + and - like scancode
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 	{
 		volume += volume_change_ratio;

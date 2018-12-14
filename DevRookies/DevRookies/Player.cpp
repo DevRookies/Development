@@ -228,6 +228,7 @@ void Player::OnCollision(Collider * collider1)
 			else if (collider1->type == COLLIDER_COIN) {
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 				++coin_counter;
+				AddFX(6, 0);
 				App->scene->HUDUpdate();
 				LOG("COINS: %i", coin_counter);
 			}
