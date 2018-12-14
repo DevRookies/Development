@@ -44,7 +44,7 @@ private:
 
 private:
 	SDL_Texture* coin_tex = nullptr;
-	p2SString   coin_texture;
+	p2SString   coin_texture, coin_fx_name;
 
 	Animation	flip;
 };
