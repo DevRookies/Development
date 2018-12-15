@@ -371,41 +371,22 @@ void Scene::GUICreate()
 
 	//SETTINGS
 
-	music_btn = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, false, this);
-	fx_btn = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, false, this);
-	minus_music_btn = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, false, this);
-	plus_music_btn = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false, this);
-	minus_fx_btn = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false, this);
-	plus_fx_btn = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
-	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true, this);
-	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true, this);
-
-	music_img = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, false);
-	fx_img = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, false);
-	minus_music_img = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, false);
-	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false);
-	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false);
-	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false);
+	music_btn = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, false);
+	fx_btn = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, false);
+	minus_music_btn = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, false);
+	plus_music_btn = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false);
+	minus_fx_btn = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false);
+	plus_fx_btn = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false);
 	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true);
 	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true);
 
 	music_sli->SetValue(App->audio->volume);
 	fx_sli->SetValue(App->audio->volume_fx);
-	mute_music_btn = App->guimanager->CreateButton(iPoint(433, 350), mute_music_normal, mute_music_hovered, mute_music_normal, false, this);
-	mute_fx_btn = App->guimanager->CreateButton(iPoint(733, 350), mute_fx_normal, mute_fx_hovered, mute_fx_normal, false, this);
-	little_back_menu_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false, this);
+	mute_music_btn = App->guimanager->CreateButton(iPoint(433, 350), mute_music_normal, mute_music_hovered, mute_music_normal, false);
+	mute_fx_btn = App->guimanager->CreateButton(iPoint(733, 350), mute_fx_normal, mute_fx_hovered, mute_fx_normal, false);
+	little_back_menu_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 	//HUD
-
-	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
-	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect, this);
-	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
-	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
-	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false, this);
-	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false, this);
-	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false, this);
-	little_back_hud_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false, this);
-
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect);
 	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect);
 	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect);
@@ -413,6 +394,7 @@ void Scene::GUICreate()
 	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false);
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false);
+	little_back_hud_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
