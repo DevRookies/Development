@@ -243,7 +243,7 @@ void Audio::VolumeUp(int vol)
 		}
 		break;
 	case -3:
-		if (volume < max_volume) {
+		if (volume_fx < max_volume) {
 			volume_fx += volume_change_ratio;
 			for (int id = 1; id <= fx.count(); id++)
 			{
@@ -281,7 +281,7 @@ void Audio::VolumeDown(int vol)
 		}
 		break;
 	case -3:
-		if (volume > 0) {
+		if (volume_fx > 0) {
 			volume_fx -= volume_change_ratio;
 			for (int id = 1; id <= fx.count(); id++)
 			{
