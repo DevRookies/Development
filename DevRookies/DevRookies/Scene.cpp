@@ -497,7 +497,7 @@ void Scene::GUICreate()
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
 
-	//time = App->guimanager->CreateLabel(iPoint(200, 46), time_str, font, this);
+	times = App->guimanager->CreateLabel(iPoint(200, 46), time_str, font, this);
 	score = App->guimanager->CreateLabel(iPoint(600, 46), score_str, font, this);
 	coins = App->guimanager->CreateLabel(iPoint(950, 46), coin_str, font, this);
 	lifes = App->guimanager->CreateLabel(iPoint(1150, 46), life_str, font, this);
@@ -524,7 +524,7 @@ void Scene::GUIStart()
 		life_img->Enabled(true);
 		time_img->Enabled(true);
 		score_img->Enabled(true);
-		time->Enabled(true);
+		times->Enabled(true);
 		score->Enabled(true);
 		coins->Enabled(true);
 		lifes->Enabled(true);
@@ -535,7 +535,7 @@ void Scene::GUIStart()
 		life_img->Enabled(true);
 		time_img->Enabled(true);
 		score_img->Enabled(true);
-		time->Enabled(true);
+		times->Enabled(true);
 		score->Enabled(true);
 		coins->Enabled(true);
 		lifes->Enabled(true);
@@ -685,7 +685,7 @@ void Scene::GUIUpdate()
 		life_img->Enabled(false);
 		time_img->Enabled(false);
 		score_img->Enabled(false);
-		time->Enabled(false);
+		times->Enabled(false);
 		score->Enabled(false);
 		coins->Enabled(false);
 		lifes->Enabled(false);
@@ -717,12 +717,12 @@ void Scene::GUIUpdate()
 
 void Scene::HUDUpdate()
 {
-	//p2SString time_str("%.1f", App->seconds_since_startup);
+	p2SString time_str("%.1f", App->seconds_since_startup);
 	p2SString score_str("%i", App->entitymanager->player->score);
 	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 	p2SString life_str("%i", App->entitymanager->player->lifes);
 
-	//time->SetText(time_str);
+	times->SetText(time_str);
 	score->SetText(score_str);
 	coins->SetText(coin_str);
 	lifes->SetText(life_str);
