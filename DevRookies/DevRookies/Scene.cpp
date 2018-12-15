@@ -525,7 +525,6 @@ void Scene::GUICreate()
 	score = App->guimanager->CreateLabel(iPoint(600, 46), score_str, font, this);
 	coins = App->guimanager->CreateLabel(iPoint(950, 46), coin_str, font, this);
 	lifes = App->guimanager->CreateLabel(iPoint(1150, 46), life_str, font, this);
-
 }
 
 void Scene::GUIStart()

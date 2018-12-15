@@ -13,7 +13,7 @@ private:
 
 public:
 
-	GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture = nullptr);
+	GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable = false, SDL_Texture* texture = nullptr);
 	virtual ~GUIButton();
 	bool PostUpdate();
 	

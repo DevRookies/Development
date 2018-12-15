@@ -8,7 +8,7 @@
 #include "Brofiler\Brofiler.h"
 
 
-GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture) : GUIElement(pos, GUI_Type::BUTTON, callback)
+GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable, SDL_Texture* texture) : GUIElement(pos, GUI_Type::BUTTON, draggable, callback)
 {
 	rect = normal;
 	rect.x = position.x;

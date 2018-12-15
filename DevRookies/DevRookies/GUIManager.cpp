@@ -12,6 +12,7 @@
 //#include "GUICheckbox.h"
 #include "GUISlider.h"
 #include "Scene.h"
+//#include "Window.h"
 
 #include "SDL_ttf/include/SDL_ttf.h"
 #include "Brofiler\Brofiler.h"
@@ -103,12 +104,12 @@ bool GUIManager::Update(float dt) {
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
 		
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable)
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true )
 		{
 			int x_motion = mouse.x - last_mouse.x;
 			int y_motion = mouse.y - last_mouse.y;
 
-			tmp->data->SetLocalPosition(tmp->data->GetPosition().x + x_motion, tmp->data->GetPosition().y + y_motion);
+			tmp->data->SetLocalPosition(tmp->data->GetPosition().x + x_motion , tmp->data->GetPosition().y); //+y_motion if drag vertical
 		}
 		last_mouse = mouse;
 	}
@@ -199,9 +200,9 @@ GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, M
 }
 
 
-GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, Module* callback )
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable, Module* callback )
 {
-	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,atlas) ;
+	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,draggable, atlas) ;
 	tmp_btn->callback = callback;
 	gui_elements.add(tmp_btn);
 

@@ -28,7 +28,7 @@ enum GUI_State
 class GUIElement
 {
 public:
-	GUIElement(iPoint pos, GUI_Type type,bool draggable = true,Module* callback = nullptr);
+	GUIElement(iPoint pos, GUI_Type type,bool draggable = false,Module* callback = nullptr);
 	virtual ~GUIElement();
 
 	virtual bool Update(float dt) { return true; };
