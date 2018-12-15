@@ -560,6 +560,10 @@ void Scene::GUIUpdate()
 		exit_btn->Enabled(false);
 		windows_img->Enabled(false);
 		timesecond = 0;
+		times->SetText("0:00");
+		score->SetText("0");
+		coins->SetText("0");
+		lifes->SetText("3");
 	}
 	else if (settings_btn->state == PRESSED) {
 		//disable
@@ -721,14 +725,24 @@ void Scene::GUIUpdate()
 
 void Scene::HUDUpdate()
 {
-	if (App->render->start_time == 0 && windows_hud_img->enabled == false) {
+	if (App->render->start_time == 0 && windows_hud_img->enabled == false && (scene_actual == 1 || scene_actual == 2)) {
 		timesecond++;
-		p2SString time_str("%i", timesecond);
+		if (timesecond == 60)
+			timesecond = 0;
+		if (timesecond < 10) {
+			p2SString time_str("%i:0%i", timesecond/60, timesecond);
+			times->SetText(time_str);
+		}
+		else {
+			p2SString time_str("%i:%i", timesecond/60, timesecond);
+			times->SetText(time_str);
+		}
+			
 		p2SString score_str("%i", App->entitymanager->player->score);
 		p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 		p2SString life_str("%i", App->entitymanager->player->lifes);
 
-		times->SetText(time_str);
+		
 		score->SetText(score_str);
 		coins->SetText(coin_str);
 		lifes->SetText(life_str);

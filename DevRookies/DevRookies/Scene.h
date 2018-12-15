@@ -108,7 +108,7 @@ private:
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
-	p2SString time_str = "0";
+	p2SString time_str = "0:00";
 	p2SString score_str = "0";
 	p2SString coin_str = "0";
 	p2SString life_str = "3";

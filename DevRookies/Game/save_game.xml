@@ -18,7 +18,7 @@
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="586.666992" y="173" />
+			<position x="538.666992" y="173" />
 			<godmode value="false" />
 			<element value="0" />
 			<flipX value="false" />
@@ -84,6 +84,6 @@
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-288" y="0" />
+		<camera x="-250" y="0" />
 	</render>
 </game_state>

@@ -235,7 +235,6 @@ void Player::OnCollision(Collider * collider1)
 					++lifes;
 					LOG("SCORE/LIFES 10 COIN: %i; %i", score, lifes);
 				}
-				App->scene->HUDUpdate();
 				LOG("COINS: %i", coin_counter);
 				LOG("SCORE COIN: %i", score);
 			}
@@ -489,7 +488,6 @@ void Player::Die() {
 		score = 0;
 		coin_counter = 0;
 		--lifes;
-		App->scene->HUDUpdate();
 		LOG("LIFES: %i", lifes);
 	}
 }
