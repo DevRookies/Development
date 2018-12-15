@@ -361,6 +361,7 @@ void Scene::GUICreate()
 
 	//CREDITS
 	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect);
+	credits_little_back_menu_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 	//MAIN_MENU
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, false);
@@ -525,13 +526,13 @@ void Scene::GUIUpdate()
 		//enable
 		credits_home_btn->Enabled(true);
 		license_img->Enabled(true);
-		little_back_menu_btn->Enabled(true);
+		credits_little_back_menu_btn->Enabled(true);
 	}
-	else if (credits_home_btn->state == PRESSED) {
+	else if (credits_home_btn->state == PRESSED  || credits_little_back_menu_btn->state == PRESSED) {
 		//disable
 		credits_home_btn->Enabled(false);
 		license_img->Enabled(false);
-		little_back_menu_btn->Enabled(false);
+		credits_little_back_menu_btn->Enabled(false);
 
 		//enable
 		title_img->Enabled(true);

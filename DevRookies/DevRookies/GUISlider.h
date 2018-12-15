@@ -5,6 +5,8 @@
 #include "GUIElement.h"
 #include "GUIButton.h"
 
+class GUIButton;
+
 class GUISlider : public GUIElement
 {
 public:

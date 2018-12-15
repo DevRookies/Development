@@ -110,6 +110,7 @@ private:
 	GUIButton* mute_music_btn = nullptr;
 	GUIButton* mute_fx_btn = nullptr;
 	GUIButton* little_back_menu_btn = nullptr;
+	GUIButton* credits_little_back_menu_btn = nullptr;
 	GUIButton* little_back_hud_btn = nullptr;
 
 
