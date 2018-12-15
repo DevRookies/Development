@@ -49,7 +49,7 @@ public:
 	Module*		callback = nullptr;
 	GUI_State	state;
 	bool		enabled = false;
-	bool		draggable = true;
+	bool		draggable = false;
 
 };
 

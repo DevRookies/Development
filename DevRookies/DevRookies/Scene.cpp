@@ -471,9 +471,9 @@ void Scene::GUICreate()
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
 
 	//HEADERS
-	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
-	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal, credits_hovered, credits_pressed, this);
-	settings_hud_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, this);
+	settings_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, false, this);
+	credits_home_btn = App->guimanager->CreateButton(iPoint(310, 187), credits_normal, credits_hovered, credits_pressed, false, this);
+	settings_hud_home_btn = App->guimanager->CreateButton(iPoint(310, 187), settings_normal, settings_hovered, settings_pressed, false, this);
 
 	//BASE UI
 	title_img = App->guimanager->CreateImage(iPoint(354, 145), title_rect, this);
@@ -484,29 +484,27 @@ void Scene::GUICreate()
 	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect, this);
 
 	//MAIN_MENU
-	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, this);
-	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, this);
-	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, this);
-	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, this);
-	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
+	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, false, this);
+	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, false, this);
+	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, false, this);
+	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, false, this);
+	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, false, this);
 
 	//SETTINGS
-	music_img = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, this);
-	fx_img = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, this);
-	minus_music_img = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, this);
-	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, this);
-	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, this);
-	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, this);
+	music_img = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, false, this);
+	fx_img = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, false, this);
+	minus_music_img = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, false, this);
+	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false, this);
+	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false, this);
+	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
 	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, this);
 	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, this);
 
-	music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, this);
-	music_slider_btn->draggable = true;
+	music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, true, this);
 	music_sli->SetButton(music_slider_btn);
 	music_sli->SetStartValue(App->audio->volume);
 
-	fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, this);
-	fx_slider_btn->draggable = true;
+	fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, true, this);
 	fx_sli->SetButton(fx_slider_btn);
 	fx_sli->SetStartValue(App->audio->volume_fx);
 
@@ -516,8 +514,8 @@ void Scene::GUICreate()
 	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
 	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
 	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
-	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, this);
-	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, this);
+	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false, this);
+	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false, this);
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
 
