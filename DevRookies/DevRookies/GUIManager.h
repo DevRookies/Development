@@ -65,6 +65,7 @@ private:
 	p2List<GUIElement*> gui_elements;
 
 	bool debug = false;
+	iPoint last_mouse;
 };
 
 #endif // __!GUIMANAGER_H__

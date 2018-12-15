@@ -75,6 +75,7 @@ bool GUIManager::PreUpdate()
 			{
 				if (tmp->data->enabled) 
 					tmp->data->state = GUI_State::PRESSED;
+				
 			}
 			else
 			{
@@ -95,6 +96,22 @@ bool GUIManager::Update(float dt) {
 
 	BROFILER_CATEGORY("UpdateGUI", Profiler::Color::LemonChiffon)
 	bool ret = true;
+
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+
+	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
+	{
+		
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable)
+		{
+			int x_motion = mouse.x - last_mouse.x;
+			int y_motion = mouse.y - last_mouse.y;
+
+			tmp->data->SetLocalPosition(tmp->data->GetPosition().x + x_motion, tmp->data->GetPosition().y + y_motion);
+		}
+		last_mouse = mouse;
+	}
 
 	return ret;
 }
@@ -150,7 +167,6 @@ SDL_Texture* GUIManager::GetAtlas()
 {
 	return atlas;
 }
-
 
 void GUIManager::DestroyGUIElement(GUIElement *element) {
 

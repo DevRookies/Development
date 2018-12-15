@@ -7,14 +7,17 @@
 
 GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle) : GUIElement(pos, GUI_Type::SLIDER, callback)
 {
-	this->position = pos;
+	//this->position = pos;
 
-	this->rect = rectangle;
-	rect.x = position.x;
-	rect.y = position.y;
+	this->slider_rect = rectangle;
+
+	rect = rectangle;
+
+	/*rect.x = position.x;
+	rect.y = position.y;*/
 
 	//make this dont blit when enabled == false
-	slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
+	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
 }
 
 GUISlider::~GUISlider()
@@ -46,10 +49,10 @@ GUIButton * GUISlider::GetButton() const
 	return slider_btn;
 }
 
-bool GUISlider::PostUpdate()
-{
-	bool ret = true;
-	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
-	App->render->DrawQuad(rect, 255, 0, 0, 255, true, false);
-	return ret;
-}
+//bool GUISlider::PostUpdate()
+//{
+//	bool ret = true;
+//	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
+//	App->render->DrawQuad(rect, 255, 0, 0, 255, true, false);
+//	return ret;
+//}
