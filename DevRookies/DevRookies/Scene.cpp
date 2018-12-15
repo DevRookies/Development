@@ -258,7 +258,6 @@ bool Scene::Start()
 
 	debug_tex = App->textures->Load("maps/navigation.png");
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
-	pause_tex = App->textures->Load(pause_texture.GetString());
 
 
 	return true;
@@ -329,7 +328,7 @@ bool Scene::Update(float dt)
 		App->audio->VolumeUp(-1);
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-		App->audio->StopMusic();
+		App->audio->StopMusic(-1);
 
 	//----GUI-------
 	GUIUpdate();
@@ -404,8 +403,6 @@ bool Scene::CleanUp()
 	debug_tex = nullptr;
 	App->textures->UnLoad(godmode_tex);
 	godmode_tex = nullptr;
-	App->textures->UnLoad(pause_tex);
-	pause_tex = nullptr;
 
 	return true;
 }
@@ -477,8 +474,8 @@ void Scene::GUICreate()
 	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, this);
 
 	//SETTINGS
-	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
-	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
+	music_img = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, this);
+	fx_img = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, this);
 	minus_music_img = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, this);
 	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, this);
 	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, this);
@@ -699,16 +696,22 @@ void Scene::GUIUpdate()
 		|| minus_music_img->state == PRESSED || plus_music_img->state == PRESSED || minus_fx_img->state == PRESSED || plus_fx_img->state == PRESSED)
 		App->scene->AddFX(1, 0);
 
-	if (minus_music_img->state == PRESSED) {
+	if (music_img->state == PRESSED) {
+		App->audio->StopMusic(-2);
+	}
+	else if (fx_img->state == PRESSED) {
+		App->audio->StopMusic(-3);
+	}
+	else if (minus_music_img->state == PRESSED) {
 		App->audio->VolumeDown(-2);
 	}
-	if (plus_music_img->state == PRESSED) {
+	else if (plus_music_img->state == PRESSED) {
 		App->audio->VolumeUp(-2);
 	}
-	if (minus_fx_img->state == PRESSED) {
+	else if (minus_fx_img->state == PRESSED) {
 		App->audio->VolumeDown(-3);
 	}
-	if (plus_fx_img->state == PRESSED) {
+	else if (plus_fx_img->state == PRESSED) {
 		App->audio->VolumeUp(-3);
 	}
 

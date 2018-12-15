@@ -200,25 +200,61 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-void Audio::StopMusic()
+void Audio::StopMusic(int mut)
 {
-	if (mute == false)
+	switch (mut)
 	{
-		Mix_VolumeMusic(0);
-		for (int id = 1; id <= fx.count(); id++)
+	case -1:
+		if (mute == false)
 		{
-			Mix_VolumeChunk(fx[id - 1], 0);
+			Mix_VolumeMusic(0);
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], 0);
+			}
 		}
-	}
-	else if (mute == true)
-	{
-		Mix_VolumeMusic(volume);
-		for (int id = 1; id <= fx.count(); id++)
+		else
 		{
-			Mix_VolumeChunk(fx[id - 1], volume_fx);
+			Mix_VolumeMusic(volume);
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
 		}
+		mute = !mute;
+		mute_volume = mute;
+		mute_fx = mute;
+		break;
+	case -2:
+		if (mute_volume == false)
+		{
+			Mix_VolumeMusic(0);
+		}
+		else
+		{
+			Mix_VolumeMusic(volume);
+		}
+		mute_volume = !mute_volume;
+		break;
+	case -3:
+		if (mute_fx == false)
+		{
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], 0);
+			}
+		}
+		else
+		{
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
+		}
+		mute_fx = !mute_fx;
+		break;
 	}
-	mute = !mute;
+	
 }
 
 void Audio::VolumeUp(int vol)

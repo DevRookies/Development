@@ -17,6 +17,8 @@ public:
 	float default_music_fade_time;
 	uint volume_change_ratio;
 	bool mute;
+	bool mute_volume;
+	bool mute_fx;
 
 	Audio();
 
@@ -39,7 +41,7 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	//Change Volume	
-	void StopMusic();
+	void StopMusic(int mut);
 	void VolumeUp(int vol);
 	void VolumeDown(int vol);
 

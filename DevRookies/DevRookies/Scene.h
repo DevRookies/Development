@@ -64,7 +64,6 @@ private:
 	fPoint			godmode_pos, pause_pos;
 	
 	SDL_Texture*  godmode_tex = nullptr;
-	SDL_Texture*  pause_tex = nullptr;
 
 	bool printUI_base = true;
 
@@ -82,8 +81,6 @@ private:
 	GUIImage* windows_hud_img = nullptr;
 	GUIImage* title_img = nullptr;
 	GUIImage* license_img = nullptr;
-	GUIImage* music_img = nullptr;
-	GUIImage* fx_img = nullptr;
 	GUIImage* coins_img = nullptr;
 	GUIImage* life_img = nullptr;
 	GUIImage* score_img = nullptr;
@@ -100,6 +97,8 @@ private:
 	GUIButton* settings_hud_btn = nullptr;
 	GUIButton* settings_hud_home_btn = nullptr;
 	GUIButton* back_menu_btn = nullptr;
+	GUIButton* music_img = nullptr;
+	GUIButton* fx_img = nullptr;
 	GUIButton* minus_music_img = nullptr;
 	GUIButton* plus_music_img = nullptr;
 	GUIButton* minus_fx_img = nullptr;
