@@ -607,9 +607,9 @@ void Scene::GUIUpdate()
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
 		music_sli->Enabled(true);
-		music_slider_btn->Enabled(true);
+		//music_slider_btn->Enabled(true);
 		fx_sli->Enabled(true);
-		fx_slider_btn->Enabled(true);
+		//fx_slider_btn->Enabled(true);
 	}
 	else if (settings_home_btn->state == PRESSED) {
 		//disable
