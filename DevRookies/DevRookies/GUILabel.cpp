@@ -15,7 +15,8 @@ GUILabel::GUILabel(iPoint pos, p2SString text, _TTF_Font* font) : GUIElement(pos
 }
 
 GUILabel::~GUILabel()
-{}
+{
+}
 
 void GUILabel::SetText(p2SString text)
 {

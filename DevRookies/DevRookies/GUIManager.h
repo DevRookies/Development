@@ -57,7 +57,7 @@ public:
 	
 private:
 
-	SDL_Texture * atlas;
+	SDL_Texture * atlas = nullptr;
 	p2SString atlas_file_name;
 
 	void DestroyGUIElement(GUIElement* element);
