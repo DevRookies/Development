@@ -5,7 +5,7 @@
 #include "GUISlider.h"
 #include "Render.h"
 
-GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, false, callback)
+GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, false, callback)
 {
 	//this->position = pos;
 
@@ -14,6 +14,7 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect h
 
 	this->position = pos;
 	this->texture = texture;
+	this->horizontal = horizontal;
 
 	
 
@@ -33,30 +34,26 @@ void GUISlider::SetButton(GUIButton * slider_btn)
 	this->slider_btn = slider_btn;
 }
 
-void GUISlider::SetValue(bool horizontal)
-{
-	if (horizontal)
-		value = slider_btn->position.x * 100 / (rect.w - slider_btn->GetRect().w);
-	else
-		value = slider_btn->position.y * 100 / (rect.h - slider_btn->GetRect().h);
-}
-
-void GUISlider::SetStartValue(bool horizontal, int value)
+void GUISlider::SetValue(int value)
 {
 	if (horizontal) {
-		value = value * 100 / (rect.w - slider_btn->GetRect().w);
-		slider_btn->SetLocalPosition(((this->rect.w + 2) * value / 100) + this->GetPosition().x, this->GetPosition().y);
+		this->value = value;
+		slider_btn->SetLocalPosition(((this->rect.w - slider_btn->GetRect().w) * this->value / 100) + this->GetPosition().x , this->GetPosition().y + (this->rect.h / 2) - (slider_btn->GetRect().h / 2));
 	}
 	else {
-		value = value * 100 / (rect.h - slider_btn->GetRect().h);
-		slider_btn->SetLocalPosition(this->GetPosition().x, ((this->rect.h + 2) * value / 100) +  this->GetPosition().y);
+		this->value = value;
+		slider_btn->SetLocalPosition(this->GetPosition().x + (this->rect.w / 2) - (slider_btn->GetRect().w / 2), ((this->rect.h - slider_btn->GetRect().h) * this->value / 100) + this->GetPosition().y);
 	}
-	
 }
 
 uint GUISlider::GetValue() const
 {
-	return value;
+	int ret = 0;
+	if (horizontal)
+		ret = (slider_btn->position.x - position.x) * 100 / (rect.w - slider_btn->GetRect().w);
+	else
+		ret = (slider_btn->position.y - position.y) * 100 / (rect.h - slider_btn->GetRect().h);
+	return ret;
 }
 
 GUIButton * GUISlider::GetButton() const

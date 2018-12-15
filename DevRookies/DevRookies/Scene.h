@@ -52,6 +52,8 @@ public:
 
 	uint			scene_actual = 0;
 	SDL_Texture*	debug_tex = nullptr;
+	GUISlider* music_sli = nullptr;
+	GUISlider* fx_sli = nullptr;
 
 private:
 
@@ -107,8 +109,7 @@ private:
 
 	GUIButton* music_slider_btn = nullptr;
 	GUIButton* fx_slider_btn = nullptr;
-	GUISlider* music_sli = nullptr;
-	GUISlider* fx_sli = nullptr;
+	
 
 	p2SString time_str = "0:00";
 	p2SString score_str = "0";

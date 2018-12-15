@@ -13,14 +13,14 @@ public:
 private:
 	uint value = 0u; //float
 	GUIButton* slider_btn = nullptr;
+	bool horizontal = true;
 
 public:
-	GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture = nullptr);
+	GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, SDL_Texture* texture = nullptr);
 	virtual ~GUISlider();
 
 	void SetButton(GUIButton* slider_btn);
-	void SetValue(bool horizontal);
-	void SetStartValue(bool horizontal, int value);
+	void SetValue(int value);
 
 	uint GetValue() const;
 	GUIButton* GetButton() const;

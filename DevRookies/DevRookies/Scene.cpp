@@ -497,10 +497,10 @@ void Scene::GUICreate()
 	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false, this);
 	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false, this);
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
-	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
-	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
-	music_sli->SetStartValue(true, App->audio->volume);
-	fx_sli->SetStartValue(true, App->audio->volume_fx);
+	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true, this);
+	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true, this);
+	music_sli->SetValue(App->audio->volume);
+	fx_sli->SetValue(App->audio->volume_fx);
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
@@ -735,21 +735,22 @@ void Scene::GUIUpdate()
 	}
 	else if (minus_music_img->state == PRESSED) {
 		App->audio->VolumeDown(-2);
+		//music_sli->SetValue(App->audio->volume);
 	}
 	else if (plus_music_img->state == PRESSED) {
 		App->audio->VolumeUp(-2);
+		//music_sli->SetValue(App->audio->volume);
 	}
 	else if (minus_fx_img->state == PRESSED) {
 		App->audio->VolumeDown(-3);
+		//fx_sli->SetValue(App->audio->volume_fx);
 	}
 	else if (plus_fx_img->state == PRESSED) {
 		App->audio->VolumeUp(-3);
+		//fx_sli->SetValue(App->audio->volume_fx);
 	}
 
-	music_sli->SetValue(true);
-	/*Mix_VolumeMusic(music_sli->GetSliderValue() / 100);*/
-
-	//fx_sli->SetValue(fx_sli->GetButton()->GetPosition().x);
+	
 	/*Mix_VolumeMusic(music_sli->GetSliderValue() / 100);*/
 
 }

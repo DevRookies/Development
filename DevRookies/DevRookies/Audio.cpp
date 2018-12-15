@@ -4,7 +4,7 @@
 #include "p2List.h"
 #include "Input.h"
 #include "DevRookiesApp.h"
-
+#include "Scene.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -262,21 +262,15 @@ void Audio::VolumeUp(int vol)
 	switch (vol)
 	{
 	case -1:
-		if (volume < max_volume) {
-			volume += volume_change_ratio;
-			volume_fx += volume_change_ratio;
-			Mix_VolumeMusic(volume);
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], volume_fx);
-			}
-		}
+		VolumeUp(-2);
+		VolumeUp(-3);
 		break;
 	case -2:
 		if (volume < max_volume) {
 			volume += volume_change_ratio;
 			Mix_VolumeMusic(volume);
 		}
+		App->scene->music_sli->SetValue(volume);
 		break;
 	case -3:
 		if (volume_fx < max_volume) {
@@ -286,6 +280,7 @@ void Audio::VolumeUp(int vol)
 				Mix_VolumeChunk(fx[id - 1], volume_fx);
 			}
 		}
+		App->scene->fx_sli->SetValue(volume_fx);
 		break;
 	default:
 		volume = vol - volume_change_ratio;
@@ -293,6 +288,8 @@ void Audio::VolumeUp(int vol)
 		VolumeUp(-1);
 		break;
 	}
+	
+	
 }
 
 void Audio::VolumeDown(int vol)
@@ -300,21 +297,15 @@ void Audio::VolumeDown(int vol)
 	switch (vol)
 	{
 	case -1:
-		if (volume > 0) {
-			volume -= volume_change_ratio;
-			volume_fx -= volume_change_ratio;
-			Mix_VolumeMusic(volume);
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], volume_fx);
-			}
-		}
+		VolumeDown(-2);
+		VolumeDown(-3);
 		break;
 	case -2:
 		if (volume > 0) {
 			volume -= volume_change_ratio;
 			Mix_VolumeMusic(volume);
 		}
+		App->scene->music_sli->SetValue(volume);
 		break;
 	case -3:
 		if (volume_fx > 0) {
@@ -324,6 +315,7 @@ void Audio::VolumeDown(int vol)
 				Mix_VolumeChunk(fx[id - 1], volume_fx);
 			}
 		}
+		App->scene->fx_sli->SetValue(volume_fx);
 		break;
 	default:
 		volume = vol + volume_change_ratio;
@@ -331,7 +323,6 @@ void Audio::VolumeDown(int vol)
 		VolumeDown(-1);
 		break;
 	}
-	
 	
 }
 
