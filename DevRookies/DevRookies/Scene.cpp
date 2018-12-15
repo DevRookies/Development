@@ -203,10 +203,25 @@ bool Scene::Awake(pugi::xml_node& config)
 	back_menu_pressed.w = 116;
 	back_menu_pressed.h = 113;
 
-	slider_rect.x = 641;
-	slider_rect.y = 559;
-	slider_rect.w = 53;
-	slider_rect.h = 51;
+	slider_normal.x = 641;
+	slider_normal.y = 559;
+	slider_normal.w = 53;
+	slider_normal.h = 51;
+
+	slider_hovered.x = 527;
+	slider_hovered.y = 559;
+	slider_hovered.w = 53;
+	slider_hovered.h = 51;
+
+	slider_pressed.x = 584;
+	slider_pressed.y = 559;
+	slider_pressed.w = 53;
+	slider_pressed.h = 51;
+
+	slider_rect.x = 17;
+	slider_rect.y = 917;
+	slider_rect.w = 219;
+	slider_rect.h = 34;
 
 	return ret;
 }
@@ -480,8 +495,18 @@ void Scene::GUICreate()
 	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, this);
 	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, this);
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, this);
-	//music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
-	//fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
+	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, this);
+	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, this);
+
+	music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, this);
+	music_slider_btn->draggable = true;
+	music_sli->SetButton(music_slider_btn);
+	//music_sli->SetStartValue(node->child("music").attribute("music").as_int());
+
+	fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, this);
+	fx_slider_btn->draggable = true;
+	fx_sli->SetButton(fx_slider_btn);
+	//fx_sli->SetStartValue(node->child("music").attribute("fx").as_int());
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
@@ -582,6 +607,10 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(true);
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
+		music_sli->Enabled(true);
+		music_slider_btn->Enabled(true);
+		fx_sli->Enabled(true);
+		fx_slider_btn->Enabled(true);
 	}
 	else if (settings_home_btn->state == PRESSED) {
 		//disable
@@ -592,6 +621,10 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(false);
 		minus_fx_img->Enabled(false);
 		plus_fx_img->Enabled(false);
+		music_sli->Enabled(false);
+		music_slider_btn->Enabled(false);
+		fx_sli->Enabled(false);
+		fx_slider_btn->Enabled(false);
 
 		//enable
 		title_img->Enabled(true);
@@ -661,6 +694,10 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(true);
 		minus_fx_img->Enabled(true);
 		plus_fx_img->Enabled(true);
+		music_sli->Enabled(true);
+		music_slider_btn->Enabled(true);
+		fx_sli->Enabled(true);
+		fx_slider_btn->Enabled(true);
 	}
 	else if (settings_hud_home_btn->state == PRESSED) {
 		//disable
@@ -671,6 +708,10 @@ void Scene::GUIUpdate()
 		plus_music_img->Enabled(false);
 		minus_fx_img->Enabled(false);
 		plus_fx_img->Enabled(false);
+		music_sli->Enabled(false);
+		music_slider_btn->Enabled(false);
+		fx_sli->Enabled(false);
+		fx_slider_btn->Enabled(false);
 
 		//enable
 		resume_btn->Enabled(true);

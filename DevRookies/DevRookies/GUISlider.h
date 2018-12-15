@@ -15,7 +15,7 @@ private:
 	GUIButton* slider_btn = nullptr;
 
 public:
-	GUISlider(iPoint pos, SDL_Rect rectangle);
+	GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture = nullptr);
 	virtual ~GUISlider();
 
 	void SetButton(GUIButton* slider_btn);
@@ -25,6 +25,6 @@ public:
 	uint GetValue() const;
 	GUIButton* GetButton() const;
 
-	//bool PostUpdate();
+	bool PostUpdate();
 };
 #endif //__!GUISLIDER_H__ 

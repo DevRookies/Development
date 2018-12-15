@@ -5,13 +5,15 @@
 #include "GUISlider.h"
 #include "Render.h"
 
-GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle) : GUIElement(pos, GUI_Type::SLIDER, callback)
+GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, callback)
 {
 	//this->position = pos;
 
 	this->slider_rect = rectangle;
-
 	rect = rectangle;
+
+	this->position = pos;
+	this->texture = texture;
 
 	/*rect.x = position.x;
 	rect.y = position.y;*/
@@ -49,10 +51,11 @@ GUIButton * GUISlider::GetButton() const
 	return slider_btn;
 }
 
-//bool GUISlider::PostUpdate()
-//{
-//	bool ret = true;
-//	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
-//	App->render->DrawQuad(rect, 255, 0, 0, 255, true, false);
-//	return ret;
-//}
+bool GUISlider::PostUpdate()
+{
+	bool ret = true;
+	
+	App->render->Blit(texture, position.x, position.y, &slider_rect, 0.0f);
+
+	return ret;
+}

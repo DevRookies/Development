@@ -105,6 +105,8 @@ private:
 	GUIButton* minus_fx_img = nullptr;
 	GUIButton* plus_fx_img = nullptr;
 
+	GUIButton* music_slider_btn = nullptr;
+	GUIButton* fx_slider_btn = nullptr;
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
@@ -160,6 +162,10 @@ private:
 	SDL_Rect back_menu_hovered;
 
 	//SLI
+	SDL_Rect slider_normal;
+	SDL_Rect slider_pressed;
+	SDL_Rect slider_hovered;
+
 	SDL_Rect slider_rect;
 };
 
