@@ -47,6 +47,7 @@ public:
 	void Restart() const;
 
 	void AddFX(const int channel, const int repeat) const;
+	bool LoadRect(pugi::xml_node &node, SDL_Rect &rect);
 
 	void HUDUpdate();
 

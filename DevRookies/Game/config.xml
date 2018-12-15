@@ -45,6 +45,113 @@
     <press_fx_name source="Buttonsfx.wav"/>
     <camera x="0" y="0" />
     <godmode_tex x="0" y="0">textures/godmode.png</godmode_tex>
+    <rects>
+      <windows_rect>
+        <rect x="11" y="962" width="681" height="453"/>
+      </windows_rect>
+      <title_rect>
+        <rect x="560" y="1456" width="518" height="134"/>
+      </title_rect>
+      <license_rect>
+        <rect x="10" y="1470" width="447" height="268"/>
+      </license_rect>
+      <music_rect>
+        <rect x="769" y="358" width="115" height="113"/>
+      </music_rect>
+      <fx_rect>
+        <rect x="769" y="239" width="115" height="114"/>
+      </fx_rect>
+      <minus_rect>
+        <rect x="599" y="518" width="33" height="32"/>
+      </minus_rect>
+      <plus_rect>
+        <rect x="599" y="485" width="33" height="32"/>
+      </plus_rect>
+      <coins_rect>
+        <rect x="7" y="834" width="216" height="77"/>
+      </coins_rect>
+      <life_rect>
+        <rect x="245" y="834" width="217" height="77"/>
+      </life_rect>
+      <score_rect>
+        <rect x="497" y="842" width="308" height="66"/>
+      </score_rect>
+      <play_normal>
+        <rect x="255" y="120" width="115" height="114"/>
+      </play_normal>
+      <play_hovered>
+        <rect x="4" y="120" width="115" height="114"/>
+      </play_hovered>
+      <play_pressed>
+        <rect x="129" y="120" width="116" height="114"/>
+      </play_pressed>
+      <continue_normal>
+        <rect x="254" y="238" width="116" height="114"/>
+      </continue_normal>
+      <continue_hovered>
+        <rect x="4" y="238" width="114" height="113"/>
+      </continue_hovered>
+      <continue_pressed>
+        <rect x="128" y="238" width="116" height="113"/>
+      </continue_pressed>
+      <settings_normal>
+        <rect x="254" y="354" width="116" height="113"/>
+      </settings_normal>
+      <settings_hovered>
+        <rect x="4" y="354" width="114" height="113"/>
+      </settings_hovered>
+      <settings_pressed>
+        <rect x="128" y="354" width="116" height="113"/>
+      </settings_pressed>
+      <credits_normal>
+        <rect x="254" y="472" width="116" height="114"/>
+      </credits_normal>
+      <credits_hovered>
+        <rect x="4" y="472" width="114" height="114"/>
+      </credits_hovered>
+      <credits_pressed>
+        <rect x="128" y="472" width="116" height="114"/>
+      </credits_pressed>
+      <exit_normal>
+        <rect x="254" y="593" width="116" height="113"/>
+      </exit_normal>
+      <exit_hovered>
+        <rect x="4" y="593" width="114" height="113"/>
+      </exit_hovered>
+      <exit_pressed>
+        <rect x="128" y="593" width="116" height="113"/>
+      </exit_pressed>
+      <resume_normal>
+        <rect x="255" y="713" width="115" height="113"/>
+      </resume_normal>
+      <resume_hovered>
+        <rect x="4" y="713" width="115" height="113"/>
+      </resume_hovered>
+      <resume_pressed>
+        <rect x="129" y="713" width="116" height="113"/>
+      </resume_pressed>
+      <back_menu_normal>
+        <rect x="769" y="121" width="115" height="113"/>
+      </back_menu_normal>
+      <back_menu_hovered>
+        <rect x="517" y="121" width="116" height="113"/>
+      </back_menu_hovered>
+      <back_menu_pressed>
+        <rect x="643" y="121" width="116" height="113"/>
+      </back_menu_pressed>
+      <slider_normal>
+        <rect x="641" y="559" width="53" height="51"/>
+      </slider_normal>
+      <slider_hovered>
+        <rect x="527" y="559" width="53" height="51"/>
+      </slider_hovered>
+      <slider_pressed>
+        <rect x="584" y="559" width="53" height="51"/>
+      </slider_pressed>
+      <slider_rect>
+        <rect x="17" y="917" width="219" height="34"/>
+      </slider_rect>
+    </rects>
   </scene>
 
   <audio>

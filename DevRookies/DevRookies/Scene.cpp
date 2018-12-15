@@ -44,184 +44,53 @@ bool Scene::Awake(pugi::xml_node& config)
 	godmode_pos = { config.child("godmode_tex").attribute("x").as_float(),  config.child("godmode_tex").attribute("y").as_float() };
 	active = true;
 
-
-	//xml this rects!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Images
-	windows_rect.x = 11;
-	windows_rect.y = 962;
-	windows_rect.w = 681;
-	windows_rect.h = 453;
-
-	title_rect.x = 560;
-	title_rect.y = 1456;
-	title_rect.w = 518;
-	title_rect.h = 134;
-
-	license_rect.x = 10;
-	license_rect.y = 1470;
-	license_rect.w = 447;
-	license_rect.h = 268;
-
-	music_rect.x = 769;
-	music_rect.y = 358;
-	music_rect.w = 115;
-	music_rect.h = 113;
-
-	fx_rect.x = 769;
-	fx_rect.y = 239;
-	fx_rect.w = 115;
-	fx_rect.h = 114;
-
-	minus_rect.x = 599;
-	minus_rect.y = 518;
-	minus_rect.w = 33;
-	minus_rect.h = 32;
-
-	plus_rect.x = 599;
-	plus_rect.y = 485;
-	plus_rect.w = 33;
-	plus_rect.h = 32;
-
-	coins_rect.x = 7;
-	coins_rect.y = 834;
-	coins_rect.w = 216;
-	coins_rect.h = 77;
-
-	life_rect.x = 245;
-	life_rect.y = 834;
-	life_rect.w = 217;
-	life_rect.h = 77;
-
-	score_rect.x = 497;
-	score_rect.y = 842;
-	score_rect.w = 308;
-	score_rect.h = 66;
+	LoadRect(config.child("rects").child("windows_rect").child("rect"), windows_rect);
+	LoadRect(config.child("rects").child("title_rect").child("rect"), title_rect);
+	LoadRect(config.child("rects").child("license_rect").child("rect"), license_rect);
+	LoadRect(config.child("rects").child("music_rect").child("rect"), music_rect);
+	LoadRect(config.child("rects").child("fx_rect").child("rect"), fx_rect);
+	LoadRect(config.child("rects").child("minus_rect").child("rect"), minus_rect);
+	LoadRect(config.child("rects").child("plus_rect").child("rect"), plus_rect);
+	LoadRect(config.child("rects").child("coins_rect").child("rect"), coins_rect);
+	LoadRect(config.child("rects").child("life_rect").child("rect"), life_rect);
+	LoadRect(config.child("rects").child("score_rect").child("rect"), score_rect);
 
 	//Buttons
-	play_normal.x = 255;
-	play_normal.y = 120;
-	play_normal.w = 115;
-	play_normal.h = 114;
+	LoadRect(config.child("rects").child("play_normal").child("rect"), play_normal);
+	LoadRect(config.child("rects").child("play_hovered").child("rect"), play_hovered);
+	LoadRect(config.child("rects").child("play_pressed").child("rect"), play_pressed);
 
-	play_hovered.x = 4;
-	play_hovered.y = 120;
-	play_hovered.w = 115;
-	play_hovered.h = 114;
+	LoadRect(config.child("rects").child("continue_normal").child("rect"), continue_normal);
+	LoadRect(config.child("rects").child("continue_hovered").child("rect"), continue_hovered);
+	LoadRect(config.child("rects").child("continue_pressed").child("rect"), continue_pressed);
 
-	play_pressed.x = 129;
-	play_pressed.y = 120;
-	play_pressed.w = 116;
-	play_pressed.h = 114;
+	LoadRect(config.child("rects").child("settings_normal").child("rect"), settings_normal);
+	LoadRect(config.child("rects").child("settings_hovered").child("rect"), settings_hovered);
+	LoadRect(config.child("rects").child("settings_pressed").child("rect"), settings_pressed);
 
-	continue_normal.x = 254;
-	continue_normal.y = 238;
-	continue_normal.w = 116;
-	continue_normal.h = 114;
+	LoadRect(config.child("rects").child("credits_normal").child("rect"), credits_normal);
+	LoadRect(config.child("rects").child("credits_hovered").child("rect"), credits_hovered);
+	LoadRect(config.child("rects").child("credits_pressed").child("rect"), credits_pressed);
 
-	continue_hovered.x = 4;
-	continue_hovered.y = 238;
-	continue_hovered.w = 114;
-	continue_hovered.h = 113;
+	LoadRect(config.child("rects").child("exit_normal").child("rect"), exit_normal);
+	LoadRect(config.child("rects").child("exit_hovered").child("rect"), exit_hovered);
+	LoadRect(config.child("rects").child("exit_pressed").child("rect"), exit_pressed);
 
-	continue_pressed.x = 128;
-	continue_pressed.y = 238;
-	continue_pressed.w = 116;
-	continue_pressed.h = 113;
+	LoadRect(config.child("rects").child("resume_normal").child("rect"), resume_normal);
+	LoadRect(config.child("rects").child("resume_hovered").child("rect"), resume_hovered);
+	LoadRect(config.child("rects").child("resume_pressed").child("rect"), resume_pressed);
 
-	settings_normal.x = 254;
-	settings_normal.y = 354;
-	settings_normal.w = 116;
-	settings_normal.h = 113;
+	LoadRect(config.child("rects").child("back_menu_normal").child("rect"), back_menu_normal);
+	LoadRect(config.child("rects").child("back_menu_hovered").child("rect"), back_menu_hovered);
+	LoadRect(config.child("rects").child("back_menu_pressed").child("rect"), back_menu_pressed);
 
-	settings_hovered.x = 4;
-	settings_hovered.y = 354;
-	settings_hovered.w = 114;
-	settings_hovered.h = 113;
+	//Slider
 
-	settings_pressed.x = 128;
-	settings_pressed.y = 354;
-	settings_pressed.w = 116;
-	settings_pressed.h = 113;
-
-	credits_normal.x = 254;
-	credits_normal.y = 472;
-	credits_normal.w = 116;
-	credits_normal.h = 114;
-
-	credits_hovered.x = 4;
-	credits_hovered.y = 472;
-	credits_hovered.w = 114;
-	credits_hovered.h = 114;
-
-	credits_pressed.x = 128;
-	credits_pressed.y = 472;
-	credits_pressed.w = 116;
-	credits_pressed.h = 114;
-
-	exit_normal.x = 254;
-	exit_normal.y = 593;
-	exit_normal.w = 116;
-	exit_normal.h = 113;
-
-	exit_hovered.x = 4;
-	exit_hovered.y = 593;
-	exit_hovered.w = 114;
-	exit_hovered.h = 113;
-
-	exit_pressed.x = 128;
-	exit_pressed.y = 593;
-	exit_pressed.w = 116;
-	exit_pressed.h = 113;
-
-	resume_normal.x = 255;
-	resume_normal.y = 713;
-	resume_normal.w = 115;
-	resume_normal.h = 113;
-
-	resume_hovered.x = 4;
-	resume_hovered.y = 713;
-	resume_hovered.w = 115;
-	resume_hovered.h = 113;
-
-	resume_pressed.x = 129;
-	resume_pressed.y = 713;
-	resume_pressed.w = 116;
-	resume_pressed.h = 113;
-
-	back_menu_normal.x = 769;
-	back_menu_normal.y = 121;
-	back_menu_normal.w = 115;
-	back_menu_normal.h = 113;
-
-	back_menu_hovered.x = 517;
-	back_menu_hovered.y = 121;
-	back_menu_hovered.w = 116;
-	back_menu_hovered.h = 113;
-
-	back_menu_pressed.x = 643;
-	back_menu_pressed.y = 121;
-	back_menu_pressed.w = 116;
-	back_menu_pressed.h = 113;
-
-	slider_normal.x = 641;
-	slider_normal.y = 559;
-	slider_normal.w = 53;
-	slider_normal.h = 51;
-
-	slider_hovered.x = 527;
-	slider_hovered.y = 559;
-	slider_hovered.w = 53;
-	slider_hovered.h = 51;
-
-	slider_pressed.x = 584;
-	slider_pressed.y = 559;
-	slider_pressed.w = 53;
-	slider_pressed.h = 51;
-
-	slider_rect.x = 17;
-	slider_rect.y = 917;
-	slider_rect.w = 219;
-	slider_rect.h = 34;
+	LoadRect(config.child("rects").child("slider_rect").child("rect"), slider_rect);
+	LoadRect(config.child("rects").child("slider_normal").child("rect"), slider_normal);
+	LoadRect(config.child("rects").child("slider_hovered").child("rect"), slider_hovered);
+	LoadRect(config.child("rects").child("slider_pressed").child("rect"), slider_pressed);
 
 	return ret;
 }
@@ -781,4 +650,13 @@ void Scene::HUDUpdate()
 	}
 }
 
+bool Scene::LoadRect(pugi::xml_node &node, SDL_Rect &rect) {
+
+	/*SDL_Rect rect;*/
+	rect.x = node.attribute("x").as_int();
+	rect.y = node.attribute("y").as_int();
+	rect.w = node.attribute("width").as_int();
+	rect.h = node.attribute("height").as_int();
+	return true;
+}
 
