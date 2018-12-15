@@ -763,6 +763,11 @@ void Scene::GUIUpdate()
 		App->audio->VolumeUp(-3);
 	}
 
+	music_sli->SetValue(music_sli->GetButton()->GetPosition().x);
+	/*Mix_VolumeMusic(music_sli->GetSliderValue() / 100);*/
+
+	fx_sli->SetValue(fx_sli->GetButton()->GetPosition().x);
+	/*Mix_VolumeMusic(music_sli->GetSliderValue() / 100);*/
 
 }
 
