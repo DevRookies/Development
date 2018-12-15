@@ -499,14 +499,7 @@ void Scene::GUICreate()
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
 	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
 	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
-
-	//music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, true, this);
-	//music_sli->SetButton(music_slider_btn);
-	
 	music_sli->SetStartValue(App->audio->volume);
-
-	//fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, true, this);
-	//fx_sli->SetButton(fx_slider_btn);
 	fx_sli->SetStartValue(App->audio->volume_fx);
 
 	//HUD

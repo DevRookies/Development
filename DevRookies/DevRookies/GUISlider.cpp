@@ -70,6 +70,7 @@ bool GUISlider::PostUpdate()
 	bool ret = true;
 	
 	App->render->Blit(texture, position.x, position.y, &slider_rect, 0.0f);
+	slider_btn->PostUpdate();
 
 	return ret;
 }
