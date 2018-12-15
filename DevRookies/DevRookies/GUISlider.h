@@ -15,7 +15,7 @@ private:
 	GUIButton* slider_btn = nullptr;
 
 public:
-	GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture = nullptr);
+	GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture = nullptr);
 	virtual ~GUISlider();
 
 	void SetButton(GUIButton* slider_btn);

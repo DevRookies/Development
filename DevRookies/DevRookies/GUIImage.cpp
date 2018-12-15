@@ -7,7 +7,7 @@
 #include "Brofiler\Brofiler.h"
 
 
-GUIImage::GUIImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture): GUIElement(pos, GUI_Type::IMAGE, callback)
+GUIImage::GUIImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture): GUIElement(pos, GUI_Type::IMAGE, false, callback)
 {
 	this->position = pos;
 	this->rect = rect;

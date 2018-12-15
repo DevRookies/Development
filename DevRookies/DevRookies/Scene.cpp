@@ -497,15 +497,15 @@ void Scene::GUICreate()
 	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false, this);
 	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false, this);
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
-	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, this);
-	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, this);
+	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
+	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
 
-	music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, true, this);
-	music_sli->SetButton(music_slider_btn);
+	//music_slider_btn = App->guimanager->CreateButton(iPoint(400, 502), slider_normal, slider_hovered, slider_pressed, true, this);
+	//music_sli->SetButton(music_slider_btn);
 	music_sli->SetStartValue(App->audio->volume);
 
-	fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, true, this);
-	fx_sli->SetButton(fx_slider_btn);
+	//fx_slider_btn = App->guimanager->CreateButton(iPoint(700, 502), slider_normal, slider_hovered, slider_pressed, true, this);
+	//fx_sli->SetButton(fx_slider_btn);
 	fx_sli->SetStartValue(App->audio->volume_fx);
 
 	//HUD
@@ -513,7 +513,7 @@ void Scene::GUICreate()
 	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect, this);
 	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect, this);
 	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect, this);
-	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, this);
+	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false, this);
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false, this);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false, this);
 

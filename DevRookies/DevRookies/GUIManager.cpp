@@ -209,9 +209,9 @@ GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovere
 	return tmp_btn;
 }
 
-GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, Module* callback)
+GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, Module* callback)
 {
-	GUISlider* tmp_sli = new GUISlider(pos, rect, atlas);
+	GUISlider* tmp_sli = new GUISlider(pos, rect, normal, hovered, pressed, atlas);
 	tmp_sli->callback = callback;
 	gui_elements.add(tmp_sli);
 	return tmp_sli;

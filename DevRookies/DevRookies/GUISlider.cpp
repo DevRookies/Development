@@ -5,7 +5,7 @@
 #include "GUISlider.h"
 #include "Render.h"
 
-GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, callback)
+GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, false, callback)
 {
 	//this->position = pos;
 
@@ -21,7 +21,7 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture) : GUI
 	rect.y = position.y;*/
 
 	//make this dont blit when enabled == false
-	//slider_btn = App->guimanager->CreateButton(pos, rectangle, rectangle, rectangle, callback);
+	slider_btn = App->guimanager->CreateButton(pos, normal, hovered, pressed, true, callback);
 }
 
 GUISlider::~GUISlider()
