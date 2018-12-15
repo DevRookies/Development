@@ -4,8 +4,8 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="128" />
-		<volume_fx value="70" />
+		<volume value="100" />
+		<volume_fx value="100" />
 		<mute value="false" />
 	</audio>
 	<fonts />
@@ -18,7 +18,7 @@
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="482.666992" y="173" />
+			<position x="1106.66699" y="462" />
 			<godmode value="false" />
 			<element value="0" />
 			<flipX value="false" />
@@ -38,11 +38,9 @@
 		<OfficerSkeleton>
 			<position x="1899" y="454.333008" />
 		</OfficerSkeleton>
+		<OfficerSkeleton />
 		<OfficerSkeleton>
-			<position x="1028.35999" y="103.515198" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="1258" y="677" />
+			<position x="1216" y="678" />
 		</OfficerSkeleton>
 		<OfficerSkeleton>
 			<position x="2347" y="134.332993" />
@@ -84,6 +82,6 @@
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-168" y="0" />
+		<camera x="-680" y="0" />
 	</render>
 </game_state>

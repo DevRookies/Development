@@ -58,7 +58,8 @@ public:
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 	bool pause = false;
-	float seconds_since_startup;
+	int		aux_seconds;
+	
 
 private:
 
@@ -128,6 +129,7 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	bool				framerate_cap_enabled = true;
+	float				seconds_since_startup;
 
 };
 

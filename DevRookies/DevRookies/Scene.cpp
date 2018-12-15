@@ -720,7 +720,7 @@ void Scene::GUIUpdate()
 
 void Scene::HUDUpdate()
 {
-	p2SString time_str("%.1f", App->seconds_since_startup);
+	p2SString time_str("%i", App->aux_seconds);
 	p2SString score_str("%i", App->entitymanager->player->score);
 	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 	p2SString life_str("%i", App->entitymanager->player->lifes);
