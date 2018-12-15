@@ -151,6 +151,27 @@
       <slider_rect>
         <rect x="17" y="917" width="219" height="34"/>
       </slider_rect>
+      <mute_music_normal>
+        <rect x="1026" y="357" width="115" height="113"/>
+      </mute_music_normal>
+      <mute_music_hovered>
+        <rect x="893" y="358" width="116" height="113"/>
+      </mute_music_hovered>
+      <mute_fx_normal>
+        <rect x="1026" y="236" width="115" height="116"/>
+      </mute_fx_normal>
+      <mute_fx_hovered>
+        <rect x="893" y="237" width="116" height="113"/>
+      </mute_fx_hovered>
+      <little_back_menu_normal>
+        <rect x="640" y="620" width="55" height="54"/>
+      </little_back_menu_normal>
+      <little_back_menu_hovered>
+        <rect x="523" y="620" width="54" height="54"/>
+      </little_back_menu_hovered>
+      <little_back_menu_pressed>
+        <rect x="581" y="620" width="55" height="54"/>
+      </little_back_menu_pressed>
     </rects>
   </scene>
 

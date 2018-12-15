@@ -101,12 +101,17 @@ private:
 	GUIButton* settings_hud_btn = nullptr;
 	GUIButton* settings_hud_home_btn = nullptr;
 	GUIButton* back_menu_btn = nullptr;
-	GUIButton* music_img = nullptr;
-	GUIButton* fx_img = nullptr;
-	GUIButton* minus_music_img = nullptr;
-	GUIButton* plus_music_img = nullptr;
-	GUIButton* minus_fx_img = nullptr;
-	GUIButton* plus_fx_img = nullptr;
+	GUIButton* music_btn = nullptr;
+	GUIButton* fx_btn = nullptr;
+	GUIButton* minus_music_btn = nullptr;
+	GUIButton* plus_music_btn = nullptr;
+	GUIButton* minus_fx_btn = nullptr;
+	GUIButton* plus_fx_btn = nullptr;
+	GUIButton* mute_music_btn = nullptr;
+	GUIButton* mute_fx_btn = nullptr;
+	GUIButton* little_back_menu_btn = nullptr;
+	GUIButton* little_back_hud_btn = nullptr;
+
 
 	GUIButton* music_slider_btn = nullptr;
 	GUIButton* fx_slider_btn = nullptr;
@@ -162,6 +167,16 @@ private:
 	SDL_Rect back_menu_normal;
 	SDL_Rect back_menu_pressed;
 	SDL_Rect back_menu_hovered;
+
+	SDL_Rect mute_music_normal;
+	SDL_Rect mute_music_hovered;
+
+	SDL_Rect mute_fx_normal;
+	SDL_Rect mute_fx_hovered;
+
+	SDL_Rect little_back_menu_normal;
+	SDL_Rect little_back_menu_pressed;
+	SDL_Rect little_back_menu_hovered;
 
 	//SLI
 	SDL_Rect slider_normal;
