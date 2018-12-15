@@ -15,6 +15,8 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Texture* texture) : GUI
 	this->position = pos;
 	this->texture = texture;
 
+	
+
 	/*rect.x = position.x;
 	rect.y = position.y;*/
 
@@ -38,7 +40,7 @@ void GUISlider::SetValue(uint slider_btn_pos)
 
 void GUISlider::SetStartValue(int value) {
 	value = value * 100 / (rect.w - slider_btn->GetRect().w);
-	this->slider_btn->SetLocalPosition((this->rect.w + 2) * value / 100, 0);
+	this->slider_btn->SetLocalPosition(((this->rect.w + 2) * value / 100) + this->GetPosition().x, this->GetPosition().y);
 }
 
 uint GUISlider::GetValue() const
