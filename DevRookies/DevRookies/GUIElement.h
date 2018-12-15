@@ -28,7 +28,7 @@ enum GUI_State
 class GUIElement
 {
 public:
-	GUIElement(iPoint pos, GUI_Type type,bool draggable = false,Module* callback = nullptr);
+	GUIElement(iPoint pos, GUI_Type type,bool draggable = false,GUIElement* parent = nullptr);
 	virtual ~GUIElement();
 
 	virtual bool Update(float dt) { return true; };
@@ -46,7 +46,7 @@ public:
 	GUI_Type	type;
 	SDL_Rect	rect;
 	iPoint		position;
-	Module*		callback = nullptr;
+	GUIElement* parent = nullptr;
 	GUI_State	state;
 	bool		enabled = false;
 	bool		draggable = false;

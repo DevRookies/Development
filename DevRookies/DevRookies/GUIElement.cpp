@@ -6,10 +6,10 @@
 #include "Textures.h"
 
 
-GUIElement::GUIElement(iPoint pos, GUI_Type type, bool draggable, Module* callback)
+GUIElement::GUIElement(iPoint pos, GUI_Type type, bool draggable, GUIElement* parent)
 {
 	this->position = pos;
-	this->callback = callback;
+	this->parent = parent;
 	this->draggable = draggable;
 }
 
