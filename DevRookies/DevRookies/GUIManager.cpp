@@ -98,15 +98,15 @@ bool GUIManager::Update(float dt) {
 	BROFILER_CATEGORY("UpdateGUI", Profiler::Color::LemonChiffon)
 	bool ret = true;
 
-	iPoint mouse;
-	App->input->GetMousePosition(mouse.x, mouse.y);
+	int x, y;
+	App->input->GetMousePosition(x, y);
 
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
 		tmp->data->Update(dt);
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == HOVERED )
 		{
-			tmp->data->SetLocalPosition( mouse.x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); //+y_motion if drag vertical
+			tmp->data->SetLocalPosition( x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); //+y_motion if drag vertical
 		}
 		
 	}
