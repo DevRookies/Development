@@ -19,12 +19,13 @@ public:
 	virtual ~GUISlider();
 
 	void SetButton(GUIButton* slider_btn);
-	void SetValue(uint slider_btn_pos);
+	void SetValue(bool horizontal);
 	void SetStartValue(int value);
 
 	uint GetValue() const;
 	GUIButton* GetButton() const;
 
+	bool Update(float dt);
 	bool PostUpdate();
 };
 #endif //__!GUISLIDER_H__ 

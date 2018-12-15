@@ -3,8 +3,8 @@
 
 #include "Module.h"
 #include "GUIManager.h"
-#include "GUIButton.h"
 #include "GUIElement.h"
+#include "GUIButton.h"
 #include "GUIImage.h"
 #include "GUILabel.h"
 #include "GUISlider.h"

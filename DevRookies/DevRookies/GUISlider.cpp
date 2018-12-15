@@ -33,9 +33,12 @@ void GUISlider::SetButton(GUIButton * slider_btn)
 	this->slider_btn = slider_btn;
 }
 
-void GUISlider::SetValue(uint slider_btn_pos)
+void GUISlider::SetValue(bool horizontal)
 {
-	value = slider_btn_pos * 100 / (rect.w - slider_btn->GetRect().w);
+	if (horizontal)
+		value = slider_btn->position.x * 100 / (rect.w - slider_btn->GetRect().w);
+	else
+		value = slider_btn->position.y * 100 / (rect.h - slider_btn->GetRect().h);
 }
 
 void GUISlider::SetStartValue(int value) {
@@ -51,6 +54,15 @@ uint GUISlider::GetValue() const
 GUIButton * GUISlider::GetButton() const
 {
 	return slider_btn;
+}
+
+bool GUISlider::Update(float dt)
+{
+	bool ret = true;
+
+	slider_btn->Enabled(enabled);
+	
+	return ret;
 }
 
 bool GUISlider::PostUpdate()
