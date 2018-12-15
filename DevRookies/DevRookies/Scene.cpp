@@ -695,7 +695,8 @@ void Scene::GUIUpdate()
 	}
 
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || settings_btn->state == PRESSED || settings_home_btn->state == PRESSED || credits_btn->state == PRESSED || credits_home_btn->state == PRESSED
-		|| resume_btn->state == PRESSED || settings_hud_btn->state == PRESSED || settings_hud_home_btn->state == PRESSED || back_menu_btn->state == PRESSED)
+		|| resume_btn->state == PRESSED || settings_hud_btn->state == PRESSED || settings_hud_home_btn->state == PRESSED || back_menu_btn->state == PRESSED
+		|| minus_music_img->state == PRESSED || plus_music_img->state == PRESSED || minus_fx_img->state == PRESSED || plus_fx_img->state == PRESSED)
 		App->scene->AddFX(1, 0);
 
 	if (minus_music_img->state == PRESSED) {

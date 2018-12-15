@@ -112,7 +112,7 @@ private:
 	p2SString score_str = "0";
 	p2SString coin_str = "0";
 	p2SString life_str = "3";
-	GUILabel* time = nullptr;
+	GUILabel* times = nullptr;
 	GUILabel* score = nullptr;
 	GUILabel* coins = nullptr;
 	GUILabel* lifes = nullptr;
