@@ -106,6 +106,7 @@ bool GUIManager::Update(float dt) {
 		tmp->data->Update(dt);
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == HOVERED )
 		{
+			//if(x > )
 			tmp->data->SetLocalPosition( x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); //+y_motion if drag vertical
 		}
 		
@@ -177,39 +178,39 @@ void GUIManager::DestroyGUIElement(GUIElement *element) {
 	}
 }
 
-GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, Module* callback )
+GUIImage* GUIManager::CreateImage(iPoint pos, SDL_Rect rect, GUIElement* parent)
 {
 
 	GUIImage* tmp_img = new GUIImage(pos, rect, atlas);
-	tmp_img->callback = callback;
+	tmp_img->parent = parent;
 	gui_elements.add(tmp_img);
 
 	return tmp_img;
 }
 
-GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, Module* callback )
+GUILabel* GUIManager::CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, GUIElement* parent)
 {
 	GUILabel* tmp_lbl = new GUILabel(pos, text, font);
-	tmp_lbl->callback = callback;
+	tmp_lbl->parent = parent;
 	gui_elements.add(tmp_lbl);
 
 	return tmp_lbl;
 }
 
 
-GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable, Module* callback )
+GUIButton* GUIManager::CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable, GUIElement* parent)
 {
 	GUIButton* tmp_btn = new GUIButton(pos,normal,hovered,pressed,draggable, atlas) ;
-	tmp_btn->callback = callback;
+	tmp_btn->parent = parent;
 	gui_elements.add(tmp_btn);
 
 	return tmp_btn;
 }
 
-GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, Module* callback)
+GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, GUIElement* parent)
 {
 	GUISlider* tmp_sli = new GUISlider(pos, rect, normal, hovered, pressed, horizontal, atlas);
-	tmp_sli->callback = callback;
+	tmp_sli->parent = parent;
 	gui_elements.add(tmp_sli);
 	return tmp_sli;
 }
