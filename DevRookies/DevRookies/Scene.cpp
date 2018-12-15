@@ -499,8 +499,8 @@ void Scene::GUICreate()
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false, this);
 	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
 	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, this);
-	music_sli->SetStartValue(App->audio->volume);
-	fx_sli->SetStartValue(App->audio->volume_fx);
+	music_sli->SetStartValue(true, App->audio->volume);
+	fx_sli->SetStartValue(true, App->audio->volume_fx);
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);

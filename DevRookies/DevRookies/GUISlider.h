@@ -20,7 +20,7 @@ public:
 
 	void SetButton(GUIButton* slider_btn);
 	void SetValue(bool horizontal);
-	void SetStartValue(int value);
+	void SetStartValue(bool horizontal, int value);
 
 	uint GetValue() const;
 	GUIButton* GetButton() const;

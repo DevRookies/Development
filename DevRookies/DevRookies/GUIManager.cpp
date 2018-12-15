@@ -104,7 +104,7 @@ bool GUIManager::Update(float dt) {
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
 		tmp->data->Update(dt);
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true )
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == HOVERED )
 		{
 			int x_motion = mouse.x - last_mouse.x;
 			int y_motion = mouse.y - last_mouse.y;
