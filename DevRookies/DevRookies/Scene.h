@@ -84,10 +84,6 @@ private:
 	GUIImage* license_img = nullptr;
 	GUIImage* music_img = nullptr;
 	GUIImage* fx_img = nullptr;
-	GUIImage* minus_music_img = nullptr;
-	GUIImage* plus_music_img = nullptr;
-	GUIImage* minus_fx_img = nullptr;
-	GUIImage* plus_fx_img = nullptr;
 	GUIImage* coins_img = nullptr;
 	GUIImage* life_img = nullptr;
 	GUIImage* score_img = nullptr;
@@ -104,6 +100,10 @@ private:
 	GUIButton* settings_hud_btn = nullptr;
 	GUIButton* settings_hud_home_btn = nullptr;
 	GUIButton* back_menu_btn = nullptr;
+	GUIButton* minus_music_img = nullptr;
+	GUIButton* plus_music_img = nullptr;
+	GUIButton* minus_fx_img = nullptr;
+	GUIButton* plus_fx_img = nullptr;
 
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;

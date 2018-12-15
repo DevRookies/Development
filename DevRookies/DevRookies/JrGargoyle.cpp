@@ -159,6 +159,7 @@ void JrGargoyle::OnCollision(Collider* collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER) {
 		CleanUp();
+		AddFX(7, 0);
 		App->entitymanager->player->score += 200;
 		LOG("SCORE ENEMY: %i", App->entitymanager->player->score);
 		App->scene->HUDUpdate();

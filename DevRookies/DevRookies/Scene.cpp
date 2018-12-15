@@ -479,10 +479,10 @@ void Scene::GUICreate()
 	//SETTINGS
 	music_img = App->guimanager->CreateImage(iPoint(433, 350), music_rect, this);
 	fx_img = App->guimanager->CreateImage(iPoint(733, 350), fx_rect, this);
-	minus_music_img = App->guimanager->CreateImage(iPoint(346, 504), minus_rect, this);
-	plus_music_img = App->guimanager->CreateImage(iPoint(600, 504), plus_rect, this);
-	minus_fx_img = App->guimanager->CreateImage(iPoint(646, 504), minus_rect, this);
-	plus_fx_img = App->guimanager->CreateImage(iPoint(900, 504), plus_rect, this);
+	minus_music_img = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, this);
+	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, this);
+	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, this);
+	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, this);
 	music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
 	fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
 
@@ -497,7 +497,7 @@ void Scene::GUICreate()
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
 
-	time = App->guimanager->CreateLabel(iPoint(200, 46), time_str, font, this);
+	//time = App->guimanager->CreateLabel(iPoint(200, 46), time_str, font, this);
 	score = App->guimanager->CreateLabel(iPoint(600, 46), score_str, font, this);
 	coins = App->guimanager->CreateLabel(iPoint(950, 46), coin_str, font, this);
 	lifes = App->guimanager->CreateLabel(iPoint(1150, 46), life_str, font, this);
@@ -698,17 +698,30 @@ void Scene::GUIUpdate()
 		|| resume_btn->state == PRESSED || settings_hud_btn->state == PRESSED || settings_hud_home_btn->state == PRESSED || back_menu_btn->state == PRESSED)
 		App->scene->AddFX(1, 0);
 
+	if (minus_music_img->state == PRESSED) {
+		App->audio->VolumeDown(-2);
+	}
+	if (plus_music_img->state == PRESSED) {
+		App->audio->VolumeUp(-2);
+	}
+	if (minus_fx_img->state == PRESSED) {
+		App->audio->VolumeDown(-3);
+	}
+	if (plus_fx_img->state == PRESSED) {
+		App->audio->VolumeUp(-3);
+	}
+
 
 }
 
 void Scene::HUDUpdate()
 {
-	p2SString time_str("%.1f", App->seconds_since_startup);
+	//p2SString time_str("%.1f", App->seconds_since_startup);
 	p2SString score_str("%i", App->entitymanager->player->score);
 	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 	p2SString life_str("%i", App->entitymanager->player->lifes);
 
-	time->SetText(time_str);
+	//time->SetText(time_str);
 	score->SetText(score_str);
 	coins->SetText(coin_str);
 	lifes->SetText(life_str);

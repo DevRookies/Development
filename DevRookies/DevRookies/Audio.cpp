@@ -223,46 +223,79 @@ void Audio::StopMusic()
 
 void Audio::VolumeUp(int vol)
 {
-	if (vol == -1) {
+	switch (vol)
+	{
+	case -1:
 		if (volume < max_volume) {
 			volume += volume_change_ratio;
 			volume_fx += volume_change_ratio;
-
 			Mix_VolumeMusic(volume);
-
 			for (int id = 1; id <= fx.count(); id++)
 			{
 				Mix_VolumeChunk(fx[id - 1], volume_fx);
 			}
 		}
-	}
-	else {
+		break;
+	case -2:
+		if (volume < max_volume) {
+			volume += volume_change_ratio;
+			Mix_VolumeMusic(volume);
+		}
+		break;
+	case -3:
+		if (volume < max_volume) {
+			volume_fx += volume_change_ratio;
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
+		}
+		break;
+	default:
 		volume = vol - volume_change_ratio;
 		volume_fx = vol - volume_change_ratio;
 		VolumeUp(-1);
+		break;
 	}
-	
 }
 
 void Audio::VolumeDown(int vol)
 {
-	if (vol == -1) {
+	switch (vol)
+	{
+	case -1:
 		if (volume > 0) {
 			volume -= volume_change_ratio;
 			volume_fx -= volume_change_ratio;
+			Mix_VolumeMusic(volume);
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
 		}
-		Mix_VolumeMusic(volume);
-
-		for (int id = 1; id <= fx.count(); id++)
-		{
-			Mix_VolumeChunk(fx[id - 1], volume_fx);
+		break;
+	case -2:
+		if (volume > 0) {
+			volume -= volume_change_ratio;
+			Mix_VolumeMusic(volume);
 		}
-	}
-	else {
+		break;
+	case -3:
+		if (volume > 0) {
+			volume_fx -= volume_change_ratio;
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
+		}
+		break;
+	default:
 		volume = vol + volume_change_ratio;
 		volume_fx = vol + volume_change_ratio;
 		VolumeDown(-1);
+		break;
 	}
+	
 	
 }
 
