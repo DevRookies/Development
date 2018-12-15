@@ -106,11 +106,7 @@ bool GUIManager::Update(float dt) {
 		tmp->data->Update(dt);
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == HOVERED )
 		{
-			float x_motion = mouse.x - last_mouse.x;
-			float y_motion = mouse.y - last_mouse.y;
-
 			tmp->data->SetLocalPosition( mouse.x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); //+y_motion if drag vertical
-			last_mouse = mouse;
 		}
 		
 	}
