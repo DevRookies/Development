@@ -18,7 +18,7 @@
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="1106.66699" y="462" />
+			<position x="2429.66699" y="718" />
 			<godmode value="false" />
 			<element value="0" />
 			<flipX value="false" />
@@ -36,18 +36,14 @@
 			<position x="2696.76001" y="69.1514969" />
 		</JrGargoyle>
 		<OfficerSkeleton>
-			<position x="1899" y="454.333008" />
+			<position x="1826" y="455.333008" />
 		</OfficerSkeleton>
 		<OfficerSkeleton />
-		<OfficerSkeleton>
-			<position x="1216" y="678" />
-		</OfficerSkeleton>
+		<OfficerSkeleton />
 		<OfficerSkeleton>
 			<position x="2347" y="134.332993" />
 		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="2256" y="679.333008" />
-		</OfficerSkeleton>
+		<OfficerSkeleton />
 		<OfficerSkeleton>
 			<position x="2805.33008" y="390" />
 		</OfficerSkeleton>
@@ -76,12 +72,10 @@
 		<Coin>
 			<position x="4182" y="406" />
 		</Coin>
-		<Coin>
-			<position x="1206" y="442" />
-		</Coin>
+		<Coin />
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-680" y="0" />
+		<camera x="-1370" y="0" />
 	</render>
 </game_state>

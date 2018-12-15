@@ -58,7 +58,7 @@ public:
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 	bool pause = false;
-	int		aux_seconds;
+	int		aux_seconds = 0;
 	
 
 private:
