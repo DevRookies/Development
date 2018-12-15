@@ -480,8 +480,8 @@ void Scene::GUICreate()
 	plus_music_img = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, this);
 	minus_fx_img = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, this);
 	plus_fx_img = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, this);
-	music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
-	fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
+	//music_sli = App->guimanager->CreateSlider(iPoint(400, 504), slider_rect, this);
+	//fx_sli = App->guimanager->CreateSlider(iPoint(700, 504), slider_rect, this);
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect, this);
@@ -559,6 +559,7 @@ void Scene::GUIUpdate()
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
 		windows_img->Enabled(false);
+		timesecond = 0;
 	}
 	else if (settings_btn->state == PRESSED) {
 		//disable
@@ -720,15 +721,18 @@ void Scene::GUIUpdate()
 
 void Scene::HUDUpdate()
 {
-	p2SString time_str("%i", App->aux_seconds);
-	p2SString score_str("%i", App->entitymanager->player->score);
-	p2SString coin_str("%i", App->entitymanager->player->coin_counter);
-	p2SString life_str("%i", App->entitymanager->player->lifes);
+	if (App->render->start_time == 0 && windows_hud_img->enabled == false) {
+		timesecond++;
+		p2SString time_str("%i", timesecond);
+		p2SString score_str("%i", App->entitymanager->player->score);
+		p2SString coin_str("%i", App->entitymanager->player->coin_counter);
+		p2SString life_str("%i", App->entitymanager->player->lifes);
 
-	times->SetText(time_str);
-	score->SetText(score_str);
-	coins->SetText(coin_str);
-	lifes->SetText(life_str);
+		times->SetText(time_str);
+		score->SetText(score_str);
+		coins->SetText(coin_str);
+		lifes->SetText(life_str);
+	}
 }
 
 

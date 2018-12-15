@@ -60,6 +60,7 @@ private:
 	p2SString		press_fx_name = "";
 	p2SString		godmode_texture = "", pause_texture = "";
 	SDL_Rect		camera;
+	uint			timesecond = 0;
 
 	fPoint			godmode_pos, pause_pos;
 	
