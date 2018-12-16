@@ -483,6 +483,8 @@ void Scene::GUIUpdate()
 		Restart();
 	}
 
+	
+
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN
 		|| App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		title_img->Enabled(false);
@@ -689,9 +691,9 @@ void Scene::GUIUpdate()
 		mute_fx_btn->Enabled(false);
 	}
 
-	if (App->audio->mute_volume) mute_music_btn->Enabled(true);
+	if (App->audio->mute_volume && music_btn->enabled) mute_music_btn->Enabled(true);
 	else mute_music_btn->Enabled(false);
-	if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
+	if (App->audio->mute_fx && fx_btn->enabled) mute_fx_btn->Enabled(true);
 	else mute_fx_btn->Enabled(false);
 
 	if (!App->audio->mute_volume) Mix_VolumeMusic(music_sli->GetValue());
