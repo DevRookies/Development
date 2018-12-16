@@ -446,8 +446,25 @@ void Scene::GUIStart()
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
 		windows_img->Enabled(true);
+		//disable HUD
+		coins_img->Enabled(false);
+		life_img->Enabled(false);
+		time_img->Enabled(false);
+		score_img->Enabled(false);
+		times->Enabled(false);
+		score->Enabled(false);
+		coins->Enabled(false);
+		lifes->Enabled(false);
 		break;
 	case 1:
+		//disable MAINMENU
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		windows_img->Enabled(false);
 		//enable HUD
 		coins_img->Enabled(true);
 		life_img->Enabled(true);
@@ -459,6 +476,14 @@ void Scene::GUIStart()
 		lifes->Enabled(true);
 		break;
 	case 2:
+		//disable MAINMENU
+		title_img->Enabled(false);
+		play_btn->Enabled(false);
+		continue_btn->Enabled(false);
+		settings_btn->Enabled(false);
+		credits_btn->Enabled(false);
+		exit_btn->Enabled(false);
+		windows_img->Enabled(false);
 		//enable HUD
 		coins_img->Enabled(true);
 		life_img->Enabled(true);
@@ -485,8 +510,7 @@ void Scene::GUIUpdate()
 
 	
 
-	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN
-		|| App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+	if (play_btn->state == PRESSED || continue_btn->state == PRESSED) {
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
@@ -495,6 +519,10 @@ void Scene::GUIUpdate()
 		exit_btn->Enabled(false);
 		windows_img->Enabled(false);
 		timesecond = 0;
+		timeminute = 0;
+		App->entitymanager->player->score = 0;
+		App->entitymanager->player->coin_counter = 0;
+		App->entitymanager->player->lifes = 3;
 		times->SetText("0:00");
 		score->SetText("0");
 		coins->SetText("0");

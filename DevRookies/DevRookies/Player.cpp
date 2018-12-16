@@ -115,6 +115,7 @@ bool Player::Update(float dt)
 	if (current_animation->GetCurrentFrameIndex() == 3 && (current_state == DEATH)) {
 		if (lifes == 0) {
 			App->scene->scene_actual = 0;
+			lifes = 3;
 		}
 		App->scene->Restart();	
 	}
@@ -497,7 +498,7 @@ void Player::Die() {
 		}
 		score = 0;
 		coin_counter = 0;
-		--lifes;
+		if(lifes != 0) --lifes;
 		LOG("LIFES: %i", lifes);
 	}
 }

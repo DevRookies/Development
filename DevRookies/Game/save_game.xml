@@ -15,18 +15,18 @@
 	<scene>
 		<scene_actual value="1" />
 		<timeminute value="0" />
-		<timesecond value="1" />
+		<timesecond value="5" />
 	</scene>
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="162.667007" y="141" />
+			<position x="506.666992" y="173" />
 			<godmode value="false" />
 			<element value="0" />
 			<flipX value="false" />
-			<score value="0" />
-			<coin_counter value="0" />
-			<lifes value="3" />
+			<score value="100" />
+			<coin_counter value="1" />
+			<lifes value="0" />
 		</player>
 		<JrGargoyle>
 			<position x="3378.23999" y="136.363998" />
@@ -62,7 +62,7 @@
 			<position x="370" y="456" />
 		</Coin>
 		<Coin>
-			<position x="432" y="152" />
+			<position x="0" y="0" />
 		</Coin>
 		<Coin>
 			<position x="1688" y="468" />
@@ -91,6 +91,6 @@
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-60" y="0" />
+		<camera x="-411" y="0" />
 	</render>
 </game_state>
