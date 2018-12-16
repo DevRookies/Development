@@ -281,9 +281,6 @@ bool DevRookiesApp::DoUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		framerate_cap_enabled = !framerate_cap_enabled;
 
-	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		pause = !pause;
-
 	if (pause)
 		dt = 0;
 
