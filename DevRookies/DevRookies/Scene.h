@@ -76,6 +76,7 @@ private:
 	//----------------------------------------------------------------------------------------
 	bool guicreated = false;
 	bool guianimation = false;
+	bool restarting = false;
 	iPoint animation = { 300, 900 };
 	void GUICreate();
 	void GUIStart();

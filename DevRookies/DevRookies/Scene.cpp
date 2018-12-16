@@ -471,6 +471,12 @@ void Scene::GUIStart()
 
 void Scene::GUIUpdate()
 {
+	if (restarting) {
+		restarting = false;
+		scene_actual = 0;
+		Restart();
+	}
+
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN
 		|| App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		title_img->Enabled(false);
@@ -638,8 +644,7 @@ void Scene::GUIUpdate()
 		coins->Enabled(false);
 		lifes->Enabled(false);
 
-		scene_actual = 0;
-		Restart();
+		restarting = true;
 
 	}
 
