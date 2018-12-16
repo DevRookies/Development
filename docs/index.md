@@ -98,6 +98,8 @@ General controls:
 
 - ENTER (to pause game).
 
+- Left click (to control the GUI).
+
 Player: 
 
 - A (to go backwards).
