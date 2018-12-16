@@ -51,7 +51,7 @@ Assignment 1: The player can change between two forms in order to walk on the di
 
 Assignment 2: The player dashes, being able to kill enemies. Collider system. EnemySpawner system from Tiled. GodMode visualize and pause debuggers.
 
-Assignment 3: Parent-child system for the UI, UI rects charged from XML, UI with some animations, UI main menu is a map with some entities around there.
+Assignment 3: Parent-child system for the UI, UI rects charged from XML, UI with some animations, UI main menu is a map with some entities around there.Icon of exe changed from visual.
 
 Links
 -
