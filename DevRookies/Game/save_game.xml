@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="40" />
+		<volume value="100" />
 		<volume_fx value="100" />
 		<mute value="false" />
 	</audio>
@@ -15,7 +15,7 @@
 	<scene>
 		<scene_actual value="1" />
 		<timeminute value="0" />
-		<timesecond value="0" />
+		<timesecond value="1" />
 	</scene>
 	<scenemanager />
 	<entitymanager>
@@ -91,6 +91,6 @@
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-32" y="0" />
+		<camera x="-60" y="0" />
 	</render>
 </game_state>

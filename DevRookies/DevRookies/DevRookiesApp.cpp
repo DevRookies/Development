@@ -149,6 +149,13 @@ bool DevRookiesApp::Start()
 		ret = item->data->Start();
 	}
 
+	pugi::xml_document data;
+	pugi::xml_node root;
+	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	if (result == NULL) {
+		App->scene->continue_btn->Enabled(false);
+	}
+
 	PERF_PEEK(ptimer);
 
 	return ret;

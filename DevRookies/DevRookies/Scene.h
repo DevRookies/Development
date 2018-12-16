@@ -53,6 +53,7 @@ public:
 
 	uint			scene_actual = 0;
 	SDL_Texture*	debug_tex = nullptr;
+	GUIButton* continue_btn = nullptr;
 	GUISlider* music_sli = nullptr;
 	GUISlider* fx_sli = nullptr;
 
@@ -91,11 +92,10 @@ private:
 	GUIImage* life_img = nullptr;
 	GUIImage* score_img = nullptr;
 	GUIImage* time_img = nullptr;
-
 	GUIButton* settings_home_btn = nullptr;
 	GUIButton* credits_home_btn = nullptr;
 	GUIButton* play_btn = nullptr;
-	GUIButton* continue_btn = nullptr;
+	
 	GUIButton* settings_btn = nullptr;
 	GUIButton* credits_btn = nullptr;
 	GUIButton* exit_btn = nullptr;
