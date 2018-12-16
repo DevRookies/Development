@@ -587,7 +587,7 @@ void Scene::GUIUpdate()
 		if (App->audio->mute_volume) mute_music_btn->Enabled(true);
 		music_btn->Enabled(true);
 		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
-		music_btn->Enabled(true);
+		fx_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
 		minus_fx_btn->Enabled(true);
