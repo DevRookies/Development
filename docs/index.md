@@ -1,7 +1,9 @@
 ﻿Game description and context
 -
 Fire & Ice is a jump 'n run platformer game.You will be able to play with a little unicorn being able to jump, run, change between forms, kill enemies and even die falling into the venom! Make sure to save the game in crucial situations. Fire goes with fire and ice goes with ice. Don't forget that!
+
 This is a game developed for educational purposes, we are a group of two guys who go to college. This is part of the subject Videogame Development of the degree that we study called Videogame design and development in CITM, Terrassa, Spain.
+
 This project consists of develop a platform game and program it from the beggining using SDL, TILED and XML. So the whole group is going to program the game but we had to take some responsabilities that were given to each of the group.
 
 Development team
@@ -22,12 +24,15 @@ This doesn't mean that we had to participate only in our assignments, but everyo
 
 ### Assignment 1
 Cere Venteo -> All related with Player, Scenes and Collisions.
+
 Lluís Moreu -> All related with art and design such as tiled levels, search music and fx and create character textures. Volume functions. Save and Load.
 ### Assignment 2
 Cere Venteo -> Dash player, Framerate + dt, Pause button, collision system, Player as Entity, Scene2 Module deleted, Enemies logic.
+
 Lluís Moreu -> Pathfinding, Entity + Entity manager, UML Entities, Enemies, Enemies textures, Brofiler.
 ### Assignment 3
 Cere Venteo -> Fix dt and enemies, Timer and Slider, Some GUI HotFixes, HUD animation, GUI parent-child system, Fix volume functions.
+
 Lluís Moreu -> GUI structure and elements, Create mainmenu level, Create GUI,Coin entity, UML GUI, Brofiler, Website.
 
 Innovations
