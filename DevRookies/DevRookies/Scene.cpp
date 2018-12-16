@@ -340,9 +340,9 @@ bool Scene::Save(pugi::xml_node& node) const
 void Scene::Restart() const
 {
 	App->scenemanager->FadeToBlack(scene_actual);
+	App->pause = false;
 	App->entitymanager->player->visibility = false;
 	p2List_item<Entity*>* tmp = App->entitymanager->entities.start;
-	App->pause = false;
 	while (tmp != nullptr)
 	{
 		tmp->data->visibility = false;
