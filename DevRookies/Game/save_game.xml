@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<volume value="100" />
+		<volume value="40" />
 		<volume_fx value="100" />
 		<mute value="false" />
 	</audio>
@@ -15,17 +15,17 @@
 	<scene>
 		<scene_actual value="1" />
 		<timeminute value="0" />
-		<timesecond value="5" />
+		<timesecond value="0" />
 	</scene>
 	<scenemanager />
 	<entitymanager>
 		<player>
-			<position x="862.666992" y="142" />
+			<position x="162.667007" y="141" />
 			<godmode value="false" />
 			<element value="0" />
-			<flipX value="true" />
-			<score value="300" />
-			<coin_counter value="1" />
+			<flipX value="false" />
+			<score value="0" />
+			<coin_counter value="0" />
 			<lifes value="3" />
 		</player>
 		<JrGargoyle>
@@ -43,7 +43,9 @@
 		<OfficerSkeleton>
 			<position x="1899" y="454.333008" />
 		</OfficerSkeleton>
-		<OfficerSkeleton />
+		<OfficerSkeleton>
+			<position x="1028.35999" y="103.515198" />
+		</OfficerSkeleton>
 		<OfficerSkeleton>
 			<position x="1258" y="677" />
 		</OfficerSkeleton>
@@ -59,7 +61,9 @@
 		<Coin>
 			<position x="370" y="456" />
 		</Coin>
-		<Coin />
+		<Coin>
+			<position x="432" y="152" />
+		</Coin>
 		<Coin>
 			<position x="1688" y="468" />
 		</Coin>
@@ -87,6 +91,6 @@
 	</entitymanager>
 	<collision />
 	<render>
-		<camera x="-320" y="0" />
+		<camera x="-32" y="0" />
 	</render>
 </game_state>
