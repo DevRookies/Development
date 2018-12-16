@@ -325,6 +325,8 @@ bool Scene::Load(pugi::xml_node& node)
 	bool ret = true;
 
 	scene_actual = node.child("scene_actual").attribute("value").as_int();
+	timeminute = node.child("timeminute").attribute("value").as_int();
+	timesecond = node.child("timesecond").attribute("value").as_int();
 
 	CleanUp();
 	Start();
@@ -337,6 +339,8 @@ bool Scene::Save(pugi::xml_node& node) const
 	bool ret = true;
 
 	node.append_child("scene_actual").append_attribute("value") = scene_actual;
+	node.append_child("timeminute").append_attribute("value") = timeminute;
+	node.append_child("timesecond").append_attribute("value") = timesecond;
 
 	return ret;
 }
@@ -653,6 +657,7 @@ void Scene::GUIUpdate()
 		|| minus_music_btn->state == PRESSED || plus_music_btn->state == PRESSED || minus_fx_btn->state == PRESSED || plus_fx_btn->state == PRESSED || little_back_hud_btn->state == PRESSED || mute_fx_btn->state == PRESSED || mute_music_btn->state == PRESSED)
 		App->scene->AddFX(1, 0);
 
+	//Audio------
 	if (music_btn->state == PRESSED) {
 		App->audio->StopMusic(-2);
 		mute_music_btn->Enabled(true);
@@ -681,6 +686,11 @@ void Scene::GUIUpdate()
 	if (mute_fx_btn->state == PRESSED) {
 		mute_fx_btn->Enabled(false);
 	}
+
+	if (App->audio->mute_volume) mute_music_btn->Enabled(true);
+	else mute_music_btn->Enabled(false);
+	if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
+	else mute_fx_btn->Enabled(false);
 
 	if (!App->audio->mute_volume) Mix_VolumeMusic(music_sli->GetValue());
 	if (!App->audio->mute_fx) App->audio->SliderVolumeFx(fx_sli->GetValue());

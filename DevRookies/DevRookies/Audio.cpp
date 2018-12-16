@@ -347,6 +347,9 @@ bool Audio::Load(pugi::xml_node& data)
 	mute = data.child("mute").attribute("value").as_bool();
 	volume_fx = data.child("volume_fx").attribute("value").as_uint();
 
+	App->scene->music_sli->SetValue(volume);
+	App->scene->fx_sli->SetValue(volume_fx);
+
 	return true;
 }
 
@@ -360,6 +363,8 @@ bool Audio::Save(pugi::xml_node& data) const
 
 	pugi::xml_node mut = data.append_child("mute");
 	mut.append_attribute("value") = mute;
+
+
 
 
 	return true;

@@ -164,6 +164,9 @@ bool Player::Load(pugi::xml_node& node)
 	godmode = node.child("godmode").attribute("value").as_bool(false);
 	current_element = (ELEMENT)node.child("element").attribute("value").as_int(0);
 	flipX = node.child("flipX").attribute("value").as_bool(false);
+	score = node.child("score").attribute("value").as_int();
+	coin_counter = node.child("coin_counter").attribute("value").as_int();
+	lifes = node.child("lifes").attribute("value").as_int();
 	
 	return ret;
 }
@@ -177,6 +180,9 @@ bool Player::Save(pugi::xml_node& node) const
 	node.append_child("godmode").append_attribute("value") = godmode;
 	node.append_child("element").append_attribute("value") = (int)current_element;
 	node.append_child("flipX").append_attribute("value") = flipX;
+	node.append_child("score").append_attribute("value") = score;
+	node.append_child("coin_counter").append_attribute("value") = coin_counter;
+	node.append_child("lifes").append_attribute("value") = lifes;
 
 	return ret;
 }
