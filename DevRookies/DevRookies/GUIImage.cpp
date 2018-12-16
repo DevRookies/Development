@@ -4,8 +4,6 @@
 #include "Textures.h"
 #include "Render.h"
 
-#include "Brofiler\Brofiler.h"
-
 
 GUIImage::GUIImage(iPoint pos, SDL_Rect rect, SDL_Texture* texture): GUIElement(pos, GUI_Type::IMAGE, false, parent)
 {

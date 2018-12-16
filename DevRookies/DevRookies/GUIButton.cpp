@@ -5,8 +5,6 @@
 #include "Render.h"
 #include "GUIManager.h"
 
-#include "Brofiler\Brofiler.h"
-
 
 GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable, SDL_Texture* texture) : GUIElement(pos, GUI_Type::BUTTON, draggable, parent)
 {

@@ -5,8 +5,6 @@
 #include "Render.h"
 #include "Window.h"
 
-#include "Brofiler\Brofiler.h"
-
 
 GUILabel::GUILabel(iPoint pos, p2SString text, _TTF_Font* font) : GUIElement(pos, GUI_Type::LABEL, false, parent)
 {
