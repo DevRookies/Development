@@ -13,6 +13,7 @@ GUIButton::GUIButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pre
 	rect = normal;
 	rect.x = position.x;
 	rect.y = position.y;
+	relative_position = pos;
 	this->normal = normal;
 	this->hovered = hovered;
 	this->pressed = pressed;
@@ -27,8 +28,16 @@ GUIButton::~GUIButton()
 
 bool GUIButton::PostUpdate()
 {
-	bool ret = false;
 
+	//In Update, just a prove
+	if (parent != nullptr && parent->type == GUI_Type::IMAGE) {
+
+		position.x = relative_position.x + parent->position.x;
+		position.y = relative_position.y + parent->position.y;
+	}
+
+
+	bool ret = false;
 	switch (state) {
 	case GUI_State::HOVERED:
 		App->render->Blit(texture, position.x, position.y, &hovered, 0.0f);

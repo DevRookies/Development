@@ -13,7 +13,7 @@ public:
 	SDL_Rect slider_rect;
 
 private:
-	uint value = 0u; //float
+	uint value = 0u;
 	GUIButton* slider_btn = nullptr;
 	bool horizontal = true;
 

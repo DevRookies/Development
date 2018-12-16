@@ -7,7 +7,7 @@
 
 struct SDL_Texture;
 
-enum class GUI_Type
+enum GUI_Type
 {
 	IMAGE,
 	LABEL,
@@ -46,6 +46,7 @@ public:
 	GUI_Type	type;
 	SDL_Rect	rect;
 	iPoint		position;
+	iPoint		relative_position;
 	GUIElement* parent = nullptr;
 	GUI_State	state;
 	bool		enabled = false;

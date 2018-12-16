@@ -11,6 +11,7 @@ GUIElement::GUIElement(iPoint pos, GUI_Type type, bool draggable, GUIElement* pa
 	this->position = pos;
 	this->parent = parent;
 	this->draggable = draggable;
+	this->type = type;
 }
 
 GUIElement::~GUIElement()

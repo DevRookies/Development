@@ -404,9 +404,9 @@ void Scene::GUICreate()
 	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect);
 	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect);
 	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect);
-	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false, windows_hud_img);
-	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false, windows_hud_img);
-	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false, windows_hud_img);
+	resume_btn = App->guimanager->CreateButton(iPoint(155, 113), resume_normal, resume_hovered, resume_pressed, false, windows_hud_img);
+	settings_hud_btn = App->guimanager->CreateButton(iPoint(410, 113), settings_normal, settings_hovered, settings_pressed, false, windows_hud_img);
+	back_menu_btn = App->guimanager->CreateButton(iPoint(283, 263), back_menu_normal, back_menu_hovered, back_menu_pressed, false, windows_hud_img);
 	little_back_hud_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 
@@ -669,6 +669,21 @@ void Scene::GUIUpdate()
 	if(!App->audio->mute_fx) App->audio->SliderVolumeFx(fx_sli->GetValue());
 	App->audio->volume = music_sli->GetValue();
 	App->audio->volume_fx = fx_sli->GetValue();
+
+	if (guianimation) {
+
+		windows_hud_img->SetLocalPosition(animation.x, animation.y);
+		
+		animation.y -= 20;
+		if (windows_hud_img->GetPosition().y < 254) {
+			guianimation = false;
+			animation = { 300, 254 };
+			windows_hud_img->SetLocalPosition(animation.x, animation.y);
+			animation = { 300, 900 };
+		}
+
+		
+	}
 
 }
 

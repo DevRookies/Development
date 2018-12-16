@@ -7,7 +7,6 @@
 
 GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, SDL_Texture* texture) : GUIElement(pos, GUI_Type::SLIDER, false, parent)
 {
-	//this->position = pos;
 
 	this->slider_rect = rectangle;
 	rect = rectangle;
@@ -16,12 +15,6 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect h
 	this->texture = texture;
 	this->horizontal = horizontal;
 
-	
-
-	/*rect.x = position.x;
-	rect.y = position.y;*/
-
-	//make this dont blit when enabled == false
 	slider_btn = App->guimanager->CreateButton(pos, normal, hovered, pressed, true, this);
 }
 
