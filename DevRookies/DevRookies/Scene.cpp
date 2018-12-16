@@ -51,6 +51,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	LoadRect(config.child("rects").child("coins_rect").child("rect"), coins_rect);
 	LoadRect(config.child("rects").child("life_rect").child("rect"), life_rect);
 	LoadRect(config.child("rects").child("score_rect").child("rect"), score_rect);
+	LoadRect(config.child("rects").child("lock_rect").child("rect"), lock_rect);
 
 	//Buttons
 	LoadRect(config.child("rects").child("play_normal").child("rect"), play_normal);
@@ -389,6 +390,7 @@ void Scene::GUICreate()
 	//MAIN_MENU
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, false);
 	continue_btn = App->guimanager->CreateButton(iPoint(581, 345), continue_normal, continue_hovered, continue_pressed, false);
+	lock_continue_img = App->guimanager->CreateImage(iPoint(581, 345), lock_rect, false);
 	settings_btn = App->guimanager->CreateButton(iPoint(757, 345), settings_normal, settings_hovered, settings_pressed, false);
 	credits_btn = App->guimanager->CreateButton(iPoint(495, 505), credits_normal, credits_hovered, credits_pressed, false);
 	exit_btn = App->guimanager->CreateButton(iPoint(667, 505), exit_normal, exit_hovered, exit_pressed, false);

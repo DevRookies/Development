@@ -92,10 +92,11 @@ private:
 	GUIImage* life_img = nullptr;
 	GUIImage* score_img = nullptr;
 	GUIImage* time_img = nullptr;
+	GUIImage* lock_continue_img = nullptr;
+
 	GUIButton* settings_home_btn = nullptr;
 	GUIButton* credits_home_btn = nullptr;
 	GUIButton* play_btn = nullptr;
-	
 	GUIButton* settings_btn = nullptr;
 	GUIButton* credits_btn = nullptr;
 	GUIButton* exit_btn = nullptr;
@@ -137,6 +138,7 @@ private:
 	SDL_Rect coins_rect;
 	SDL_Rect life_rect;
 	SDL_Rect score_rect;
+	SDL_Rect lock_rect;
 
 	//BTN
 	SDL_Rect play_normal;

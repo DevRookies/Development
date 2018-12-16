@@ -64,6 +64,9 @@
       <score_rect>
         <rect x="497" y="842" width="308" height="66"/>
       </score_rect>
+      <lock_rect>
+        <rect x="379" y="238" width="115" height="113"/>
+      </lock_rect>
       <play_normal>
         <rect x="255" y="120" width="115" height="114"/>
       </play_normal>
