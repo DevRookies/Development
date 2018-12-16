@@ -48,8 +48,8 @@ public:
 private:
 
 	// size of the map
-	uint width;
-	uint height;
+	uint width = 0u;
+	uint height = 0u;
 	// all map walkability values [0..255]
 	uchar* map;
 	// we store the created path here

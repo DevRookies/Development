@@ -58,7 +58,7 @@ public:
 	Collider* collider = nullptr;
 	Animation* current_animation = nullptr;
 	SDL_Texture* texture = nullptr;
-	SDL_Rect	current;
+	SDL_Rect	current = { 0,0,0,0 };
 	bool flipX = false;
 	bool visibility = true;
 

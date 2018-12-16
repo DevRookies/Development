@@ -11,11 +11,11 @@ struct Mix_Chunk;
 class Audio : public Module
 {
 public:
-	uint volume;
-	uint volume_fx;
-	uint max_volume;
+	uint volume = 0u;
+	uint volume_fx = 0u;
+	uint max_volume = 0u;
 	float default_music_fade_time;
-	uint volume_change_ratio;
+	uint volume_change_ratio = 0u;
 	bool mute;
 	bool mute_volume;
 	bool mute_fx;

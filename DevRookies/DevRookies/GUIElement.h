@@ -43,7 +43,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	p2SString   tex;
 	GUI_Type	type;
-	SDL_Rect	rect;
+	SDL_Rect	rect = { 0,0,0,0 };
 	iPoint		position;
 	iPoint		relative_position;
 	GUIElement* parent = nullptr;

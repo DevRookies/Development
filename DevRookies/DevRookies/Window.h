@@ -42,9 +42,9 @@ public:
 
 private:
 	p2SString	title;
-	uint		width;
-	uint		height;
-	uint		scale;
+	uint		width = 0u;
+	uint		height = 0u;
+	uint		scale = 0u;
 };
 
 #endif // __WINDOW_H__

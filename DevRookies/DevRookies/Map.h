@@ -83,8 +83,8 @@ struct ObjectsData
 	uint16_t	name;
 	int			x;
 	int			y;
-	uint		width;
-	uint		height;
+	uint		width = 0u;
+	uint		height = 0u;
 
 };
 
@@ -163,7 +163,7 @@ private:
 public:
 
 	MapData				data;
-	SDL_Rect			rect;
+	SDL_Rect			rect = { 0,0,0,0 };;
 	fPoint				init_player_position;
 	p2List<fPoint>		init_JrGargoyle_position;
 	p2List<fPoint>		init_Skeleton_position;

@@ -10,7 +10,7 @@ class GUIButton;
 class GUISlider : public GUIElement
 {
 public:
-	SDL_Rect slider_rect;
+	SDL_Rect slider_rect = { 0,0,0,0 };
 
 private:
 	uint value = 0u;

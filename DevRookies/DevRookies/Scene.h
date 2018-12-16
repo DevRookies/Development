@@ -64,7 +64,7 @@ private:
 	p2SString		lvl0_music_name = "", lvl1_music_name = "", lvl2_music_name = "";
 	p2SString		press_fx_name = "";
 	p2SString		godmode_texture = "", pause_texture = "";
-	SDL_Rect		camera;
+	SDL_Rect		camera = { 0,0,0,0 };
 	uint			timesecond = 0, timeminute = 0;
 
 	fPoint			godmode_pos, pause_pos;
@@ -131,79 +131,79 @@ private:
 	
 	//--------------------------GUIRects---------------------------------------------------
 	//IMG
-	SDL_Rect windows_rect;
-	SDL_Rect title_rect;
-	SDL_Rect license_rect;
-	SDL_Rect coins_rect;
-	SDL_Rect life_rect;
-	SDL_Rect score_rect;
-	SDL_Rect lock_rect;
+	SDL_Rect windows_rect = { 0,0,0,0 };
+	SDL_Rect title_rect = { 0,0,0,0 };
+	SDL_Rect license_rect = { 0,0,0,0 };
+	SDL_Rect coins_rect = { 0,0,0,0 };
+	SDL_Rect life_rect = { 0,0,0,0 };
+	SDL_Rect score_rect = { 0,0,0,0 };
+	SDL_Rect lock_rect = { 0,0,0,0 };
 
 	//BTN
-	SDL_Rect play_normal;
-	SDL_Rect play_pressed;
-	SDL_Rect play_hovered;
+	SDL_Rect play_normal = { 0,0,0,0 };
+	SDL_Rect play_pressed = { 0,0,0,0 };
+	SDL_Rect play_hovered = { 0,0,0,0 };
 
-	SDL_Rect continue_normal;
-	SDL_Rect continue_pressed;
-	SDL_Rect continue_hovered;
+	SDL_Rect continue_normal = { 0,0,0,0 };
+	SDL_Rect continue_pressed = { 0,0,0,0 };
+	SDL_Rect continue_hovered = { 0,0,0,0 };
 
-	SDL_Rect settings_normal;
-	SDL_Rect settings_pressed;
-	SDL_Rect settings_hovered;
+	SDL_Rect settings_normal = { 0,0,0,0 };
+	SDL_Rect settings_pressed = { 0,0,0,0 };
+	SDL_Rect settings_hovered = { 0,0,0,0 };
 
-	SDL_Rect credits_normal;
-	SDL_Rect credits_pressed;
-	SDL_Rect credits_hovered;
+	SDL_Rect credits_normal = { 0,0,0,0 };
+	SDL_Rect credits_pressed = { 0,0,0,0 };
+	SDL_Rect credits_hovered = { 0,0,0,0 };
 
-	SDL_Rect exit_normal;
-	SDL_Rect exit_pressed;
-	SDL_Rect exit_hovered;
+	SDL_Rect exit_normal = { 0,0,0,0 };
+	SDL_Rect exit_pressed = { 0,0,0,0 };
+	SDL_Rect exit_hovered = { 0,0,0,0 };
 
-	SDL_Rect resume_normal;
-	SDL_Rect resume_pressed;
-	SDL_Rect resume_hovered;
+	SDL_Rect resume_normal = { 0,0,0,0 };
+	SDL_Rect resume_pressed = { 0,0,0,0 };
+	SDL_Rect resume_hovered = { 0,0,0,0 };
 
-	SDL_Rect back_menu_normal;
-	SDL_Rect back_menu_pressed;
-	SDL_Rect back_menu_hovered;
+	SDL_Rect back_menu_normal = { 0,0,0,0 };
+	SDL_Rect back_menu_pressed = { 0,0,0,0 };
+	SDL_Rect back_menu_hovered = { 0,0,0,0 };
 
-	SDL_Rect mute_music_normal;
-	SDL_Rect mute_music_hovered;
+	SDL_Rect mute_music_normal = { 0,0,0,0 };
+	SDL_Rect mute_music_hovered = { 0,0,0,0 };
 
-	SDL_Rect mute_fx_normal;
-	SDL_Rect mute_fx_hovered;
+	SDL_Rect mute_fx_normal = { 0,0,0,0 };
+	SDL_Rect mute_fx_hovered = { 0,0,0,0 };
 
-	SDL_Rect little_back_menu_normal;
-	SDL_Rect little_back_menu_pressed;
-	SDL_Rect little_back_menu_hovered;
+	SDL_Rect little_back_menu_normal = { 0,0,0,0 };
+	SDL_Rect little_back_menu_pressed = { 0,0,0,0 };
+	SDL_Rect little_back_menu_hovered = { 0,0,0,0 };
 
-	SDL_Rect music_normal;
-	SDL_Rect music_hovered;
-	SDL_Rect music_pressed;
+	SDL_Rect music_normal = { 0,0,0,0 };
+	SDL_Rect music_hovered = { 0,0,0,0 };
+	SDL_Rect music_pressed = { 0,0,0,0 };
 
-	SDL_Rect fx_normal;
-	SDL_Rect fx_hovered;
-	SDL_Rect fx_pressed;
+	SDL_Rect fx_normal = { 0,0,0,0 };
+	SDL_Rect fx_hovered = { 0,0,0,0 };
+	SDL_Rect fx_pressed = { 0,0,0,0 };
 
-	SDL_Rect minus_normal;
-	SDL_Rect minus_hovered;
-	SDL_Rect minus_pressed;
+	SDL_Rect minus_normal = { 0,0,0,0 };
+	SDL_Rect minus_hovered = { 0,0,0,0 };
+	SDL_Rect minus_pressed = { 0,0,0,0 };
 
-	SDL_Rect plus_normal;
-	SDL_Rect plus_hovered;
-	SDL_Rect plus_pressed;
+	SDL_Rect plus_normal = { 0,0,0,0 };
+	SDL_Rect plus_hovered = { 0,0,0,0 };
+	SDL_Rect plus_pressed = { 0,0,0,0 };
 
-	SDL_Rect web_normal;
-	SDL_Rect web_hovered;
-	SDL_Rect web_pressed;
+	SDL_Rect web_normal = { 0,0,0,0 };
+	SDL_Rect web_hovered = { 0,0,0,0 };
+	SDL_Rect web_pressed = { 0,0,0,0 };
 
 	//SLI
-	SDL_Rect slider_normal;
-	SDL_Rect slider_pressed;
-	SDL_Rect slider_hovered;
+	SDL_Rect slider_normal = { 0,0,0,0 };
+	SDL_Rect slider_pressed = { 0,0,0,0 };
+	SDL_Rect slider_hovered = { 0,0,0,0 };
 
-	SDL_Rect slider_rect;
+	SDL_Rect slider_rect = { 0,0,0,0 };
 };
 
 #endif // __SCENE_H__

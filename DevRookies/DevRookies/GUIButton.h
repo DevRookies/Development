@@ -8,9 +8,9 @@ class GUIButton : public GUIElement
 {
 private:
 	SDL_Texture * texture = nullptr;
-	SDL_Rect normal;
-	SDL_Rect hovered;
-	SDL_Rect pressed;
+	SDL_Rect normal = { 0,0,0,0 };
+	SDL_Rect hovered = { 0,0,0,0 };
+	SDL_Rect pressed = { 0,0,0,0 };
 
 public:
 
