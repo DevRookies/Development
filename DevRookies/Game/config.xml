@@ -196,6 +196,15 @@
       <plus_pressed>
         <rect x="563" y="485" width="34" height="32"/>
       </plus_pressed>
+      <web_normal>
+        <rect x="664" y="679" width="67" height="66"/>
+      </web_normal>
+      <web_hovered>
+        <rect x="520" y="679" width="66" height="66"/>
+      </web_hovered>
+      <web_pressed>
+        <rect x="592" y="679" width="67" height="66"/>
+      </web_pressed>
     </rects>
   </scene>
 

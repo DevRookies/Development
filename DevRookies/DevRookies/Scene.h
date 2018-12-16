@@ -113,7 +113,7 @@ private:
 	GUIButton* little_back_menu_btn = nullptr;
 	GUIButton* credits_little_back_menu_btn = nullptr;
 	GUIButton* little_back_hud_btn = nullptr;
-
+	GUIButton* web_btn = nullptr;
 
 	GUIButton* music_slider_btn = nullptr;
 	GUIButton* fx_slider_btn = nullptr;
@@ -191,6 +191,10 @@ private:
 	SDL_Rect plus_normal;
 	SDL_Rect plus_hovered;
 	SDL_Rect plus_pressed;
+
+	SDL_Rect web_normal;
+	SDL_Rect web_hovered;
+	SDL_Rect web_pressed;
 
 	//SLI
 	SDL_Rect slider_normal;
