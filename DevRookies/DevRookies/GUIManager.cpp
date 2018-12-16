@@ -72,7 +72,7 @@ bool GUIManager::PreUpdate()
 		if (x > rect_mouse.x && x < rect_mouse.x + rect_mouse.w && y > rect_mouse.y && y < rect_mouse.y + rect_mouse.h)
 		{
 			//tmp->data->hovered = true;
-			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 			{
 				if (tmp->data->enabled) 
 					tmp->data->state = GUI_State::PRESSED;
@@ -80,12 +80,20 @@ bool GUIManager::PreUpdate()
 			}
 			else
 			{
-				tmp->data->state = GUI_State::HOVERED;
+				if ((tmp->data->draggable && tmp->data->state == GUI_State::NORMAL) || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+					tmp->data->state = GUI_State::HOVERED;
+				else if (!tmp->data->draggable)
+					tmp->data->state = GUI_State::HOVERED;
+				
 			}
 		}
 		else
 		{
-			tmp->data->state = GUI_State::NORMAL;
+			if ((tmp->data->draggable && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) || tmp->data->state == GUI_State::HOVERED)
+				tmp->data->state = GUI_State::NORMAL;
+			else if (!tmp->data->draggable)
+				tmp->data->state = GUI_State::NORMAL;
+			
 		}
 		
 	}
@@ -104,10 +112,18 @@ bool GUIManager::Update(float dt) {
 	for (p2List_item<GUIElement*> * tmp = gui_elements.start; tmp; tmp = tmp->next)
 	{
 		tmp->data->Update(dt);
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == HOVERED )
+		
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && tmp->data->draggable == true && tmp->data->state == PRESSED )
 		{
-			//if(x > )
-			tmp->data->SetLocalPosition( x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); //+y_motion if drag vertical
+			if (tmp->data->parent->GetPosition().y > y || tmp->data->parent->GetPosition().y + tmp->data->parent->GetRect().h < y)
+				tmp->data->state = GUI_State::NORMAL;
+
+			if(tmp->data->parent->GetPosition().x + (tmp->data->GetRect().w / 2) <= x && tmp->data->parent->GetPosition().x + tmp->data->parent->GetRect().w >= x + (tmp->data->GetRect().w/2))
+				tmp->data->SetLocalPosition( x - (tmp->data->GetRect().w / 2) , tmp->data->GetPosition().y); 
+			else if(tmp->data->parent->GetPosition().x + (tmp->data->GetRect().w / 2) > x)
+				tmp->data->SetLocalPosition(tmp->data->parent->GetPosition().x, tmp->data->GetPosition().y);
+			else if(tmp->data->parent->GetPosition().x + tmp->data->parent->GetRect().w < x + (tmp->data->GetRect().w / 2))
+				tmp->data->SetLocalPosition(tmp->data->parent->GetPosition().x + tmp->data->parent->GetRect().w - (tmp->data->GetRect().w), tmp->data->GetPosition().y);
 		}
 		
 	}

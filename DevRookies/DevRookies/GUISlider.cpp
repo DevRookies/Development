@@ -22,7 +22,7 @@ GUISlider::GUISlider(iPoint pos, SDL_Rect rectangle, SDL_Rect normal, SDL_Rect h
 	rect.y = position.y;*/
 
 	//make this dont blit when enabled == false
-	slider_btn = App->guimanager->CreateButton(pos, normal, hovered, pressed, true, parent);
+	slider_btn = App->guimanager->CreateButton(pos, normal, hovered, pressed, true, this);
 }
 
 GUISlider::~GUISlider()
