@@ -48,10 +48,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	LoadRect(config.child("rects").child("windows_rect").child("rect"), windows_rect);
 	LoadRect(config.child("rects").child("title_rect").child("rect"), title_rect);
 	LoadRect(config.child("rects").child("license_rect").child("rect"), license_rect);
-	LoadRect(config.child("rects").child("music_rect").child("rect"), music_rect);
-	LoadRect(config.child("rects").child("fx_rect").child("rect"), fx_rect);
-	LoadRect(config.child("rects").child("minus_rect").child("rect"), minus_rect);
-	LoadRect(config.child("rects").child("plus_rect").child("rect"), plus_rect);
 	LoadRect(config.child("rects").child("coins_rect").child("rect"), coins_rect);
 	LoadRect(config.child("rects").child("life_rect").child("rect"), life_rect);
 	LoadRect(config.child("rects").child("score_rect").child("rect"), score_rect);
@@ -94,6 +90,22 @@ bool Scene::Awake(pugi::xml_node& config)
 	LoadRect(config.child("rects").child("little_back_menu_normal").child("rect"), little_back_menu_normal);
 	LoadRect(config.child("rects").child("little_back_menu_pressed").child("rect"), little_back_menu_pressed);
 	LoadRect(config.child("rects").child("little_back_menu_hovered").child("rect"), little_back_menu_hovered);
+
+	LoadRect(config.child("rects").child("music_normal").child("rect"), music_normal);
+	LoadRect(config.child("rects").child("music_pressed").child("rect"), music_pressed);
+	LoadRect(config.child("rects").child("music_hovered").child("rect"), music_hovered);
+
+	LoadRect(config.child("rects").child("fx_normal").child("rect"), fx_normal);
+	LoadRect(config.child("rects").child("fx_pressed").child("rect"), fx_pressed);
+	LoadRect(config.child("rects").child("fx_hovered").child("rect"), fx_hovered);
+
+	LoadRect(config.child("rects").child("minus_normal").child("rect"), minus_normal);
+	LoadRect(config.child("rects").child("minus_hovered").child("rect"), minus_hovered);
+	LoadRect(config.child("rects").child("minus_pressed").child("rect"), minus_pressed);
+
+	LoadRect(config.child("rects").child("plus_normal").child("rect"), plus_normal);
+	LoadRect(config.child("rects").child("plus_hovered").child("rect"), plus_hovered);
+	LoadRect(config.child("rects").child("plus_pressed").child("rect"), plus_pressed);
 
 	//Slider
 
@@ -372,12 +384,12 @@ void Scene::GUICreate()
 
 	//SETTINGS
 
-	music_btn = App->guimanager->CreateButton(iPoint(433, 350), music_rect, music_rect, music_rect, false);
-	fx_btn = App->guimanager->CreateButton(iPoint(733, 350), fx_rect, fx_rect, fx_rect, false);
-	minus_music_btn = App->guimanager->CreateButton(iPoint(346, 504), minus_rect, minus_rect, minus_rect, false);
-	plus_music_btn = App->guimanager->CreateButton(iPoint(600, 504), plus_rect, plus_rect, plus_rect, false);
-	minus_fx_btn = App->guimanager->CreateButton(iPoint(646, 504), minus_rect, minus_rect, minus_rect, false);
-	plus_fx_btn = App->guimanager->CreateButton(iPoint(900, 504), plus_rect, plus_rect, plus_rect, false);
+	music_btn = App->guimanager->CreateButton(iPoint(433, 350), music_normal, music_hovered, music_pressed, false);
+	fx_btn = App->guimanager->CreateButton(iPoint(733, 350), fx_normal, fx_hovered, fx_pressed, false);
+	minus_music_btn = App->guimanager->CreateButton(iPoint(346, 504), minus_normal, minus_hovered, minus_pressed, false);
+	plus_music_btn = App->guimanager->CreateButton(iPoint(600, 504), plus_normal, plus_hovered, plus_pressed, false);
+	minus_fx_btn = App->guimanager->CreateButton(iPoint(646, 504), minus_normal, minus_hovered, minus_pressed, false);
+	plus_fx_btn = App->guimanager->CreateButton(iPoint(900, 504), plus_normal, plus_hovered, plus_pressed, false);
 	music_sli = App->guimanager->CreateSlider(iPoint(381, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true);
 	fx_sli = App->guimanager->CreateSlider(iPoint(681, 502), slider_rect, slider_normal, slider_hovered, slider_pressed, true);
 

@@ -55,18 +55,6 @@
       <license_rect>
         <rect x="10" y="1470" width="447" height="268"/>
       </license_rect>
-      <music_rect>
-        <rect x="769" y="358" width="115" height="113"/>
-      </music_rect>
-      <fx_rect>
-        <rect x="769" y="239" width="115" height="114"/>
-      </fx_rect>
-      <minus_rect>
-        <rect x="599" y="518" width="33" height="32"/>
-      </minus_rect>
-      <plus_rect>
-        <rect x="599" y="485" width="33" height="32"/>
-      </plus_rect>
       <coins_rect>
         <rect x="7" y="834" width="216" height="77"/>
       </coins_rect>
@@ -172,6 +160,42 @@
       <little_back_menu_pressed>
         <rect x="581" y="620" width="55" height="54"/>
       </little_back_menu_pressed>
+      <music_normal>
+        <rect x="769" y="358" width="115" height="113"/>
+      </music_normal>
+      <music_hovered>
+        <rect x="517" y="358" width="116" height="113"/>
+      </music_hovered>
+      <music_pressed>
+        <rect x="643" y="358" width="116" height="113"/>
+      </music_pressed>
+      <fx_normal>
+        <rect x="769" y="239" width="115" height="114"/>
+      </fx_normal>
+      <fx_hovered>
+        <rect x="517" y="239" width="116" height="114"/>
+      </fx_hovered>
+      <fx_pressed>
+        <rect x="643" y="239" width="116" height="114"/>
+      </fx_pressed>
+      <minus_normal>
+        <rect x="599" y="518" width="33" height="32"/>
+      </minus_normal>
+      <minus_hovered>
+        <rect x="528" y="518" width="33" height="32"/>
+      </minus_hovered>
+      <minus_pressed>
+        <rect x="563" y="518" width="34" height="32"/>
+      </minus_pressed>
+      <plus_normal>
+        <rect x="599" y="485" width="33" height="32"/>
+      </plus_normal>
+      <plus_hovered>
+        <rect x="528" y="485" width="33" height="32"/>
+      </plus_hovered>
+      <plus_pressed>
+        <rect x="563" y="485" width="34" height="32"/>
+      </plus_pressed>
     </rects>
   </scene>
 

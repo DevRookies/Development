@@ -132,10 +132,6 @@ private:
 	SDL_Rect windows_rect;
 	SDL_Rect title_rect;
 	SDL_Rect license_rect;
-	SDL_Rect music_rect;
-	SDL_Rect fx_rect;
-	SDL_Rect minus_rect;
-	SDL_Rect plus_rect;
 	SDL_Rect coins_rect;
 	SDL_Rect life_rect;
 	SDL_Rect score_rect;
@@ -178,6 +174,22 @@ private:
 	SDL_Rect little_back_menu_normal;
 	SDL_Rect little_back_menu_pressed;
 	SDL_Rect little_back_menu_hovered;
+
+	SDL_Rect music_normal;
+	SDL_Rect music_hovered;
+	SDL_Rect music_pressed;
+
+	SDL_Rect fx_normal;
+	SDL_Rect fx_hovered;
+	SDL_Rect fx_pressed;
+
+	SDL_Rect minus_normal;
+	SDL_Rect minus_hovered;
+	SDL_Rect minus_pressed;
+
+	SDL_Rect plus_normal;
+	SDL_Rect plus_hovered;
+	SDL_Rect plus_pressed;
 
 	//SLI
 	SDL_Rect slider_normal;
