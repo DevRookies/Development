@@ -373,7 +373,7 @@ void Scene::GUICreate()
 
 	//CREDITS
 	license_img = App->guimanager->CreateImage(iPoint(392, 340), license_rect);
-	credits_little_back_menu_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
+	credits_little_back_menu_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 	//MAIN_MENU
 	play_btn = App->guimanager->CreateButton(iPoint(409, 345), play_normal, play_hovered, play_pressed, false);
@@ -397,7 +397,7 @@ void Scene::GUICreate()
 	fx_sli->SetValue(App->audio->volume_fx);
 	mute_music_btn = App->guimanager->CreateButton(iPoint(433, 350), mute_music_normal, mute_music_hovered, mute_music_normal, false);
 	mute_fx_btn = App->guimanager->CreateButton(iPoint(733, 350), mute_fx_normal, mute_fx_hovered, mute_fx_normal, false);
-	little_back_menu_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
+	little_back_menu_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 	//HUD
 	coins_img = App->guimanager->CreateImage(iPoint(814, 11), coins_rect);
@@ -407,7 +407,7 @@ void Scene::GUICreate()
 	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false);
 	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false);
 	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false);
-	little_back_hud_btn = App->guimanager->CreateButton(iPoint(847, 592), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
+	little_back_hud_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 
 	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
@@ -589,6 +589,7 @@ void Scene::GUIUpdate()
 		else music_btn->Enabled(true);
 		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
 		else music_btn->Enabled(true);
+		fx_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
 		minus_fx_btn->Enabled(true);
