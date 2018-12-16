@@ -14,7 +14,7 @@
 #include "Scene.h"
 //#include "Window.h"
 
-#include "SDL_ttf/include/SDL_ttf.h"
+#include "SDL_ttf\include\SDL_ttf.h"
 #include "Brofiler\Brofiler.h"
 
 GUIManager::GUIManager() : Module()

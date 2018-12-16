@@ -149,13 +149,6 @@ bool DevRookiesApp::Start()
 		ret = item->data->Start();
 	}
 
-	pugi::xml_document data;
-	pugi::xml_node root;
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
-	if (result == NULL) {
-		App->scene->continue_btn->Enabled(false);
-	}
-
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -165,6 +158,7 @@ bool DevRookiesApp::Start()
 bool DevRookiesApp::Update()
 {
 	BROFILER_CATEGORY("Update", Profiler::Color::LimeGreen);
+
 	bool ret = true;
 	PrepareUpdate();
 
@@ -472,4 +466,19 @@ bool DevRookiesApp::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+void DevRookiesApp::GetContinueState() {
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	if (result == NULL) {
+		App->scene->lock_continue_img->Enabled(true);
+		App->scene->continue_btn->Enabled(false);
+	}
+	else {
+		App->scene->lock_continue_img->Enabled(false);
+		App->scene->continue_btn->Enabled(true);
+	}
 }

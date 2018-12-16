@@ -9,7 +9,7 @@
 #include "GUIButton.h"
 #include "GUILabel.h"
 #include "GUISlider.h"
-#include "SDL_ttf/include/SDL_ttf.h"
+#include "SDL_ttf\include\SDL_ttf.h"
 
 #define CURSOR_WIDTH 2
 

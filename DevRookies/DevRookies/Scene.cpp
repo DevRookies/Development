@@ -227,7 +227,7 @@ bool Scene::Update(float dt)
 		Restart();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN || back_menu_btn->state == PRESSED)
+	if ((App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && scene_actual!=0) || back_menu_btn->state == PRESSED)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN || continue_btn->state == PRESSED) {
@@ -423,7 +423,7 @@ void Scene::GUICreate()
 	little_back_hud_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 
-	_TTF_Font * font = App->fonts->Load("fonts/zombiebites/Zombiebites.ttf", 48);
+	_TTF_Font * font = App->fonts->Load(DEFAULT_FONT, DEFAULT_FONT_SIZE);
 
 	times = App->guimanager->CreateLabel(iPoint(200, 46), time_str, font);
 	score = App->guimanager->CreateLabel(iPoint(600, 46), score_str, font);
@@ -441,7 +441,8 @@ void Scene::GUIStart()
 		//MAINMENU
 		title_img->Enabled(true);
 		play_btn->Enabled(true);
-		continue_btn->Enabled(true);
+		App->GetContinueState();
+		//continue_btn->Enabled(true);
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
@@ -461,6 +462,7 @@ void Scene::GUIStart()
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
+		lock_continue_img->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
@@ -480,6 +482,7 @@ void Scene::GUIStart()
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
+		lock_continue_img->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
@@ -514,6 +517,7 @@ void Scene::GUIUpdate()
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
+		lock_continue_img->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
@@ -533,6 +537,7 @@ void Scene::GUIUpdate()
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
+		lock_continue_img->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
@@ -570,7 +575,8 @@ void Scene::GUIUpdate()
 		//enable
 		title_img->Enabled(true);
 		play_btn->Enabled(true);
-		continue_btn->Enabled(true);
+		App->GetContinueState();
+		//continue_btn->Enabled(true);
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
@@ -582,6 +588,7 @@ void Scene::GUIUpdate()
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
+		lock_continue_img->Enabled(false);
 		settings_btn->Enabled(false);
 		credits_btn->Enabled(false);
 		exit_btn->Enabled(false);
@@ -602,7 +609,8 @@ void Scene::GUIUpdate()
 		//enable
 		title_img->Enabled(true);
 		play_btn->Enabled(true);
-		continue_btn->Enabled(true);
+		App->GetContinueState();
+		//continue_btn->Enabled(true);
 		settings_btn->Enabled(true);
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
