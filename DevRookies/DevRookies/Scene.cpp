@@ -356,7 +356,7 @@ void Scene::AddFX(const int channel, const int repeat) const
 
 void Scene::GUICreate()
 {
-	
+
 
 	//_TTF_Font * font = App->fonts->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
 	//label = App->guimanager->CreateLabel(iPoint(500, 530), p2SString("Copyright (c) [2018] [Lluís Moreu & Cere Venteo] Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions : The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."), font, this);
@@ -493,10 +493,9 @@ void Scene::GUIUpdate()
 
 		//enable
 		settings_home_btn->Enabled(true);
-		if (App->audio->mute_volume) mute_music_btn->Enabled(true); 
-		else music_btn->Enabled(true);
+		if (App->audio->mute_volume) mute_music_btn->Enabled(true);
+		music_btn->Enabled(true);
 		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
-		else music_btn->Enabled(true);
 		fx_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
@@ -545,7 +544,7 @@ void Scene::GUIUpdate()
 		license_img->Enabled(true);
 		credits_little_back_menu_btn->Enabled(true);
 	}
-	else if (credits_home_btn->state == PRESSED  || credits_little_back_menu_btn->state == PRESSED) {
+	else if (credits_home_btn->state == PRESSED || credits_little_back_menu_btn->state == PRESSED) {
 		//disable
 		credits_home_btn->Enabled(false);
 		license_img->Enabled(false);
@@ -559,7 +558,7 @@ void Scene::GUIUpdate()
 		credits_btn->Enabled(true);
 		exit_btn->Enabled(true);
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0) { // IN GAME MENU---------------
+	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0 && !windows_hud_img->enabled) { // IN GAME MENU---------------
 		App->pause = true;
 
 		//enable HUD pause
@@ -586,10 +585,9 @@ void Scene::GUIUpdate()
 		//enable settings
 		settings_hud_home_btn->Enabled(true);
 		if (App->audio->mute_volume) mute_music_btn->Enabled(true);
-		else music_btn->Enabled(true);
+		music_btn->Enabled(true);
 		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
-		else music_btn->Enabled(true);
-		fx_btn->Enabled(true);
+		music_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
 		minus_fx_btn->Enabled(true);
@@ -598,7 +596,7 @@ void Scene::GUIUpdate()
 		fx_sli->Enabled(true);
 		little_back_hud_btn->Enabled(true);
 	}
-	else if (settings_hud_home_btn->state == PRESSED  || little_back_hud_btn->state == PRESSED) {
+	else if (settings_hud_home_btn->state == PRESSED || little_back_hud_btn->state == PRESSED) {
 		//disable
 		settings_hud_home_btn->Enabled(false);
 		little_back_hud_btn->Enabled(false);
@@ -670,7 +668,10 @@ void Scene::GUIUpdate()
 	if (mute_fx_btn->state == PRESSED) {
 		mute_fx_btn->Enabled(false);
 	}
-	/*Mix_VolumeMusic(music_sli->GetSliderValue() / 100);*/
+
+
+	Mix_VolumeMusic(music_sli->GetValue());
+	App->audio->SliderVolumeFx(fx_sli->GetValue());
 
 }
 
@@ -681,19 +682,19 @@ void Scene::HUDUpdate()
 		if (timesecond == 60)
 			timesecond = 0;
 		if (timesecond < 10) {
-			p2SString time_str("%i:0%i", timesecond/60, timesecond);
+			p2SString time_str("%i:0%i", timesecond / 60, timesecond);
 			times->SetText(time_str);
 		}
 		else {
-			p2SString time_str("%i:%i", timesecond/60, timesecond);
+			p2SString time_str("%i:%i", timesecond / 60, timesecond);
 			times->SetText(time_str);
 		}
-			
+
 		p2SString score_str("%i", App->entitymanager->player->score);
 		p2SString coin_str("%i", App->entitymanager->player->coin_counter);
 		p2SString life_str("%i", App->entitymanager->player->lifes);
 
-		
+
 		score->SetText(score_str);
 		coins->SetText(coin_str);
 		lifes->SetText(life_str);

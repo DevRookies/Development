@@ -331,6 +331,14 @@ void Audio::VolumeDown(int vol)
 	
 }
 
+void Audio::SliderVolumeFx(int vol)
+{
+	for (int id = 1; id <= fx.count(); id++)
+	{
+		Mix_VolumeChunk(fx[id - 1], vol);
+	}
+}
+
 bool Audio::Load(pugi::xml_node& data)
 {
 	volume = data.child("volume").attribute("value").as_uint();

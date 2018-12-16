@@ -44,6 +44,7 @@ public:
 	void StopMusic(int mut);
 	void VolumeUp(int vol);
 	void VolumeDown(int vol);
+	void SliderVolumeFx(int vol);
 
 	//Save & Load volume
 	bool Load(pugi::xml_node&);
