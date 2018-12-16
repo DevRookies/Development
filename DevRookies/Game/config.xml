@@ -143,13 +143,13 @@
         <rect x="1026" y="357" width="115" height="113"/>
       </mute_music_normal>
       <mute_music_hovered>
-        <rect x="893" y="358" width="116" height="113"/>
+        <rect x="1026" y="121" width="115" height="113"/>
       </mute_music_hovered>
       <mute_fx_normal>
         <rect x="1026" y="236" width="115" height="116"/>
       </mute_fx_normal>
       <mute_fx_hovered>
-        <rect x="893" y="237" width="116" height="113"/>
+        <rect x="1026" y="0" width="115" height="116"/>
       </mute_fx_hovered>
       <little_back_menu_normal>
         <rect x="640" y="620" width="55" height="54"/>
