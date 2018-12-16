@@ -38,8 +38,6 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 - M (to mute game).
 
-- ENTER (to pause game).
-
 - Left click (to control the GUI).
 
 ###Player: 
@@ -66,7 +64,7 @@ Trello: https://trello.com/b/6xGoDgxj/development
 
 - F10 (to go GodMode).
 
-- F11 (to enable framerate cap)
+- F11 (to disable framerate cap).
 
 - WASD (to move with GodMode).
 

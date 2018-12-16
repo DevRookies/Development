@@ -96,8 +96,6 @@ General controls:
 
 - M (to mute game).
 
-- ENTER (to pause game).
-
 - Left click (to control the GUI).
 
 Player: 
@@ -124,7 +122,7 @@ Debug keys:
 
 - F10 (to go GodMode).
 
-- F11 (to enable framerate cap)
+- F11 (to disable framerate cap).
 
 - WASD (to move with GodMode).
 
