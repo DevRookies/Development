@@ -47,10 +47,7 @@ public:
 	GUIImage* CreateImage(iPoint pos, SDL_Rect rect, GUIElement* parent = nullptr);
 	GUILabel* CreateLabel(iPoint pos, p2SString text, _TTF_Font* font, GUIElement* parent = nullptr);
 	GUIButton* CreateButton(iPoint pos, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool draggable = false, GUIElement* parent = nullptr);
-	GUISlider* CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, GUIElement* parent = nullptr);
-
-	//GUICheckBox* CreateCheckBox(iPoint pos, p2SString text, iPoint displacement = { 0,0 }, Module* callback = nullptr);
-	
+	GUISlider* CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal, SDL_Rect hovered, SDL_Rect pressed, bool horizontal, GUIElement* parent = nullptr);	
 
 	SDL_Texture* GetAtlas();
 

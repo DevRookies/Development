@@ -12,7 +12,6 @@ enum GUI_Type
 	IMAGE,
 	LABEL,
 	BUTTON,
-	CHECKBOX,
 	SLIDER,
 	NO_TYPE
 };

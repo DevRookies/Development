@@ -230,9 +230,3 @@ GUISlider * GUIManager::CreateSlider(iPoint pos, SDL_Rect rect, SDL_Rect normal,
 	gui_elements.add(tmp_sli);
 	return tmp_sli;
 }
-
-//GUICheckBox * GUIManager::CreateCheckBox(iPoint pos, bool checked)
-//{
-//	return nullptr;
-//}
-//
