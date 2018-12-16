@@ -695,14 +695,16 @@ void Scene::HUDUpdate()
 
 	if (App->render->start_time == 0 && windows_hud_img->enabled == false && (scene_actual == 1 || scene_actual == 2)) {
 		timesecond++;
-		if (timesecond == 60)
+		if (timesecond == 60) {
 			timesecond = 0;
+			timeminute++;
+		}	
 		if (timesecond < 10) {
-			p2SString time_str("%i:0%i", timesecond / 60, timesecond);
+			p2SString time_str("%i:0%i", timeminute, timesecond);
 			times->SetText(time_str);
 		}
 		else {
-			p2SString time_str("%i:%i", timesecond / 60, timesecond);
+			p2SString time_str("%i:%i", timeminute, timesecond);
 			times->SetText(time_str);
 		}
 
