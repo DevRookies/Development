@@ -16,9 +16,9 @@ public:
 	uint max_volume = 0u;
 	float default_music_fade_time;
 	uint volume_change_ratio = 0u;
-	bool mute;
-	bool mute_volume;
-	bool mute_fx;
+	bool mute = false;
+	bool mute_volume = false;
+	bool mute_fx = false;
 
 	Audio();
 
