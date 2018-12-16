@@ -26,7 +26,6 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 	pugi::xml_node config = conf.child("OfficerSkeleton");
 
 	skeleton_texture = config.child("texture").child_value();
-	die_fx_name = config.child("die_fx_name").attribute("source").as_string();
 
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
@@ -48,7 +47,6 @@ bool OfficerSkeleton::Awake(pugi::xml_node & conf)
 
 bool OfficerSkeleton::Start(uint i)
 {
-	App->audio->LoadFx(die_fx_name.GetString());
 	return true;
 }
 
@@ -158,7 +156,7 @@ void OfficerSkeleton::OnCollision(Collider * collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER) {
 		CleanUp();
-		AddFX(7, 0);
+		AddFX(6, 0);
 		App->entitymanager->player->score += 200;
 		LOG("SCORE ENEMY: %i", App->entitymanager->player->score);
 	}

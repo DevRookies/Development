@@ -25,7 +25,6 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 	pugi::xml_node config = conf.child("JrGargoyle");
 
 	gargoyle_texture = config.child("texture").child_value();
-	die_fx_name = config.child("die_fx_name").attribute("source").as_string();
 
 	speed = { config.child("speed").attribute("x").as_float(),  config.child("speed").attribute("y").as_float() };
 	acceleration = { config.child("acceleration").attribute("x").as_float(), config.child("acceleration").attribute("y").as_float() };
@@ -47,7 +46,6 @@ bool JrGargoyle::Awake(pugi::xml_node & conf)
 
 bool JrGargoyle::Start(uint i)
 {
-	App->audio->LoadFx(die_fx_name.GetString());
 	return true;
 }
 
@@ -159,7 +157,7 @@ void JrGargoyle::OnCollision(Collider* collider1, Collider* collider2)
 {
 	if (collider1->type == COLLIDER_PLAYER) {
 		CleanUp();
-		AddFX(7, 0);
+		AddFX(6, 0);
 		App->entitymanager->player->score += 200;
 		LOG("SCORE ENEMY: %i", App->entitymanager->player->score);
 	}

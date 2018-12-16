@@ -22,7 +22,6 @@ bool Coin::Awake(pugi::xml_node& conf)
 
 	pugi::xml_node config = conf.child("Coin");
 	coin_texture = config.child("texture").child_value();
-	coin_fx_name = config.child("coin_fx_name").attribute("source").as_string();
 
 	LoadAnimation(config.child("animations").child("flip").child("frame"), flip);
 	flip.speed = config.child("animations").child("flip").attribute("speed").as_float();
@@ -33,7 +32,6 @@ bool Coin::Awake(pugi::xml_node& conf)
 
 bool Coin::Start(uint i)
 {
-	App->audio->LoadFx(coin_fx_name.GetString());
 	return true;
 }
 

@@ -31,7 +31,7 @@ private:
 
 private:
 	SDL_Texture* gargoyle_tex = nullptr;
-	p2SString   gargoyle_texture, die_fx_name;
+	p2SString   gargoyle_texture;
 
 	Animation*	current_animation = nullptr;
 	Animation idle;

@@ -226,6 +226,8 @@
       <dash_fx_name source="dash.wav"/>
       <dead_fx_name source="negative_beeps.wav"/>
       <victory_fx_name source="ta_da.wav"/>
+      <die_fx_name source="agh.wav"/>
+      <coin_fx_name source="coin.wav"/>
       <animations>
         <idle_fire speed="5.1F" loop="true">
           <frame x="2021" y="0" width="55" height="56"/>
@@ -306,7 +308,6 @@
 
     <JrGargoyle>
       <texture>textures/JrGargoyle.png</texture>
-      <die_fx_name source="agh.wav"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="50.0f"/>
@@ -335,7 +336,6 @@
 
     <OfficerSkeleton>
       <texture>textures/OfficerSkeleton.png</texture>
-      <die_fx_name source="agh.wav"/>
       <speed x="0.0f" y="0.0f"/>
       <acceleration x="0.8f" y="0.6f"/>
       <max_speed x="50.0f" y="100.0f"/>
@@ -365,7 +365,6 @@
 
     <Coin>
       <texture>textures/Coin.png</texture>
-      <coin_fx_name source="coin.wav"/>
       <animations>
         <flip speed="5.1F" loop="true">
           <frame x="0" y="0" width="23" height="24"/>

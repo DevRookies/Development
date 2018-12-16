@@ -34,6 +34,8 @@ bool Player::Awake(pugi::xml_node& conf)
 	dash_fx_name = config.child("dash_fx_name").attribute("source").as_string();
 	dead_fx_name = config.child("dead_fx_name").attribute("source").as_string();
 	victory_fx_name = config.child("victory_fx_name").attribute("source").as_string();
+	die_fx_name = config.child("die_fx_name").attribute("source").as_string();
+	coin_fx_name = config.child("coin_fx_name").attribute("source").as_string();
 
 	//animations
 	//fire
@@ -88,6 +90,8 @@ bool Player::Start(uint i)
 	App->audio->LoadFx(dash_fx_name.GetString());
 	App->audio->LoadFx(dead_fx_name.GetString());
 	App->audio->LoadFx(victory_fx_name.GetString());	
+	App->audio->LoadFx(die_fx_name.GetString());
+	App->audio->LoadFx(coin_fx_name.GetString());
 	
 	
 	return true;
@@ -228,7 +232,7 @@ void Player::OnCollision(Collider * collider1)
 			else if (collider1->type == COLLIDER_COIN) {
 				App->entitymanager->OnCollision(App->entitymanager->player->collider, collider1);
 				++coin_counter;
-				AddFX(6, 0);
+				AddFX(7, 0);
 				score += 100;
 				if (coin_counter == 10) {
 					score += 1000;

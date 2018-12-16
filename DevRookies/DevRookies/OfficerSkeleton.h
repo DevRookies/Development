@@ -34,7 +34,7 @@ private:
 
 private:
 	SDL_Texture * skeleton_tex = nullptr;
-	p2SString   skeleton_texture, die_fx_name;
+	p2SString   skeleton_texture;
 
 	Animation*	current_animation = nullptr;
 	Animation idle;

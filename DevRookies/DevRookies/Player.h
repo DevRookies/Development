@@ -21,7 +21,7 @@ private:
 	int			hit_speed, jump_cont, jump_cont_start;
 	int			collider_box_width, collider_box_height;
 	fPoint		lastPosition;
-	p2SString   player_texture, jump_fx_name, dash_fx_name, dead_fx_name, victory_fx_name;
+	p2SString   player_texture, jump_fx_name, dash_fx_name, dead_fx_name, victory_fx_name, die_fx_name, coin_fx_name;
 
 	uint		heigth_animation = 53;
 	

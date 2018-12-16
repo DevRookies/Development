@@ -75,7 +75,7 @@ private:
 	//------------------------------GUI-------------------------------------------------------
 	//----------------------------------------------------------------------------------------
 	bool guicreated = false;
-	bool restarting = false;
+	bool guianimation = false;
 	void GUICreate();
 	void GUIStart();
 	void GUIUpdate();

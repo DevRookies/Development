@@ -404,9 +404,9 @@ void Scene::GUICreate()
 	life_img = App->guimanager->CreateImage(iPoint(1054, 11), life_rect);
 	time_img = App->guimanager->CreateImage(iPoint(12, 16), score_rect);
 	score_img = App->guimanager->CreateImage(iPoint(429, 16), score_rect);
-	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false);
-	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false);
-	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false);
+	resume_btn = App->guimanager->CreateButton(iPoint(455, 367), resume_normal, resume_hovered, resume_pressed, false, windows_hud_img);
+	settings_hud_btn = App->guimanager->CreateButton(iPoint(710, 367), settings_normal, settings_hovered, settings_pressed, false, windows_hud_img);
+	back_menu_btn = App->guimanager->CreateButton(iPoint(583, 517), back_menu_normal, back_menu_hovered, back_menu_pressed, false, windows_hud_img);
 	little_back_hud_btn = App->guimanager->CreateButton(iPoint(613, 607), little_back_menu_normal, little_back_menu_hovered, little_back_menu_pressed, false);
 
 
@@ -462,12 +462,6 @@ void Scene::GUIStart()
 
 void Scene::GUIUpdate()
 {
-	if (restarting) {
-		restarting = false;
-		scene_actual = 0;
-		Restart();
-	}
-
 	if (play_btn->state == PRESSED || continue_btn->state == PRESSED) {
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
@@ -506,6 +500,7 @@ void Scene::GUIUpdate()
 		little_back_menu_btn->Enabled(true);
 	}
 	else if (settings_home_btn->state == PRESSED || little_back_menu_btn->state == PRESSED) {
+
 		//disable
 		settings_home_btn->Enabled(false);
 		little_back_menu_btn->Enabled(false);
@@ -560,7 +555,7 @@ void Scene::GUIUpdate()
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && scene_actual != 0 && !windows_hud_img->enabled) { // IN GAME MENU---------------
 		App->pause = true;
-
+		guianimation = true;
 		//enable HUD pause
 		windows_hud_img->Enabled(true);
 		resume_btn->Enabled(true);
@@ -631,7 +626,8 @@ void Scene::GUIUpdate()
 		coins->Enabled(false);
 		lifes->Enabled(false);
 
-		restarting = true;
+		scene_actual = 0;
+		Restart();
 
 	}
 
