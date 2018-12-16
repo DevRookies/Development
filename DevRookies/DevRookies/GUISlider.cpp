@@ -38,7 +38,7 @@ void GUISlider::SetValue(int value)
 {
 	if (horizontal) {
 		this->value = value;
-		slider_btn->SetLocalPosition(((this->rect.w - slider_btn->GetRect().w) * this->value / 100) + this->GetPosition().x , this->GetPosition().y + (this->rect.h / 2) - (slider_btn->GetRect().h / 2));
+		slider_btn->SetLocalPosition(((this->rect.w - slider_btn->GetRect().w) * this->value / 100) + this->GetPosition().x + 1, this->GetPosition().y + (this->rect.h / 2) - (slider_btn->GetRect().h / 2));
 	}
 	else {
 		this->value = value;
@@ -50,13 +50,11 @@ uint GUISlider::GetValue() const
 {
 	int ret = 0;
 	if (horizontal)
-		ret = (slider_btn->position.x - position.x) * 100 / rect.w;
+		ret = (slider_btn->position.x - position.x) * 100 / (rect.w - slider_btn->GetRect().w);
 	else
 		ret = (slider_btn->position.y - position.y) * 100 / (rect.h - slider_btn->GetRect().h);
-	if (ret > 0 && ret <= 25) ret = 25;
-	else if (ret > 25 && ret <= 50) ret = 50;
-	else if (ret > 50 && ret <= 75) ret = 75;
-	else if (ret > 75) ret = 100;
+	ret = ret / 10;
+	ret = ret * 10;
 
 	return ret;
 }

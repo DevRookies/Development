@@ -669,9 +669,10 @@ void Scene::GUIUpdate()
 		mute_fx_btn->Enabled(false);
 	}
 
-
-	Mix_VolumeMusic(music_sli->GetValue());
-	App->audio->SliderVolumeFx(fx_sli->GetValue());
+	if(!App->audio->mute_volume) Mix_VolumeMusic(music_sli->GetValue());
+	if(!App->audio->mute_fx) App->audio->SliderVolumeFx(fx_sli->GetValue());
+	App->audio->volume = music_sli->GetValue();
+	App->audio->volume_fx = fx_sli->GetValue();
 
 }
 

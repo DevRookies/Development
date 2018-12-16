@@ -328,6 +328,7 @@ void Audio::VolumeDown(int vol)
 			break;
 		}
 	}
+
 	
 }
 
@@ -337,6 +338,7 @@ void Audio::SliderVolumeFx(int vol)
 	{
 		Mix_VolumeChunk(fx[id - 1], vol);
 	}
+	volume_fx = vol;
 }
 
 bool Audio::Load(pugi::xml_node& data)
