@@ -13,7 +13,7 @@ Our team consists of two members:
 
 This doesn't mean that we had to participate only in our assignments, but everyone had to take care that of some things in order to forget nothing for the delivery.
 
-![team photo](DevRookies members.jpeg)
+![team photo](DevRookies-members.jpeg)
 
 <!-- comentario -->
 
