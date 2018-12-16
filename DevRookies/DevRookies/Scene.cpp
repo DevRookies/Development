@@ -493,7 +493,10 @@ void Scene::GUIUpdate()
 
 		//enable
 		settings_home_btn->Enabled(true);
-		music_btn->Enabled(true);
+		if (App->audio->mute_volume) mute_music_btn->Enabled(true); 
+		else music_btn->Enabled(true);
+		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
+		else music_btn->Enabled(true);
 		fx_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
@@ -508,7 +511,9 @@ void Scene::GUIUpdate()
 		settings_home_btn->Enabled(false);
 		little_back_menu_btn->Enabled(false);
 		music_btn->Enabled(false);
+		mute_music_btn->Enabled(false);
 		fx_btn->Enabled(false);
+		mute_fx_btn->Enabled(false);
 		minus_music_btn->Enabled(false);
 		plus_music_btn->Enabled(false);
 		minus_fx_btn->Enabled(false);
@@ -580,8 +585,10 @@ void Scene::GUIUpdate()
 
 		//enable settings
 		settings_hud_home_btn->Enabled(true);
-		music_btn->Enabled(true);
-		fx_btn->Enabled(true);
+		if (App->audio->mute_volume) mute_music_btn->Enabled(true);
+		else music_btn->Enabled(true);
+		if (App->audio->mute_fx) mute_fx_btn->Enabled(true);
+		else music_btn->Enabled(true);
 		minus_music_btn->Enabled(true);
 		plus_music_btn->Enabled(true);
 		minus_fx_btn->Enabled(true);
@@ -595,7 +602,9 @@ void Scene::GUIUpdate()
 		settings_hud_home_btn->Enabled(false);
 		little_back_hud_btn->Enabled(false);
 		music_btn->Enabled(false);
+		mute_music_btn->Enabled(false);
 		fx_btn->Enabled(false);
+		mute_fx_btn->Enabled(false);
 		minus_music_btn->Enabled(false);
 		plus_music_btn->Enabled(false);
 		minus_fx_btn->Enabled(false);
@@ -642,19 +651,15 @@ void Scene::GUIUpdate()
 	}
 	else if (minus_music_btn->state == PRESSED) {
 		App->audio->VolumeDown(-2);
-		//music_sli->SetValue(App->audio->volume);
 	}
 	else if (plus_music_btn->state == PRESSED) {
 		App->audio->VolumeUp(-2);
-		//music_sli->SetValue(App->audio->volume);
 	}
 	else if (minus_fx_btn->state == PRESSED) {
 		App->audio->VolumeDown(-3);
-		//fx_sli->SetValue(App->audio->volume_fx);
 	}
 	else if (plus_fx_btn->state == PRESSED) {
 		App->audio->VolumeUp(-3);
-		//fx_sli->SetValue(App->audio->volume_fx);
 	}
 
 	if (mute_music_btn->state == PRESSED) {

@@ -205,28 +205,29 @@ void Audio::StopMusic(int mut)
 	switch (mut)
 	{
 	case -1:
-		if (mute == false)
-		{
-			Mix_VolumeMusic(0);
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], 0);
-			}
-		}
-		else
-		{
-			Mix_VolumeMusic(volume);
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], volume_fx);
-			}
-		}
 		mute = !mute;
 		mute_volume = mute;
 		mute_fx = mute;
+		if (mute == true)
+		{
+			Mix_VolumeMusic(0);
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], 0);
+			}
+		}
+		else
+		{
+			Mix_VolumeMusic(volume);
+			for (int id = 1; id <= fx.count(); id++)
+			{
+				Mix_VolumeChunk(fx[id - 1], volume_fx);
+			}
+		}
 		break;
 	case -2:
-		if (mute_volume == false)
+		mute_volume = !mute_volume;
+		if (mute_volume == true)
 		{
 			Mix_VolumeMusic(0);
 		}
@@ -234,10 +235,10 @@ void Audio::StopMusic(int mut)
 		{
 			Mix_VolumeMusic(volume);
 		}
-		mute_volume = !mute_volume;
 		break;
 	case -3:
-		if (mute_fx == false)
+		mute_fx = !mute_fx;
+		if (mute_fx == true)
 		{
 			for (int id = 1; id <= fx.count(); id++)
 			{
@@ -251,7 +252,6 @@ void Audio::StopMusic(int mut)
 				Mix_VolumeChunk(fx[id - 1], volume_fx);
 			}
 		}
-		mute_fx = !mute_fx;
 		break;
 	}
 	
@@ -259,69 +259,74 @@ void Audio::StopMusic(int mut)
 
 void Audio::VolumeUp(int vol)
 {
-	switch (vol)
+	if (!mute && ((!mute_volume && vol==-2) || (!mute_fx && vol==-3))) 
 	{
-	case -1:
-		VolumeUp(-2);
-		VolumeUp(-3);
-		break;
-	case -2:
-		if (volume < max_volume) {
-			volume += volume_change_ratio;
-			Mix_VolumeMusic(volume);
-		}
-		App->scene->music_sli->SetValue(volume);
-		break;
-	case -3:
-		if (volume_fx < max_volume) {
-			volume_fx += volume_change_ratio;
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], volume_fx);
+		switch (vol)
+		{
+		case -1:
+			VolumeUp(-2);
+			VolumeUp(-3);
+			break;
+		case -2:
+			if (volume < max_volume) {
+				volume += volume_change_ratio;
+				Mix_VolumeMusic(volume);
 			}
+			App->scene->music_sli->SetValue(volume);
+			break;
+		case -3:
+			if (volume_fx < max_volume) {
+				volume_fx += volume_change_ratio;
+				for (int id = 1; id <= fx.count(); id++)
+				{
+					Mix_VolumeChunk(fx[id - 1], volume_fx);
+				}
+			}
+			App->scene->fx_sli->SetValue(volume_fx);
+			break;
+		default:
+			volume = vol - volume_change_ratio;
+			volume_fx = vol - volume_change_ratio;
+			VolumeUp(-1);
+			break;
 		}
-		App->scene->fx_sli->SetValue(volume_fx);
-		break;
-	default:
-		volume = vol - volume_change_ratio;
-		volume_fx = vol - volume_change_ratio;
-		VolumeUp(-1);
-		break;
 	}
-	
 	
 }
 
 void Audio::VolumeDown(int vol)
 {
-	switch (vol)
+	if (!mute && ((!mute_volume && vol == -2) || (!mute_fx && vol == -3)))
 	{
-	case -1:
-		VolumeDown(-2);
-		VolumeDown(-3);
-		break;
-	case -2:
-		if (volume > 0) {
-			volume -= volume_change_ratio;
-			Mix_VolumeMusic(volume);
-		}
-		App->scene->music_sli->SetValue(volume);
-		break;
-	case -3:
-		if (volume_fx > 0) {
-			volume_fx -= volume_change_ratio;
-			for (int id = 1; id <= fx.count(); id++)
-			{
-				Mix_VolumeChunk(fx[id - 1], volume_fx);
+		switch (vol)
+		{
+		case -1:
+			VolumeDown(-2);
+			VolumeDown(-3);
+			break;
+		case -2:
+			if (volume > 0) {
+				volume -= volume_change_ratio;
+				Mix_VolumeMusic(volume);
 			}
+			App->scene->music_sli->SetValue(volume);
+			break;
+		case -3:
+			if (volume_fx > 0) {
+				volume_fx -= volume_change_ratio;
+				for (int id = 1; id <= fx.count(); id++)
+				{
+					Mix_VolumeChunk(fx[id - 1], volume_fx);
+				}
+			}
+			App->scene->fx_sli->SetValue(volume_fx);
+			break;
+		default:
+			volume = vol + volume_change_ratio;
+			volume_fx = vol + volume_change_ratio;
+			VolumeDown(-1);
+			break;
 		}
-		App->scene->fx_sli->SetValue(volume_fx);
-		break;
-	default:
-		volume = vol + volume_change_ratio;
-		volume_fx = vol + volume_change_ratio;
-		VolumeDown(-1);
-		break;
 	}
 	
 }

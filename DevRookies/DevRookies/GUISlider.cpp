@@ -50,9 +50,14 @@ uint GUISlider::GetValue() const
 {
 	int ret = 0;
 	if (horizontal)
-		ret = (slider_btn->position.x - position.x) * 100 / (rect.w - slider_btn->GetRect().w);
+		ret = (slider_btn->position.x - position.x) * 100 / rect.w;
 	else
 		ret = (slider_btn->position.y - position.y) * 100 / (rect.h - slider_btn->GetRect().h);
+	if (ret > 0 && ret <= 25) ret = 25;
+	else if (ret > 25 && ret <= 50) ret = 50;
+	else if (ret > 50 && ret <= 75) ret = 75;
+	else if (ret > 75) ret = 100;
+
 	return ret;
 }
 
