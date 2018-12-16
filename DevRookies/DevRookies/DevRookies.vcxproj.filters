@@ -204,6 +204,7 @@
     <ClInclude Include="Coin.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tools">
@@ -239,5 +240,11 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{783b283e-085c-4f2a-a4be-8d3b677ea9cd}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DevRookies.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
 </Project>
