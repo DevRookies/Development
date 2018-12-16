@@ -10,7 +10,7 @@
 	
   <render>
     <vsync value="false"/>
-    <camera x="0" y="0" speed="80" max="5119"/>
+    <camera x="0" y="0" speed="100" max="5119"/>
     <start_time value ="90"/>
   </render>
 
