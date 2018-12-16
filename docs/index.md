@@ -63,7 +63,7 @@ Releases: https://github.com/DevRookies/Development/releases
 
 Gameplay video
 -
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5DJ6QL3aveo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtu.be/oMawZQv_SYE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Instructions to execute the game
 -
