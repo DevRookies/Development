@@ -170,6 +170,8 @@ bool Scene::Start()
 	godmode_tex = App->textures->Load(godmode_texture.GetString());
 
 
+
+
 	return true;
 }
 
@@ -342,9 +344,9 @@ bool Scene::Save(pugi::xml_node& node) const
 void Scene::Restart() const
 {
 	App->scenemanager->FadeToBlack(scene_actual);
+	App->pause = false;
 	App->entitymanager->player->visibility = false;
 	p2List_item<Entity*>* tmp = App->entitymanager->entities.start;
-	App->pause = false;
 	while (tmp != nullptr)
 	{
 		tmp->data->visibility = false;
@@ -469,7 +471,8 @@ void Scene::GUIStart()
 
 void Scene::GUIUpdate()
 {
-	if (play_btn->state == PRESSED || continue_btn->state == PRESSED) {
+	if (play_btn->state == PRESSED || continue_btn->state == PRESSED || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN
+		|| App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		title_img->Enabled(false);
 		play_btn->Enabled(false);
 		continue_btn->Enabled(false);
@@ -674,15 +677,15 @@ void Scene::GUIUpdate()
 		mute_fx_btn->Enabled(false);
 	}
 
-	if(!App->audio->mute_volume) Mix_VolumeMusic(music_sli->GetValue());
-	if(!App->audio->mute_fx) App->audio->SliderVolumeFx(fx_sli->GetValue());
+	if (!App->audio->mute_volume) Mix_VolumeMusic(music_sli->GetValue());
+	if (!App->audio->mute_fx) App->audio->SliderVolumeFx(fx_sli->GetValue());
 	App->audio->volume = music_sli->GetValue();
 	App->audio->volume_fx = fx_sli->GetValue();
 
 	if (guianimation) {
 
 		windows_hud_img->SetLocalPosition(animation.x, animation.y);
-		
+
 		animation.y -= 20;
 		if (windows_hud_img->GetPosition().y < 254) {
 			guianimation = false;
@@ -691,7 +694,7 @@ void Scene::GUIUpdate()
 			animation = { 300, 900 };
 		}
 
-		
+
 	}
 
 	if (web_btn->state == PRESSED) {
@@ -709,7 +712,7 @@ void Scene::HUDUpdate()
 		if (timesecond == 60) {
 			timesecond = 0;
 			timeminute++;
-		}	
+		}
 		if (timesecond < 10) {
 			p2SString time_str("%i:0%i", timeminute, timesecond);
 			times->SetText(time_str);
