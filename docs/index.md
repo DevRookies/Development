@@ -35,6 +35,16 @@ Cere Venteo -> Fix dt and enemies, Timer and Slider, Some GUI HotFixes, HUD anim
 
 Lluís Moreu -> GUI structure and elements, Create mainmenu level, Create GUI,Coin entity, UML GUI, Brofiler, Website.
 
+Core Subsystems of the game
+-
+On the top of everything there is the main module called DevRookiesApp.cpp . This module manages all the other modules calling in a loop its respective Awake, PreUpdate, Update, Postupdte, Cleanup that they share through a base class Module.h . Do not forget that there is a Main.cpp that has a switch of the different states said before.
+
+Then the game is divided in 4 main blocks:
+- The Scene where everything is printed managed by a module called SceneManager.
+- The Modules that manage different aspects of the game such as: audio, input, collisions, renderer, etc...
+- The Entities such as: coins, enemies and player; managed by a module called EntityManager.
+- The GUI where there are some classes that represent diferent elements of gui such as: images, buttons, labels and sliders. This is managed by a module called GUIManager.
+
 Innovations
 -
 Assignment 1: The player can change between two forms in order to walk on the different types of platforms. Volume setUp with F7,F8,F11.
