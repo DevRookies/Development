@@ -90,6 +90,7 @@ Assignment 3: Parent-child system for the UI.
 	      UI rects charged from XML.
 	      UI with some animations.
 	      UI main menu is a map with some entities around there.
+	      Icon of exe uploaded from visual.
 
 ## Who made what
 
